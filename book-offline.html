@@ -55,7 +55,10 @@
 }
 
 * { box-sizing: border-box; }
-html { height: 100%; overflow: hidden; }
+html {
+  height: 100%;
+  overflow: hidden;
+}
 body {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   background: var(--bg);
@@ -63,7 +66,10 @@ body {
   line-height: 1.65;
   font-size: 16px;
   margin: 0;
-  height: 100vh;
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
   overflow: hidden;
   display: grid;
   grid-template-columns: 320px 1fr;
@@ -388,7 +394,7 @@ body {
 
 /* ====================== Print ====================== */
 @media print {
-  body { display: block; background: white; color: black; font-size: 11pt; }
+  body { position: static; display: block; height: auto; overflow: visible; background: white; color: black; font-size: 11pt; }
   #sidebar, #topbar, .chap-nav, #searchResults { display: none !important; }
   #main { overflow: visible; padding: 0; max-width: 100%; }
   #content { max-width: 100%; }
@@ -6652,44 +6658,50 @@ function renderMath(root) {
 const mathDict = [
   // Greek
   // Greek letters
-  { keys: ['\\sigma'],                  symbol: 'σ',        pronounce: 'sigma',                  name: 'Normal Stress',                       desc: 'σ = P/A (axial) or σ = My/I (bending). Perpendicular to the cross-section. Units: MPa.',                   slug: 'chapter-16-stress-and-strain' },
+  { keys: ['\\sigma'],                  symbol: 'σ',        pronounce: 'sigma',                  name: 'Normal Stress',                       desc: 'Stress perpendicular to a cross-section. Axial stress uses force divided by area; bending stress is quantified after section properties.', slug: 'chapter-16-stress-and-strain' },
+  { keys: ['\\Sigma'],                  symbol: 'Σ',        pronounce: 'capital sigma',          name: 'Summation Symbol',                    desc: 'Capital sigma means "sum of." In equilibrium equations it means add the forces or moments in that direction.', slug: 'chapter-11-equilibrium-and-the-sum-of-forces' },
   { keys: ['\\sigma_c'],                symbol: 'σ_c',      pronounce: 'sigma sub c',            name: 'Compressive Stress',                  desc: 'Normal stress in compression. Negative by convention. Concrete is designed around compressive stress.',        slug: 'chapter-16-stress-and-strain' },
   { keys: ['\\sigma_t'],                symbol: 'σ_t',      pronounce: 'sigma sub t',            name: 'Tensile Stress',                      desc: 'Normal stress in tension. Positive by convention. Steel handles tension well; plain concrete does not.',       slug: 'chapter-16-stress-and-strain' },
-  { keys: ['\\tau'],                    symbol: 'τ',        pronounce: 'tau',                    name: 'Shear Stress',                        desc: 'Stress parallel to the cross-section. τ ≈ 1.5V/A for rectangles, VQ/(Ib) in general. Units: MPa.',            slug: 'chapter-16-stress-and-strain' },
+  { keys: ['\\tau'],                    symbol: 'τ',        pronounce: 'tau',                    name: 'Shear Stress',                        desc: 'Stress parallel to the cross-section. It is related to internal shear force and cross-sectional area. Units: MPa.', slug: 'chapter-16-stress-and-strain' },
   { keys: ['\\varepsilon','\\epsilon'],  symbol: 'ε',        pronounce: 'epsilon',                name: 'Strain',                              desc: 'Deformation per unit length. ε = σ/E (elastic). Dimensionless — no units.',                                  slug: 'chapter-16-stress-and-strain' },
-  { keys: ['\\delta'],                  symbol: 'δ',        pronounce: 'delta',                  name: 'Deflection / Displacement',           desc: 'Lateral or vertical displacement under load. δ_max = 5wL⁴/384EI for SS UDL. Units: mm or m.',              slug: 'chapter-27-rational-functions-and-proportionality' },
-  { keys: ['\\phi'],                    symbol: 'φ',        pronounce: 'phi',                    name: 'Strength Reduction Factor (ACI)',     desc: 'φ = 0.9 for bending, 0.75 for shear/torsion. Required: φMn ≥ Mu.',                                          slug: 'chapter-41-design-in-etabs' },
-  { keys: ['\\rho'],                    symbol: 'ρ',        pronounce: 'rho',                    name: 'Reinforcement Ratio',                 desc: 'ρ = As/(b·d). Typical 0.5 %–4 %. Min. by ACI prevents brittle failure.',                                      slug: 'chapter-41-design-in-etabs' },
+  { keys: ['\\delta','\\delta_{max}','\\delta_{\\max}','\\delta_{mid}','\\delta_{tip}','\\delta_{new}','\\delta_{old}'], symbol: 'δ', pronounce: 'delta', name: 'Deflection / Displacement', desc: 'Lateral or vertical displacement under load. Exact deflection formulas are introduced with proportionality.', slug: 'chapter-27-rational-functions-and-proportionality' },
+  { keys: ['\\Delta','\\Delta L','\\Delta x','\\Delta y','\\Delta z','\\Delta\\sigma','\\Delta_{max','\\Delta_{max}','\\Delta_{max,allowed}'], symbol: 'Δ', pronounce: 'capital delta', name: 'Change In', desc: 'Capital delta means a change or difference, such as a change in length or position.', slug: 'chapter-16-stress-and-strain' },
+  { keys: ['\\phi'],                    symbol: 'φ',        pronounce: 'phi',                    name: 'Strength Reduction Factor (ACI)',     desc: 'Code factor that reduces nominal strength to design strength. Used in ETABS design output.',                  slug: 'chapter-41-design-in-etabs' },
+  { keys: ['\\rho'],                    symbol: 'ρ',        pronounce: 'rho',                    name: 'Reinforcement Ratio',                 desc: 'Ratio comparing steel reinforcement area to concrete section area. Used in reinforced concrete design.',       slug: 'chapter-41-design-in-etabs' },
   { keys: ['\\omega'],                  symbol: 'ω',        pronounce: 'omega',                  name: 'Angular Frequency',                   desc: 'Rate of oscillation in rad/s. ω = 2π/T = 2πf. Used in modal/seismic analysis.',                              slug: 'chapter-39-running-the-analysis' },
-  { keys: ['\\pi'],                     symbol: 'π',        pronounce: 'pi',                     name: 'Pi',                                  desc: 'π ≈ 3.14159. Appears in circle area, Euler buckling (P_cr = π²EI/L²), and period formulas.',                  slug: null },
-  { keys: ['\\theta'],                  symbol: 'θ',        pronounce: 'theta',                  name: 'Angle',                               desc: 'Angle in degrees or radians. Used for inclined forces, slope of deflection, joint rotations.',               slug: 'chapter-22-right-triangle-trigonometry' },
-  { keys: ['\\alpha'],                  symbol: 'α',        pronounce: 'alpha',                  name: 'Thermal Expansion Coeff. / Angle',    desc: 'α_steel ≈ 12×10⁻⁶/°C. Thermal force = E·A·α·ΔT. Also a general angle.',                                    slug: null },
-  { keys: ['\\mu'],                     symbol: 'μ',        pronounce: 'mu',                     name: 'Coefficient of Friction',             desc: 'Friction force = μN. Occasionally also used for Poisson ratio in older references.',                         slug: null },
+  { keys: ['\\pi'],                     symbol: 'π',        pronounce: 'pi',                     name: 'Pi',                                  desc: 'π ≈ 3.14159. Used first with circles, then later in several structural formulas.',                           slug: 'chapter-18-areas-and-perimeters' },
+  { keys: ['\\theta'],                  symbol: 'θ',        pronounce: 'theta',                  name: 'Angle',                               desc: 'Angle in degrees or radians. Used for inclined geometry and force components.',                              slug: 'chapter-22-right-triangle-trigonometry' },
+  { keys: ['\\alpha'],                  symbol: 'α',        pronounce: 'alpha',                  name: 'Thermal Expansion Coeff. / Angle',    desc: 'A coefficient or angle symbol, depending on context. Thermal expansion use appears in advanced design contexts.', slug: 'chapter-41-design-in-etabs' },
+  { keys: ['\\beta'],                   symbol: 'β',        pronounce: 'beta',                   name: 'Beta',                                desc: 'Greek letter often used for an angle, factor, or coefficient. Meaning depends on the equation.',              slug: 'chapter-22-right-triangle-trigonometry' },
+  { keys: ['\\gamma','\\gamma_{\\text{concrete}}','\\gamma_{concrete}'], symbol: 'γ', pronounce: 'gamma', name: 'Unit Weight', desc: 'Weight per unit volume. In structures it is commonly used for material self-weight.', slug: 'chapter-7-ratios-rates-and-proportions' },
+  { keys: ['\\mu'],                     symbol: 'μ',        pronounce: 'mu',                     name: 'Coefficient of Friction',             desc: 'Coefficient used in friction models. Meaning depends on the equation and design context.',                    slug: 'chapter-41-design-in-etabs' },
   { keys: ['\\nu'],                     symbol: 'ν',        pronounce: 'nu',                     name: "Poisson's Ratio",                     desc: 'Ratio of lateral to axial strain. ν_steel ≈ 0.3, ν_concrete ≈ 0.2. Required for 2D/3D FEM.',                slug: 'chapter-35-defining-materials' },
   { keys: ['\\zeta'],                   symbol: 'ζ',        pronounce: 'zeta',                   name: 'Damping Ratio',                       desc: 'Fraction of critical damping. ζ = 5 % typical for RC. Higher ζ → faster amplitude decay.',                   slug: 'chapter-39-running-the-analysis' },
-  { keys: ['\\lambda'],                 symbol: 'λ',        pronounce: 'lambda',                 name: 'Slenderness Ratio',                   desc: 'λ = kL/r. Higher λ → more buckling-prone. Column design checks against λ_max.',                              slug: null },
+  { keys: ['\\lambda'],                 symbol: 'λ',        pronounce: 'lambda',                 name: 'Slenderness Ratio',                   desc: 'A column-stability ratio used in later design checks. Higher slenderness generally means greater buckling concern.', slug: 'chapter-41-design-in-etabs' },
   // Single-letter variables
-  { keys: ['E'],  symbol: 'E',  pronounce: 'capital E',    name: "Elastic (Young's) Modulus",     desc: 'E_steel = 200,000 MPa; E_concrete = 4700√f\'c MPa. Governs σ = Eε and stiffness.',                             slug: 'chapter-16-stress-and-strain' },
-  { keys: ['I'],  symbol: 'I',  pronounce: 'capital I',    name: 'Second Moment of Area',          desc: 'I = bh³/12 (rectangle). Larger I → stiffer beam, smaller deflection and stress.',                             slug: 'chapter-20-moment-of-inertia-second-moment-of-area' },
-  { keys: ['A'],  symbol: 'A',  pronounce: 'capital A',    name: 'Cross-Sectional Area',           desc: 'Area of the cross-section (m² or mm²). In σ = P/A and δ = PL/(AE).',                                       slug: 'chapter-18-areas-and-perimeters' },
-  { keys: ['M'],  symbol: 'M',  pronounce: 'capital M',    name: 'Bending Moment',                 desc: 'Internal moment about the neutral axis. M_max = wL²/8 (SS UDL). Units: kN·m.',                               slug: 'chapter-15-internal-forces-axial-shear-and-bending-moment' },
+  { keys: ['E'],  symbol: 'E',  pronounce: 'capital E',    name: "Elastic (Young's) Modulus",     desc: 'Material stiffness used in Hooke\'s Law and deflection formulas. Typical material values are defined later.',  slug: 'chapter-16-stress-and-strain' },
+  { keys: ['I'],  symbol: 'I',  pronounce: 'capital I',    name: 'Second Moment of Area',          desc: 'For a rectangle, I equals base times height cubed over 12. Larger I means a stiffer shape.',                  slug: 'chapter-20-moment-of-inertia-second-moment-of-area' },
+  { keys: ['A'],  symbol: 'A',  pronounce: 'capital A',    name: 'Cross-Sectional Area',           desc: 'Area of the cross-section. Units are length squared, such as m² or mm².',                                   slug: 'chapter-18-areas-and-perimeters' },
+  { keys: ['M'],  symbol: 'M',  pronounce: 'capital M',    name: 'Bending Moment',                 desc: 'Internal moment about the neutral axis. Units are usually kN·m or N·mm.',                                    slug: 'chapter-15-internal-forces-axial-shear-and-bending-moment' },
   { keys: ['V'],  symbol: 'V',  pronounce: 'capital V',    name: 'Shear Force',                    desc: 'Internal force parallel to the section. After limits, V = dM/dx explains why peak moment occurs where shear crosses zero. Units: kN.', slug: 'chapter-33-limits-conceptual-introduction' },
-  { keys: ['P'],  symbol: 'P',  pronounce: 'capital P',    name: 'Axial Load / Point Force',       desc: 'Force along or transverse to a member. Units: kN or N. Axial: σ = P/A.',                                   slug: 'chapter-10-what-is-a-force' },
+  { keys: ['P'],  symbol: 'P',  pronounce: 'capital P',    name: 'Axial Load / Point Force',       desc: 'Force along a member or concentrated at a point. Units are usually kN or N.',                               slug: 'chapter-10-what-is-a-force' },
   { keys: ['L'],  symbol: 'L',  pronounce: 'capital L',    name: 'Span Length',                    desc: 'Clear or c-to-c span. Deflection ∝ L⁴ — doubling span ×16 deflection.',                                      slug: 'chapter-27-rational-functions-and-proportionality' },
-  { keys: ['w'],  symbol: 'w',  pronounce: 'lowercase w',  name: 'Distributed Load (UDL)',         desc: 'Load per unit length (kN/m) or area (kPa). Total = w×L. Max moment = wL²/8.',                               slug: 'chapter-13-types-of-loads-in-structural-engineering' },
-  { keys: ['R'],  symbol: 'R',  pronounce: 'capital R',    name: 'Reaction Force',                 desc: 'Support reaction. SS beam + UDL: R = wL/2. Check ΣFy = 0.',                                                slug: 'chapter-11-equilibrium-and-the-sum-of-forces' },
-  { keys: ['T'],  symbol: 'T',  pronounce: 'capital T',    name: 'Natural Period / Tension',       desc: 'Vibration: T = 2π/ω (seconds). T₁ is fundamental period, key for seismic design.',                          slug: 'chapter-39-running-the-analysis' },
-  { keys: ['k'],  symbol: 'k',  pronounce: 'lowercase k',  name: 'Stiffness / Eff. Length Factor', desc: 'Stiffness: F = kd. Buckling: effective length factor k (k=1 pin-pin, 0.5 fixed-fixed).',                   slug: 'chapter-30-matrices-basic' },
+  { keys: ['w'],  symbol: 'w',  pronounce: 'lowercase w',  name: 'Distributed Load (UDL)',         desc: 'Load spread along a length or over an area. Total line load over length is w times L.',                       slug: 'chapter-13-types-of-loads-in-structural-engineering' },
+  { keys: ['R'],  symbol: 'R',  pronounce: 'capital R',    name: 'Reaction Force',                 desc: 'Support force that balances applied loads. Use force equilibrium to check reaction totals.',                  slug: 'chapter-11-equilibrium-and-the-sum-of-forces' },
+  { keys: ['T'],  symbol: 'T',  pronounce: 'capital T',    name: 'Natural Period / Tension',       desc: 'Often natural period in dynamics, or tension in member-force contexts. Read the surrounding equation.',        slug: 'chapter-39-running-the-analysis' },
+  { keys: ['k'],  symbol: 'k',  pronounce: 'lowercase k',  name: 'Stiffness / Eff. Length Factor', desc: 'Often stiffness in matrix analysis; in later column design it can also mean effective length factor.',          slug: 'chapter-30-matrices-basic' },
   { keys: ['d'],  symbol: 'd',  pronounce: 'lowercase d',  name: 'Effective Depth (RC)',            desc: 'd = h − cover − r_bar. Distance from compression face to tension-steel centroid.',                             slug: 'chapter-41-design-in-etabs' },
   // Subscripted / compound symbols
   { keys: ["f'_c","f_{c}","f_c'"],        symbol: "f’c",  pronounce: 'f prime c',      name: "Concrete Compressive Strength f'c", desc: 'Specified 28-day cylinder strength. E_c = 4700√f\'c MPa. Typical: 25–40 MPa.',    slug: 'chapter-35-defining-materials' },
   { keys: ['f_y','f_{y}'],                 symbol: 'f_y',  pronounce: 'f sub y',        name: 'Steel Yield Strength fy',           desc: 'Stress at which steel yields permanently. Rebar B500: 500 MPa.',             slug: 'chapter-35-defining-materials' },
-  { keys: ['A_s','A_{s}'],                 symbol: 'A_s',  pronounce: 'A sub s',        name: 'Steel Reinforcement Area',          desc: 'Total bar area (mm²). φMn depends on As·fy·(d−a/2).',                           slug: 'chapter-41-design-in-etabs' },
-  { keys: ['M_n','M_{n}','\\phi M_n'],    symbol: 'M_n',  pronounce: 'M sub n',        name: 'Nominal Moment Capacity',           desc: 'Theoretical bending capacity before φ. Check: φMn ≥ Mu.',                       slug: 'chapter-41-design-in-etabs' },
-  { keys: ['P_{cr}','P_\\mathrm{cr}'],   symbol: 'P_cr', pronounce: 'P sub cr',       name: 'Critical (Euler) Buckling Load',    desc: 'P_cr = π²EI/L². Column buckles when P > P_cr.',                               slug: 'chapter-27-rational-functions-and-proportionality' },
+  { keys: ['A_s','A_{s}'],                 symbol: 'A_s',  pronounce: 'A sub s',        name: 'Steel Reinforcement Area',          desc: 'Total area of reinforcing bars. ETABS reports required reinforcement area during concrete design.', slug: 'chapter-41-design-in-etabs' },
+  { keys: ['M_n','M_{n}','\\phi M_n'],    symbol: 'M_n',  pronounce: 'M sub n',        name: 'Nominal Moment Capacity',           desc: 'Theoretical bending capacity before strength reduction factors are applied.',                       slug: 'chapter-41-design-in-etabs' },
+  { keys: ['P_{cr}','P_\\mathrm{cr}'],   symbol: 'P_cr', pronounce: 'P sub cr',       name: 'Critical Buckling Load',            desc: 'Axial load at which a column becomes unstable in a buckling mode. Used in column stability checks.', slug: 'chapter-41-design-in-etabs' },
   { keys: ['S_{DS}'],                      symbol: 'S_DS', pronounce: 'S sub D S',      name: 'Design Spectral Accel. (Short)',    desc: 'Short-period spectral accel. from ASCE 7. Governs seismic base shear.',        slug: 'chapter-38-applying-loads' },
-  { keys: ['E_c','E_{c}'],                 symbol: 'E_c',  pronounce: 'E sub c',        name: 'Concrete Elastic Modulus',          desc: 'E_c = 4700√f\'c MPa (ACI 318). ≈ 28,000–33,000 MPa for typical grades.',        slug: 'chapter-35-defining-materials' },
+  { keys: ['E_c','E_{c}'],                 symbol: 'E_c',  pronounce: 'E sub c',        name: 'Concrete Elastic Modulus',          desc: 'Concrete stiffness value used by ETABS when concrete materials are defined.',        slug: 'chapter-35-defining-materials' },
   { keys: ['E_s','E_{s}'],                 symbol: 'E_s',  pronounce: 'E sub s',        name: 'Steel Elastic Modulus',             desc: 'E_s = 200,000 MPa for all structural steels. Grade-independent.',             slug: 'chapter-35-defining-materials' },
+  { keys: ['\\sigma_b'],                   symbol: 'σ_b',  pronounce: 'sigma sub b',    name: 'Flexural Stress',                   desc: 'Normal stress caused by bending. The exact bending-stress formula is completed after section properties.', slug: 'chapter-17-bending-stress-conceptual' },
+  { keys: ['\\varepsilon_{creep}','\\varepsilon_\\infty'], symbol: 'ε_creep', pronounce: 'epsilon creep', name: 'Creep Strain', desc: 'Time-dependent strain that approaches a long-term value in exponential creep models.', slug: 'chapter-28-exponential-functions' },
   // Common formulas / expressions
   { keys: ['wL^2/8','wL^{2}/8','\\frac{wL^2}{8}','\\frac{wL^{2}}{8}'],
     symbol: 'wL²/8',       pronounce: 'w L squared over 8',              name: 'Max Midspan Moment — SS UDL',     desc: 'Maximum bending moment at midspan for a simply supported beam under UDL w over span L.',  slug: 'chapter-26-polynomials-and-the-bending-moment-equation' },
@@ -6698,7 +6710,7 @@ const mathDict = [
   { keys: ['\\frac{PL^3}{3EI}'],
     symbol: 'PL³/3EI',    pronounce: 'P L cubed over 3 E I', name: 'Cantilever Tip Deflection', desc: 'Maximum deflection at the free end of a cantilever with a point load.', slug: 'chapter-27-rational-functions-and-proportionality' },
   { keys: ['\\frac{\\pi^2 EI}{L^2}','\\pi^2EI/L^2'],
-    symbol: 'π²EI/L²',   pronounce: 'pi squared E I over L squared', name: 'Euler Critical Buckling Load',       desc: 'P_cr for a pin-ended column. Reduce L by effective length factor k for other end conditions.',  slug: 'chapter-27-rational-functions-and-proportionality' },
+    symbol: 'π²EI/L²',   pronounce: 'pi squared E I over L squared', name: 'Euler Critical Buckling Load',       desc: 'Critical column buckling load for an idealized pin-ended column.',  slug: 'chapter-41-design-in-etabs' },
 ];
 
 // Build key → entry lookup. Longer keys override shorter ones naturally via scan order.
@@ -6708,6 +6720,28 @@ for (const e of mathDict) {
 }
 // Keys sorted longest-first for greedy scan (specific beats general)
 const mathKeys = [...mathLookup.keys()].sort((a, b) => b.length - a.length);
+
+function chapterOrdinal(slug) {
+  if (!slug) return -1;
+  const idx = state.chapterIndex.findIndex(c => c.slug === slug);
+  return idx >= 0 ? idx : -1;
+}
+
+function currentChapterOrdinal() {
+  const current = state.current?.slug || '';
+  const idx = chapterOrdinal(current);
+  if (idx >= 0) return idx;
+  if (!state.current?.fileId) return Number.MAX_SAFE_INTEGER;
+  const fileChapters = state.chapterIndex.filter(c => c.fileId === state.current.fileId);
+  if (!fileChapters.length) return Number.MAX_SAFE_INTEGER;
+  return chapterOrdinal(fileChapters[0].slug);
+}
+
+function entryIsAvailable(entry) {
+  const taughtAt = chapterOrdinal(entry.slug);
+  if (taughtAt < 0) return true;
+  return currentChapterOrdinal() >= taughtAt;
+}
 
 function stripMdInline(s) {
   return String(s || '')
@@ -6721,6 +6755,21 @@ function stripMdInline(s) {
     .replace(/\\/g, '')
     .replace(/\s+/g, ' ')
     .trim();
+}
+
+function normalizeLatexKey(value) {
+  return stripMdInline(value)
+    .replace(/\\left|\\right/g, '')
+    .replace(/\\mathrm\{([^}]*)\}/g, '$1')
+    .replace(/[{}\s]/g, '')
+    .replace(/[·×]/g, '*')
+    .toLowerCase();
+}
+
+function glossaryMathKeysForEntry(entry) {
+  return [entry.symbol, ...(entry.keys || [])]
+    .map(normalizeLatexKey)
+    .filter(k => k.length > 1 && /[0-9\\^_=/√πσδετφρ²³⁴]/.test(k));
 }
 
 function splitMdRow(line) {
@@ -6771,17 +6820,31 @@ function buildGlossary() {
       const wordIdx = headers.indexOf('word');
       const pronIdx = headers.indexOf('pronunciation');
       const meaningIdx = headers.indexOf('plain english meaning');
-      const usedIdx = headers.indexOf('used in') >= 0 ? headers.indexOf('used in') : headers.indexOf('example');
       if (wordIdx >= 0 && meaningIdx >= 0) {
         for (const row of rows) {
           const word = row[wordIdx];
           const meaning = row[meaningIdx];
-          const used = usedIdx >= 0 ? row[usedIdx] : '';
           addGlossaryEntry(entries, {
             name: word,
             symbol: word,
             pronounce: pronIdx >= 0 ? row[pronIdx] : '',
-            desc: meaning + (used ? ' Used in: ' + used : ''),
+            desc: meaning,
+            slug: chapterSlug,
+          });
+        }
+        continue;
+      }
+
+      const letterIdx = headers.indexOf('letter');
+      const usedForIdx = headers.indexOf('used for');
+      if (letterIdx >= 0 && usedForIdx >= 0) {
+        for (const row of rows) {
+          addGlossaryEntry(entries, {
+            name: row[letterIdx],
+            symbol: row[letterIdx],
+            pronounce: pronIdx >= 0 ? row[pronIdx] : '',
+            desc: row[usedForIdx],
+            keys: [row[letterIdx]],
             slug: chapterSlug,
           });
         }
@@ -6837,10 +6900,23 @@ function lookupAllMath(latex) {
     if (result.length >= 5) break;
     if (!remaining.includes(k)) continue;
     const entry = mathLookup.get(k);
+    if (!entryIsAvailable(entry)) continue;
     if (seen.has(entry)) continue;
     seen.add(entry);
     result.push(entry);
     remaining = remaining.split(k).join('\x00'); // blank matched region
+  }
+  const normalizedLatex = normalizeLatexKey(latex || '');
+  if (normalizedLatex) {
+    for (const entry of state.glossary) {
+      if (result.length >= 5) break;
+      if (!entryIsAvailable(entry)) continue;
+      if (seen.has(entry)) continue;
+      const matched = glossaryMathKeysForEntry(entry).some(k => normalizedLatex === k || normalizedLatex.includes(k));
+      if (!matched) continue;
+      seen.add(entry);
+      result.push(entry);
+    }
   }
   return result;
 }
@@ -6932,11 +7008,26 @@ function termKeysForEntry(entry) {
     .filter(k => k.length >= 4 && /[A-Za-z]/.test(k) && !/[\\$^{}=]/.test(k));
 }
 
+const ambiguousTermKeys = new Set([
+  'square', 'squared', 'cube', 'cubed', 'root', 'roots', 'term', 'terms',
+  'degree', 'degrees', 'order', 'limit', 'limits', 'period', 'mode',
+  'story', 'stories', 'section', 'sections', 'area', 'areas', 'face', 'faces'
+]);
+
+function isMathLikeTermContext(text, index, length, parent) {
+  if (parent?.closest('table')) return true;
+  const before = text.slice(Math.max(0, index - 32), index);
+  const after = text.slice(index + length, Math.min(text.length, index + length + 32));
+  const context = (before + ' ' + after).toLowerCase();
+  return /[0-9=+\-*/^√≤≥≈<>]|\b(power|exponent|formula|equation|area|volume|root|polynomial|function|angle|unit|units|ratio|math|calculate|compute)\b/.test(context);
+}
+
 function attachTerminologyTooltips(root) {
   if (!state.glossary || !state.glossary.length) return;
   const terms = [];
   const seen = new Set();
   for (const entry of state.glossary) {
+    if (!entryIsAvailable(entry)) continue;
     for (const key of termKeysForEntry(entry)) {
       const norm = key.toLowerCase();
       if (seen.has(norm)) continue;
@@ -6971,6 +7062,9 @@ function attachTerminologyTooltips(root) {
     const matched = match[0];
     const entry = byLower.get(matched.toLowerCase());
     if (!entry) continue;
+    if (ambiguousTermKeys.has(matched.toLowerCase()) && !isMathLikeTermContext(text, match.index, matched.length, node.parentElement)) {
+      continue;
+    }
     const before = text.slice(0, match.index);
     const after = text.slice(match.index + matched.length);
     const frag = document.createDocumentFragment();
