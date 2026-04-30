@@ -1,0 +1,2689 @@
+<!--
+  Structural Engineering & ETABS — Interactive HTML Book
+  Self-contained single-page webapp. Open by double-click (file://) or via static server.
+  Markdown chapter content is injected by bundle.ps1 between the CONTENT markers.
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Structural Engineering &amp; ETABS — Self-Study</title>
+
+<!-- CDN_KATEX_CSS_START -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css" integrity="sha384-n8MVd4RsNIU0tAv4ct0nTaAbDJwPJzDEaqSD1odI+WdtXRGWt2kTvGFasHpSy3SV" crossorigin="anonymous" />
+<!-- CDN_KATEX_CSS_END -->
+
+<style>
+/* ====================== Theme ====================== */
+:root {
+  --bg: #ffffff;
+  --bg-alt: #f6f7f9;
+  --bg-side: #1f2937;
+  --bg-side-hover: #374151;
+  --text: #1f2937;
+  --text-muted: #6b7280;
+  --side-text: #e5e7eb;
+  --side-active: #fbbf24;
+  --border: #e5e7eb;
+  --accent: #2563eb;
+  --accent-soft: #dbeafe;
+  --code-bg: #f3f4f6;
+  --table-stripe: #fafafa;
+  --diagram-bg: #fafbfc;
+  --warn: #b45309;
+  --shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+[data-theme="dark"] {
+  --bg: #111827;
+  --bg-alt: #1f2937;
+  --bg-side: #0b1220;
+  --bg-side-hover: #1e293b;
+  --text: #f3f4f6;
+  --text-muted: #9ca3af;
+  --side-text: #e5e7eb;
+  --side-active: #fbbf24;
+  --border: #374151;
+  --accent: #60a5fa;
+  --accent-soft: #1e3a8a;
+  --code-bg: #1f2937;
+  --table-stripe: #1a2330;
+  --diagram-bg: #0f172a;
+  --warn: #fbbf24;
+  --shadow: 0 1px 3px rgba(0,0,0,0.4);
+}
+
+* { box-sizing: border-box; }
+html { height: 100%; overflow: hidden; }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.65;
+  font-size: 16px;
+  margin: 0;
+  height: 100vh;
+  overflow: hidden;
+  display: grid;
+  grid-template-columns: 320px 1fr;
+  grid-template-rows: 56px 1fr;
+  grid-template-areas: "side topbar" "side main";
+}
+
+/* ====================== Top Bar ====================== */
+#topbar {
+  grid-area: topbar;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 0 20px;
+  border-bottom: 1px solid var(--border);
+  background: var(--bg);
+  overflow: hidden;
+  min-width: 0;
+  z-index: 50;
+}
+#topbar h1 {
+  font-size: 16px;
+  margin: 0;
+  font-weight: 600;
+  color: var(--text);
+  flex: 0 1 auto;
+}
+#topbar .crumbs {
+  flex: 1 1 auto;
+  color: var(--text-muted);
+  font-size: 14px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+#topbar button, #topbar input {
+  font-size: 14px;
+  padding: 6px 12px;
+  border: 1px solid var(--border);
+  background: var(--bg);
+  color: var(--text);
+  border-radius: 6px;
+  cursor: pointer;
+}
+#topbar button:hover { background: var(--bg-alt); }
+#topbar #search { width: 220px; }
+#menuToggle { display: none; }
+
+/* ====================== Sidebar ====================== */
+#sidebar {
+  grid-area: side;
+  background: var(--bg-side);
+  color: var(--side-text);
+  overflow-y: auto;
+  overflow-x: hidden;
+  border-right: 1px solid var(--border);
+  /* span both grid rows so it fills the full height */
+  grid-row: 1 / 3;
+}
+#sidebar .brand {
+  padding: 18px 18px 12px;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+}
+#sidebar .brand .title {
+  font-weight: 700;
+  font-size: 15px;
+  line-height: 1.3;
+}
+#sidebar .brand .sub {
+  font-size: 12px;
+  opacity: 0.7;
+  margin-top: 2px;
+}
+#sidebar .part {
+  padding: 8px 0;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+}
+#sidebar .part-title {
+  padding: 8px 18px;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-weight: 700;
+  color: #93c5fd;
+  cursor: pointer;
+  user-select: none;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+#sidebar .part-title .toggler { font-size: 9px; opacity: 0.6; }
+#sidebar .part-list { display: block; }
+#sidebar .part.collapsed .part-list { display: none; }
+#sidebar .part.collapsed .toggler { transform: rotate(-90deg); }
+#sidebar a.chap {
+  display: block;
+  padding: 6px 18px 6px 26px;
+  font-size: 13px;
+  color: var(--side-text);
+  text-decoration: none;
+  border-left: 3px solid transparent;
+}
+#sidebar a.chap:hover { background: var(--bg-side-hover); }
+#sidebar a.chap.active {
+  background: var(--bg-side-hover);
+  border-left-color: var(--side-active);
+  color: #fff;
+  font-weight: 600;
+}
+#sidebar a.chap .num { opacity: 0.6; margin-right: 6px; }
+
+/* ====================== Main ====================== */
+#main {
+  grid-area: main;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: 32px 8% 80px;
+  min-width: 0;
+  min-height: 0;
+}
+#content {
+  max-width: 880px;
+  margin: 0 auto;
+}
+#content h1, #content h2, #content h3 {
+  scroll-margin-top: 80px;
+  margin-top: 1.6em;
+  line-height: 1.25;
+}
+#content h1 { font-size: 28px; border-bottom: 2px solid var(--border); padding-bottom: 6px; }
+#content h2 { font-size: 22px; color: var(--accent); }
+#content h3 { font-size: 17px; }
+#content table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1em 0;
+  font-size: 14px;
+}
+#content table th, #content table td {
+  border: 1px solid var(--border);
+  padding: 6px 10px;
+  text-align: left;
+  vertical-align: top;
+}
+#content table th { background: var(--bg-alt); }
+#content table tbody tr:nth-child(even) { background: var(--table-stripe); }
+#content code {
+  background: var(--code-bg);
+  padding: 1px 5px;
+  border-radius: 3px;
+  font-family: "Fira Code", Consolas, monospace;
+  font-size: 0.9em;
+}
+#content pre {
+  background: var(--code-bg);
+  padding: 12px 14px;
+  border-radius: 6px;
+  overflow-x: auto;
+  font-family: "Fira Code", Consolas, monospace;
+  font-size: 13px;
+  line-height: 1.5;
+}
+#content pre code { background: none; padding: 0; }
+#content blockquote {
+  border-left: 4px solid var(--accent);
+  background: var(--accent-soft);
+  margin: 1em 0;
+  padding: 10px 16px;
+  border-radius: 0 6px 6px 0;
+  color: var(--text);
+}
+[data-theme="dark"] #content blockquote { background: rgba(96,165,250,0.1); }
+#content a { color: var(--accent); text-decoration: none; }
+#content a:hover { text-decoration: underline; }
+
+/* Page break placeholder shown only in print */
+#content .page-break { display: none; }
+#content hr { border: 0; border-top: 1px solid var(--border); margin: 2em 0; }
+
+/* Navigation footer (prev/next) */
+.chap-nav {
+  display: flex;
+  justify-content: space-between;
+  margin: 60px 0 0;
+  gap: 12px;
+}
+.chap-nav a {
+  flex: 1;
+  padding: 14px 18px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  text-decoration: none;
+  color: var(--text);
+  background: var(--bg-alt);
+  display: flex;
+  flex-direction: column;
+  font-size: 14px;
+  transition: all 0.15s;
+}
+.chap-nav a:hover { border-color: var(--accent); color: var(--accent); }
+.chap-nav a.next { text-align: right; }
+.chap-nav .label { font-size: 11px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.05em; }
+.chap-nav a.disabled { visibility: hidden; }
+
+/* ====================== Interactive Diagrams ====================== */
+.diagram {
+  background: var(--diagram-bg);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 16px 20px;
+  margin: 20px 0;
+  box-shadow: var(--shadow);
+}
+.diagram .d-title {
+  font-weight: 600;
+  margin-bottom: 4px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.diagram .d-title .badge {
+  font-size: 11px;
+  background: var(--accent);
+  color: white;
+  padding: 2px 8px;
+  border-radius: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-weight: 700;
+}
+.diagram .d-desc { font-size: 13px; color: var(--text-muted); margin-bottom: 12px; }
+.diagram svg { width: 100%; height: auto; display: block; background: var(--bg); border-radius: 4px; }
+.diagram .controls {
+  display: flex;
+  gap: 12px;
+  margin-top: 10px;
+  flex-wrap: wrap;
+  align-items: center;
+  font-size: 13px;
+}
+.diagram .controls label {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  flex: 1 1 140px;
+}
+.diagram .controls label span { font-size: 11px; color: var(--text-muted); }
+.diagram .controls input[type=range] { width: 100%; }
+.diagram .controls input[type=number] {
+  width: 80px;
+  padding: 4px 6px;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  background: var(--bg);
+  color: var(--text);
+}
+.diagram .readout {
+  font-family: Consolas, monospace;
+  font-size: 13px;
+  color: var(--text);
+  margin-top: 8px;
+  background: var(--bg);
+  padding: 6px 10px;
+  border-radius: 4px;
+  border: 1px solid var(--border);
+  white-space: pre-wrap;
+}
+
+/* ====================== Search Results Overlay ====================== */
+#searchResults {
+  position: absolute;
+  top: 50px;
+  right: 20px;
+  width: 360px;
+  max-height: 60vh;
+  overflow-y: auto;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+  z-index: 60;
+  display: none;
+}
+#searchResults .res {
+  padding: 10px 14px;
+  border-bottom: 1px solid var(--border);
+  cursor: pointer;
+}
+#searchResults .res:hover { background: var(--bg-alt); }
+#searchResults .res .title { font-weight: 600; font-size: 14px; }
+#searchResults .res .snippet { font-size: 12px; color: var(--text-muted); margin-top: 3px; }
+#searchResults .res mark { background: #fde68a; color: var(--text); padding: 0 2px; border-radius: 2px; }
+
+/* ====================== Loading ====================== */
+.loading {
+  text-align: center;
+  padding: 60px 20px;
+  color: var(--text-muted);
+}
+
+/* ====================== Mobile ====================== */
+@media (max-width: 900px) {
+  body {
+    grid-template-columns: 1fr;
+    grid-template-rows: 56px 1fr;
+    grid-template-areas: "topbar" "main";
+  }
+  #sidebar {
+    grid-row: auto;
+    position: fixed;
+    top: 56px; left: 0; bottom: 0;
+    width: 280px;
+    z-index: 40;
+    transform: translateX(-100%);
+    transition: transform 0.2s;
+  }
+  body.sidebar-open #sidebar { transform: translateX(0); }
+  #menuToggle { display: inline-block; }
+  #main { padding: 20px 5% 60px; }
+  #topbar #search { width: 140px; }
+}
+
+/* ====================== Print ====================== */
+@media print {
+  body { display: block; background: white; color: black; font-size: 11pt; }
+  #sidebar, #topbar, .chap-nav, #searchResults { display: none !important; }
+  #main { overflow: visible; padding: 0; max-width: 100%; }
+  #content { max-width: 100%; }
+  #content .page-break { display: block; page-break-after: always; }
+  #content h1, #content h2 { page-break-after: avoid; }
+  #content table, #content pre, #content blockquote, .diagram { page-break-inside: avoid; }
+  .diagram { border: 1px solid #ccc !important; box-shadow: none; background: white; }
+  .diagram .controls { display: none; }
+  a { color: black; text-decoration: none; }
+  a[href^="#"]::after { content: ""; }
+}
+
+/* Cross-reference button */
+.xref {
+  display: inline-block;
+  background: var(--accent-soft);
+  color: var(--accent);
+  padding: 0 6px;
+  border-radius: 3px;
+  font-size: 0.9em;
+  text-decoration: none;
+}
+.xref::before { content: "↪ "; opacity: 0.7; }
+
+/* TOC at top of each chapter */
+.minitoc {
+  background: var(--bg-alt);
+  border-radius: 6px;
+  padding: 10px 14px;
+  font-size: 13px;
+  margin: 8px 0 24px;
+}
+.minitoc .label { font-size: 11px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.05em; }
+.minitoc ul { margin: 4px 0 0; padding-left: 18px; }
+.minitoc a { color: var(--text); }
+
+/* ====================== Exam Engine ====================== */
+.exam {
+  background: var(--diagram-bg);
+  border: 2px solid var(--accent);
+  border-radius: 10px;
+  padding: 18px 22px;
+  margin: 30px 0 10px;
+  box-shadow: var(--shadow);
+}
+.exam .x-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 6px;
+}
+.exam .x-head h3 {
+  margin: 0;
+  font-size: 18px;
+  color: var(--accent);
+}
+.exam .x-head .x-badge {
+  background: var(--accent);
+  color: white;
+  padding: 3px 10px;
+  border-radius: 12px;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-weight: 700;
+}
+.exam .x-desc {
+  color: var(--text-muted);
+  font-size: 13px;
+  margin-bottom: 12px;
+}
+.exam .x-sets {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-bottom: 12px;
+}
+.exam .x-set-btn {
+  flex: 1 1 130px;
+  border: 1px solid var(--border);
+  background: var(--bg);
+  color: var(--text);
+  padding: 12px 14px;
+  border-radius: 8px;
+  cursor: pointer;
+  text-align: left;
+  font-size: 14px;
+  font-weight: 600;
+  transition: all 0.15s;
+}
+.exam .x-set-btn:hover { border-color: var(--accent); color: var(--accent); }
+.exam .x-set-btn.active { background: var(--accent); color: #fff; border-color: var(--accent); }
+.exam .x-set-btn .x-set-meta {
+  display: block;
+  font-size: 11px;
+  font-weight: 400;
+  margin-top: 3px;
+  opacity: 0.8;
+}
+.exam .x-quiz {
+  margin-top: 12px;
+}
+.exam .x-q {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 14px 16px;
+  margin-bottom: 12px;
+}
+.exam .x-q .x-q-num {
+  font-size: 11px;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-weight: 700;
+}
+.exam .x-q .x-q-text {
+  font-weight: 500;
+  margin: 4px 0 10px;
+  font-size: 15px;
+}
+.exam .x-q .x-opt {
+  display: block;
+  padding: 8px 12px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  margin-bottom: 6px;
+  cursor: pointer;
+  font-size: 14px;
+  background: var(--bg);
+  user-select: none;
+}
+.exam .x-q .x-opt:hover { border-color: var(--accent); }
+.exam .x-q .x-opt.selected { border-color: var(--accent); background: var(--accent-soft); font-weight: 600; }
+.exam .x-q .x-opt input { margin-right: 8px; }
+.exam .x-q.graded .x-opt { cursor: default; }
+.exam .x-q.graded .x-opt:hover { border-color: var(--border); }
+.exam .x-q.graded .x-opt.correct {
+  border-color: #16a34a;
+  background: rgba(22,163,74,0.08);
+}
+.exam .x-q.graded .x-opt.wrong {
+  border-color: #dc2626;
+  background: rgba(220,38,38,0.08);
+  text-decoration: line-through;
+}
+.exam .x-q .x-num-input {
+  width: 140px;
+  padding: 8px 12px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  background: var(--bg);
+  color: var(--text);
+  font-size: 14px;
+  font-family: Consolas, monospace;
+}
+.exam .x-q .x-num-input.correct { border-color: #16a34a; background: rgba(22,163,74,0.08); }
+.exam .x-q .x-num-input.wrong   { border-color: #dc2626; background: rgba(220,38,38,0.08); }
+.exam .x-q .x-explain {
+  margin-top: 10px;
+  padding: 10px 12px;
+  background: var(--bg-alt);
+  border-left: 3px solid var(--accent);
+  border-radius: 0 6px 6px 0;
+  font-size: 13px;
+  line-height: 1.5;
+}
+.exam .x-q .x-explain .x-correct-tag {
+  font-weight: 700;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-right: 6px;
+}
+.exam .x-q.correct-tag-yes .x-correct-tag { color: #16a34a; }
+.exam .x-q.correct-tag-no  .x-correct-tag { color: #dc2626; }
+.exam .x-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 8px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+.exam .x-btn {
+  padding: 9px 18px;
+  border: 1px solid var(--accent);
+  background: var(--accent);
+  color: #fff;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+}
+.exam .x-btn.secondary {
+  background: var(--bg);
+  color: var(--accent);
+}
+.exam .x-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+.exam .x-result {
+  padding: 14px 16px;
+  border-radius: 8px;
+  margin-top: 10px;
+  font-weight: 600;
+  font-size: 15px;
+}
+.exam .x-result.pass { background: rgba(22,163,74,0.12); color: #15803d; border: 1px solid #16a34a; }
+.exam .x-result.fail { background: rgba(220,38,38,0.12); color: #b91c1c; border: 1px solid #dc2626; }
+.exam .x-result .x-stat { font-weight: 400; font-size: 13px; margin-top: 4px; }
+
+/* Progress dashboard */
+.progress-wrap h1 { margin-top: 0; }
+.progress-summary {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 14px;
+  margin-bottom: 28px;
+}
+.progress-card {
+  background: var(--bg-alt);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 16px 18px;
+}
+.progress-card .pc-label {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--text-muted);
+}
+.progress-card .pc-value {
+  font-size: 28px;
+  font-weight: 700;
+  margin-top: 4px;
+  color: var(--accent);
+}
+.progress-card .pc-sub { font-size: 12px; color: var(--text-muted); margin-top: 4px; }
+.progress-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+}
+.progress-table th, .progress-table td {
+  padding: 8px 10px;
+  border-bottom: 1px solid var(--border);
+  text-align: left;
+}
+.progress-table th { background: var(--bg-alt); font-size: 11px; text-transform: uppercase; letter-spacing: 0.05em; color: var(--text-muted); }
+.progress-table tr.weak { background: rgba(220,38,38,0.06); }
+.progress-table tr.strong { background: rgba(22,163,74,0.06); }
+.progress-table tr.untaken { color: var(--text-muted); }
+.progress-table .pset { font-family: Consolas, monospace; font-size: 12px; }
+.progress-table a { cursor: pointer; }
+.progress-bar {
+  display: inline-block;
+  width: 60px;
+  height: 8px;
+  background: var(--border);
+  border-radius: 4px;
+  overflow: hidden;
+  vertical-align: middle;
+  margin-right: 6px;
+}
+.progress-bar > span {
+  display: block;
+  height: 100%;
+  background: var(--accent);
+}
+.progress-bar.weak > span { background: #dc2626; }
+.progress-bar.strong > span { background: #16a34a; }
+.progress-actions { margin: 14px 0 24px; display: flex; gap: 10px; flex-wrap: wrap; }
+
+/* Sidebar Progress link */
+#sidebar a.chap.progress-link {
+  margin: 8px 0;
+  background: rgba(96,165,250,0.15);
+  border-left-color: #60a5fa;
+  font-weight: 600;
+}
+
+/* ====================== Back Button ====================== */
+#backBtn {
+  display: none;
+  gap: 4px;
+  align-items: center;
+  font-size: 13px;
+  padding: 5px 10px;
+  border: 1px solid var(--border);
+  background: var(--bg-alt);
+  color: var(--text);
+  border-radius: 6px;
+  cursor: pointer;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+#backBtn:hover { background: var(--accent-soft); border-color: var(--accent); color: var(--accent); }
+
+/* ====================== Math Tooltip ====================== */
+#math-tooltip {
+  position: fixed;
+  z-index: 9000;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 12px 16px 10px;
+  max-width: 300px;
+  min-width: 180px;
+  box-shadow: 0 6px 24px rgba(0,0,0,0.18);
+  font-size: 13px;
+  line-height: 1.5;
+  pointer-events: none;
+  opacity: 0;
+  transform: translateY(4px);
+  transition: opacity 0.15s, transform 0.15s;
+  user-select: none;
+}
+#math-tooltip.tt-visible {
+  opacity: 1;
+  transform: none;
+  pointer-events: auto;
+}
+/* ---- tooltip per-entry cards ---- */
+#math-tooltip {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  max-height: 72vh;
+  overflow-y: auto;
+  scrollbar-width: thin;
+}
+.tt-entry {
+  background: var(--bg-alt);
+  border: 1px solid var(--border);
+  border-radius: 7px;
+  padding: 9px 11px 8px;
+}
+.tt-entry .tt-symbol {
+  font-family: "Fira Code", Consolas, monospace;
+  font-size: 19px;
+  font-weight: 700;
+  color: var(--accent);
+  line-height: 1.15;
+  display: block;
+}
+.tt-entry .tt-pronounce {
+  font-size: 10px;
+  font-style: italic;
+  color: var(--text-muted);
+  display: block;
+  margin-top: 2px;
+  letter-spacing: 0.03em;
+}
+.tt-entry .tt-name {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--text);
+  margin-top: 6px;
+  margin-bottom: 3px;
+}
+.tt-entry .tt-desc {
+  font-size: 11px;
+  line-height: 1.45;
+  color: var(--text);
+  opacity: 0.9;
+}
+.tt-entry .tt-jump {
+  display: inline-block;
+  margin-top: 6px;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--accent);
+  border: 1px solid var(--accent);
+  padding: 2px 8px;
+  border-radius: 4px;
+  cursor: pointer;
+  text-decoration: none;
+  background: transparent;
+}
+.tt-entry .tt-jump:hover { background: var(--accent-soft); }
+.term-tip {
+  border-bottom: 1px dotted var(--accent);
+  color: inherit;
+  cursor: help;
+  text-decoration: none;
+}
+/* Hoverable math in content */
+.katex[data-tt] { cursor: help; border-bottom: 1px dashed var(--accent); }
+</style>
+</head>
+
+<body>
+
+<aside id="sidebar">
+  <div class="brand">
+    <div class="title">Structural Engineering &amp; ETABS</div>
+    <div class="sub">Self-Study Book — Arithmetic to Real Buildings</div>
+  </div>
+  <nav id="toc"><!-- populated by JS --></nav>
+</aside>
+
+<header id="topbar">
+  <button id="menuToggle" title="Toggle menu">☰</button>
+  <h1>📐 Structural Engineering Book</h1>
+  <div class="crumbs" id="crumbs">Welcome</div>
+  <button id="backBtn" title="Go back to previous location">← Back</button>
+  <input type="search" id="search" placeholder="Search… (Ctrl+K)" />
+  <button id="printBtn" title="Print or Save as PDF">🖨 Print</button>
+  <button id="themeBtn" title="Toggle dark mode">🌓</button>
+  <div id="searchResults"></div>
+</header>
+
+<main id="main">
+  <article id="content">
+    <div class="loading">Loading book…</div>
+  </article>
+</main>
+
+<!-- ===== CHAPTER MANIFEST ===== -->
+<script id="manifest" type="application/json">
+{
+  "files": [
+    {"id": "front",  "title": "Front Matter",                        "part": "Front", "chapters": []},
+    {"id": "part0",  "title": "Part 0 — Arithmetic Foundations",     "part": "Part 0"},
+    {"id": "part1",  "title": "Part 1 — Algebra",                    "part": "Part 1"},
+    {"id": "part2",  "title": "Part 2 — Statics & Physics",          "part": "Part 2"},
+    {"id": "part3",  "title": "Part 3 — Geometry & Trigonometry",    "part": "Part 3"},
+    {"id": "part4",  "title": "Part 4 — Precalculus",                "part": "Part 4"},
+    {"id": "part5",  "title": "Part 5 — ETABS Practical Guide",      "part": "Part 5"}
+  ]
+}
+</script>
+
+<!-- ===== CHAPTERS_INSERT_BELOW ===== -->
+<!-- bundle.ps1 will inject <script type="text/markdown" id="..."> blocks here -->
+<!-- ===== CHAPTERS_INSERT_ABOVE ===== -->
+
+<!-- CDN_LIBS_START -->
+<script defer src="https://cdn.jsdelivr.net/npm/marked@12.0.2/marked.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js" integrity="sha384-XjKyOOlGwcjNTAIQHIpgOno0Hl1YQqzUOEleOLALmuqehneUG+vnGctmUb0ZY0l8" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js" integrity="sha384-+VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4+/RRE05" crossorigin="anonymous"></script>
+<!-- CDN_LIBS_END -->
+
+<!-- ===== App Logic ===== -->
+<script>
+"use strict";
+
+// ============ State ============
+const state = {
+  manifest: JSON.parse(document.getElementById('manifest').textContent),
+  current: null,
+  chapterIndex: [],
+  searchIndex: [],
+  rendered: {},
+  bodyAnchors: {},
+  glossary: [],
+  navHistory: [],        // stack of {fileId, slug} for tooltip jump back-navigation
+};
+
+// ============ Utilities ============
+function slugify(s) {
+  return String(s).toLowerCase()
+    .replace(/[^a-z0-9\s-]/g, '')
+    .trim()
+    .replace(/\s+/g, '-')
+    .substring(0, 80);
+}
+function escapeHtml(s) {
+  return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+}
+function $(sel, root) { return (root || document).querySelector(sel); }
+function $$(sel, root) { return Array.from((root || document).querySelectorAll(sel)); }
+
+// ============ Markdown rendering ============
+function getRawMd(fileId) {
+  const el = document.getElementById('md-' + fileId);
+  return el ? el.textContent : '';
+}
+
+// Called once after marked loads. Marked versions differ here: some pass a token
+// object, others pass (text, depth, raw). Support both callback shapes.
+function initMarked() {
+  marked.use({
+    gfm: true,
+    breaks: false,
+    renderer: {
+      heading(arg, level, raw) {
+        let text = '';
+        let depth = 2;
+        let source = '';
+        if (arg && typeof arg === 'object' && !Array.isArray(arg)) {
+          text = arg.text || arg.raw || '';
+          depth = arg.depth || 2;
+          source = arg.raw || arg.text || text;
+        } else {
+          text = String(arg || '');
+          depth = level || 2;
+          source = raw || text;
+        }
+        const id = slugify(source.replace(/^#{1,6}\s*/, ''));
+        return `<h${depth} id="${id}">${text}</h${depth}>\n`;
+      }
+    }
+  });
+}
+
+function renderMarkdown(md) {
+  // Replace HTML page-break divs with print-only class markers
+  const cleaned = md.replace(
+    /<div\s+style="page-break-after:\s*always;?"\s*>\s*<\/div>/gi,
+    '<div class="page-break"></div>'
+  );
+  // marked v12: HTML pass-through is on by default; no separate html:true option needed
+  return marked.parse(cleaned);
+}
+
+function renderMath(root) {
+  if (typeof renderMathInElement !== 'function') return;
+  renderMathInElement(root, {
+    delimiters: [
+      { left: '$$', right: '$$', display: true },
+      { left: '$',  right: '$',  display: false },
+    ],
+    throwOnError: false,
+  });
+  attachMathTooltips(root);
+  attachTerminologyTooltips(root);
+}
+
+// ============ Math Tooltip ============
+// Each entry: keys[], symbol, pronounce, name, desc, slug
+const mathDict = [
+  // Greek
+  // Greek letters
+  { keys: ['\\sigma'],                  symbol: 'σ',        pronounce: 'sigma',                  name: 'Normal Stress',                       desc: 'σ = P/A (axial) or σ = My/I (bending). Perpendicular to the cross-section. Units: MPa.',                   slug: 'chapter-16-stress-and-strain' },
+  { keys: ['\\sigma_c'],                symbol: 'σ_c',      pronounce: 'sigma sub c',            name: 'Compressive Stress',                  desc: 'Normal stress in compression. Negative by convention. Concrete is designed around compressive stress.',        slug: 'chapter-16-stress-and-strain' },
+  { keys: ['\\sigma_t'],                symbol: 'σ_t',      pronounce: 'sigma sub t',            name: 'Tensile Stress',                      desc: 'Normal stress in tension. Positive by convention. Steel handles tension well; plain concrete does not.',       slug: 'chapter-16-stress-and-strain' },
+  { keys: ['\\tau'],                    symbol: 'τ',        pronounce: 'tau',                    name: 'Shear Stress',                        desc: 'Stress parallel to the cross-section. τ ≈ 1.5V/A for rectangles, VQ/(Ib) in general. Units: MPa.',            slug: 'chapter-16-stress-and-strain' },
+  { keys: ['\\varepsilon','\\epsilon'],  symbol: 'ε',        pronounce: 'epsilon',                name: 'Strain',                              desc: 'Deformation per unit length. ε = σ/E (elastic). Dimensionless — no units.',                                  slug: 'chapter-16-stress-and-strain' },
+  { keys: ['\\delta'],                  symbol: 'δ',        pronounce: 'delta',                  name: 'Deflection / Displacement',           desc: 'Lateral or vertical displacement under load. δ_max = 5wL⁴/384EI for SS UDL. Units: mm or m.',              slug: 'chapter-27-rational-functions-and-proportionality' },
+  { keys: ['\\phi'],                    symbol: 'φ',        pronounce: 'phi',                    name: 'Strength Reduction Factor (ACI)',     desc: 'φ = 0.9 for bending, 0.75 for shear/torsion. Required: φMn ≥ Mu.',                                          slug: 'chapter-41-design-in-etabs' },
+  { keys: ['\\rho'],                    symbol: 'ρ',        pronounce: 'rho',                    name: 'Reinforcement Ratio',                 desc: 'ρ = As/(b·d). Typical 0.5 %–4 %. Min. by ACI prevents brittle failure.',                                      slug: 'chapter-41-design-in-etabs' },
+  { keys: ['\\omega'],                  symbol: 'ω',        pronounce: 'omega',                  name: 'Angular Frequency',                   desc: 'Rate of oscillation in rad/s. ω = 2π/T = 2πf. Used in modal/seismic analysis.',                              slug: 'chapter-39-running-the-analysis' },
+  { keys: ['\\pi'],                     symbol: 'π',        pronounce: 'pi',                     name: 'Pi',                                  desc: 'π ≈ 3.14159. Appears in circle area, Euler buckling (P_cr = π²EI/L²), and period formulas.',                  slug: null },
+  { keys: ['\\theta'],                  symbol: 'θ',        pronounce: 'theta',                  name: 'Angle',                               desc: 'Angle in degrees or radians. Used for inclined forces, slope of deflection, joint rotations.',               slug: 'chapter-22-right-triangle-trigonometry' },
+  { keys: ['\\alpha'],                  symbol: 'α',        pronounce: 'alpha',                  name: 'Thermal Expansion Coeff. / Angle',    desc: 'α_steel ≈ 12×10⁻⁶/°C. Thermal force = E·A·α·ΔT. Also a general angle.',                                    slug: null },
+  { keys: ['\\mu'],                     symbol: 'μ',        pronounce: 'mu',                     name: 'Coefficient of Friction',             desc: 'Friction force = μN. Occasionally also used for Poisson ratio in older references.',                         slug: null },
+  { keys: ['\\nu'],                     symbol: 'ν',        pronounce: 'nu',                     name: "Poisson's Ratio",                     desc: 'Ratio of lateral to axial strain. ν_steel ≈ 0.3, ν_concrete ≈ 0.2. Required for 2D/3D FEM.',                slug: 'chapter-35-defining-materials' },
+  { keys: ['\\zeta'],                   symbol: 'ζ',        pronounce: 'zeta',                   name: 'Damping Ratio',                       desc: 'Fraction of critical damping. ζ = 5 % typical for RC. Higher ζ → faster amplitude decay.',                   slug: 'chapter-39-running-the-analysis' },
+  { keys: ['\\lambda'],                 symbol: 'λ',        pronounce: 'lambda',                 name: 'Slenderness Ratio',                   desc: 'λ = kL/r. Higher λ → more buckling-prone. Column design checks against λ_max.',                              slug: null },
+  // Single-letter variables
+  { keys: ['E'],  symbol: 'E',  pronounce: 'capital E',    name: "Elastic (Young's) Modulus",     desc: 'E_steel = 200,000 MPa; E_concrete = 4700√f\'c MPa. Governs σ = Eε and stiffness.',                             slug: 'chapter-16-stress-and-strain' },
+  { keys: ['I'],  symbol: 'I',  pronounce: 'capital I',    name: 'Second Moment of Area',          desc: 'I = bh³/12 (rectangle). Larger I → stiffer beam, smaller deflection and stress.',                             slug: 'chapter-20-moment-of-inertia-second-moment-of-area' },
+  { keys: ['A'],  symbol: 'A',  pronounce: 'capital A',    name: 'Cross-Sectional Area',           desc: 'Area of the cross-section (m² or mm²). In σ = P/A and δ = PL/(AE).',                                       slug: 'chapter-18-areas-and-perimeters' },
+  { keys: ['M'],  symbol: 'M',  pronounce: 'capital M',    name: 'Bending Moment',                 desc: 'Internal moment about the neutral axis. M_max = wL²/8 (SS UDL). Units: kN·m.',                               slug: 'chapter-15-internal-forces-axial-shear-and-bending-moment' },
+  { keys: ['V'],  symbol: 'V',  pronounce: 'capital V',    name: 'Shear Force',                    desc: 'Internal force parallel to the section. V = dM/dx. Max at supports. Units: kN.',                            slug: 'chapter-15-internal-forces-axial-shear-and-bending-moment' },
+  { keys: ['P'],  symbol: 'P',  pronounce: 'capital P',    name: 'Axial Load / Point Force',       desc: 'Force along or transverse to a member. Units: kN or N. Axial: σ = P/A.',                                   slug: 'chapter-10-what-is-a-force' },
+  { keys: ['L'],  symbol: 'L',  pronounce: 'capital L',    name: 'Span Length',                    desc: 'Clear or c-to-c span. Deflection ∝ L⁴ — doubling span ×16 deflection.',                                      slug: 'chapter-27-rational-functions-and-proportionality' },
+  { keys: ['w'],  symbol: 'w',  pronounce: 'lowercase w',  name: 'Distributed Load (UDL)',         desc: 'Load per unit length (kN/m) or area (kPa). Total = w×L. Max moment = wL²/8.',                               slug: 'chapter-13-types-of-loads-in-structural-engineering' },
+  { keys: ['R'],  symbol: 'R',  pronounce: 'capital R',    name: 'Reaction Force',                 desc: 'Support reaction. SS beam + UDL: R = wL/2. Check ΣFy = 0.',                                                slug: 'chapter-11-equilibrium-and-the-sum-of-forces' },
+  { keys: ['T'],  symbol: 'T',  pronounce: 'capital T',    name: 'Natural Period / Tension',       desc: 'Vibration: T = 2π/ω (seconds). T₁ is fundamental period, key for seismic design.',                          slug: 'chapter-39-running-the-analysis' },
+  { keys: ['k'],  symbol: 'k',  pronounce: 'lowercase k',  name: 'Stiffness / Eff. Length Factor', desc: 'Stiffness: F = kd. Buckling: effective length factor k (k=1 pin-pin, 0.5 fixed-fixed).',                   slug: 'chapter-30-matrices-basic' },
+  { keys: ['d'],  symbol: 'd',  pronounce: 'lowercase d',  name: 'Effective Depth (RC)',            desc: 'd = h − cover − r_bar. Distance from compression face to tension-steel centroid.',                             slug: 'chapter-41-design-in-etabs' },
+  // Subscripted / compound symbols
+  { keys: ["f'_c","f_{c}","f_c'"],        symbol: "f’c",  pronounce: 'f prime c',      name: "Concrete Compressive Strength f'c", desc: 'Specified 28-day cylinder strength. E_c = 4700√f\'c MPa. Typical: 25–40 MPa.',    slug: 'chapter-35-defining-materials' },
+  { keys: ['f_y','f_{y}'],                 symbol: 'f_y',  pronounce: 'f sub y',        name: 'Steel Yield Strength fy',           desc: 'Stress at which steel yields permanently. Rebar B500: 500 MPa.',             slug: 'chapter-35-defining-materials' },
+  { keys: ['A_s','A_{s}'],                 symbol: 'A_s',  pronounce: 'A sub s',        name: 'Steel Reinforcement Area',          desc: 'Total bar area (mm²). φMn depends on As·fy·(d−a/2).',                           slug: 'chapter-41-design-in-etabs' },
+  { keys: ['M_n','M_{n}','\\phi M_n'],    symbol: 'M_n',  pronounce: 'M sub n',        name: 'Nominal Moment Capacity',           desc: 'Theoretical bending capacity before φ. Check: φMn ≥ Mu.',                       slug: 'chapter-41-design-in-etabs' },
+  { keys: ['P_{cr}','P_\\mathrm{cr}'],   symbol: 'P_cr', pronounce: 'P sub cr',       name: 'Critical (Euler) Buckling Load',    desc: 'P_cr = π²EI/L². Column buckles when P > P_cr.',                               slug: 'chapter-27-rational-functions-and-proportionality' },
+  { keys: ['S_{DS}'],                      symbol: 'S_DS', pronounce: 'S sub D S',      name: 'Design Spectral Accel. (Short)',    desc: 'Short-period spectral accel. from ASCE 7. Governs seismic base shear.',        slug: 'chapter-38-applying-loads' },
+  { keys: ['E_c','E_{c}'],                 symbol: 'E_c',  pronounce: 'E sub c',        name: 'Concrete Elastic Modulus',          desc: 'E_c = 4700√f\'c MPa (ACI 318). ≈ 28,000–33,000 MPa for typical grades.',        slug: 'chapter-35-defining-materials' },
+  { keys: ['E_s','E_{s}'],                 symbol: 'E_s',  pronounce: 'E sub s',        name: 'Steel Elastic Modulus',             desc: 'E_s = 200,000 MPa for all structural steels. Grade-independent.',             slug: 'chapter-35-defining-materials' },
+  // Common formulas / expressions
+  { keys: ['wL^2/8','wL^{2}/8','\\frac{wL^2}{8}','\\frac{wL^{2}}{8}'],
+    symbol: 'wL²/8',       pronounce: 'w L squared over 8',              name: 'Max Midspan Moment — SS UDL',     desc: 'Maximum bending moment at midspan for a simply supported beam under UDL w over span L.',  slug: 'chapter-26-polynomials-and-the-bending-moment-equation' },
+  { keys: ['\\frac{5wL^4}{384EI}'],
+    symbol: '5wL⁴/384EI',  pronounce: '5 w L to the fourth, over 384 E I', name: 'Midspan Deflection — SS UDL',      desc: 'Max deflection at midspan. Note L⁴ dependence — doubling span multiplies δ by 16.',    slug: 'chapter-27-rational-functions-and-proportionality' },
+  { keys: ['\\frac{PL^3}{3EI}'],
+    symbol: 'PL³/3EI',    pronounce: 'P L cubed over 3 E I',            name: 'Tip Deflection — Cantilever',      desc: 'Maximum deflection at free end of a cantilever with point load P at the tip.',            slug: 'chapter-27-rational-functions-and-proportionality' },
+  { keys: ['\\frac{\\pi^2 EI}{L^2}','\\pi^2EI/L^2'],
+    symbol: 'π²EI/L²',   pronounce: 'pi squared E I over L squared', name: 'Euler Critical Buckling Load',       desc: 'P_cr for a pin-ended column. Reduce L by effective length factor k for other end conditions.',  slug: 'chapter-27-rational-functions-and-proportionality' },
+];
+
+// Build key → entry lookup. Longer keys override shorter ones naturally via scan order.
+const mathLookup = new Map();
+for (const e of mathDict) {
+  for (const k of e.keys) mathLookup.set(k, e);
+}
+// Keys sorted longest-first for greedy scan (specific beats general)
+const mathKeys = [...mathLookup.keys()].sort((a, b) => b.length - a.length);
+
+function stripMdInline(s) {
+  return String(s || '')
+    .replace(/<[^>]+>/g, '')
+    .replace(/\$+/g, '')
+    .replace(/\*\*/g, '')
+    .replace(/__/g, '')
+    .replace(/`/g, '')
+    .replace(/\\mathrm\{([^}]+)\}/g, '$1')
+    .replace(/\\text\{([^}]+)\}/g, '$1')
+    .replace(/\\/g, '')
+    .replace(/\s+/g, ' ')
+    .trim();
+}
+
+function splitMdRow(line) {
+  return line.trim().replace(/^\|/, '').replace(/\|$/, '').split('|').map(c => c.trim());
+}
+
+function isMdDividerRow(line) {
+  return /^\|?\s*:?-{3,}:?\s*(\|\s*:?-{3,}:?\s*)+\|?\s*$/.test(line);
+}
+
+function addGlossaryEntry(map, entry) {
+  const name = stripMdInline(entry.name);
+  const desc = stripMdInline(entry.desc);
+  if (!name || !desc) return;
+  const key = name.toLowerCase();
+  if (map.has(key)) return;
+  map.set(key, {
+    keys: (entry.keys || [name]).map(stripMdInline).filter(Boolean),
+    symbol: stripMdInline(entry.symbol || name),
+    pronounce: stripMdInline(entry.pronounce || ''),
+    name,
+    desc,
+    slug: entry.slug || null,
+  });
+}
+
+function buildGlossary() {
+  const entries = new Map();
+  for (const f of state.manifest.files) {
+    const md = getRawMd(f.id);
+    if (!md) continue;
+    const lines = md.split('\n');
+    let chapterSlug = '';
+    for (let i = 0; i < lines.length; i++) {
+      const heading = lines[i].match(/^##\s+(.+)$/);
+      if (heading) chapterSlug = slugify(heading[1]);
+      if (!/^\s*\|/.test(lines[i]) || i + 1 >= lines.length || !isMdDividerRow(lines[i + 1])) continue;
+
+      const headers = splitMdRow(lines[i]).map(h => stripMdInline(h).toLowerCase());
+      const rows = [];
+      i += 2;
+      while (i < lines.length && /^\s*\|/.test(lines[i])) {
+        rows.push(splitMdRow(lines[i]));
+        i++;
+      }
+      i--;
+
+      const wordIdx = headers.indexOf('word');
+      const pronIdx = headers.indexOf('pronunciation');
+      const meaningIdx = headers.indexOf('plain english meaning');
+      const usedIdx = headers.indexOf('used in') >= 0 ? headers.indexOf('used in') : headers.indexOf('example');
+      if (wordIdx >= 0 && meaningIdx >= 0) {
+        for (const row of rows) {
+          const word = row[wordIdx];
+          const meaning = row[meaningIdx];
+          const used = usedIdx >= 0 ? row[usedIdx] : '';
+          addGlossaryEntry(entries, {
+            name: word,
+            symbol: word,
+            pronounce: pronIdx >= 0 ? row[pronIdx] : '',
+            desc: meaning + (used ? ' Used in: ' + used : ''),
+            slug: chapterSlug,
+          });
+        }
+        continue;
+      }
+
+      const quantityIdx = headers.indexOf('quantity');
+      const symbolIdx = headers.indexOf('symbol');
+      const unitIdx = headers.indexOf('unit');
+      const conversionIdx = headers.indexOf('conversion');
+      if (quantityIdx >= 0 && symbolIdx >= 0) {
+        for (const row of rows) {
+          addGlossaryEntry(entries, {
+            name: row[quantityIdx],
+            symbol: row[symbolIdx],
+            desc: (unitIdx >= 0 ? 'Units: ' + row[unitIdx] + '. ' : '') + (conversionIdx >= 0 ? row[conversionIdx] : ''),
+            keys: [row[quantityIdx], row[symbolIdx]],
+            slug: chapterSlug,
+          });
+        }
+        continue;
+      }
+
+      const conceptIdx = headers.indexOf('concept');
+      const notationIdx = headers.indexOf('notation');
+      const engIdx = headers.indexOf('engineering use');
+      if (conceptIdx >= 0 && notationIdx >= 0) {
+        for (const row of rows) {
+          addGlossaryEntry(entries, {
+            name: row[conceptIdx],
+            symbol: row[notationIdx],
+            desc: engIdx >= 0 ? row[engIdx] : row[notationIdx],
+            keys: [row[conceptIdx], row[notationIdx]],
+            slug: chapterSlug,
+          });
+        }
+      }
+    }
+  }
+  state.glossary = [...entries.values()].filter(e => e.name.length > 1);
+}
+
+/**
+ * Scan latex and return ALL distinct matching entries (up to 5).
+ * Uses greedy longest-first match; each consumed key region is blanked
+ * to prevent sub-key double-match (e.g. \sigma not re-matched inside \sigma_c).
+ */
+function lookupAllMath(latex) {
+  const seen = new Set();
+  const result = [];
+  let remaining = latex;
+  for (const k of mathKeys) {
+    if (result.length >= 5) break;
+    if (!remaining.includes(k)) continue;
+    const entry = mathLookup.get(k);
+    if (seen.has(entry)) continue;
+    seen.add(entry);
+    result.push(entry);
+    remaining = remaining.split(k).join('\x00'); // blank matched region
+  }
+  return result;
+}
+
+let ttHideTimer = null;
+function cancelHideTT() { if (ttHideTimer) { clearTimeout(ttHideTimer); ttHideTimer = null; } }
+function scheduleHideTT() { ttHideTimer = setTimeout(hideMathTooltip, 220); }
+
+function hideMathTooltip() {
+  const tip = document.getElementById('math-tooltip');
+  if (tip) tip.classList.remove('tt-visible');
+}
+
+/**
+ * Render one card per entry inside the tooltip and position it near anchor.
+ */
+function showMathTooltip(entries, anchor) {
+  cancelHideTT();
+  const tip = document.getElementById('math-tooltip');
+
+  tip.innerHTML = entries.map(entry => {
+    let jumpHtml = '';
+    if (entry.slug) {
+      const ch = state.chapterIndex.find(c => c.slug === entry.slug);
+      if (ch) {
+        const label = ch.title.replace(/^Chapter\s+\S+\s*[\u2014\-]\s*/i, '');
+        jumpHtml = `<a class="tt-jump" data-file="${escapeHtml(ch.fileId)}" data-slug="${escapeHtml(entry.slug)}">\u21AA ${escapeHtml(label)}</a>`;
+      }
+    }
+    return `<div class="tt-entry">
+      <span class="tt-symbol">${escapeHtml(entry.symbol)}</span>
+      <small class="tt-pronounce">${escapeHtml(entry.pronounce || '')}</small>
+      <div class="tt-name">${escapeHtml(entry.name)}</div>
+      <div class="tt-desc">${escapeHtml(entry.desc)}</div>
+      ${jumpHtml}
+    </div>`;
+  }).join('');
+
+  for (const a of tip.querySelectorAll('.tt-jump')) {
+    a.addEventListener('click', () => {
+      state.navHistory.push({ ...state.current });
+      updateBackBtn();
+      navigate(a.dataset.file, a.dataset.slug, true);
+      hideMathTooltip();
+    });
+  }
+
+  // Position below anchor; flip up or left when near viewport edge
+  tip.style.visibility = 'hidden';
+  tip.classList.add('tt-visible');
+  const rect = anchor.getBoundingClientRect();
+  const tipW = tip.offsetWidth  || 280;
+  const tipH = tip.offsetHeight || 160;
+  let left = rect.left;
+  let top  = rect.bottom + 6;
+  if (left + tipW > window.innerWidth  - 8) left = window.innerWidth  - tipW - 8;
+  if (top  + tipH > window.innerHeight - 8) top  = rect.top - tipH - 6;
+  if (left < 8) left = 8;
+  if (top  < 8) top  = 8;
+  tip.style.left = left + 'px';
+  tip.style.top  = top  + 'px';
+  tip.style.visibility = '';
+}
+
+function attachMathTooltips(root) {
+  const tip = document.getElementById('math-tooltip');
+  if (!tip) return;
+  tip.addEventListener('mouseenter', cancelHideTT);
+  tip.addEventListener('mouseleave', scheduleHideTT);
+
+  for (const el of root.querySelectorAll('.katex')) {
+    const latex = el.querySelector('annotation[encoding="application/x-tex"]')?.textContent?.trim() || '';
+    if (!latex) continue;
+    const entries = lookupAllMath(latex);
+    if (!entries.length) continue;
+    el.dataset.tt = '1';
+    el.addEventListener('mouseenter', (e) => showMathTooltip(entries, e.currentTarget));
+    el.addEventListener('mouseleave', scheduleHideTT);
+  }
+}
+
+function escapeRegExp(s) {
+  return String(s).replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+}
+
+function termKeysForEntry(entry) {
+  return [entry.name, ...(entry.keys || [])]
+    .map(stripMdInline)
+    .filter(k => k.length >= 4 && /[A-Za-z]/.test(k) && !/[\\$^{}=]/.test(k));
+}
+
+function attachTerminologyTooltips(root) {
+  if (!state.glossary || !state.glossary.length) return;
+  const terms = [];
+  const seen = new Set();
+  for (const entry of state.glossary) {
+    for (const key of termKeysForEntry(entry)) {
+      const norm = key.toLowerCase();
+      if (seen.has(norm)) continue;
+      seen.add(norm);
+      terms.push({ key, entry });
+    }
+  }
+  terms.sort((a, b) => b.key.length - a.key.length);
+  if (!terms.length) return;
+  const pattern = new RegExp('\\b(' + terms.map(t => escapeRegExp(t.key)).join('|') + ')\\b', 'i');
+  const byLower = new Map(terms.map(t => [t.key.toLowerCase(), t.entry]));
+  let wrapped = 0;
+  const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
+    acceptNode(node) {
+      if (wrapped > 300) return NodeFilter.FILTER_REJECT;
+      const text = node.nodeValue;
+      if (!text || !pattern.test(text)) return NodeFilter.FILTER_REJECT;
+      const parent = node.parentElement;
+      if (!parent) return NodeFilter.FILTER_REJECT;
+      if (parent.closest('a, button, input, textarea, select, code, pre, .katex, .term-tip, #math-tooltip, .exam')) {
+        return NodeFilter.FILTER_REJECT;
+      }
+      return NodeFilter.FILTER_ACCEPT;
+    }
+  });
+  const nodes = [];
+  while (walker.nextNode()) nodes.push(walker.currentNode);
+  for (const node of nodes) {
+    const text = node.nodeValue;
+    const match = pattern.exec(text);
+    if (!match) continue;
+    const matched = match[0];
+    const entry = byLower.get(matched.toLowerCase());
+    if (!entry) continue;
+    const before = text.slice(0, match.index);
+    const after = text.slice(match.index + matched.length);
+    const frag = document.createDocumentFragment();
+    if (before) frag.appendChild(document.createTextNode(before));
+    const span = document.createElement('span');
+    span.className = 'term-tip';
+    span.textContent = matched;
+    span.addEventListener('mouseenter', e => showMathTooltip([entry], e.currentTarget));
+    span.addEventListener('mouseleave', scheduleHideTT);
+    frag.appendChild(span);
+    if (after) frag.appendChild(document.createTextNode(after));
+    node.parentNode.replaceChild(frag, node);
+    wrapped++;
+  }
+}
+
+function updateBackBtn() {
+  const btn = document.getElementById('backBtn');
+  if (!btn) return;
+  btn.style.display = state.navHistory.length > 0 ? 'inline-flex' : 'none';
+}
+function goBack() {
+  const prev = state.navHistory.pop();
+  if (!prev) return;
+  updateBackBtn();
+  navigate(prev.fileId, prev.slug, true);
+}
+
+// ============ Chapter index extraction ============
+function buildChapterIndex() {
+  state.chapterIndex = [];
+  for (const f of state.manifest.files) {
+    const md = getRawMd(f.id);
+    if (!md) continue;
+    // Find ## headings → chapters within the file
+    const lines = md.split('\n');
+    let chapNum = 0;
+    let foundPartTitle = false;
+    let firstHeading = null;
+    for (const line of lines) {
+      const h2 = line.match(/^## (.+)$/);
+      const h1 = line.match(/^# (.+)$/);
+      if (h1 && !firstHeading) {
+        firstHeading = h1[1];
+      }
+      if (h2) {
+        chapNum++;
+        const title = h2[1].trim();
+        state.chapterIndex.push({
+          fileId: f.id,
+          slug: slugify(title),
+          title,
+          partTitle: f.part,
+          partFullTitle: f.title,
+          chapNum,
+        });
+      }
+    }
+    // If file has no ## (only #), make a single entry referencing the file's main title
+    if (chapNum === 0) {
+      state.chapterIndex.push({
+        fileId: f.id,
+        slug: '',
+        title: firstHeading || f.title,
+        partTitle: f.part,
+        partFullTitle: f.title,
+        chapNum: 0,
+      });
+    }
+  }
+}
+
+// ============ Sidebar ============
+function buildSidebar() {
+  const toc = $('#toc');
+  toc.innerHTML = '';
+  // Progress link at top
+  const progLink = document.createElement('a');
+  progLink.className = 'chap progress-link';
+  progLink.href = '#progress';
+  progLink.innerHTML = '<span class="num">📊</span>Progress Dashboard';
+  progLink.addEventListener('click', (e) => {
+    e.preventDefault();
+    showProgress(true);
+    if (window.innerWidth < 900) document.body.classList.remove('sidebar-open');
+  });
+  toc.appendChild(progLink);
+  const grouped = {};
+  for (const ch of state.chapterIndex) {
+    if (!grouped[ch.fileId]) grouped[ch.fileId] = { file: state.manifest.files.find(f=>f.id===ch.fileId), chapters: [] };
+    grouped[ch.fileId].chapters.push(ch);
+  }
+  for (const fileId of Object.keys(grouped)) {
+    const g = grouped[fileId];
+    const part = document.createElement('div');
+    part.className = 'part';
+    part.dataset.fileId = fileId;
+    const title = document.createElement('div');
+    title.className = 'part-title';
+    title.innerHTML = `<span>${escapeHtml(g.file.title)}</span><span class="toggler">▼</span>`;
+    title.addEventListener('click', () => part.classList.toggle('collapsed'));
+    part.appendChild(title);
+    const list = document.createElement('div');
+    list.className = 'part-list';
+    for (const ch of g.chapters) {
+      const a = document.createElement('a');
+      a.className = 'chap';
+      a.href = '#' + (ch.slug || ch.fileId);
+      a.dataset.fileId = ch.fileId;
+      a.dataset.slug = ch.slug;
+      const num = ch.chapNum > 0 ? `<span class="num">${ch.chapNum}.</span>` : '';
+      a.innerHTML = `${num}${escapeHtml(ch.title.replace(/^Chapter\s+\w+\s*[—-]\s*/i, ''))}`;
+      a.addEventListener('click', (e) => {
+        e.preventDefault();
+        navigate(ch.fileId, ch.slug);
+        if (window.innerWidth < 900) document.body.classList.remove('sidebar-open');
+      });
+      list.appendChild(a);
+    }
+    part.appendChild(list);
+    toc.appendChild(part);
+  }
+}
+
+function highlightSidebar(fileId, slug) {
+  $$('#sidebar a.chap').forEach(a => {
+    a.classList.toggle('active',
+      a.dataset.fileId === fileId &&
+      (slug ? a.dataset.slug === slug : a.dataset.slug === '' || a.dataset.slug === a.dataset.slug));
+  });
+  // Better: exact match on slug
+  const exact = $$('#sidebar a.chap').filter(a => a.dataset.fileId === fileId && a.dataset.slug === slug);
+  if (exact.length) {
+    $$('#sidebar a.chap').forEach(a => a.classList.remove('active'));
+    exact[0].classList.add('active');
+    exact[0].scrollIntoView({ block: 'nearest' });
+  }
+}
+
+// ============ Navigation ============
+function renderFile(fileId) {
+  if (state.rendered[fileId]) return state.rendered[fileId];
+  const md = getRawMd(fileId);
+  if (!md) return null;
+  const html = renderMarkdown(md);
+  state.rendered[fileId] = { html };
+  return state.rendered[fileId];
+}
+
+function navigate(fileId, slug, push = true) {
+  const r = renderFile(fileId);
+  if (!r) return;
+  const content = $('#content');
+  content.innerHTML = r.html;
+
+  // KaTeX
+  renderMath(content);
+
+  // Cross-reference enhancement: rewrite chapter-mention links
+  enhanceCrossReferences(content, fileId);
+
+  // Mount interactive diagrams
+  mountDiagrams(content, fileId);
+
+  // Mount per-chapter exams
+  if (typeof window.SeExams === 'object') window.SeExams.mountAll(content);
+
+  // Add prev/next nav
+  addPrevNextNav(content, fileId, slug);
+
+  // Scroll to slug
+  if (slug) {
+    const target = content.querySelector('#' + CSS.escape(slug));
+    if (target) {
+      setTimeout(() => target.scrollIntoView({ block: 'start', behavior: 'instant' }), 0);
+    } else {
+      $('#main').scrollTop = 0;
+    }
+  } else {
+    $('#main').scrollTop = 0;
+  }
+
+  state.current = { fileId, slug };
+  highlightSidebar(fileId, slug);
+  updateCrumbs(fileId, slug);
+
+  if (push) {
+    const hash = '#' + (slug || fileId);
+    if (location.hash !== hash) history.pushState({ fileId, slug }, '', hash);
+  }
+}
+
+function updateCrumbs(fileId, slug) {
+  const file = state.manifest.files.find(f => f.id === fileId);
+  if (!file) return;
+  let txt = file.title;
+  if (slug) {
+    const ch = state.chapterIndex.find(c => c.fileId === fileId && c.slug === slug);
+    if (ch) txt += '  ›  ' + ch.title;
+  }
+  $('#crumbs').textContent = txt;
+}
+
+function addPrevNextNav(content, fileId, slug) {
+  const flat = state.chapterIndex;
+  const idx = flat.findIndex(c => c.fileId === fileId && (slug ? c.slug === slug : c.chapNum === 0));
+  if (idx < 0) return;
+  const prev = flat[idx - 1];
+  const next = flat[idx + 1];
+  const nav = document.createElement('div');
+  nav.className = 'chap-nav';
+  nav.innerHTML = `
+    <a class="prev ${prev ? '' : 'disabled'}" ${prev ? `data-file="${prev.fileId}" data-slug="${prev.slug}"` : ''}>
+      <span class="label">← Previous</span>
+      <span>${prev ? escapeHtml(prev.title) : ''}</span>
+    </a>
+    <a class="next ${next ? '' : 'disabled'}" ${next ? `data-file="${next.fileId}" data-slug="${next.slug}"` : ''}>
+      <span class="label">Next →</span>
+      <span>${next ? escapeHtml(next.title) : ''}</span>
+    </a>`;
+  content.appendChild(nav);
+  nav.querySelectorAll('a').forEach(a => {
+    if (a.classList.contains('disabled')) return;
+    a.style.cursor = 'pointer';
+    a.addEventListener('click', () => navigate(a.dataset.file, a.dataset.slug));
+  });
+}
+
+// ============ Cross-reference enhancement ============
+// Convert plain mentions of "Chapter N" into clickable xref links to the matching chapter.
+function enhanceCrossReferences(root, currentFileId) {
+  // Build a map of chapter-number → {fileId, slug, title}
+  const map = {};
+  for (const c of state.chapterIndex) {
+    const m = c.title.match(/^Chapter\s+([A-Z]?\d+)\b/i);
+    if (m) map[m[1].toUpperCase()] = c;
+  }
+  // Walk text nodes
+  const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
+    acceptNode: (n) => {
+      if (n.parentElement && /^(A|CODE|PRE|H1|H2|H3|SCRIPT|STYLE)$/i.test(n.parentElement.tagName))
+        return NodeFilter.FILTER_REJECT;
+      if (!/Chapter\s+[A-Z]?\d+/i.test(n.nodeValue))
+        return NodeFilter.FILTER_REJECT;
+      return NodeFilter.FILTER_ACCEPT;
+    }
+  });
+  const nodes = [];
+  while (walker.nextNode()) nodes.push(walker.currentNode);
+  for (const tn of nodes) {
+    const frag = document.createDocumentFragment();
+    let last = 0;
+    const re = /Chapter\s+([A-Z]?\d+)/gi;
+    let m;
+    let added = false;
+    while ((m = re.exec(tn.nodeValue)) !== null) {
+      const key = m[1].toUpperCase();
+      const target = map[key];
+      if (!target) continue;
+      // Don't link to current chapter
+      const curCh = state.chapterIndex.find(c => c.fileId === state.current?.fileId && c.slug === state.current?.slug);
+      if (curCh && curCh.slug === target.slug) continue;
+      if (m.index > last) frag.appendChild(document.createTextNode(tn.nodeValue.slice(last, m.index)));
+      const a = document.createElement('a');
+      a.className = 'xref';
+      a.href = '#' + target.slug;
+      a.textContent = m[0];
+      a.title = target.title;
+      a.addEventListener('click', (ev) => {
+        ev.preventDefault();
+        navigate(target.fileId, target.slug);
+      });
+      frag.appendChild(a);
+      last = m.index + m[0].length;
+      added = true;
+    }
+    if (added) {
+      if (last < tn.nodeValue.length) frag.appendChild(document.createTextNode(tn.nodeValue.slice(last)));
+      tn.parentNode.replaceChild(frag, tn);
+    }
+  }
+}
+
+// ============ Search ============
+function buildSearchIndex() {
+  state.searchIndex = [];
+  for (const c of state.chapterIndex) {
+    const md = getRawMd(c.fileId);
+    if (!md) continue;
+    // Take section text — for files with ##, slice between this and next ##
+    let text = md;
+    if (c.slug) {
+      const lines = md.split('\n');
+      const startIdx = lines.findIndex(l => l.match(/^## /) && slugify(l.replace(/^##\s+/, '')) === c.slug);
+      if (startIdx >= 0) {
+        let endIdx = lines.length;
+        for (let i = startIdx + 1; i < lines.length; i++) {
+          if (/^## /.test(lines[i])) { endIdx = i; break; }
+        }
+        text = lines.slice(startIdx, endIdx).join('\n');
+      }
+    }
+    // Strip markdown noise
+    const plain = text.replace(/```[\s\S]*?```/g, '')
+                      .replace(/\$\$[\s\S]*?\$\$/g, '')
+                      .replace(/\$[^$]*\$/g, '')
+                      .replace(/[#*_`>|\-]/g, ' ')
+                      .replace(/\s+/g, ' ');
+    state.searchIndex.push({
+      fileId: c.fileId, slug: c.slug, title: c.title,
+      partTitle: c.partTitle, text: plain,
+    });
+  }
+}
+
+function doSearch(q) {
+  const results = $('#searchResults');
+  if (!q || q.length < 2) { results.style.display = 'none'; return; }
+  const tokens = q.toLowerCase().split(/\s+/).filter(t => t);
+  const matches = [];
+  for (const item of state.searchIndex) {
+    const lower = item.text.toLowerCase();
+    let score = 0;
+    let firstHit = -1;
+    for (const t of tokens) {
+      const i = lower.indexOf(t);
+      if (i < 0) { score = 0; break; }
+      score += 1;
+      if (firstHit < 0) firstHit = i;
+    }
+    if (item.title.toLowerCase().includes(q.toLowerCase())) score += 5;
+    if (score > 0) matches.push({ item, score, firstHit });
+  }
+  matches.sort((a,b) => b.score - a.score);
+  const top = matches.slice(0, 20);
+  if (!top.length) {
+    results.innerHTML = '<div class="res"><div class="title">No results</div></div>';
+    results.style.display = 'block';
+    return;
+  }
+  results.innerHTML = top.map(m => {
+    const start = Math.max(0, (m.firstHit || 0) - 30);
+    let snippet = m.item.text.slice(start, start + 160);
+    for (const t of tokens) {
+      snippet = snippet.replace(new RegExp(t.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'gi'),
+        match => `<mark>${match}</mark>`);
+    }
+    return `<div class="res" data-file="${m.item.fileId}" data-slug="${m.item.slug}">
+      <div class="title">${escapeHtml(m.item.title)}</div>
+      <div class="snippet">${m.item.partTitle} — …${snippet}…</div>
+    </div>`;
+  }).join('');
+  results.querySelectorAll('.res[data-file]').forEach(div => {
+    div.addEventListener('click', () => {
+      navigate(div.dataset.file, div.dataset.slug);
+      $('#search').value = '';
+      results.style.display = 'none';
+    });
+  });
+  results.style.display = 'block';
+}
+
+// ============ Theme & Print ============
+function setTheme(t) {
+  document.documentElement.setAttribute('data-theme', t);
+  try { localStorage.setItem('book.theme', t); } catch (e) {}
+}
+function loadTheme() {
+  let t = 'light';
+  try { t = localStorage.getItem('book.theme') || 'light'; } catch (e) {}
+  setTheme(t);
+}
+
+// ============ History / Hash ============
+function fromHash() {
+  const h = location.hash.replace(/^#/, '');
+  if (h === 'progress') return showProgress(false);
+  if (!h) return navigate(state.manifest.files[0].id, '', false);
+  // Try to find a matching chapter slug
+  const c = state.chapterIndex.find(x => x.slug === h);
+  if (c) return navigate(c.fileId, c.slug, false);
+  // Or a file id
+  const f = state.manifest.files.find(x => x.id === h);
+  if (f) return navigate(f.id, '', false);
+  navigate(state.manifest.files[0].id, '', false);
+}
+
+function showProgress(push = true) {
+  if (typeof window.SeExams !== 'object') return;
+  const content = $('#content');
+  content.innerHTML = '';
+  window.SeExams.renderProgress(content);
+  $('#crumbs').textContent = 'Progress Dashboard';
+  state.current = { fileId: 'progress', slug: '' };
+  $$('#sidebar a.chap').forEach(a => a.classList.remove('active'));
+  const link = $('#sidebar a.progress-link');
+  if (link) link.classList.add('active');
+  if (push && location.hash !== '#progress') history.pushState({ progress: true }, '', '#progress');
+  $('#main').scrollTop = 0;
+}
+
+// ============ Diagrams (registered separately, see diagrams script) ============
+function mountDiagrams(root, fileId) {
+  if (typeof window.SeDiagrams !== 'object') return;
+  // Inject diagrams keyed to chapter slugs
+  const headings = root.querySelectorAll('h2[id]');
+  for (const h of headings) {
+    const slug = h.id;
+    const list = window.SeDiagrams.byChapter[slug];
+    if (!list) continue;
+    // find next h2 to know where to insert; otherwise append to end of section
+    let insertBefore = h.nextElementSibling;
+    while (insertBefore && insertBefore.tagName !== 'H2') {
+      insertBefore = insertBefore.nextElementSibling;
+    }
+    for (const def of list) {
+      const container = document.createElement('div');
+      container.className = 'diagram';
+      try {
+        def.build(container);
+      } catch (e) {
+        console.error('diagram error', def, e);
+        container.textContent = '[diagram error]';
+      }
+      if (insertBefore) {
+        h.parentNode.insertBefore(container, insertBefore);
+      } else {
+        h.parentNode.appendChild(container);
+      }
+    }
+  }
+}
+
+// ============ Initialization ============
+function init() {
+  buildChapterIndex();
+  buildGlossary();
+  buildSidebar();
+  buildSearchIndex();
+  loadTheme();
+
+  // Wait for marked + KaTeX to load
+  let markedInited = false;
+  function ready() {
+    if (typeof marked === 'undefined' || typeof renderMathInElement === 'undefined') {
+      return setTimeout(ready, 50);
+    }
+    if (!markedInited) { initMarked(); markedInited = true; }
+    fromHash();
+  }
+  ready();
+
+  // Top bar
+  $('#themeBtn').addEventListener('click', () => {
+    const cur = document.documentElement.getAttribute('data-theme');
+    setTheme(cur === 'dark' ? 'light' : 'dark');
+  });
+  $('#printBtn').addEventListener('click', () => {
+    // Render *all* chapters into one container, then print
+    const content = $('#content');
+    const allHtml = state.manifest.files.map(f => renderFile(f.id)?.html || '').join('\n<div class="page-break"></div>\n');
+    content.innerHTML = allHtml;
+    renderMath(content);
+    enhanceCrossReferences(content, null);
+    mountDiagrams(content, null);
+    setTimeout(() => {
+      window.print();
+      // restore current view after print
+      setTimeout(() => state.current && navigate(state.current.fileId, state.current.slug, false), 200);
+    }, 400);
+  });
+  document.getElementById('backBtn').addEventListener('click', goBack);
+  $('#menuToggle').addEventListener('click', () => document.body.classList.toggle('sidebar-open'));
+  $('#search').addEventListener('input', e => doSearch(e.target.value));
+  $('#search').addEventListener('focus', () => $('#searchResults').style.display = $('#search').value.length >= 2 ? 'block' : 'none');
+  document.addEventListener('click', e => {
+    if (!e.target.closest('#search') && !e.target.closest('#searchResults'))
+      $('#searchResults').style.display = 'none';
+  });
+  document.addEventListener('keydown', e => {
+    if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'k') {
+      e.preventDefault(); $('#search').focus();
+    }
+  });
+  window.addEventListener('popstate', () => fromHash());
+  window.addEventListener('hashchange', () => fromHash());
+}
+
+document.addEventListener('DOMContentLoaded', init);
+</script>
+
+<!-- ===== Math Tooltip ===== -->
+<div id="math-tooltip" role="tooltip" aria-live="polite"></div>
+
+<!-- ===== Interactive SVG Diagrams ===== -->
+<script>
+"use strict";
+window.SeDiagrams = { byChapter: {} };
+
+const SVG_NS = 'http://www.w3.org/2000/svg';
+function svg(tag, attrs, children) {
+  const el = document.createElementNS(SVG_NS, tag);
+  if (attrs) for (const k in attrs) el.setAttribute(k, attrs[k]);
+  if (children) for (const c of children) el.appendChild(c);
+  return el;
+}
+function sliderRow(label, min, max, step, init, fmt, onChange) {
+  const wrap = document.createElement('label');
+  const lbl = document.createElement('span');
+  lbl.textContent = `${label}: ${fmt ? fmt(init) : init}`;
+  const range = document.createElement('input');
+  range.type = 'range'; range.min = min; range.max = max; range.step = step; range.value = init;
+  range.addEventListener('input', () => {
+    const v = parseFloat(range.value);
+    lbl.textContent = `${label}: ${fmt ? fmt(v) : v}`;
+    onChange(v);
+  });
+  wrap.appendChild(lbl);
+  wrap.appendChild(range);
+  return wrap;
+}
+function diagTitle(title, badge) {
+  const t = document.createElement('div');
+  t.className = 'd-title';
+  t.innerHTML = `<span>${title}</span><span class="badge">${badge || 'Interactive'}</span>`;
+  return t;
+}
+function diagDesc(text) {
+  const d = document.createElement('div');
+  d.className = 'd-desc';
+  d.textContent = text;
+  return d;
+}
+function readout() {
+  const r = document.createElement('div');
+  r.className = 'readout';
+  return r;
+}
+function controls() {
+  const c = document.createElement('div');
+  c.className = 'controls';
+  return c;
+}
+
+// ====== 1. Number Line (Ch A1) ======
+function buildNumberLine(container) {
+  container.appendChild(diagTitle('Interactive Number Line', 'Try it'));
+  container.appendChild(diagDesc('Drag the red marker. Read its value, sign, and absolute value.'));
+  const W = 700, H = 120, pad = 30;
+  const s = svg('svg', { viewBox: `0 0 ${W} ${H}` });
+  // axis
+  s.appendChild(svg('line', { x1: pad, y1: H/2, x2: W - pad, y2: H/2, stroke: '#888', 'stroke-width': 2 }));
+  // ticks
+  const minV = -10, maxV = 10;
+  const xOf = v => pad + (v - minV) / (maxV - minV) * (W - 2*pad);
+  for (let v = minV; v <= maxV; v++) {
+    const x = xOf(v);
+    s.appendChild(svg('line', { x1: x, y1: H/2 - 6, x2: x, y2: H/2 + 6, stroke: '#888' }));
+    const txt = svg('text', { x: x, y: H/2 + 22, 'text-anchor': 'middle', 'font-size': 11, fill: '#666' });
+    txt.textContent = v;
+    s.appendChild(txt);
+  }
+  // marker
+  let val = 0;
+  const marker = svg('circle', { cx: xOf(val), cy: H/2, r: 9, fill: '#ef4444', stroke: '#991b1b', 'stroke-width': 2, cursor: 'grab' });
+  s.appendChild(marker);
+  const lbl = svg('text', { x: xOf(val), y: H/2 - 16, 'text-anchor': 'middle', 'font-size': 13, fill: '#111', 'font-weight': 'bold' });
+  lbl.textContent = val;
+  s.appendChild(lbl);
+  container.appendChild(s);
+  const r = readout();
+  function update() {
+    marker.setAttribute('cx', xOf(val));
+    lbl.setAttribute('x', xOf(val));
+    lbl.textContent = val.toFixed(1);
+    r.textContent = `value = ${val.toFixed(2)}    sign = ${val > 0 ? '+' : (val < 0 ? '−' : '0')}    |x| = ${Math.abs(val).toFixed(2)}`;
+  }
+  let dragging = false;
+  s.addEventListener('mousedown', e => { dragging = true; });
+  window.addEventListener('mouseup', () => dragging = false);
+  s.addEventListener('mousemove', e => {
+    if (!dragging) return;
+    const rect = s.getBoundingClientRect();
+    const x = (e.clientX - rect.left) / rect.width * W;
+    val = Math.max(minV, Math.min(maxV, minV + (x - pad) / (W - 2*pad) * (maxV - minV)));
+    val = Math.round(val * 10) / 10;
+    update();
+  });
+  container.appendChild(r);
+  update();
+}
+
+// ====== 2. Force Vector Decomposition (Ch 21) ======
+function buildVectorDecomp(container) {
+  container.appendChild(diagTitle('Force Vector Decomposition', 'Try it'));
+  container.appendChild(diagDesc('Adjust magnitude and angle. Watch components update.'));
+  const W = 500, H = 320;
+  const s = svg('svg', { viewBox: `0 0 ${W} ${H}` });
+  const ox = 80, oy = 240;
+  // axes
+  s.appendChild(svg('line', { x1: ox, y1: oy, x2: ox + 380, y2: oy, stroke: '#888', 'stroke-width': 1.5 }));
+  s.appendChild(svg('line', { x1: ox, y1: oy, x2: ox, y2: 30, stroke: '#888', 'stroke-width': 1.5 }));
+  const xt = svg('text', { x: ox + 380, y: oy + 16, 'font-size': 12, fill: '#666' }); xt.textContent = 'x'; s.appendChild(xt);
+  const yt = svg('text', { x: ox - 14, y: 30, 'font-size': 12, fill: '#666' }); yt.textContent = 'y'; s.appendChild(yt);
+  // arrows: vector + components
+  const force = svg('line', { stroke: '#dc2626', 'stroke-width': 3, 'marker-end': 'url(#arrh)' });
+  const fx = svg('line', { stroke: '#2563eb', 'stroke-width': 2, 'stroke-dasharray': '5,3' });
+  const fy = svg('line', { stroke: '#16a34a', 'stroke-width': 2, 'stroke-dasharray': '5,3' });
+  // arrowhead def
+  const defs = svg('defs');
+  const marker = svg('marker', { id: 'arrh', viewBox: '0 0 10 10', refX: 8, refY: 5, markerWidth: 8, markerHeight: 8, orient: 'auto' });
+  marker.appendChild(svg('path', { d: 'M0,0 L10,5 L0,10 Z', fill: '#dc2626' }));
+  defs.appendChild(marker);
+  s.appendChild(defs);
+  s.appendChild(fx); s.appendChild(fy); s.appendChild(force);
+  // arc + angle label
+  const arc = svg('path', { fill: 'none', stroke: '#9333ea', 'stroke-width': 1.5 });
+  s.appendChild(arc);
+  const angLbl = svg('text', { 'font-size': 12, fill: '#9333ea' });
+  s.appendChild(angLbl);
+  container.appendChild(s);
+
+  const ctrls = controls();
+  let mag = 100, ang = 30; // kN, degrees
+  const r = readout();
+  function update() {
+    const rad = ang * Math.PI / 180;
+    const scale = 1.6; // px/kN
+    const ex = ox + mag * scale * Math.cos(rad);
+    const ey = oy - mag * scale * Math.sin(rad);
+    force.setAttribute('x1', ox); force.setAttribute('y1', oy);
+    force.setAttribute('x2', ex); force.setAttribute('y2', ey);
+    fx.setAttribute('x1', ox); fx.setAttribute('y1', oy);
+    fx.setAttribute('x2', ex); fx.setAttribute('y2', oy);
+    fy.setAttribute('x1', ex); fy.setAttribute('y1', oy);
+    fy.setAttribute('x2', ex); fy.setAttribute('y2', ey);
+    const arcR = 30;
+    arc.setAttribute('d', `M ${ox + arcR} ${oy} A ${arcR} ${arcR} 0 0 0 ${ox + arcR * Math.cos(rad)} ${oy - arcR * Math.sin(rad)}`);
+    angLbl.setAttribute('x', ox + arcR + 4);
+    angLbl.setAttribute('y', oy - arcR/2);
+    angLbl.textContent = `θ = ${ang}°`;
+    const fxv = mag * Math.cos(rad);
+    const fyv = mag * Math.sin(rad);
+    r.textContent = `F = ${mag} kN  at θ = ${ang}°\nFx = F·cos θ = ${fxv.toFixed(2)} kN\nFy = F·sin θ = ${fyv.toFixed(2)} kN\n|F|² = Fx² + Fy² = ${(fxv**2 + fyv**2).toFixed(1)}`;
+  }
+  ctrls.appendChild(sliderRow('Magnitude (kN)', 10, 200, 5, mag, v => v, v => { mag = v; update(); }));
+  ctrls.appendChild(sliderRow('Angle (°)', 0, 90, 1, ang, v => v, v => { ang = v; update(); }));
+  container.appendChild(ctrls);
+  container.appendChild(r);
+  update();
+}
+
+// ====== 3. Simply Supported Beam under UDL (Ch 13/26) ======
+function buildBeamUDL(container) {
+  container.appendChild(diagTitle('Simply Supported Beam — UDL', 'Try it'));
+  container.appendChild(diagDesc('Adjust load and span. Beam, SFD, BMD, and deflection update live.'));
+  const W = 700, H = 360;
+  const s = svg('svg', { viewBox: `0 0 ${W} ${H}` });
+  // beam
+  const x0 = 60, x1 = 640;
+  const yBeam = 60;
+  const beam = svg('rect', { x: x0, y: yBeam, width: x1 - x0, height: 14, fill: '#94a3b8', stroke: '#475569' });
+  // supports
+  function support(cx, cy) {
+    const g = svg('g');
+    g.appendChild(svg('polygon', { points: `${cx},${cy} ${cx-10},${cy+15} ${cx+10},${cy+15}`, fill: '#475569' }));
+    g.appendChild(svg('line', { x1: cx-15, y1: cy+18, x2: cx+15, y2: cy+18, stroke: '#475569', 'stroke-width': 2 }));
+    return g;
+  }
+  // SFD area
+  const sfdY = 150, sfdH = 60;
+  const sfdAxis = svg('line', { x1: x0, y1: sfdY + sfdH/2, x2: x1, y2: sfdY + sfdH/2, stroke: '#888', 'stroke-width': 1 });
+  // BMD area
+  const bmdY = 260, bmdH = 70;
+  const bmdAxis = svg('line', { x1: x0, y1: bmdY + bmdH, x2: x1, y2: bmdY + bmdH, stroke: '#888', 'stroke-width': 1 });
+
+  // UDL arrows
+  const arrowsG = svg('g');
+
+  // SFD path
+  const sfdPath = svg('polygon', { fill: 'rgba(37,99,235,0.3)', stroke: '#2563eb', 'stroke-width': 2 });
+  // BMD path
+  const bmdPath = svg('path', { fill: 'rgba(220,38,38,0.25)', stroke: '#dc2626', 'stroke-width': 2 });
+  // labels
+  const sfdLbl = svg('text', { x: x0, y: sfdY - 4, 'font-size': 12, fill: '#2563eb', 'font-weight': 'bold' }); sfdLbl.textContent = 'Shear Force Diagram'; s.appendChild(sfdLbl);
+  const bmdLbl = svg('text', { x: x0, y: bmdY - 4, 'font-size': 12, fill: '#dc2626', 'font-weight': 'bold' }); bmdLbl.textContent = 'Bending Moment Diagram'; s.appendChild(bmdLbl);
+
+  s.appendChild(beam);
+  s.appendChild(support(x0, yBeam + 14));
+  s.appendChild(support(x1, yBeam + 14));
+  s.appendChild(arrowsG);
+  s.appendChild(sfdAxis);
+  s.appendChild(sfdPath);
+  s.appendChild(bmdAxis);
+  s.appendChild(bmdPath);
+
+  // Reaction labels
+  const rA = svg('text', { x: x0 - 8, y: yBeam + 60, 'font-size': 11, fill: '#16a34a', 'text-anchor': 'end', 'font-weight': 'bold' }); s.appendChild(rA);
+  const rB = svg('text', { x: x1 + 8, y: yBeam + 60, 'font-size': 11, fill: '#16a34a', 'text-anchor': 'start', 'font-weight': 'bold' }); s.appendChild(rB);
+  const mMaxLbl = svg('text', { 'font-size': 12, fill: '#dc2626', 'text-anchor': 'middle', 'font-weight': 'bold' }); s.appendChild(mMaxLbl);
+
+  container.appendChild(s);
+
+  let w = 10, L = 6;
+  const r = readout();
+  const ctrls = controls();
+  function update() {
+    arrowsG.innerHTML = '';
+    const N = 14;
+    const span = x1 - x0;
+    for (let i = 0; i <= N; i++) {
+      const x = x0 + (i / N) * span;
+      arrowsG.appendChild(svg('line', { x1: x, y1: yBeam - 28, x2: x, y2: yBeam, stroke: '#0ea5e9', 'stroke-width': 1.5, 'marker-end': 'url(#udlarr)' }));
+    }
+    // ensure arrow marker exists
+    if (!s.querySelector('#udlarr')) {
+      const defs = svg('defs');
+      const m = svg('marker', { id: 'udlarr', viewBox: '0 0 10 10', refX: 8, refY: 5, markerWidth: 7, markerHeight: 7, orient: 'auto' });
+      m.appendChild(svg('path', { d: 'M0,0 L10,5 L0,10 Z', fill: '#0ea5e9' }));
+      defs.appendChild(m);
+      s.appendChild(defs);
+    }
+    const Vmax = w * L / 2;
+    const Mmax = w * L * L / 8;
+    rA.textContent = `R_A=${Vmax.toFixed(1)}`;
+    rB.textContent = `R_B=${Vmax.toFixed(1)}`;
+    // SFD: linear from +Vmax to -Vmax
+    const sfdScale = 30 / Math.max(1, Vmax);
+    const yMid = sfdY + sfdH / 2;
+    const yTop = yMid - Vmax * sfdScale;
+    const yBot = yMid + Vmax * sfdScale;
+    sfdPath.setAttribute('points', `${x0},${yMid} ${x0},${yTop} ${x1},${yBot} ${x1},${yMid}`);
+    // BMD: parabola, M(x) = wLx/2 - wx²/2
+    const xs = 30;
+    let pts = `M ${x0} ${bmdY + bmdH} `;
+    for (let i = 0; i <= xs; i++) {
+      const t = i / xs;
+      const xCoord = t * L;
+      const M = w * L * xCoord / 2 - w * xCoord * xCoord / 2;
+      const px = x0 + t * (x1 - x0);
+      const py = bmdY + bmdH - (M / Mmax) * bmdH * 0.9;
+      pts += `L ${px} ${py} `;
+    }
+    pts += `L ${x1} ${bmdY + bmdH} Z`;
+    bmdPath.setAttribute('d', pts);
+    // M_max label at midspan
+    const midX = (x0 + x1) / 2;
+    const midY = bmdY + bmdH - bmdH * 0.9 - 6;
+    mMaxLbl.setAttribute('x', midX);
+    mMaxLbl.setAttribute('y', midY);
+    mMaxLbl.textContent = `M_max = wL²/8 = ${Mmax.toFixed(2)} kN·m`;
+
+    r.textContent = `w = ${w} kN/m, L = ${L} m\nReactions: R_A = R_B = wL/2 = ${Vmax.toFixed(2)} kN\nMax shear |V_max| = ${Vmax.toFixed(2)} kN  (at supports)\nMax moment M_max = wL²/8 = ${Mmax.toFixed(2)} kN·m  (at midspan)`;
+  }
+  ctrls.appendChild(sliderRow('Load w (kN/m)', 1, 30, 0.5, w, v => v, v => { w = v; update(); }));
+  ctrls.appendChild(sliderRow('Span L (m)', 2, 12, 0.5, L, v => v, v => { L = v; update(); }));
+  container.appendChild(ctrls);
+  container.appendChild(r);
+  update();
+}
+
+// ====== 4. Stress under axial + bending (Ch 17) ======
+function buildBendingStress(container) {
+  container.appendChild(diagTitle('Bending Stress Distribution', 'Try it'));
+  container.appendChild(diagDesc('Vary moment and section dimensions. Stress = My/I varies linearly across the depth.'));
+  const W = 600, H = 280;
+  const s = svg('svg', { viewBox: `0 0 ${W} ${H}` });
+  // section drawing on left
+  const cx = 130, cy = H/2;
+  const sectionRect = svg('rect', { fill: '#cbd5e1', stroke: '#334155', 'stroke-width': 1.5 });
+  s.appendChild(sectionRect);
+  // neutral axis
+  const naLine = svg('line', { stroke: '#dc2626', 'stroke-width': 1.5, 'stroke-dasharray': '5,3' });
+  s.appendChild(naLine);
+  // stress diagram on right
+  const ox = 360;
+  const stressAxis = svg('line', { x1: ox, y1: 40, x2: ox, y2: H - 40, stroke: '#888' });
+  s.appendChild(stressAxis);
+  const stressTri = svg('path', { fill: 'rgba(37,99,235,0.3)', stroke: '#2563eb', 'stroke-width': 2 });
+  s.appendChild(stressTri);
+  // labels
+  const lblTop = svg('text', { 'font-size': 11, fill: '#2563eb', 'text-anchor': 'start' }); s.appendChild(lblTop);
+  const lblBot = svg('text', { 'font-size': 11, fill: '#2563eb', 'text-anchor': 'start' }); s.appendChild(lblBot);
+
+  container.appendChild(s);
+  let M = 50, b = 300, h = 600; // kN·m, mm
+  const r = readout();
+  const ctrls = controls();
+  function update() {
+    // section
+    const visB = Math.min(120, b * 0.3);
+    const visH = Math.min(180, h * 0.3);
+    sectionRect.setAttribute('x', cx - visB/2);
+    sectionRect.setAttribute('y', cy - visH/2);
+    sectionRect.setAttribute('width', visB);
+    sectionRect.setAttribute('height', visH);
+    naLine.setAttribute('x1', cx - visB/2 - 10);
+    naLine.setAttribute('x2', cx + visB/2 + 10);
+    naLine.setAttribute('y1', cy);
+    naLine.setAttribute('y2', cy);
+
+    // I, sigma_max
+    const I = b * Math.pow(h, 3) / 12; // mm^4
+    const sigma_max_MPa = (M * 1e6) * (h/2) / I; // M kN·m → N·mm
+    const triH = visH;
+    const triW = 60;
+    const yTop = cy - triH/2, yBot = cy + triH/2;
+    stressTri.setAttribute('d', `M ${ox} ${yTop} L ${ox + triW} ${yTop} L ${ox - triW} ${yBot} L ${ox} ${yBot} Z`);
+    lblTop.setAttribute('x', ox + triW + 6); lblTop.setAttribute('y', yTop + 4);
+    lblTop.textContent = `+σ = ${sigma_max_MPa.toFixed(2)} MPa (compression)`;
+    lblBot.setAttribute('x', ox - triW - 6); lblBot.setAttribute('y', yBot - 4);
+    lblBot.setAttribute('text-anchor', 'end');
+    lblBot.textContent = `−σ = ${(-sigma_max_MPa).toFixed(2)} MPa (tension)`;
+    r.textContent = `Section: b=${b} mm, h=${h} mm\nI = b·h³/12 = ${(I/1e6).toFixed(2)} × 10⁶ mm⁴\nM = ${M} kN·m\nσ_max = M·(h/2)/I = ${sigma_max_MPa.toFixed(3)} MPa`;
+  }
+  ctrls.appendChild(sliderRow('Moment M (kN·m)', 5, 500, 5, M, v => v, v => { M = v; update(); }));
+  ctrls.appendChild(sliderRow('Width b (mm)', 100, 800, 10, b, v => v, v => { b = v; update(); }));
+  ctrls.appendChild(sliderRow('Depth h (mm)', 100, 1200, 10, h, v => v, v => { h = v; update(); }));
+  container.appendChild(ctrls);
+  container.appendChild(r);
+  update();
+}
+
+// ====== 5. Mode Shape Animation (Ch 39) ======
+function buildModeShape(container) {
+  container.appendChild(diagTitle('Building Mode Shapes — Animation', 'Try it'));
+  container.appendChild(diagDesc('5-story building. Choose a mode (1–3); watch it sway.'));
+  const W = 500, H = 360;
+  const s = svg('svg', { viewBox: `0 0 ${W} ${H}` });
+  // ground
+  s.appendChild(svg('line', { x1: 50, y1: 320, x2: 450, y2: 320, stroke: '#666', 'stroke-width': 2 }));
+  // hatched ground
+  for (let i = 0; i < 12; i++) {
+    s.appendChild(svg('line', { x1: 50 + i*30, y1: 320, x2: 30 + i*30, y2: 340, stroke: '#666' }));
+  }
+  // building geometry (5 stories)
+  const N = 5, h0 = 50, w0 = 100;
+  const baseX = 250 - w0/2;
+  const stories = [];
+  for (let i = 0; i < N; i++) {
+    const y = 320 - (i+1)*h0;
+    const path = svg('path', { fill: 'rgba(96,165,250,0.5)', stroke: '#1e40af', 'stroke-width': 1.5 });
+    s.appendChild(path);
+    stories.push({ baseY: y, path, idx: i+1 });
+  }
+  container.appendChild(s);
+
+  let mode = 1, t = 0, running = true;
+  const r = readout();
+  const ctrls = controls();
+  // mode shape function: phi_n(j) = sin( (2n-1) * pi/2 * j/N )
+  function shape(j) {
+    return Math.sin((2 * mode - 1) * Math.PI / 2 * (j / N));
+  }
+  function frame() {
+    if (!running) return;
+    t += 0.03;
+    const A = 30; // pixel amplitude
+    const sineT = Math.sin(t * (1 + (mode - 1) * 0.3));
+    // displaced vertices
+    const vertsLeft = [], vertsRight = [];
+    for (let i = 0; i <= N; i++) {
+      const y = 320 - i * h0;
+      const phi = shape(i);
+      const dx = A * phi * sineT;
+      vertsLeft.push([baseX + dx, y]);
+      vertsRight.push([baseX + w0 + dx, y]);
+    }
+    // each story: quadrilateral connecting two consecutive levels
+    for (let i = 0; i < N; i++) {
+      const [x1, y1] = vertsLeft[i];
+      const [x2, y2] = vertsRight[i];
+      const [x3, y3] = vertsRight[i+1];
+      const [x4, y4] = vertsLeft[i+1];
+      stories[i].path.setAttribute('d', `M ${x1} ${y1} L ${x2} ${y2} L ${x3} ${y3} L ${x4} ${y4} Z`);
+    }
+    requestAnimationFrame(frame);
+  }
+  function info() {
+    const Tperiod = (1 / (1 + (mode - 1) * 0.3)).toFixed(2);
+    r.textContent = `Mode ${mode}\nNormalized period: T${mode}/T1 ≈ ${Tperiod}\nShape sample: φ(top) = ${shape(N).toFixed(3)}\nReal periods come from ETABS modal analysis.`;
+  }
+  const modeSelect = document.createElement('label');
+  const ms = document.createElement('span'); ms.textContent = 'Mode'; modeSelect.appendChild(ms);
+  const sel = document.createElement('input');
+  sel.type = 'range'; sel.min = 1; sel.max = 3; sel.step = 1; sel.value = 1;
+  sel.addEventListener('input', () => { mode = parseInt(sel.value); ms.textContent = `Mode: ${mode}`; info(); });
+  modeSelect.appendChild(sel);
+  ctrls.appendChild(modeSelect);
+  const pauseBtn = document.createElement('button');
+  pauseBtn.textContent = 'Pause';
+  pauseBtn.style.cssText = 'padding:6px 12px;border:1px solid #ccc;border-radius:4px;cursor:pointer;background:#fff;';
+  pauseBtn.addEventListener('click', () => {
+    running = !running;
+    pauseBtn.textContent = running ? 'Pause' : 'Play';
+    if (running) frame();
+  });
+  ctrls.appendChild(pauseBtn);
+  container.appendChild(ctrls);
+  container.appendChild(r);
+  info();
+  frame();
+}
+
+// ====== 6. Mesh Convergence (Ch 33) ======
+function buildMeshConvergence(container) {
+  container.appendChild(diagTitle('Mesh Convergence — Limit in Action', 'Try it'));
+  container.appendChild(diagDesc('Refine the mesh; the computed deflection approaches the true value.'));
+  const W = 600, H = 260;
+  const s = svg('svg', { viewBox: `0 0 ${W} ${H}` });
+  // axis
+  s.appendChild(svg('line', { x1: 60, y1: 220, x2: 580, y2: 220, stroke: '#444', 'stroke-width': 1.5 }));
+  s.appendChild(svg('line', { x1: 60, y1: 30, x2: 60, y2: 220, stroke: '#444', 'stroke-width': 1.5 }));
+  // axis labels
+  const xl = svg('text', { x: 320, y: 250, 'text-anchor': 'middle', 'font-size': 12, fill: '#555' });
+  xl.textContent = 'Mesh size (m, finer →)'; s.appendChild(xl);
+  const yl = svg('text', { x: 14, y: 130, 'font-size': 12, fill: '#555', transform: 'rotate(-90 14 130)' });
+  yl.textContent = 'Max deflection (mm)'; s.appendChild(yl);
+  // true value asymptote
+  const trueLine = svg('line', { x1: 60, y1: 0, x2: 580, y2: 0, stroke: '#16a34a', 'stroke-width': 1.5, 'stroke-dasharray': '5,3' });
+  s.appendChild(trueLine);
+  const trueLbl = svg('text', { 'font-size': 11, fill: '#16a34a' }); s.appendChild(trueLbl);
+  // path
+  const path = svg('path', { fill: 'none', stroke: '#2563eb', 'stroke-width': 2 });
+  s.appendChild(path);
+  // points group
+  const ptsG = svg('g'); s.appendChild(ptsG);
+  container.appendChild(s);
+  let nMesh = 1;
+  const r = readout();
+  const ctrls = controls();
+  // sample data: deflection vs mesh size (h_mesh)
+  // delta(h) = trueVal + a/h^? — model as delta = 10.7 + 5*h^1.5
+  function delta(h) { return 10.7 + 4 * Math.pow(h, 1.5); }
+  const minMesh = 0.125, maxMesh = 2;
+  function update() {
+    // pick nMesh points logarithmically spaced
+    const meshes = [];
+    for (let i = 0; i < nMesh; i++) {
+      const f = i / Math.max(1, nMesh - 1);
+      meshes.push(maxMesh * Math.pow(minMesh / maxMesh, f));
+    }
+    // X axis: log scale of mesh from minMesh to maxMesh; finer = right
+    const xOf = h => 60 + (Math.log(maxMesh / h) / Math.log(maxMesh / minMesh)) * 520;
+    const yMin = 10, yMax = 18;
+    const yOf = v => 220 - ((v - yMin) / (yMax - yMin)) * 190;
+    // ticks
+    if (!s.querySelector('.ticks')) {
+      const tg = svg('g'); tg.classList.add('ticks');
+      [0.125, 0.25, 0.5, 1, 2].forEach(h => {
+        const x = xOf(h);
+        tg.appendChild(svg('line', { x1: x, y1: 220, x2: x, y2: 224, stroke: '#444' }));
+        const t = svg('text', { x: x, y: 236, 'text-anchor': 'middle', 'font-size': 10, fill: '#666' });
+        t.textContent = h; tg.appendChild(t);
+      });
+      [10, 12, 14, 16, 18].forEach(v => {
+        const y = yOf(v);
+        tg.appendChild(svg('line', { x1: 56, y1: y, x2: 60, y2: y, stroke: '#444' }));
+        const t = svg('text', { x: 50, y: y + 3, 'text-anchor': 'end', 'font-size': 10, fill: '#666' });
+        t.textContent = v; tg.appendChild(t);
+      });
+      s.appendChild(tg);
+    }
+    // true line
+    trueLine.setAttribute('y1', yOf(10.7)); trueLine.setAttribute('y2', yOf(10.7));
+    trueLbl.setAttribute('x', 70); trueLbl.setAttribute('y', yOf(10.7) - 4);
+    trueLbl.textContent = 'true value ≈ 10.7 mm';
+    // path + points
+    let d = '';
+    ptsG.innerHTML = '';
+    meshes.forEach((h, i) => {
+      const v = delta(h);
+      const px = xOf(h), py = yOf(v);
+      d += (i === 0 ? `M ${px} ${py}` : ` L ${px} ${py}`);
+      const c = svg('circle', { cx: px, cy: py, r: 5, fill: '#2563eb', stroke: '#1e3a8a' });
+      ptsG.appendChild(c);
+      const lbl = svg('text', { x: px + 8, y: py - 6, 'font-size': 10, fill: '#1e3a8a' });
+      lbl.textContent = `${v.toFixed(2)}`;
+      ptsG.appendChild(lbl);
+    });
+    path.setAttribute('d', d);
+    const lastMesh = meshes[meshes.length - 1];
+    const lastDelta = delta(lastMesh);
+    r.textContent = `Mesh refinements: ${nMesh}\nFinest mesh size: ${lastMesh.toFixed(3)} m → δ = ${lastDelta.toFixed(2)} mm\nGap to true value: ${(lastDelta - 10.7).toFixed(3)} mm\nAs h → 0, δ → 10.7 mm (the limit).`;
+  }
+  ctrls.appendChild(sliderRow('# of mesh refinements', 1, 6, 1, nMesh, v => v, v => { nMesh = v; update(); }));
+  container.appendChild(ctrls);
+  container.appendChild(r);
+  update();
+}
+
+// ====== Register diagrams to chapter slugs ======
+// Slugs come from the H2 heading text. They must match what slugify() produces from the chapter heading.
+const slugify_ = s => s.toLowerCase().replace(/[^a-z0-9\s-]/g, '').trim().replace(/\s+/g, '-').substring(0, 80);
+function reg(slug, builder) {
+  if (!window.SeDiagrams.byChapter[slug]) window.SeDiagrams.byChapter[slug] = [];
+  window.SeDiagrams.byChapter[slug].push({ build: builder });
+}
+reg(slugify_('Chapter A1 — Numbers and the Number Line'), buildNumberLine);
+reg(slugify_('Chapter 11 — Equilibrium and the Sum of Forces'), buildBeamUDL);
+reg(slugify_('Chapter 13 — Types of Loads in Structural Engineering'), buildBeamUDL);
+reg(slugify_('Chapter 15 — Internal Forces  Axial, Shear, and Bending Moment'), buildBeamUDL);
+reg(slugify_('Chapter 21 — Vectors'), buildVectorDecomp);
+reg(slugify_('Chapter 17 — Bending Stress in Beams'), buildBendingStress);
+reg(slugify_('Chapter 26 — Polynomials and the Bending Moment Equation'), buildBeamUDL);
+reg(slugify_('Chapter 33 — Limits — Conceptual Introduction'), buildMeshConvergence);
+reg(slugify_('Chapter 39 — Running the Analysis'), buildModeShape);
+</script>
+
+<!-- ===== Exam Engine ===== -->
+<script>
+"use strict";
+// Exam data is provided by exams.js (window.SeExamData), embedded by bundle.ps1.
+// Each chapter slug maps to { title, sets: [ { id, questions: [ ... ] } ] }
+// Question types: mcq {q, o:[options], a:correctIndex, e:explanation}
+//                 num {q, n:correctValue, t:tolerance, e:explanation}
+
+window.SeExams = (function () {
+  const STORAGE_KEY = 'book.exam.v1';
+
+  function load() {
+    try {
+      const raw = sessionStorage.getItem(STORAGE_KEY);
+      return raw ? JSON.parse(raw) : {};
+    } catch (e) { return {}; }
+  }
+  function save(state) {
+    try { sessionStorage.setItem(STORAGE_KEY, JSON.stringify(state)); } catch (e) {}
+  }
+  function recordAttempt(slug, setId, score, total, answers) {
+    const state = load();
+    if (!state[slug]) state[slug] = {};
+    if (!state[slug][setId]) state[slug][setId] = { attempts: [], best: 0, bestPct: 0 };
+    const pct = total ? Math.round(100 * score / total) : 0;
+    state[slug][setId].attempts.push({
+      ts: Date.now(),
+      score, total, pct,
+      answers,
+    });
+    if (pct > state[slug][setId].bestPct) {
+      state[slug][setId].bestPct = pct;
+      state[slug][setId].best = score;
+    }
+    save(state);
+  }
+  function clearAll() {
+    sessionStorage.removeItem(STORAGE_KEY);
+  }
+
+  function findExam(headingText) {
+    const data = window.SeExamData || {};
+    // Try exact slug, then with normalized whitespace
+    const slug = headingText.toLowerCase().replace(/[^a-z0-9\s-]/g, '').trim().replace(/\s+/g, '-').substring(0, 80);
+    return { slug, data: data[slug] };
+  }
+
+  function buildPanel(slug, examDef) {
+    const wrap = document.createElement('section');
+    wrap.className = 'exam';
+    wrap.dataset.slug = slug;
+
+    const head = document.createElement('div');
+    head.className = 'x-head';
+    head.innerHTML = '<h3>📝 Chapter Exam</h3><span class="x-badge">3 Sets · Auto-graded · Retake any time</span>';
+    wrap.appendChild(head);
+
+    const desc = document.createElement('div');
+    desc.className = 'x-desc';
+    desc.textContent = 'Test your understanding. Choose a set, answer all questions, then submit. Explanations appear after grading. Your best score per set is saved this session.';
+    wrap.appendChild(desc);
+
+    const sets = document.createElement('div');
+    sets.className = 'x-sets';
+    const state = load();
+    const setStates = examDef.sets.map(s => ({
+      id: s.id,
+      title: s.title || ('Set ' + s.id),
+      questions: s.questions,
+      result: (state[slug] && state[slug][s.id]) || null,
+    }));
+    const buttons = [];
+    setStates.forEach((s, idx) => {
+      const btn = document.createElement('button');
+      btn.className = 'x-set-btn';
+      const meta = s.result
+        ? ('Best: ' + s.result.bestPct + '%  ·  Attempts: ' + s.result.attempts.length)
+        : 'Not attempted';
+      btn.innerHTML = '<span>' + s.title + '</span><span class="x-set-meta">' + meta + '</span>';
+      btn.addEventListener('click', () => {
+        buttons.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        renderSet(s);
+      });
+      buttons.push(btn);
+      sets.appendChild(btn);
+    });
+    wrap.appendChild(sets);
+
+    const quiz = document.createElement('div');
+    quiz.className = 'x-quiz';
+    wrap.appendChild(quiz);
+
+    function renderSet(s) {
+      quiz.innerHTML = '';
+      const answers = new Array(s.questions.length).fill(null);
+      const qEls = [];
+      s.questions.forEach((q, qi) => {
+        const qEl = document.createElement('div');
+        qEl.className = 'x-q';
+        const num = document.createElement('div');
+        num.className = 'x-q-num';
+        num.textContent = 'Question ' + (qi + 1) + ' of ' + s.questions.length;
+        qEl.appendChild(num);
+        const txt = document.createElement('div');
+        txt.className = 'x-q-text';
+        txt.textContent = q.q;
+        qEl.appendChild(txt);
+        if (q.o) {
+          // MCQ
+          q.o.forEach((opt, oi) => {
+            const lbl = document.createElement('label');
+            lbl.className = 'x-opt';
+            const inp = document.createElement('input');
+            inp.type = 'radio';
+            inp.name = 'q' + slug + s.id + '_' + qi;
+            inp.value = oi;
+            inp.addEventListener('change', () => {
+              answers[qi] = oi;
+              qEl.querySelectorAll('.x-opt').forEach(x => x.classList.remove('selected'));
+              lbl.classList.add('selected');
+            });
+            lbl.appendChild(inp);
+            lbl.appendChild(document.createTextNode(' ' + opt));
+            qEl.appendChild(lbl);
+          });
+        } else if (typeof q.n === 'number') {
+          // numeric
+          const inp = document.createElement('input');
+          inp.type = 'text';
+          inp.inputMode = 'decimal';
+          inp.className = 'x-num-input';
+          inp.placeholder = 'Numeric answer';
+          inp.addEventListener('input', () => {
+            const v = parseFloat(inp.value.replace(',', '.'));
+            answers[qi] = isFinite(v) ? v : null;
+          });
+          qEl.appendChild(inp);
+          qEl.dataset.numeric = '1';
+        }
+        // explanation slot
+        const ex = document.createElement('div');
+        ex.className = 'x-explain';
+        ex.style.display = 'none';
+        qEl.appendChild(ex);
+        qEls.push(qEl);
+        quiz.appendChild(qEl);
+      });
+
+      const actions = document.createElement('div');
+      actions.className = 'x-actions';
+      const submitBtn = document.createElement('button');
+      submitBtn.className = 'x-btn';
+      submitBtn.textContent = 'Submit Answers';
+      const retakeBtn = document.createElement('button');
+      retakeBtn.className = 'x-btn secondary';
+      retakeBtn.textContent = 'Retake (clear answers)';
+      retakeBtn.style.display = 'none';
+      const result = document.createElement('div');
+      result.className = 'x-result';
+      result.style.display = 'none';
+
+      submitBtn.addEventListener('click', () => {
+        let score = 0;
+        s.questions.forEach((q, qi) => {
+          const qEl = qEls[qi];
+          qEl.classList.add('graded');
+          let correct = false;
+          if (q.o) {
+            const opts = qEl.querySelectorAll('.x-opt');
+            const sel = answers[qi];
+            opts.forEach((optEl, oi) => {
+              if (oi === q.a) optEl.classList.add('correct');
+              else if (oi === sel) optEl.classList.add('wrong');
+              optEl.querySelector('input').disabled = true;
+            });
+            correct = (sel === q.a);
+          } else if (typeof q.n === 'number') {
+            const inp = qEl.querySelector('.x-num-input');
+            inp.disabled = true;
+            const tol = q.t || Math.abs(q.n) * 0.01 || 0.01;
+            const ans = answers[qi];
+            correct = (ans !== null && Math.abs(ans - q.n) <= tol);
+            inp.classList.add(correct ? 'correct' : 'wrong');
+          }
+          if (correct) score++;
+          qEl.classList.add(correct ? 'correct-tag-yes' : 'correct-tag-no');
+          const ex = qEl.querySelector('.x-explain');
+          ex.innerHTML = '<span class="x-correct-tag">' +
+            (correct ? '✓ Correct' : '✗ Incorrect') + '</span>' +
+            (q.o ? ('Answer: <strong>' + q.o[q.a] + '</strong>. ') : ('Answer: <strong>' + q.n + '</strong>. ')) +
+            (q.e || '');
+          ex.style.display = 'block';
+        });
+        const total = s.questions.length;
+        const pct = Math.round(100 * score / total);
+        result.classList.add(pct >= 70 ? 'pass' : 'fail');
+        result.innerHTML = (pct >= 70 ? '🏆 Passed' : '📚 Review needed') +
+          '<div class="x-stat">Score: ' + score + ' / ' + total + ' (' + pct + '%) · ' +
+          (pct >= 70 ? 'Solid grasp of this chapter.' : 'Re-read the chapter sections covering missed questions, then retake.') +
+          '</div>';
+        result.style.display = 'block';
+        submitBtn.disabled = true;
+        submitBtn.style.display = 'none';
+        retakeBtn.style.display = 'inline-block';
+        recordAttempt(slug, s.id, score, total, answers);
+        // refresh button label to show new best
+        const stateNow = load();
+        const setStateNow = stateNow[slug] && stateNow[slug][s.id];
+        const meta = setStateNow ? ('Best: ' + setStateNow.bestPct + '%  ·  Attempts: ' + setStateNow.attempts.length) : 'Not attempted';
+        const idx = setStates.findIndex(x => x.id === s.id);
+        if (idx >= 0) {
+          buttons[idx].innerHTML = '<span>' + s.title + '</span><span class="x-set-meta">' + meta + '</span>';
+          buttons[idx].classList.add('active');
+        }
+      });
+      retakeBtn.addEventListener('click', () => renderSet(s));
+
+      actions.appendChild(submitBtn);
+      actions.appendChild(retakeBtn);
+      quiz.appendChild(actions);
+      quiz.appendChild(result);
+    }
+
+    return wrap;
+  }
+
+  function mountAll(root) {
+    if (!window.SeExamData) return;
+    const headings = root.querySelectorAll('h2[id]');
+    headings.forEach(h => {
+      const slug = h.id;
+      const examDef = window.SeExamData[slug];
+      if (!examDef || !examDef.sets || !examDef.sets.length) return;
+      // Skip non-chapter h2s (e.g., front-matter)
+      if (!/chapter/i.test(h.textContent)) return;
+      // Insert exam panel at the end of this chapter's section (before next h2 or end)
+      let next = h.nextElementSibling;
+      const parent = h.parentNode;
+      const panel = buildPanel(slug, examDef);
+      // walk forward to find next h2 (or end)
+      let cursor = next;
+      while (cursor && cursor.tagName !== 'H2') cursor = cursor.nextElementSibling;
+      if (cursor) parent.insertBefore(panel, cursor);
+      else parent.appendChild(panel);
+    });
+  }
+
+  function chaptersWithExams() {
+    if (!window.SeExamData) return [];
+    return Object.keys(window.SeExamData);
+  }
+
+  function renderProgress(root) {
+    const data = window.SeExamData || {};
+    const state = load();
+    const slugs = Object.keys(data);
+    const wrap = document.createElement('div');
+    wrap.className = 'progress-wrap';
+    wrap.innerHTML = '<h1>📊 Progress Dashboard</h1>';
+
+    // Aggregate stats
+    let totalSets = 0, attempted = 0, passed = 0, totalAttempts = 0;
+    let avgPctSum = 0, avgPctCount = 0;
+    const weakChapters = [];
+    const rows = [];
+    slugs.forEach(slug => {
+      const def = data[slug];
+      if (!def) return;
+      const chapTitle = def.title || slug;
+      const partTitle = def.part || '';
+      const chapState = state[slug] || {};
+      let chapBest = -1;
+      let chapAttempts = 0;
+      const setCells = def.sets.map(s => {
+        totalSets++;
+        const ss = chapState[s.id];
+        if (ss && ss.attempts.length) {
+          attempted++;
+          totalAttempts += ss.attempts.length;
+          if (ss.bestPct >= 70) passed++;
+          avgPctSum += ss.bestPct;
+          avgPctCount++;
+          chapAttempts += ss.attempts.length;
+          if (ss.bestPct > chapBest) chapBest = ss.bestPct;
+          return { id: s.id, pct: ss.bestPct, attempts: ss.attempts.length };
+        }
+        return { id: s.id, pct: -1, attempts: 0 };
+      });
+      rows.push({ slug, chapTitle, partTitle, setCells, chapBest, chapAttempts });
+      if (chapBest >= 0 && chapBest < 70) weakChapters.push({ slug, chapTitle, chapBest });
+    });
+
+    // Summary cards
+    const summary = document.createElement('div');
+    summary.className = 'progress-summary';
+    function card(label, value, sub) {
+      const c = document.createElement('div');
+      c.className = 'progress-card';
+      c.innerHTML = '<div class="pc-label">' + label + '</div><div class="pc-value">' + value + '</div><div class="pc-sub">' + (sub || '') + '</div>';
+      return c;
+    }
+    const avgPct = avgPctCount ? Math.round(avgPctSum / avgPctCount) : 0;
+    summary.appendChild(card('Sets attempted', attempted + ' / ' + totalSets, 'across ' + slugs.length + ' chapters'));
+    summary.appendChild(card('Sets passed (≥70%)', passed, attempted ? Math.round(100 * passed / attempted) + '% pass rate' : ''));
+    summary.appendChild(card('Total attempts', totalAttempts, ''));
+    summary.appendChild(card('Average best %', avgPct ? avgPct + '%' : '—', 'across attempted sets'));
+    summary.appendChild(card('Weak chapters', weakChapters.length, weakChapters.length ? 'See list below' : 'None yet'));
+    wrap.appendChild(summary);
+
+    // Actions
+    const actions = document.createElement('div');
+    actions.className = 'progress-actions';
+    const exportBtn = document.createElement('button');
+    exportBtn.className = 'x-btn secondary';
+    exportBtn.textContent = '⬇ Export progress (JSON)';
+    exportBtn.addEventListener('click', () => {
+      const blob = new Blob([JSON.stringify(state, null, 2)], { type: 'application/json' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url; a.download = 'progress.json';
+      document.body.appendChild(a); a.click(); document.body.removeChild(a);
+      setTimeout(() => URL.revokeObjectURL(url), 1000);
+    });
+    actions.appendChild(exportBtn);
+    const clearBtn = document.createElement('button');
+    clearBtn.className = 'x-btn secondary';
+    clearBtn.textContent = '🗑 Clear all progress';
+    clearBtn.addEventListener('click', () => {
+      if (confirm('Clear all exam progress for this session?')) {
+        clearAll();
+        renderProgress(root.querySelector('.progress-wrap')?.parentNode || root);
+        // Re-render
+        root.innerHTML = '';
+        renderProgress(root);
+      }
+    });
+    actions.appendChild(clearBtn);
+    wrap.appendChild(actions);
+
+    // Weak chapters callout
+    if (weakChapters.length) {
+      const weak = document.createElement('div');
+      weak.innerHTML = '<h2>📕 Areas to brush up</h2>';
+      const ul = document.createElement('ul');
+      weakChapters.forEach(w => {
+        const li = document.createElement('li');
+        const a = document.createElement('a');
+        a.textContent = w.chapTitle + ' (best ' + w.chapBest + '%)';
+        a.href = '#' + w.slug;
+        a.addEventListener('click', (e) => { e.preventDefault(); navigate(findFileForSlug(w.slug), w.slug); });
+        li.appendChild(a);
+        ul.appendChild(li);
+      });
+      weak.appendChild(ul);
+      wrap.appendChild(weak);
+    }
+
+    // Per-chapter table
+    const table = document.createElement('table');
+    table.className = 'progress-table';
+    table.innerHTML = '<thead><tr><th>Chapter</th><th>Set A</th><th>Set B</th><th>Set C</th><th>Best</th><th>Attempts</th><th></th></tr></thead>';
+    const tbody = document.createElement('tbody');
+    rows.forEach(r => {
+      const tr = document.createElement('tr');
+      if (r.chapBest >= 0 && r.chapBest < 70) tr.classList.add('weak');
+      else if (r.chapBest >= 90) tr.classList.add('strong');
+      else if (r.chapBest < 0) tr.classList.add('untaken');
+
+      const titleTd = document.createElement('td');
+      const link = document.createElement('a');
+      link.textContent = r.chapTitle;
+      link.style.cursor = 'pointer';
+      link.addEventListener('click', () => navigate(findFileForSlug(r.slug), r.slug));
+      titleTd.appendChild(link);
+      const subt = document.createElement('div');
+      subt.style.cssText = 'font-size:11px;color:var(--text-muted)';
+      subt.textContent = r.partTitle;
+      titleTd.appendChild(subt);
+      tr.appendChild(titleTd);
+
+      r.setCells.forEach(sc => {
+        const td = document.createElement('td');
+        td.className = 'pset';
+        if (sc.pct < 0) {
+          td.textContent = '—';
+        } else {
+          const bar = document.createElement('div');
+          bar.className = 'progress-bar' + (sc.pct >= 90 ? ' strong' : sc.pct < 70 ? ' weak' : '');
+          const fill = document.createElement('span');
+          fill.style.width = sc.pct + '%';
+          bar.appendChild(fill);
+          td.appendChild(bar);
+          td.appendChild(document.createTextNode(sc.pct + '% (' + sc.attempts + ')'));
+        }
+        tr.appendChild(td);
+      });
+
+      const bestTd = document.createElement('td');
+      bestTd.textContent = r.chapBest >= 0 ? (r.chapBest + '%') : '—';
+      tr.appendChild(bestTd);
+
+      const attTd = document.createElement('td');
+      attTd.textContent = r.chapAttempts;
+      tr.appendChild(attTd);
+
+      const goTd = document.createElement('td');
+      const goBtn = document.createElement('a');
+      goBtn.textContent = 'Open ›';
+      goBtn.style.cssText = 'color:var(--accent);cursor:pointer;font-size:12px;';
+      goBtn.addEventListener('click', () => navigate(findFileForSlug(r.slug), r.slug));
+      goTd.appendChild(goBtn);
+      tr.appendChild(goTd);
+
+      tbody.appendChild(tr);
+    });
+    table.appendChild(tbody);
+    wrap.appendChild(table);
+
+    root.appendChild(wrap);
+  }
+
+  function findFileForSlug(slug) {
+    const c = state.chapterIndex.find(x => x.slug === slug);
+    return c ? c.fileId : (state.manifest.files[0] && state.manifest.files[0].id);
+  }
+
+  return { mountAll, renderProgress, clearAll };
+})();
+</script>
+
+<!-- ===== Exam Data (injected by bundle.ps1 from exams.js) ===== -->
+<!-- ===== EXAMS_INSERT_BELOW ===== -->
+<!-- ===== EXAMS_INSERT_ABOVE ===== -->
+
+</body>
+</html>
