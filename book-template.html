@@ -65,11 +65,14 @@ body {
   line-height: 1.65;
   font-size: 16px;
   margin: 0;
-  position: fixed;
-  inset: 0;
-  width: 100%;
   height: 100%;
   overflow: hidden;
+}
+#app {
+  position: fixed;
+  inset: 0;
+  overflow: hidden;
+  overflow: clip;
   display: grid;
   grid-template-columns: 320px 1fr;
   grid-template-rows: 56px 1fr;
@@ -371,7 +374,7 @@ body {
 
 /* ====================== Mobile ====================== */
 @media (max-width: 900px) {
-  body {
+  #app {
     grid-template-columns: 1fr;
     grid-template-rows: 56px 1fr;
     grid-template-areas: "topbar" "main";
@@ -393,7 +396,8 @@ body {
 
 /* ====================== Print ====================== */
 @media print {
-  body { position: static; display: block; height: auto; overflow: visible; background: white; color: black; font-size: 11pt; }
+  body { height: auto; overflow: visible; background: white; color: black; font-size: 11pt; }
+  #app { position: static; display: block; height: auto; overflow: visible; }
   #sidebar, #topbar, .chap-nav, #searchResults { display: none !important; }
   #main { overflow: visible; padding: 0; max-width: 100%; }
   #content { max-width: 100%; }
@@ -787,6 +791,8 @@ body {
 
 <body>
 
+<div id="app">
+
 <aside id="sidebar">
   <div class="brand">
     <div class="title">Structural Engineering &amp; ETABS</div>
@@ -811,6 +817,8 @@ body {
     <div class="loading">Loading book…</div>
   </article>
 </main>
+
+</div>
 
 <!-- ===== CHAPTER MANIFEST ===== -->
 <script id="manifest" type="application/json">
@@ -1366,6 +1374,7 @@ function goBack() {
 // ============ Chapter index extraction ============
 function buildChapterIndex() {
   state.chapterIndex = [];
+  state.bodyAnchors = {};
   for (const f of state.manifest.files) {
     const md = getRawMd(f.id);
     if (!md) continue;
@@ -1375,6 +1384,11 @@ function buildChapterIndex() {
     let foundPartTitle = false;
     let firstHeading = null;
     for (const line of lines) {
+      const heading = line.match(/^(#{1,6})\s+(.+)$/);
+      if (heading) {
+        const slug = slugify(heading[2].trim());
+        if (slug && !state.bodyAnchors[slug]) state.bodyAnchors[slug] = { fileId: f.id, slug };
+      }
       const h2 = line.match(/^## (.+)$/);
       const h1 = line.match(/^# (.+)$/);
       if (h1 && !firstHeading) {
@@ -1484,6 +1498,50 @@ function renderFile(fileId) {
   return state.rendered[fileId];
 }
 
+function resetViewportScroll() {
+  window.scrollTo(0, 0);
+  document.documentElement.scrollTop = 0;
+  document.body.scrollTop = 0;
+  const app = $('#app');
+  if (app) {
+    app.scrollTop = 0;
+    app.scrollLeft = 0;
+  }
+}
+
+function scrollMainToTarget(target) {
+  const main = $('#main');
+  const mainRect = main.getBoundingClientRect();
+  const targetRect = target.getBoundingClientRect();
+  const top = targetRect.top - mainRect.top + main.scrollTop;
+  main.scrollTop = Math.max(0, top - 16);
+  resetViewportScroll();
+}
+
+function findFileForAnchor(slug, fallbackFileId = null) {
+  const chapter = state.chapterIndex.find(x => x.slug === slug);
+  if (chapter) return chapter.fileId;
+  const anchor = state.bodyAnchors[slug];
+  if (anchor) return anchor.fileId;
+  return fallbackFileId;
+}
+
+function attachInternalAnchorHandlers(root, currentFileId) {
+  for (const a of $$('a[href^="#"]', root)) {
+    if (a.dataset.internalAnchorBound) continue;
+    a.dataset.internalAnchorBound = '1';
+    a.addEventListener('click', (event) => {
+      const raw = a.getAttribute('href') || '';
+      const slug = decodeURIComponent(raw.replace(/^#/, ''));
+      if (!slug) return;
+      const fileId = findFileForAnchor(slug, currentFileId);
+      if (!fileId) return;
+      event.preventDefault();
+      navigate(fileId, slug);
+    });
+  }
+}
+
 function navigate(fileId, slug, push = true) {
   const r = renderFile(fileId);
   if (!r) return;
@@ -1505,16 +1563,21 @@ function navigate(fileId, slug, push = true) {
   // Add prev/next nav
   addPrevNextNav(content, fileId, slug);
 
+  // Route all in-page hash links through the internal scroll container.
+  attachInternalAnchorHandlers(content, fileId);
+
   // Scroll to slug
   if (slug) {
     const target = content.querySelector('#' + CSS.escape(slug));
     if (target) {
-      setTimeout(() => target.scrollIntoView({ block: 'start', behavior: 'instant' }), 0);
+      requestAnimationFrame(() => scrollMainToTarget(target));
     } else {
       $('#main').scrollTop = 0;
+      resetViewportScroll();
     }
   } else {
     $('#main').scrollTop = 0;
+    resetViewportScroll();
   }
 
   state.current = { fileId, slug };
@@ -1716,6 +1779,9 @@ function fromHash() {
   // Try to find a matching chapter slug
   const c = state.chapterIndex.find(x => x.slug === h);
   if (c) return navigate(c.fileId, c.slug, false);
+  // Or any other heading anchor inside the book
+  const anchorFileId = findFileForAnchor(h);
+  if (anchorFileId) return navigate(anchorFileId, h, false);
   // Or a file id
   const f = state.manifest.files.find(x => x.id === h);
   if (f) return navigate(f.id, '', false);
