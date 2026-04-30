@@ -14,7 +14,7 @@ E('chapter-26-polynomials-and-the-bending-moment-equation', 'Chapter 26 — Poly
   { id: 'C', title: 'Set C', questions: [
     { q: 'For w=4, L=6, M(x) at x = 3 (midspan):', n: 18, t: 0.1, e: '4·3·3/2 = 18.' },
     { q: 'M(x) for cantilever with tip P at x measured from tip: M(x) = ?', o: ['P','−P·x','+P·x','PL'], a: 1, e: 'Linear in x.' },
-    { q: 'Why the bending equation is a polynomial:', o: ['Loads are polynomial-distributed','Convention only','Random','Stiffness'], a: 0, e: 'Integrating polynomial loads yields polynomial moments.' },
+    { q: 'For M(x)=40x−4x², the associated shear expression is:', o: ['40−8x','40x','−4x²','x²'], a: 0, e: 'Chapter 33 teaches this as dM/dx.' },
   ]},
 ]);
 
@@ -86,7 +86,7 @@ E('chapter-30-matrices-basic', 'Chapter 30 — Matrices (Basic)', 'Part 4', [
   { id: 'C', title: 'Set C', questions: [
     { q: 'In FEM, [K]{u} = {F} relates:', o: ['Mass and accel','Stiffness, displacement, force','Stress and strain','Density and volume'], a: 1, e: 'Stiffness equation.' },
     { q: '[K] is typically:', o: ['Asymmetric','Symmetric (small-disp linear elasticity)','Random','Diagonal'], a: 1, e: 'For linear elastic.' },
-    { q: 'Solving for {u} requires:', o: ['Inverse (or factorization) of K','Multiplication only','Eigenvalues','Determinant only'], a: 0, e: '{u} = K⁻¹{F}.' },
+    { q: 'A propped cantilever is solved by stiffness methods because it also needs:', o: ['Compatibility','Color settings','Rounding only','No supports'], a: 0, e: 'Indeterminate structures need deformation compatibility.' },
   ]},
 ]);
 
@@ -124,7 +124,7 @@ E('chapter-32-sequences-and-series', 'Chapter 32 — Sequences and Series', 'Par
 E('chapter-33-limits-conceptual-introduction', 'Chapter 33 — Limits — Conceptual Introduction', 'Part 4', [
   { id: 'A', title: 'Set A', questions: [
     { q: 'lim_{x→2} (x + 3) = ?', n: 5, t: 0, e: 'Direct substitution.' },
-    { q: 'lim_{x→0} sin(x)/x = ?', n: 1, t: 0, e: 'Standard limit.' },
+    { q: 'The derivative dM/dx represents the slope of:', o: ['Moment diagram','Load list','Material table','Grid only'], a: 0, e: 'It is the limiting slope of M(x).' },
     { q: 'lim_{x→∞} 1/x = ?', n: 0, t: 0, e: '1/x → 0.' },
   ]},
   { id: 'B', title: 'Set B', questions: [
@@ -134,7 +134,7 @@ E('chapter-33-limits-conceptual-introduction', 'Chapter 33 — Limits — Concep
   ]},
   { id: 'C', title: 'Set C', questions: [
     { q: 'In FEM, refining mesh size h → 0 ideally gives:', o: ['Worse results','Convergence to exact solution','No effect','Divergence'], a: 1, e: 'Convergence.' },
-    { q: 'Moment as derivative of shear M\' = V relies on:', o: ['Algebra only','Calculus / limits','Geometry','Statistics'], a: 1, e: 'Calculus link.' },
+    { q: 'Shear as derivative of moment, V = dM/dx, relies on:', o: ['Algebra only','Calculus / limits','Geometry','Statistics'], a: 1, e: 'Calculus link.' },
     { q: 'A limit may exist even if the function value at the point:', o: ['Always equals it','Is undefined','Is negative','Is zero'], a: 1, e: 'Limit ≠ value of f at that point sometimes.' },
   ]},
 ]);

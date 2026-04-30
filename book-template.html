@@ -943,7 +943,7 @@ const mathDict = [
   { keys: ['I'],  symbol: 'I',  pronounce: 'capital I',    name: 'Second Moment of Area',          desc: 'I = bh³/12 (rectangle). Larger I → stiffer beam, smaller deflection and stress.',                             slug: 'chapter-20-moment-of-inertia-second-moment-of-area' },
   { keys: ['A'],  symbol: 'A',  pronounce: 'capital A',    name: 'Cross-Sectional Area',           desc: 'Area of the cross-section (m² or mm²). In σ = P/A and δ = PL/(AE).',                                       slug: 'chapter-18-areas-and-perimeters' },
   { keys: ['M'],  symbol: 'M',  pronounce: 'capital M',    name: 'Bending Moment',                 desc: 'Internal moment about the neutral axis. M_max = wL²/8 (SS UDL). Units: kN·m.',                               slug: 'chapter-15-internal-forces-axial-shear-and-bending-moment' },
-  { keys: ['V'],  symbol: 'V',  pronounce: 'capital V',    name: 'Shear Force',                    desc: 'Internal force parallel to the section. V = dM/dx. Max at supports. Units: kN.',                            slug: 'chapter-15-internal-forces-axial-shear-and-bending-moment' },
+  { keys: ['V'],  symbol: 'V',  pronounce: 'capital V',    name: 'Shear Force',                    desc: 'Internal force parallel to the section. After limits, V = dM/dx explains why peak moment occurs where shear crosses zero. Units: kN.', slug: 'chapter-33-limits-conceptual-introduction' },
   { keys: ['P'],  symbol: 'P',  pronounce: 'capital P',    name: 'Axial Load / Point Force',       desc: 'Force along or transverse to a member. Units: kN or N. Axial: σ = P/A.',                                   slug: 'chapter-10-what-is-a-force' },
   { keys: ['L'],  symbol: 'L',  pronounce: 'capital L',    name: 'Span Length',                    desc: 'Clear or c-to-c span. Deflection ∝ L⁴ — doubling span ×16 deflection.',                                      slug: 'chapter-27-rational-functions-and-proportionality' },
   { keys: ['w'],  symbol: 'w',  pronounce: 'lowercase w',  name: 'Distributed Load (UDL)',         desc: 'Load per unit length (kN/m) or area (kPa). Total = w×L. Max moment = wL²/8.',                               slug: 'chapter-13-types-of-loads-in-structural-engineering' },
@@ -966,7 +966,7 @@ const mathDict = [
   { keys: ['\\frac{5wL^4}{384EI}'],
     symbol: '5wL⁴/384EI',  pronounce: '5 w L to the fourth, over 384 E I', name: 'Midspan Deflection — SS UDL',      desc: 'Max deflection at midspan. Note L⁴ dependence — doubling span multiplies δ by 16.',    slug: 'chapter-27-rational-functions-and-proportionality' },
   { keys: ['\\frac{PL^3}{3EI}'],
-    symbol: 'PL³/3EI',    pronounce: 'P L cubed over 3 E I',            name: 'Tip Deflection — Cantilever',      desc: 'Maximum deflection at free end of a cantilever with point load P at the tip.',            slug: 'chapter-27-rational-functions-and-proportionality' },
+    symbol: 'PL³/3EI',    pronounce: 'P L cubed over 3 E I', name: 'Cantilever Tip Deflection', desc: 'Maximum deflection at the free end of a cantilever with a point load.', slug: 'chapter-27-rational-functions-and-proportionality' },
   { keys: ['\\frac{\\pi^2 EI}{L^2}','\\pi^2EI/L^2'],
     symbol: 'π²EI/L²',   pronounce: 'pi squared E I over L squared', name: 'Euler Critical Buckling Load',       desc: 'P_cr for a pin-ended column. Reduce L by effective length factor k for other end conditions.',  slug: 'chapter-27-rational-functions-and-proportionality' },
 ];

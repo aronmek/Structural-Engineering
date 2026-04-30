@@ -8,9 +8,9 @@ E('chapter-a1-numbers-and-the-number-line', 'Chapter A1 — Numbers and the Numb
       e: 'On the number line, more negative is further left, hence smaller. -7 < -2 < 0 < 1.' },
     { q: 'What is |−9|?', n: 9, t: 0,
       e: 'Absolute value = distance from 0, always non-negative. |−9| = 9.' },
-    { q: 'A reaction reported as −12 kN means the support force is:', o: [
-        'Smaller than +12 kN', 'Acting in the opposite direction (still magnitude 12)', 'A measurement error', 'Compression always'], a: 1,
-      e: 'Sign indicates direction; |F| = 12 kN regardless of sign.' },
+    { q: 'A measurement change reported as −12 mm means:', o: [
+        'Smaller magnitude than +12 mm', 'A decrease of 12 mm', 'A measurement error', 'Always compression'], a: 1,
+      e: 'The sign gives direction of change; the magnitude is 12 mm.' },
   ]},
   { id: 'B', title: 'Set B — Mixed', questions: [
     { q: 'Order from smallest to largest: −3.5, 0.5, −7, 2', o: [
@@ -23,13 +23,13 @@ E('chapter-a1-numbers-and-the-number-line', 'Chapter A1 — Numbers and the Numb
       e: 'Distance from 0 to 0 is 0.' },
   ]},
   { id: 'C', title: 'Set C — Engineering', questions: [
-    { q: 'In a stress diagram, σ = +20 MPa typically means:', o: [
-        'Tension', 'Compression', 'Shear', 'Bending'], a: 0,
-      e: 'Convention: positive normal stress = tension; negative = compression.' },
+    { q: 'A floor elevation change of +20 mm typically means:', o: [
+        'Moved upward', 'Moved downward', 'No movement', 'Area increased'], a: 0,
+      e: 'Positive and negative signs track direction once a convention is chosen.' },
     { q: 'A coordinate z = −3 m on a building model means:', o: [
         '3 m above ground', '3 m below ground (basement)', 'Distance from origin only', 'An error'], a: 1,
       e: 'Negative z indicates a position below the reference (ground level).' },
-    { q: 'If a deflection limit is |δ| ≤ 20 mm, which deflection FAILS?', o: [
+    { q: 'If an allowed level change is |change| ≤ 20 mm, which change FAILS?', o: [
         '15 mm', '−18 mm', '−22 mm', '+20 mm'], a: 2,
       e: '|−22| = 22 > 20, so it exceeds the limit.' },
   ]},
@@ -52,14 +52,13 @@ E('chapter-a2-addition-and-subtraction', 'Chapter A2 — Addition and Subtractio
     { q: 'Which equals −10 − (−4)?', o: ['−14', '−6', '+6', '+14'], a: 1,
       e: '−10 + 4 = −6.' },
   ]},
-  { id: 'C', title: 'Set C — Engineering equilibrium', questions: [
-    { q: 'Vertical forces (kN, + up): +25, −40, +20, −8. Sum = ?', n: -3, t: 0,
-      e: '25 − 40 + 20 − 8 = −3 kN (net 3 kN downward).' },
-    { q: 'For static equilibrium ΣF_y = 0, if applied loads sum to −60 kN, total reactions must equal:', o: [
-        '−60 kN', '0 kN', '+60 kN', 'Cannot determine'], a: 2,
-      e: 'Reactions must cancel applied: +60 kN (upward).' },
-    { q: 'A column has axial demands per floor: +120, +80, +60, +40, +20 kN (compression as +). Total at base = ?', n: 320, t: 0,
-      e: 'Cumulative compression = sum = 320 kN.' },
+  { id: 'C', title: 'Set C — Engineering arithmetic', questions: [
+    { q: 'Signed level changes (mm): +25, −40, +20, −8. Sum = ?', n: -3, t: 0,
+      e: '25 − 40 + 20 − 8 = −3 mm.' },
+    { q: 'A bay length is changed by −60 mm, then +25 mm. Net change = ?', n: -35, t: 0,
+      e: '−60 + 25 = −35 mm.' },
+    { q: 'Floor area demands per zone: 120, 80, 60, 40, 20 m². Total = ?', n: 320, t: 0,
+      e: 'Add the areas: 320 m².' },
   ]},
 ]);
 
@@ -80,14 +79,14 @@ E('chapter-a3-multiplication-and-division', 'Chapter A3 — Multiplication and D
     { q: 'Which expression is undefined?', o: ['0/5', '5/0', '0/0', 'Both b and c'], a: 3,
       e: 'Division by zero is undefined; 0/0 is also undefined (indeterminate).' },
   ]},
-  { id: 'C', title: 'Set C — Stress calc', questions: [
-    { q: 'Compute σ = P/A for P = 200 kN, A = 0.005 m². Result in kPa = ?', n: 40000, t: 1,
-      e: '200 ÷ 0.005 = 40,000 kPa = 40 MPa.' },
-    { q: 'Total uniform load on a beam: w = 4 kN/m, L = 6 m. Total = ?', n: 24, t: 0,
-      e: 'Total = w × L = 4 × 6 = 24 kN.' },
-    { q: 'σ = M·y/I. If M doubles and other terms stay the same, σ:', o: [
+  { id: 'C', title: 'Set C — Engineering arithmetic', questions: [
+    { q: 'A rectangular pad is 4 m by 6 m. Area = ?', n: 24, t: 0,
+      e: 'Area = length × width = 4 × 6.' },
+    { q: 'A line load value is 4 units/m over 6 m. Total units = ?', n: 24, t: 0,
+      e: 'Total = rate × length = 4 × 6.' },
+    { q: 'If a quantity doubles and all else stays the same, the product:', o: [
         'Halves', 'Stays same', 'Doubles', 'Quadruples'], a: 2,
-      e: 'σ is directly proportional to M.' },
+      e: 'Multiplication by 2 doubles the product.' },
   ]},
 ]);
 
@@ -109,13 +108,12 @@ E('chapter-a4-fractions', 'Chapter A4 — Fractions', 'Part 0', [
       e: '(2·3+1)/3 = 7/3 ≈ 2.333.' },
   ]},
   { id: 'C', title: 'Set C — Engineering', questions: [
-    { q: 'For a simply supported UDL beam, M_max = wL²/8. With w=12, L=4, M_max = ?', n: 24, t: 0,
-      e: '12 × 16 / 8 = 192/8 = 24 kN·m.' },
-    { q: 'Centroid of a triangle from its base is what fraction of its height?', o: ['1/2', '1/3', '2/3', '3/4'], a: 1,
-      e: 'Triangle centroid lies 1/3 up from base (or 2/3 down from apex).' },
-    { q: 'A cantilever tip deflection PL³/(3EI) — the 1/3 comes from:', o: [
-        'Trial and error', 'Integration of the moment curve', 'A code factor', 'Approximation'], a: 1,
-      e: 'It arises from integrating the bending moment curve twice.' },
+    { q: 'A layout has 8 equal spaces over 24 m. Each space = ?', n: 3, t: 0,
+      e: '24 / 8 = 3 m.' },
+    { q: 'One third of a 9 m height is:', n: 3, t: 0,
+      e: '9 × 1/3 = 3 m.' },
+    { q: 'A 12 m member is split into thirds. One third = ?', n: 4, t: 0,
+      e: '12 / 3 = 4 m.' },
   ]},
 ]);
 
@@ -188,12 +186,12 @@ E('chapter-a7-order-of-operations-pemdas', 'Chapter A7 — Order of Operations (
       e: 'Without parentheses, exponent before negation: −(3²) = −9.' },
   ]},
   { id: 'C', title: 'Set C — Engineering formulas', questions: [
-    { q: 'Compute wL²/8 for w = 5 kN/m, L = 6 m. Result (kN·m) = ?', n: 22.5, t: 0.1,
+    { q: 'Compute aL²/8 for a = 5, L = 6. Result = ?', n: 22.5, t: 0.1,
       e: '5 × 36 / 8 = 180/8 = 22.5.' },
-    { q: 'PL³/(3EI) with P = 10, L = 2, E = 200, I = 0.0001. Result = ?', n: 1333.33, t: 0.5,
-      e: '10·8 / (3·200·0.0001) = 80/0.06 ≈ 1333.33.' },
-    { q: 'In a software formula, w*L^2/8 may be ambiguous. The safest equivalent is:', o: [
-        'w*L^2/8', '(w*L^2)/8', 'w*L*L/8', 'Both b and c'], a: 3,
+    { q: 'Compute ab³/(3cd) as a generic formula with a = 10, b = 2, c = 200, d = 0.0001. Result = ?', n: 1333.33, t: 0.5,
+      e: 'This is formula-substitution practice: 10·8 / (3·200·0.0001) = 80/0.06 ≈ 1333.33.' },
+    { q: 'In a software formula, a*L^2/8 may be ambiguous. The safest equivalent is:', o: [
+        'a*L^2/8', '(a*L^2)/8', 'a*L*L/8', 'Both b and c'], a: 3,
       e: 'Both explicit-parenthesis and explicit-multiplication forms eliminate ambiguity.' },
   ]},
 ]);

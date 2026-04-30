@@ -1112,7 +1112,7 @@ When a beam bends, one face stretches (tension) and the opposite face compresses
 
 ### C. The Physics Behind It
 
-The full bending-stress formula uses a geometry property called **moment of inertia**. That property is not taught until Chapter 20, so this chapter focuses on the physical pattern first:
+The full bending-stress formula uses a geometry property called **moment of inertia**. Chapter 20 teaches that property and then performs the exact calculation. This chapter focuses on the physical pattern first:
 
 - Larger bending moment means larger bending stress.
 - Stress is zero at the neutral axis.
@@ -1148,7 +1148,7 @@ In this chapter, use proportional comparisons instead of the full formula:
 
 **Worked example.** Beam A and Beam B have the same section. Beam A has bending moment $M = 40\ \mathrm{kN \cdot m}$, and Beam B has $M = 80\ \mathrm{kN \cdot m}$. Which has larger bending stress?
 
-Beam B has twice the moment, so it has twice the bending stress. The exact stress calculation waits until the geometry property $I$ is explained in Chapter 20.
+Beam B has twice the moment, so it has twice the bending stress. Chapter 20 turns this proportional idea into an exact stress calculation.
 
 ### E. Structural Engineering Application
 
@@ -1163,13 +1163,13 @@ ETABS shows bending moment diagrams before it shows design requirements. At this
 > **Try it in ETABS 22:**
 > 1. **Display > Show Frame Forces > Moment 3-3** — find where $M$ is largest
 > 2. Mark that location as the place bending stress will be most critical
-> 3. Return to this chapter after Chapter 20 to compute actual stress values
+> 3. Continue to Chapter 20 for the exact $Mc/I$ stress calculation after $I$ is taught
 
 ### G. Common Mistakes
 
 1. **Thinking bending stress is uniform.** It is zero near the neutral axis and largest at the outer fibers.
 2. **Looking only at force and ignoring moment.** Bending stress follows bending moment, not just total load.
-3. **Trying to use the full formula too early.** Learn moment of inertia in Chapter 20 first.
+3. **Using the formula before the geometry is ready.** Use this chapter for the stress pattern, then Chapter 20 for the exact formula.
 
 ### H. Chapter Practice Task — Locate Critical Bending Region
 

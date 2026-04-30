@@ -253,7 +253,7 @@ In **Section Designer**, after drawing any cross-section, click **Properties**. 
 | **Parallel axis theorem** | — | Shifts $I$ from one axis to a parallel axis | $I = I_c + Ad^2$ |
 | **Strong axis** | — | The axis about which $I$ is largest | Major bending |
 | **Weak axis** | — | The axis about which $I$ is smallest | Minor bending |
-| **Radius of gyration** | "jy-RAY-shun" | $r = \sqrt{I/A}$, used in column buckling | Slenderness |
+| **Radius of gyration** | "jy-RAY-shun" | $r = \sqrt{I/A}$, a later column-stability property | Slenderness |
 
 ### B. Concept Introduction
 
@@ -293,6 +293,26 @@ $$I_{total} = \sum \left( I_{c,i} + A_i \cdot d_i^2 \right)$$
 $I_{total} = 5.333 \times 10^8 + 4.59 \times 10^8 + 0.25 \times 10^8 + 6.12 \times 10^8 = 1.63 \times 10^9\ \mathrm{mm^4}$
 
 This $I$ is what governs bending stiffness for the T-section.
+
+Now the deferred bending-stress check from Chapter 17 can be made quantitative:
+
+$$\sigma = \dfrac{M c}{I} \qquad \mathrm{or} \qquad \sigma = \dfrac{M}{S},\quad S = \dfrac{I}{c}$$
+
+Here $M$ comes from the moment diagram, $c$ comes from the centroid distances in Chapter 19, and $I$ comes from this chapter. This is why the book waited until now to use the full formula.
+
+**Worked example — bending stress after $I$ is known.** A rectangular beam has $b = 300\ \mathrm{mm}$, $h = 600\ \mathrm{mm}$, and moment $M = 80\ \mathrm{kN\cdot m}$ at the critical section. Find the maximum bending stress.
+
+First convert moment to matching units:
+$M = 80\ \mathrm{kN\cdot m} = 80 \times 10^6\ \mathrm{N\cdot mm}$
+
+For the rectangle:
+$I = bh^3/12 = 300(600^3)/12 = 5.4 \times 10^9\ \mathrm{mm^4}$
+$c = h/2 = 300\ \mathrm{mm}$
+
+Then:
+$$\sigma = \dfrac{Mc}{I} = \dfrac{(80 \times 10^6)(300)}{5.4 \times 10^9} = 4.44\ \mathrm{MPa}$$
+
+This is the exact calculation Chapter 17 pointed toward but did not yet have enough geometry to perform.
 
 ### E. Structural Engineering Application
 
@@ -343,6 +363,7 @@ ETABS reports $I_{33}$ (about the strong axis, used for major-axis bending) and 
 | Rectangle $I$ | $bh^3/12$ | Beam stiffness | Section Properties |
 | Parallel axis | $I = I_c + Ad^2$ | Composite sections | Built into Section Designer |
 | Strong vs weak axis | $I_{33}$ vs $I_{22}$ | Major vs minor bending | Section Properties dialog |
+| Bending stress | $\sigma = Mc/I = M/S$ | Exact flexural stress check | Moment diagram + section properties |
 
 <div style="page-break-after: always;"></div>
 

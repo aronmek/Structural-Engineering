@@ -30,7 +30,7 @@ For a simply supported beam with a uniform load $w$ over span $L$:
 - Bending moment: $M(x) = \frac{wL}{2}x - \frac{w}{2}x^2$ — degree 2 (parabolic)
 - Deflection shape is often described by higher-degree polynomials; exact deflection formulas are introduced only when needed.
 
-For this book, the key pattern is enough: a uniform load gives a linear shear diagram and a quadratic moment diagram. Calculus explains why later; this chapter only uses polynomial recognition and evaluation.
+For this chapter, the key pattern is enough: a uniform load gives a linear shear diagram and a quadratic moment diagram. Chapter 33 explains the calculus bridge that connects the two diagrams.
 
 ### D. The Math
 
@@ -79,7 +79,7 @@ ETABS plots these polynomials as diagrams. Linear shear gives a straight line; p
 ### G. Common Mistakes
 
 1. **Mixing up shear (linear) with moment (parabolic).** They're plotted on different diagrams; never confuse the shapes.
-2. **Forgetting that maximum moment occurs where the shear diagram crosses zero.** The calculus reason comes later; the diagram rule is enough here.
+2. **Forgetting that maximum moment occurs where the shear diagram crosses zero.** Chapter 33 explains the calculus reason; the diagram rule is enough for this chapter.
 3. **Not closing parentheses in computer formulas.** Many engineers swap $-w/2 \cdot x^2$ for $-w/2 x^2$ — algebraically the same but easily mistyped.
 
 ### H. Chapter Practice Task — Simply Supported Polynomial Table
@@ -143,7 +143,23 @@ Two quantities are **directly proportional** if their ratio is constant: $y/x = 
 | Beam deflection $\delta$ | $\propto 1/I$ | Larger moment of inertia ⇒ less deflection |
 | Beam deflection $\delta$ | $\propto 1/E$ | Stiffer material ⇒ less deflection |
 
-Here **deflection** means vertical movement of a beam under load. The exact formula is not derived here; this chapter uses it only for scaling. The most striking scaling is **$\delta \propto L^4$**: doubling span multiplies deflection by 16.
+Here **deflection** means vertical movement of a beam under load. This chapter first uses deflection for scaling, then introduces two common exact elastic formulas. The most striking scaling is **$\delta \propto L^4$**: doubling span multiplies deflection by 16.
+
+Now that Part 3 has introduced moment of inertia $I$ and Chapter 16 introduced modulus $E$, the common elastic deflection formulas can be used responsibly:
+
+| Beam and load | Maximum deflection |
+|---------------|--------------------|
+| Simply supported beam, uniform load $w$ | $\delta_{max} = \dfrac{5wL^4}{384EI}$ |
+| Cantilever, point load $P$ at free end | $\delta_{tip} = \dfrac{PL^3}{3EI}$ |
+
+Where:
+- $w$ = load per length
+- $P$ = point load
+- $L$ = span or cantilever length
+- $E$ = modulus of elasticity
+- $I$ = moment of inertia
+
+These formulas explain the proportionality table above. For example, in the simply supported formula, $L^4$ appears in the numerator, so span has a very strong effect. $E$ and $I$ appear in the denominator, so stiffer material or a stiffer section reduces deflection.
 
 ### D. The Math
 
@@ -156,6 +172,14 @@ Here **deflection** means vertical movement of a beam under load. The exact form
 **Worked example.** A beam deflects 5 mm under load. If span doubles, by what factor does deflection grow?
 
 Since $\delta \propto L^4$, doubling $L$ multiplies $\delta$ by $2^4 = 16$. New deflection ≈ $80$ mm.
+
+**Exact formula example.** A simply supported steel beam has $w = 8\ \mathrm{kN/m}$, $L = 6\ \mathrm{m}$, $E = 200{,}000\ \mathrm{MPa}$, and $I = 8.0 \times 10^8\ \mathrm{mm^4}$. Find maximum deflection.
+
+Use consistent units: $w = 8\ \mathrm{N/mm}$, $L = 6000\ \mathrm{mm}$, $E = 200{,}000\ \mathrm{N/mm^2}$.
+
+$$\delta_{max} = \dfrac{5wL^4}{384EI} = \dfrac{5(8)(6000^4)}{384(200{,}000)(8.0 \times 10^8)} = 8.44\ \mathrm{mm}$$
+
+This is the full calculation that earlier chapters only previewed qualitatively.
 
 ### E. Structural Engineering Application
 
@@ -205,6 +229,8 @@ ETABS will compute exact deflections — but proportional reasoning before runni
 | Inverse proportion | $y \propto 1/x$ | Stress vs area, deflection vs stiffness | — |
 | Span effect | $\delta \propto L^4$ | Span-doubles ⇒ 16× δ | Show Deformed Shape |
 | Inertia effect | $\delta \propto 1/I$ | Beam depth choice | Section properties |
+| SS UDL deflection | $5wL^4/(384EI)$ | Exact serviceability check | Deformed shape/table output |
+| Cantilever tip deflection | $PL^3/(3EI)$ | Exact cantilever check | Deformed shape/table output |
 
 <div style="page-break-after: always;"></div>
 
@@ -451,6 +477,28 @@ Then $d_2 = 0.03\ \mathrm{m}$.
 
 This trivial 2×2 example is the seed of all structural analysis software.
 
+**Reintroducing indeterminate beams.** Chapter 14 identified propped cantilevers and continuous beams as **indeterminate** because they have more unknown reactions than the three 2D equilibrium equations can solve. The missing ingredient is not another force-balance equation; it is **compatibility**: connected parts of the structure must deform together.
+
+The stiffness method handles this by solving for displacements first:
+
+$$[K]\{d\} = \{F\}$$
+
+Once ETABS finds the displacement vector $\{d\}$, it computes reactions and member forces. That is why ETABS can solve:
+- A propped cantilever, where the prop force depends on beam stiffness.
+- A two-span continuous beam, where the middle support moment depends on how both spans deform together.
+
+For a common special case, a propped cantilever of length $L$ with point load $P$ at distance $a$ from the fixed end has prop reaction:
+
+$$R_B = \dfrac{Pa^2(3L-a)}{2L^3}$$
+
+This formula is not from equilibrium alone. It comes from combining equilibrium with deformation compatibility. That is the same logic the stiffness matrix applies automatically to more complicated buildings.
+
+**Worked example.** A propped cantilever has $L = 6\ \mathrm{m}$ and $P = 40\ \mathrm{kN}$ at $a = 4\ \mathrm{m}$ from the fixed end.
+
+$$R_B = \dfrac{40(4^2)(3(6)-4)}{2(6^3)} = \dfrac{40(16)(14)}{432} = 20.74\ \mathrm{kN}$$
+
+After $R_B$ is known, the remaining fixed-end vertical reaction and fixed-end moment can be found using equilibrium. The key lesson is sequencing: equilibrium identifies the unknowns, deformation compatibility supplies the extra equation, and the stiffness method scales that idea to full models.
+
 ### F. ETABS Connection
 
 When you click **Analyze > Run Analysis**, ETABS:
@@ -494,6 +542,7 @@ Every result you see — reactions, member forces, deflections — descends from
 | Matrix-vector product | $[K]\{d\} = \{F\}$ | Whole-structure analysis | Internal solver |
 | Stiffness matrix | $[K]$ from element stiffnesses | Building model | Built automatically |
 | Matrix solve | $\{d\} = [K]^{-1}\{F\}$ | Find displacements | Run Analysis |
+| Compatibility | Connected displacements match | Indeterminate beams | Stiffness method |
 
 <div style="page-break-after: always;"></div>
 
@@ -719,6 +768,25 @@ $\dfrac{x^2 - 9}{x - 3} = \dfrac{(x-3)(x+3)}{x-3} = x + 3$ for $x \neq 3$
 $\lim_{x \to 3} (x + 3) = 6$
 
 The function approaches 6 even though it's not defined at 3.
+
+**Calculus bridge — why shear and moment are linked.** A derivative is a limit of slopes over smaller and smaller intervals:
+
+$$\dfrac{dM}{dx} = \lim_{\Delta x \to 0}\dfrac{M(x+\Delta x)-M(x)}{\Delta x}$$
+
+For beam diagrams, this slope of the moment diagram is the shear force:
+
+$$V = \dfrac{dM}{dx}$$
+
+You do not need to take a full calculus course to use the practical result:
+- If $V$ is positive, $M$ is increasing.
+- If $V$ is negative, $M$ is decreasing.
+- If $V=0$, $M$ has a local peak or valley.
+
+**Worked example.** From Chapter 26, $M(x)=40x-4x^2$ for a simply supported beam with uniform load. The derivative is:
+
+$$\dfrac{dM}{dx}=40-8x$$
+
+So $V(x)=40-8x$. At $x=5\ \mathrm{m}$, $V=0$, and Chapter 26 found the maximum moment at that same location. This reintroduces the earlier diagram rule as a taught idea rather than a memorized shortcut.
 
 ### E. Structural Engineering Application
 

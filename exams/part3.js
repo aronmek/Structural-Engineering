@@ -32,7 +32,7 @@ E('chapter-19-centroids', 'Chapter 19 — Centroids', 'Part 3', [
   { id: 'C', title: 'Set C', questions: [
     { q: 'Plastic neutral axis of an I-section divides area into two:', o: ['Halves by depth','Halves by area','Halves by weight','Quarter sections'], a: 1, e: 'PNA = equal-area axis.' },
     { q: 'For an unsymmetric section, σ_top and σ_bottom are:', o: ['Always equal','Generally different','Always zero','Equal in magnitude'], a: 1, e: 'Different y distances → different σ.' },
-    { q: 'Why locate the centroid before computing I?', o: ['Aesthetics','Bending formula uses I about centroidal axis','Stability','Cost'], a: 1, e: 'σ = Mc/I uses centroidal I.' },
+    { q: 'Why locate the centroid before computing I?', o: ['Aesthetics','I is needed about the centroidal axis','Stability','Cost'], a: 1, e: 'Composite-section I is computed about the overall centroidal axis.' },
   ]},
 ]);
 
@@ -50,25 +50,25 @@ E('chapter-20-moment-of-inertia-second-moment-of-area', 'Chapter 20 — Moment o
   { id: 'C', title: 'Set C', questions: [
     { q: 'For an I-section, most material should be:', o: ['Near neutral axis','Away from neutral axis','At neutral axis only','Equally distributed'], a: 1, e: 'Maximize d² contribution.' },
     { q: 'Section modulus S = I/c is used because:', o: ['σ = M·S','σ = M/S','σ = S·c','σ = S/I'], a: 1, e: 'σ_max = M/S.' },
-    { q: 'Composite section (R rect minus hole): use:', o: ['Add Is','Subtract hole I','Ignore hole','Double the rect'], a: 1, e: 'Negative-area subtraction.' },
+    { q: 'For M = 80×10⁶ N·mm, c = 300 mm, I = 5.4×10⁹ mm⁴, σ ≈ MPa:', n: 4.44, t: 0.02, e: 'σ = Mc/I = 4.44 N/mm² = 4.44 MPa.' },
   ]},
 ]);
 
 E('chapter-21-vectors', 'Chapter 21 — Vectors', 'Part 3', [
   { id: 'A', title: 'Set A', questions: [
     { q: 'A vector has:', o: ['Magnitude only','Direction only','Magnitude and direction','Mass'], a: 2, e: 'Definition.' },
-    { q: 'Magnitude of (3, 4):', n: 5, t: 0, e: '√(9+16).' },
+    { q: 'A vector has components (3, 4). Its x-component is:', n: 3, t: 0, e: 'The first component is x.' },
     { q: 'Sum of (1, 2) and (3, −2):', o: ['(4, 0)','(2, 0)','(4, 4)','(2, 4)'], a: 0, e: 'Component-wise.' },
   ]},
   { id: 'B', title: 'Set B', questions: [
-    { q: 'A 100 N force at 60° has horizontal component:', n: 50, t: 0.5, e: '100 cos60° = 50.' },
-    { q: 'Same force, vertical component:', n: 86.6, t: 0.5, e: '100 sin60° ≈ 86.6.' },
-    { q: 'Two forces 30 N east + 40 N north. Resultant magnitude:', n: 50, t: 0.5, e: '√(900+1600).' },
+    { q: 'Force A has Fx = 30, Force B has Fx = -10. Resultant Fx = ?', n: 20, t: 0.5, e: '30 + (-10) = 20.' },
+    { q: 'Force A has Fy = 20, Force B has Fy = 15. Resultant Fy = ?', n: 35, t: 0.5, e: '20 + 15 = 35.' },
+    { q: 'Component addition means add:', o: ['X with X and Y with Y','X with Y','Only magnitudes','Only angles'], a: 0, e: 'Keep components separated by axis.' },
   ]},
   { id: 'C', title: 'Set C', questions: [
-    { q: 'Reaction vector R = (R_x, R_y). Magnitude (kN) for (3, 4):', n: 5, t: 0, e: '√25.' },
-    { q: 'Direction angle of (1, 1) from x-axis (deg):', n: 45, t: 0.5, e: 'tan⁻¹(1/1).' },
-    { q: 'Sum of forces in x: 100 cos30 − 50. Approx:', n: 36.6, t: 1, e: '86.6 − 50.' },
+    { q: 'Reaction vector R = (R_x, R_y). If R_x = 3, the x-component is:', n: 3, t: 0, e: 'Read the x-component directly.' },
+    { q: 'Direction signs matter because vectors have:', o: ['Magnitude only','Direction as well as magnitude','No units','No axes'], a: 1, e: 'A vector includes direction.' },
+    { q: 'Sum of x-components: 86.6 − 50 = ?', n: 36.6, t: 1, e: 'Subtract the x-components.' },
   ]},
 ]);
 

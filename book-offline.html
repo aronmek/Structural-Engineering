@@ -3815,7 +3815,7 @@ When a beam bends, one face stretches (tension) and the opposite face compresses
 
 ### C. The Physics Behind It
 
-The full bending-stress formula uses a geometry property called **moment of inertia**. That property is not taught until Chapter 20, so this chapter focuses on the physical pattern first:
+The full bending-stress formula uses a geometry property called **moment of inertia**. Chapter 20 teaches that property and then performs the exact calculation. This chapter focuses on the physical pattern first:
 
 - Larger bending moment means larger bending stress.
 - Stress is zero at the neutral axis.
@@ -3851,7 +3851,7 @@ In this chapter, use proportional comparisons instead of the full formula:
 
 **Worked example.** Beam A and Beam B have the same section. Beam A has bending moment $M = 40\ \mathrm{kN \cdot m}$, and Beam B has $M = 80\ \mathrm{kN \cdot m}$. Which has larger bending stress?
 
-Beam B has twice the moment, so it has twice the bending stress. The exact stress calculation waits until the geometry property $I$ is explained in Chapter 20.
+Beam B has twice the moment, so it has twice the bending stress. Chapter 20 turns this proportional idea into an exact stress calculation.
 
 ### E. Structural Engineering Application
 
@@ -3866,13 +3866,13 @@ ETABS shows bending moment diagrams before it shows design requirements. At this
 > **Try it in ETABS 22:**
 > 1. **Display > Show Frame Forces > Moment 3-3** — find where $M$ is largest
 > 2. Mark that location as the place bending stress will be most critical
-> 3. Return to this chapter after Chapter 20 to compute actual stress values
+> 3. Continue to Chapter 20 for the exact $Mc/I$ stress calculation after $I$ is taught
 
 ### G. Common Mistakes
 
 1. **Thinking bending stress is uniform.** It is zero near the neutral axis and largest at the outer fibers.
 2. **Looking only at force and ignoring moment.** Bending stress follows bending moment, not just total load.
-3. **Trying to use the full formula too early.** Learn moment of inertia in Chapter 20 first.
+3. **Using the formula before the geometry is ready.** Use this chapter for the stress pattern, then Chapter 20 for the exact formula.
 
 ### H. Chapter Practice Task — Locate Critical Bending Region
 
@@ -4153,7 +4153,7 @@ In **Section Designer**, after drawing any cross-section, click **Properties**. 
 | **Parallel axis theorem** | — | Shifts $I$ from one axis to a parallel axis | $I = I_c + Ad^2$ |
 | **Strong axis** | — | The axis about which $I$ is largest | Major bending |
 | **Weak axis** | — | The axis about which $I$ is smallest | Minor bending |
-| **Radius of gyration** | "jy-RAY-shun" | $r = \sqrt{I/A}$, used in column buckling | Slenderness |
+| **Radius of gyration** | "jy-RAY-shun" | $r = \sqrt{I/A}$, a later column-stability property | Slenderness |
 
 ### B. Concept Introduction
 
@@ -4193,6 +4193,26 @@ $$I_{total} = \sum \left( I_{c,i} + A_i \cdot d_i^2 \right)$$
 $I_{total} = 5.333 \times 10^8 + 4.59 \times 10^8 + 0.25 \times 10^8 + 6.12 \times 10^8 = 1.63 \times 10^9\ \mathrm{mm^4}$
 
 This $I$ is what governs bending stiffness for the T-section.
+
+Now the deferred bending-stress check from Chapter 17 can be made quantitative:
+
+$$\sigma = \dfrac{M c}{I} \qquad \mathrm{or} \qquad \sigma = \dfrac{M}{S},\quad S = \dfrac{I}{c}$$
+
+Here $M$ comes from the moment diagram, $c$ comes from the centroid distances in Chapter 19, and $I$ comes from this chapter. This is why the book waited until now to use the full formula.
+
+**Worked example — bending stress after $I$ is known.** A rectangular beam has $b = 300\ \mathrm{mm}$, $h = 600\ \mathrm{mm}$, and moment $M = 80\ \mathrm{kN\cdot m}$ at the critical section. Find the maximum bending stress.
+
+First convert moment to matching units:
+$M = 80\ \mathrm{kN\cdot m} = 80 \times 10^6\ \mathrm{N\cdot mm}$
+
+For the rectangle:
+$I = bh^3/12 = 300(600^3)/12 = 5.4 \times 10^9\ \mathrm{mm^4}$
+$c = h/2 = 300\ \mathrm{mm}$
+
+Then:
+$$\sigma = \dfrac{Mc}{I} = \dfrac{(80 \times 10^6)(300)}{5.4 \times 10^9} = 4.44\ \mathrm{MPa}$$
+
+This is the exact calculation Chapter 17 pointed toward but did not yet have enough geometry to perform.
 
 ### E. Structural Engineering Application
 
@@ -4243,6 +4263,7 @@ ETABS reports $I_{33}$ (about the strong axis, used for major-axis bending) and 
 | Rectangle $I$ | $bh^3/12$ | Beam stiffness | Section Properties |
 | Parallel axis | $I = I_c + Ad^2$ | Composite sections | Built into Section Designer |
 | Strong vs weak axis | $I_{33}$ vs $I_{22}$ | Major vs minor bending | Section Properties dialog |
+| Bending stress | $\sigma = Mc/I = M/S$ | Exact flexural stress check | Moment diagram + section properties |
 
 <div style="page-break-after: always;"></div>
 
@@ -4750,7 +4771,7 @@ For a simply supported beam with a uniform load $w$ over span $L$:
 - Bending moment: $M(x) = \frac{wL}{2}x - \frac{w}{2}x^2$ — degree 2 (parabolic)
 - Deflection shape is often described by higher-degree polynomials; exact deflection formulas are introduced only when needed.
 
-For this book, the key pattern is enough: a uniform load gives a linear shear diagram and a quadratic moment diagram. Calculus explains why later; this chapter only uses polynomial recognition and evaluation.
+For this chapter, the key pattern is enough: a uniform load gives a linear shear diagram and a quadratic moment diagram. Chapter 33 explains the calculus bridge that connects the two diagrams.
 
 ### D. The Math
 
@@ -4799,7 +4820,7 @@ ETABS plots these polynomials as diagrams. Linear shear gives a straight line; p
 ### G. Common Mistakes
 
 1. **Mixing up shear (linear) with moment (parabolic).** They're plotted on different diagrams; never confuse the shapes.
-2. **Forgetting that maximum moment occurs where the shear diagram crosses zero.** The calculus reason comes later; the diagram rule is enough here.
+2. **Forgetting that maximum moment occurs where the shear diagram crosses zero.** Chapter 33 explains the calculus reason; the diagram rule is enough for this chapter.
 3. **Not closing parentheses in computer formulas.** Many engineers swap $-w/2 \cdot x^2$ for $-w/2 x^2$ — algebraically the same but easily mistyped.
 
 ### H. Chapter Practice Task — Simply Supported Polynomial Table
@@ -4863,7 +4884,23 @@ Two quantities are **directly proportional** if their ratio is constant: $y/x = 
 | Beam deflection $\delta$ | $\propto 1/I$ | Larger moment of inertia ⇒ less deflection |
 | Beam deflection $\delta$ | $\propto 1/E$ | Stiffer material ⇒ less deflection |
 
-Here **deflection** means vertical movement of a beam under load. The exact formula is not derived here; this chapter uses it only for scaling. The most striking scaling is **$\delta \propto L^4$**: doubling span multiplies deflection by 16.
+Here **deflection** means vertical movement of a beam under load. This chapter first uses deflection for scaling, then introduces two common exact elastic formulas. The most striking scaling is **$\delta \propto L^4$**: doubling span multiplies deflection by 16.
+
+Now that Part 3 has introduced moment of inertia $I$ and Chapter 16 introduced modulus $E$, the common elastic deflection formulas can be used responsibly:
+
+| Beam and load | Maximum deflection |
+|---------------|--------------------|
+| Simply supported beam, uniform load $w$ | $\delta_{max} = \dfrac{5wL^4}{384EI}$ |
+| Cantilever, point load $P$ at free end | $\delta_{tip} = \dfrac{PL^3}{3EI}$ |
+
+Where:
+- $w$ = load per length
+- $P$ = point load
+- $L$ = span or cantilever length
+- $E$ = modulus of elasticity
+- $I$ = moment of inertia
+
+These formulas explain the proportionality table above. For example, in the simply supported formula, $L^4$ appears in the numerator, so span has a very strong effect. $E$ and $I$ appear in the denominator, so stiffer material or a stiffer section reduces deflection.
 
 ### D. The Math
 
@@ -4876,6 +4913,14 @@ Here **deflection** means vertical movement of a beam under load. The exact form
 **Worked example.** A beam deflects 5 mm under load. If span doubles, by what factor does deflection grow?
 
 Since $\delta \propto L^4$, doubling $L$ multiplies $\delta$ by $2^4 = 16$. New deflection ≈ $80$ mm.
+
+**Exact formula example.** A simply supported steel beam has $w = 8\ \mathrm{kN/m}$, $L = 6\ \mathrm{m}$, $E = 200{,}000\ \mathrm{MPa}$, and $I = 8.0 \times 10^8\ \mathrm{mm^4}$. Find maximum deflection.
+
+Use consistent units: $w = 8\ \mathrm{N/mm}$, $L = 6000\ \mathrm{mm}$, $E = 200{,}000\ \mathrm{N/mm^2}$.
+
+$$\delta_{max} = \dfrac{5wL^4}{384EI} = \dfrac{5(8)(6000^4)}{384(200{,}000)(8.0 \times 10^8)} = 8.44\ \mathrm{mm}$$
+
+This is the full calculation that earlier chapters only previewed qualitatively.
 
 ### E. Structural Engineering Application
 
@@ -4925,6 +4970,8 @@ ETABS will compute exact deflections — but proportional reasoning before runni
 | Inverse proportion | $y \propto 1/x$ | Stress vs area, deflection vs stiffness | — |
 | Span effect | $\delta \propto L^4$ | Span-doubles ⇒ 16× δ | Show Deformed Shape |
 | Inertia effect | $\delta \propto 1/I$ | Beam depth choice | Section properties |
+| SS UDL deflection | $5wL^4/(384EI)$ | Exact serviceability check | Deformed shape/table output |
+| Cantilever tip deflection | $PL^3/(3EI)$ | Exact cantilever check | Deformed shape/table output |
 
 <div style="page-break-after: always;"></div>
 
@@ -5171,6 +5218,28 @@ Then $d_2 = 0.03\ \mathrm{m}$.
 
 This trivial 2×2 example is the seed of all structural analysis software.
 
+**Reintroducing indeterminate beams.** Chapter 14 identified propped cantilevers and continuous beams as **indeterminate** because they have more unknown reactions than the three 2D equilibrium equations can solve. The missing ingredient is not another force-balance equation; it is **compatibility**: connected parts of the structure must deform together.
+
+The stiffness method handles this by solving for displacements first:
+
+$$[K]\{d\} = \{F\}$$
+
+Once ETABS finds the displacement vector $\{d\}$, it computes reactions and member forces. That is why ETABS can solve:
+- A propped cantilever, where the prop force depends on beam stiffness.
+- A two-span continuous beam, where the middle support moment depends on how both spans deform together.
+
+For a common special case, a propped cantilever of length $L$ with point load $P$ at distance $a$ from the fixed end has prop reaction:
+
+$$R_B = \dfrac{Pa^2(3L-a)}{2L^3}$$
+
+This formula is not from equilibrium alone. It comes from combining equilibrium with deformation compatibility. That is the same logic the stiffness matrix applies automatically to more complicated buildings.
+
+**Worked example.** A propped cantilever has $L = 6\ \mathrm{m}$ and $P = 40\ \mathrm{kN}$ at $a = 4\ \mathrm{m}$ from the fixed end.
+
+$$R_B = \dfrac{40(4^2)(3(6)-4)}{2(6^3)} = \dfrac{40(16)(14)}{432} = 20.74\ \mathrm{kN}$$
+
+After $R_B$ is known, the remaining fixed-end vertical reaction and fixed-end moment can be found using equilibrium. The key lesson is sequencing: equilibrium identifies the unknowns, deformation compatibility supplies the extra equation, and the stiffness method scales that idea to full models.
+
 ### F. ETABS Connection
 
 When you click **Analyze > Run Analysis**, ETABS:
@@ -5214,6 +5283,7 @@ Every result you see — reactions, member forces, deflections — descends from
 | Matrix-vector product | $[K]\{d\} = \{F\}$ | Whole-structure analysis | Internal solver |
 | Stiffness matrix | $[K]$ from element stiffnesses | Building model | Built automatically |
 | Matrix solve | $\{d\} = [K]^{-1}\{F\}$ | Find displacements | Run Analysis |
+| Compatibility | Connected displacements match | Indeterminate beams | Stiffness method |
 
 <div style="page-break-after: always;"></div>
 
@@ -5439,6 +5509,25 @@ $\dfrac{x^2 - 9}{x - 3} = \dfrac{(x-3)(x+3)}{x-3} = x + 3$ for $x \neq 3$
 $\lim_{x \to 3} (x + 3) = 6$
 
 The function approaches 6 even though it's not defined at 3.
+
+**Calculus bridge — why shear and moment are linked.** A derivative is a limit of slopes over smaller and smaller intervals:
+
+$$\dfrac{dM}{dx} = \lim_{\Delta x \to 0}\dfrac{M(x+\Delta x)-M(x)}{\Delta x}$$
+
+For beam diagrams, this slope of the moment diagram is the shear force:
+
+$$V = \dfrac{dM}{dx}$$
+
+You do not need to take a full calculus course to use the practical result:
+- If $V$ is positive, $M$ is increasing.
+- If $V$ is negative, $M$ is decreasing.
+- If $V=0$, $M$ has a local peak or valley.
+
+**Worked example.** From Chapter 26, $M(x)=40x-4x^2$ for a simply supported beam with uniform load. The derivative is:
+
+$$\dfrac{dM}{dx}=40-8x$$
+
+So $V(x)=40-8x$. At $x=5\ \mathrm{m}$, $V=0$, and Chapter 26 found the maximum moment at that same location. This reintroduces the earlier diagram rule as a taught idea rather than a memorized shortcut.
 
 ### E. Structural Engineering Application
 
@@ -6584,7 +6673,7 @@ const mathDict = [
   { keys: ['I'],  symbol: 'I',  pronounce: 'capital I',    name: 'Second Moment of Area',          desc: 'I = bh³/12 (rectangle). Larger I → stiffer beam, smaller deflection and stress.',                             slug: 'chapter-20-moment-of-inertia-second-moment-of-area' },
   { keys: ['A'],  symbol: 'A',  pronounce: 'capital A',    name: 'Cross-Sectional Area',           desc: 'Area of the cross-section (m² or mm²). In σ = P/A and δ = PL/(AE).',                                       slug: 'chapter-18-areas-and-perimeters' },
   { keys: ['M'],  symbol: 'M',  pronounce: 'capital M',    name: 'Bending Moment',                 desc: 'Internal moment about the neutral axis. M_max = wL²/8 (SS UDL). Units: kN·m.',                               slug: 'chapter-15-internal-forces-axial-shear-and-bending-moment' },
-  { keys: ['V'],  symbol: 'V',  pronounce: 'capital V',    name: 'Shear Force',                    desc: 'Internal force parallel to the section. V = dM/dx. Max at supports. Units: kN.',                            slug: 'chapter-15-internal-forces-axial-shear-and-bending-moment' },
+  { keys: ['V'],  symbol: 'V',  pronounce: 'capital V',    name: 'Shear Force',                    desc: 'Internal force parallel to the section. After limits, V = dM/dx explains why peak moment occurs where shear crosses zero. Units: kN.', slug: 'chapter-33-limits-conceptual-introduction' },
   { keys: ['P'],  symbol: 'P',  pronounce: 'capital P',    name: 'Axial Load / Point Force',       desc: 'Force along or transverse to a member. Units: kN or N. Axial: σ = P/A.',                                   slug: 'chapter-10-what-is-a-force' },
   { keys: ['L'],  symbol: 'L',  pronounce: 'capital L',    name: 'Span Length',                    desc: 'Clear or c-to-c span. Deflection ∝ L⁴ — doubling span ×16 deflection.',                                      slug: 'chapter-27-rational-functions-and-proportionality' },
   { keys: ['w'],  symbol: 'w',  pronounce: 'lowercase w',  name: 'Distributed Load (UDL)',         desc: 'Load per unit length (kN/m) or area (kPa). Total = w×L. Max moment = wL²/8.',                               slug: 'chapter-13-types-of-loads-in-structural-engineering' },
@@ -6607,7 +6696,7 @@ const mathDict = [
   { keys: ['\\frac{5wL^4}{384EI}'],
     symbol: '5wL⁴/384EI',  pronounce: '5 w L to the fourth, over 384 E I', name: 'Midspan Deflection — SS UDL',      desc: 'Max deflection at midspan. Note L⁴ dependence — doubling span multiplies δ by 16.',    slug: 'chapter-27-rational-functions-and-proportionality' },
   { keys: ['\\frac{PL^3}{3EI}'],
-    symbol: 'PL³/3EI',    pronounce: 'P L cubed over 3 E I',            name: 'Tip Deflection — Cantilever',      desc: 'Maximum deflection at free end of a cantilever with point load P at the tip.',            slug: 'chapter-27-rational-functions-and-proportionality' },
+    symbol: 'PL³/3EI',    pronounce: 'P L cubed over 3 E I', name: 'Cantilever Tip Deflection', desc: 'Maximum deflection at the free end of a cantilever with a point load.', slug: 'chapter-27-rational-functions-and-proportionality' },
   { keys: ['\\frac{\\pi^2 EI}{L^2}','\\pi^2EI/L^2'],
     symbol: 'π²EI/L²',   pronounce: 'pi squared E I over L squared', name: 'Euler Critical Buckling Load',       desc: 'P_cr for a pin-ended column. Reduce L by effective length factor k for other end conditions.',  slug: 'chapter-27-rational-functions-and-proportionality' },
 ];
@@ -8352,9 +8441,9 @@ E('chapter-a1-numbers-and-the-number-line', 'Chapter A1 — Numbers and the Numb
       e: 'On the number line, more negative is further left, hence smaller. -7 < -2 < 0 < 1.' },
     { q: 'What is |−9|?', n: 9, t: 0,
       e: 'Absolute value = distance from 0, always non-negative. |−9| = 9.' },
-    { q: 'A reaction reported as −12 kN means the support force is:', o: [
-        'Smaller than +12 kN', 'Acting in the opposite direction (still magnitude 12)', 'A measurement error', 'Compression always'], a: 1,
-      e: 'Sign indicates direction; |F| = 12 kN regardless of sign.' },
+    { q: 'A measurement change reported as −12 mm means:', o: [
+        'Smaller magnitude than +12 mm', 'A decrease of 12 mm', 'A measurement error', 'Always compression'], a: 1,
+      e: 'The sign gives direction of change; the magnitude is 12 mm.' },
   ]},
   { id: 'B', title: 'Set B — Mixed', questions: [
     { q: 'Order from smallest to largest: −3.5, 0.5, −7, 2', o: [
@@ -8367,13 +8456,13 @@ E('chapter-a1-numbers-and-the-number-line', 'Chapter A1 — Numbers and the Numb
       e: 'Distance from 0 to 0 is 0.' },
   ]},
   { id: 'C', title: 'Set C — Engineering', questions: [
-    { q: 'In a stress diagram, σ = +20 MPa typically means:', o: [
-        'Tension', 'Compression', 'Shear', 'Bending'], a: 0,
-      e: 'Convention: positive normal stress = tension; negative = compression.' },
+    { q: 'A floor elevation change of +20 mm typically means:', o: [
+        'Moved upward', 'Moved downward', 'No movement', 'Area increased'], a: 0,
+      e: 'Positive and negative signs track direction once a convention is chosen.' },
     { q: 'A coordinate z = −3 m on a building model means:', o: [
         '3 m above ground', '3 m below ground (basement)', 'Distance from origin only', 'An error'], a: 1,
       e: 'Negative z indicates a position below the reference (ground level).' },
-    { q: 'If a deflection limit is |δ| ≤ 20 mm, which deflection FAILS?', o: [
+    { q: 'If an allowed level change is |change| ≤ 20 mm, which change FAILS?', o: [
         '15 mm', '−18 mm', '−22 mm', '+20 mm'], a: 2,
       e: '|−22| = 22 > 20, so it exceeds the limit.' },
   ]},
@@ -8396,14 +8485,13 @@ E('chapter-a2-addition-and-subtraction', 'Chapter A2 — Addition and Subtractio
     { q: 'Which equals −10 − (−4)?', o: ['−14', '−6', '+6', '+14'], a: 1,
       e: '−10 + 4 = −6.' },
   ]},
-  { id: 'C', title: 'Set C — Engineering equilibrium', questions: [
-    { q: 'Vertical forces (kN, + up): +25, −40, +20, −8. Sum = ?', n: -3, t: 0,
-      e: '25 − 40 + 20 − 8 = −3 kN (net 3 kN downward).' },
-    { q: 'For static equilibrium ΣF_y = 0, if applied loads sum to −60 kN, total reactions must equal:', o: [
-        '−60 kN', '0 kN', '+60 kN', 'Cannot determine'], a: 2,
-      e: 'Reactions must cancel applied: +60 kN (upward).' },
-    { q: 'A column has axial demands per floor: +120, +80, +60, +40, +20 kN (compression as +). Total at base = ?', n: 320, t: 0,
-      e: 'Cumulative compression = sum = 320 kN.' },
+  { id: 'C', title: 'Set C — Engineering arithmetic', questions: [
+    { q: 'Signed level changes (mm): +25, −40, +20, −8. Sum = ?', n: -3, t: 0,
+      e: '25 − 40 + 20 − 8 = −3 mm.' },
+    { q: 'A bay length is changed by −60 mm, then +25 mm. Net change = ?', n: -35, t: 0,
+      e: '−60 + 25 = −35 mm.' },
+    { q: 'Floor area demands per zone: 120, 80, 60, 40, 20 m². Total = ?', n: 320, t: 0,
+      e: 'Add the areas: 320 m².' },
   ]},
 ]);
 
@@ -8424,14 +8512,14 @@ E('chapter-a3-multiplication-and-division', 'Chapter A3 — Multiplication and D
     { q: 'Which expression is undefined?', o: ['0/5', '5/0', '0/0', 'Both b and c'], a: 3,
       e: 'Division by zero is undefined; 0/0 is also undefined (indeterminate).' },
   ]},
-  { id: 'C', title: 'Set C — Stress calc', questions: [
-    { q: 'Compute σ = P/A for P = 200 kN, A = 0.005 m². Result in kPa = ?', n: 40000, t: 1,
-      e: '200 ÷ 0.005 = 40,000 kPa = 40 MPa.' },
-    { q: 'Total uniform load on a beam: w = 4 kN/m, L = 6 m. Total = ?', n: 24, t: 0,
-      e: 'Total = w × L = 4 × 6 = 24 kN.' },
-    { q: 'σ = M·y/I. If M doubles and other terms stay the same, σ:', o: [
+  { id: 'C', title: 'Set C — Engineering arithmetic', questions: [
+    { q: 'A rectangular pad is 4 m by 6 m. Area = ?', n: 24, t: 0,
+      e: 'Area = length × width = 4 × 6.' },
+    { q: 'A line load value is 4 units/m over 6 m. Total units = ?', n: 24, t: 0,
+      e: 'Total = rate × length = 4 × 6.' },
+    { q: 'If a quantity doubles and all else stays the same, the product:', o: [
         'Halves', 'Stays same', 'Doubles', 'Quadruples'], a: 2,
-      e: 'σ is directly proportional to M.' },
+      e: 'Multiplication by 2 doubles the product.' },
   ]},
 ]);
 
@@ -8453,13 +8541,12 @@ E('chapter-a4-fractions', 'Chapter A4 — Fractions', 'Part 0', [
       e: '(2·3+1)/3 = 7/3 ≈ 2.333.' },
   ]},
   { id: 'C', title: 'Set C — Engineering', questions: [
-    { q: 'For a simply supported UDL beam, M_max = wL²/8. With w=12, L=4, M_max = ?', n: 24, t: 0,
-      e: '12 × 16 / 8 = 192/8 = 24 kN·m.' },
-    { q: 'Centroid of a triangle from its base is what fraction of its height?', o: ['1/2', '1/3', '2/3', '3/4'], a: 1,
-      e: 'Triangle centroid lies 1/3 up from base (or 2/3 down from apex).' },
-    { q: 'A cantilever tip deflection PL³/(3EI) — the 1/3 comes from:', o: [
-        'Trial and error', 'Integration of the moment curve', 'A code factor', 'Approximation'], a: 1,
-      e: 'It arises from integrating the bending moment curve twice.' },
+    { q: 'A layout has 8 equal spaces over 24 m. Each space = ?', n: 3, t: 0,
+      e: '24 / 8 = 3 m.' },
+    { q: 'One third of a 9 m height is:', n: 3, t: 0,
+      e: '9 × 1/3 = 3 m.' },
+    { q: 'A 12 m member is split into thirds. One third = ?', n: 4, t: 0,
+      e: '12 / 3 = 4 m.' },
   ]},
 ]);
 
@@ -8532,12 +8619,12 @@ E('chapter-a7-order-of-operations-pemdas', 'Chapter A7 — Order of Operations (
       e: 'Without parentheses, exponent before negation: −(3²) = −9.' },
   ]},
   { id: 'C', title: 'Set C — Engineering formulas', questions: [
-    { q: 'Compute wL²/8 for w = 5 kN/m, L = 6 m. Result (kN·m) = ?', n: 22.5, t: 0.1,
+    { q: 'Compute aL²/8 for a = 5, L = 6. Result = ?', n: 22.5, t: 0.1,
       e: '5 × 36 / 8 = 180/8 = 22.5.' },
-    { q: 'PL³/(3EI) with P = 10, L = 2, E = 200, I = 0.0001. Result = ?', n: 1333.33, t: 0.5,
-      e: '10·8 / (3·200·0.0001) = 80/0.06 ≈ 1333.33.' },
-    { q: 'In a software formula, w*L^2/8 may be ambiguous. The safest equivalent is:', o: [
-        'w*L^2/8', '(w*L^2)/8', 'w*L*L/8', 'Both b and c'], a: 3,
+    { q: 'Compute ab³/(3cd) as a generic formula with a = 10, b = 2, c = 200, d = 0.0001. Result = ?', n: 1333.33, t: 0.5,
+      e: 'This is formula-substitution practice: 10·8 / (3·200·0.0001) = 80/0.06 ≈ 1333.33.' },
+    { q: 'In a software formula, a*L^2/8 may be ambiguous. The safest equivalent is:', o: [
+        'a*L^2/8', '(a*L^2)/8', 'a*L*L/8', 'Both b and c'], a: 3,
       e: 'Both explicit-parenthesis and explicit-multiplication forms eliminate ambiguity.' },
   ]},
 ]);
@@ -8589,7 +8676,7 @@ E('chapter-1-variables-and-expressions', 'Chapter 1 — Variables and Expression
   ]},
   { id: 'C', title: 'Set C', questions: [
     { q: 'A reaction R_A = (wL/2) + P/2 with w=4, L=6, P=20: R_A = ?', n: 22, t: 0, e: '12 + 10 = 22.' },
-    { q: 'Stress σ = P/A + Mc/I has how many terms?', n: 2, t: 0, e: 'Two: P/A and Mc/I (sum).' },
+    { q: 'A total length formula L = ns + 2e has how many terms on the right?', n: 2, t: 0, e: 'Two terms: ns and 2e.' },
     { q: 'Doubling x in 5x doubles the result. This holds because of:', o: ['Distributive property','Linearity (proportionality)','Order of operations','Pythagoras'], a: 1, e: 'The expression is linear in x.' },
   ]},
 ]);
@@ -8620,7 +8707,7 @@ E('chapter-3-rearranging-formulas', 'Chapter 3 — Rearranging Formulas', 'Part 
   ]},
   { id: 'B', title: 'Set B', questions: [
     { q: 'V = (1/3)π r²h → h = ?', o: ['3V/(πr²)','V/(3πr²)','V·r²/3','πr²/3V'], a: 0, e: 'Multiply by 3, divide by πr².' },
-    { q: 'σ = Mc/I → I = ?', o: ['σM/c','Mc/σ','σc/M','M/(σc)'], a: 1, e: 'Cross-multiply: I = Mc/σ.' },
+    { q: 'L = ns + 2e → s = ?', o: ['(L - 2e)/n','L - 2en','n/(L - 2e)','L/n + 2e'], a: 0, e: 'Subtract 2e, then divide by n.' },
     { q: 'For δ = PL/(AE), solving for A gives:', o: ['PL/(δE)','δE/(PL)','P/(δLE)','PLE/δ'], a: 0, e: 'Cross-multiply and isolate A.' },
   ]},
   { id: 'C', title: 'Set C', questions: [
@@ -8678,7 +8765,7 @@ E('chapter-6-quadratic-equations', 'Chapter 6 — Quadratic Equations', 'Part 1'
     { q: 'Solve x² + 4x − 5 = 0 (positive root).', n: 1, t: 0, e: '(x+5)(x−1) = 0.' },
   ]},
   { id: 'C', title: 'Set C', questions: [
-    { q: 'Bending stress σ varies as Mc/I. Doubling I:', o: ['Doubles σ','Halves σ','Quarters σ','No effect'], a: 1, e: 'σ inversely proportional to I.' },
+    { q: 'Demand/capacity ratio = demand/capacity. Doubling capacity:', o: ['Doubles ratio','Halves ratio','Quarters ratio','No effect'], a: 1, e: 'The ratio is inversely proportional to capacity.' },
     { q: 'A quadratic moment curve M(x) = wx(L−x)/2 reaches max at x = ?', o: ['0','L/4','L/2','L'], a: 2, e: 'Symmetric parabola peaks at midspan.' },
     { q: 'For w = 4, L = 8, max M = wL²/8 = ?', n: 32, t: 0, e: '4·64/8 = 32.' },
   ]},
@@ -8692,7 +8779,7 @@ E('chapter-7-inequalities', 'Chapter 7 — Inequalities', 'Part 1', [
   ]},
   { id: 'B', title: 'Set B', questions: [
     { q: 'Solve 3 ≤ 2x − 1 ≤ 9.', o: ['1 ≤ x ≤ 5','2 ≤ x ≤ 5','1 ≤ x ≤ 4','2 ≤ x ≤ 4'], a: 1, e: 'Add 1: 4 ≤ 2x ≤ 10 → 2 ≤ x ≤ 5.' },
-    { q: 'A serviceability check: actual deflection 18 mm, limit 20 mm. Status:', o: ['Fails','Passes','Indeterminate','Fails marginally'], a: 1, e: '18 ≤ 20 → passes.' },
+    { q: 'A movement check: actual movement 18 mm, limit 20 mm. Status:', o: ['Fails','Passes','Indeterminate','Fails marginally'], a: 1, e: '18 ≤ 20 → passes.' },
     { q: 'A demand-to-capacity ratio D/C ≤ 1.0 means:', o: ['Element fails','Element acceptable','Overdesigned','Indeterminate'], a: 1, e: 'D/C ≤ 1 indicates capacity sufficient.' },
   ]},
   { id: 'C', title: 'Set C', questions: [
@@ -8711,7 +8798,7 @@ E('chapter-8-exponents-and-powers', 'Chapter 8 — Exponents and Powers', 'Part 
   { id: 'B', title: 'Set B', questions: [
     { q: '(2x²)³ = ?', o: ['8x⁶','6x⁵','2x⁶','8x⁵'], a: 0, e: '2³ = 8; (x²)³ = x⁶.' },
     { q: 'I = b·h³/12. If h doubles, I changes by factor:', n: 8, t: 0, e: '2³ = 8.' },
-    { q: 'PL³/(48EI). If L is halved, deflection becomes:', o: ['Half','1/4','1/8','1/16'], a: 2, e: '(½)³ = 1/8.' },
+    { q: 'If volume varies with side length cubed, halving side length makes volume:', o: ['Half','1/4','1/8','1/16'], a: 2, e: '(1/2)^3 = 1/8.' },
   ]},
   { id: 'C', title: 'Set C', questions: [
     { q: 'x^(1/2) means:', o: ['Square','Square root','Reciprocal','Halve'], a: 1, e: 'Fractional exponent 1/2 = √.' },
@@ -8733,8 +8820,8 @@ E('chapter-9-introduction-to-functions', 'Chapter 9 — Introduction to Function
   ]},
   { id: 'C', title: 'Set C', questions: [
     { q: 'M(x) = wx(L−x)/2 is a function of:', o: ['Position only (given w,L)','Time','Material','Section'], a: 0, e: 'Internal moment depends on x along span.' },
-    { q: 'σ(M) = Mc/I is a function of:', o: ['M','c','I','All of the above'], a: 3, e: 'Multivariable; primary input typically M.' },
-    { q: 'Deflection δ(L) = 5wL⁴/(384EI) — δ is sensitive to:', o: ['L (4th power)','E (linear)','w (linear)','c'], a: 0, e: 'L⁴ dominates sensitivity.' },
+    { q: 'Cost C(x) = 120x + 500 is a function of:', o: ['x','500 only','120 only','nothing'], a: 0, e: 'Changing x changes C.' },
+    { q: 'Area A(s) = s² is most sensitive to:', o: ['s squared','a constant','units only','sign only'], a: 0, e: 'Area changes with the square of side length.' },
   ]},
 ]);
 
@@ -8750,31 +8837,31 @@ E('chapter-10-what-is-a-force', 'Chapter 10 — What Is a Force?', 'Part 2', [
   ]},
   { id: 'B', title: 'Set B', questions: [
     { q: 'A force is fully described by:', o: ['Magnitude only','Direction only','Magnitude, direction, and point of application','Mass'], a: 2, e: 'Vector quantity with line of action.' },
-    { q: 'Two forces at right angles, 3 and 4 kN. Resultant magnitude:', n: 5, t: 0, e: '√(9+16) = 5.' },
-    { q: 'A 500 N force at 30° has horizontal component:', n: 433.0, t: 1, e: '500·cos30° ≈ 433.' },
+    { q: 'Two downward loads, 3 and 4 kN. Total downward load:', n: 7, t: 0, e: 'Same direction, so add them.' },
+    { q: 'A 500 N force arrow points downward. Its magnitude is:', n: 500, t: 0, e: 'Magnitude is the size of the force.' },
   ]},
   { id: 'C', title: 'Set C', questions: [
-    { q: 'External forces include:', o: ['Internal stresses','Loads, reactions, weight','Material properties','Section dimensions'], a: 1, e: 'Loads and reactions are external.' },
+    { q: 'External forces include:', o: ['Internal stresses','Applied loads and weight','Material properties','Section dimensions'], a: 1, e: 'Chapter 10 focuses on applied forces and weight.' },
     { q: 'Newton III states action and reaction are:', o: ['Equal in magnitude, same direction','Equal in magnitude, opposite direction','Different magnitudes','Always zero'], a: 1, e: 'Equal and opposite.' },
-    { q: 'Vertical component of 500 N at 30° above horizontal:', n: 250, t: 1, e: '500·sin30° = 250.' },
+    { q: 'Two downward forces 500 N and 250 N total:', n: 750, t: 1, e: 'Same direction, so add them.' },
   ]},
 ]);
 
 E('chapter-11-equilibrium-and-the-sum-of-forces', 'Chapter 11 — Equilibrium and the Sum of Forces', 'Part 2', [
   { id: 'A', title: 'Set A', questions: [
-    { q: 'For 2D equilibrium, the three equations are ΣF_x, ΣF_y, and:', o: ['ΣF_z','ΣM','Σσ','ΣE'], a: 1, e: 'Sum of moments = 0.' },
+    { q: 'In this chapter, force equilibrium uses:', o: ['ΣF_x and ΣF_y','ΣM only','Σσ only','ΣE only'], a: 0, e: 'Chapter 11 balances forces; moments come next.' },
     { q: 'ΣF_y = 0 with applied −60 kN. Reactions sum:', n: 60, t: 0, e: 'Reactions balance applied loads.' },
     { q: 'Equilibrium implies acceleration is:', n: 0, t: 0, e: 'Static body: a = 0.' },
   ]},
   { id: 'B', title: 'Set B', questions: [
-    { q: 'Beam pin at A, roller at B; how many unknown reactions total?', n: 3, t: 0, e: 'Pin (2) + roller (1).' },
-    { q: 'Choosing moment center at a support eliminates that support\'s reaction because:', o: ['It is zero','Its moment arm is zero','It vanishes by symmetry','It is internal'], a: 1, e: 'Force passes through center → no moment.' },
+    { q: 'For symmetric loading on identical supports, the two vertical reactions are:', o: ['Equal','Always zero','Opposite signs','Unrelated'], a: 0, e: 'Symmetry splits the vertical load equally.' },
+    { q: 'Non-symmetric support reactions generally need:', o: ['Moment equilibrium from Chapter 12','Only counting terms','No equations','Percentages'], a: 0, e: 'Moment equilibrium is introduced in Chapter 12.' },
     { q: 'For a simply supported beam with central P, reactions are each:', o: ['P','P/2','P/4','2P'], a: 1, e: 'Symmetric loading → equal reactions of P/2.' },
   ]},
   { id: 'C', title: 'Set C', questions: [
-    { q: 'A beam (L = 6 m) carries P = 30 kN at 2 m from A. R_B = ?', n: 10, t: 0.1, e: 'ΣM_A = 6 R_B − 30·2 = 0 → R_B = 10.' },
-    { q: 'For the same beam, R_A = ?', n: 20, t: 0.1, e: 'R_A = 30 − 10 = 20.' },
-    { q: 'A determinate planar structure has reactions = 3. If unknowns = 4, the structure is:', o: ['Unstable','Determinate','Once indeterminate','Mechanism'], a: 2, e: 'One redundant reaction.' },
+    { q: 'A centered 30 kN load on two identical supports gives each support:', n: 15, t: 0.1, e: 'Symmetry: 30/2 = 15 kN.' },
+    { q: 'A symmetric beam has total downward load 80 kN. Each support force = ?', n: 40, t: 0.1, e: '80/2 = 40 kN.' },
+    { q: 'If vertical loads sum to 120 kN downward, vertical reactions must sum to:', n: 120, t: 0, e: 'Force balance requires equal upward total.' },
   ]},
 ]);
 
@@ -8785,13 +8872,13 @@ E('chapter-12-moments-rotational-forces', 'Chapter 12 — Moments (Rotational Fo
     { q: 'Sign convention (typical): counter-clockwise is:', o: ['Negative','Positive','Zero','Undefined'], a: 1, e: 'CCW = positive (right-hand rule).' },
   ]},
   { id: 'B', title: 'Set B', questions: [
-    { q: 'A 100 N force at 30° from a 0.5 m arm: M = ?', n: 25, t: 0.1, e: '100 · 0.5 · sin30° = 25.' },
+    { q: 'A 100 N force has perpendicular distance 0.5 m from the pivot. M = ?', n: 50, t: 0.1, e: 'Moment = force × perpendicular distance = 100 × 0.5.' },
     { q: 'A couple (two equal opposite forces 0.3 m apart, 80 N each):', n: 24, t: 0, e: '80 · 0.3 = 24 N·m, independent of pivot.' },
     { q: 'Moment about a point on the line of action of the force is:', n: 0, t: 0, e: 'Zero arm.' },
   ]},
   { id: 'C', title: 'Set C', questions: [
     { q: 'Beam: pin at A, roller at B (L = 4 m). Point load 20 kN at 1 m from A. R_B = ?', n: 5, t: 0.1, e: 'ΣM_A: 4 R_B = 20·1 → R_B = 5.' },
-    { q: 'Bending moment is the integral of:', o: ['Slope','Shear','Stress','Curvature'], a: 1, e: 'M = ∫V dx.' },
+    { q: 'A bending moment causes a member to tend to:', o: ['Rotate or bend','Change color','Lose units','Become area'], a: 0, e: 'Moment is rotational tendency.' },
     { q: 'Maximum moment in a simply supported UDL beam occurs at:', o: ['Supports','Quarter-points','Midspan','Cantilever tip'], a: 2, e: 'Symmetric loading → midspan max.' },
   ]},
 ]);
@@ -8835,7 +8922,7 @@ E('chapter-14-support-conditions', 'Chapter 14 — Support Conditions', 'Part 2'
 E('chapter-15-internal-forces-axial-shear-and-bending-moment', 'Chapter 15 — Internal Forces: Axial, Shear, and Bending Moment', 'Part 2', [
   { id: 'A', title: 'Set A', questions: [
     { q: 'Three internal forces in a beam are axial, shear, and:', o: ['Pressure','Bending moment','Density','Strain'], a: 1, e: 'N, V, M.' },
-    { q: 'Shear V is the integral of distributed load (with sign). True/False (1=True, 0=False):', n: 1, t: 0, e: 'dV/dx = −w → integrate.' },
+    { q: 'For a simply supported UDL beam, the shear diagram shape is linear. True/False (1=True, 0=False):', n: 1, t: 0, e: 'Uniform load gives a straight shear diagram in this book.' },
     { q: 'In a simply supported UDL beam, V at midspan is:', n: 0, t: 0, e: 'Symmetric load → V = 0 at center.' },
   ]},
   { id: 'B', title: 'Set B', questions: [
@@ -8844,7 +8931,7 @@ E('chapter-15-internal-forces-axial-shear-and-bending-moment', 'Chapter 15 — I
     { q: 'For a cantilever (length L) with tip load P, M at the support is:', o: ['0','P','P·L','P·L/2'], a: 2, e: '|M| = P·L at fixed end.' },
   ]},
   { id: 'C', title: 'Set C', questions: [
-    { q: 'In a shear diagram, max moment occurs where shear:', o: ['Is max','Is min','Crosses zero','Is constant'], a: 2, e: 'dM/dx = V; V = 0 → max M.' },
+    { q: 'In a shear diagram, max moment occurs where shear:', o: ['Is max','Is min','Crosses zero','Is constant'], a: 2, e: 'Use the diagram rule: zero shear marks peak moment.' },
     { q: 'A truss member has only:', o: ['Bending','Axial force','Shear','Torsion'], a: 1, e: 'Two-force member: pure axial.' },
     { q: 'Axial force N (kN) on column with three floors, each transferring 50 kN. Total at base = ?', n: 150, t: 0, e: '3 × 50 = 150.' },
   ]},
@@ -8870,19 +8957,19 @@ E('chapter-16-stress-and-strain', 'Chapter 16 — Stress and Strain', 'Part 2', 
 
 E('chapter-17-bending-stress-in-beams', 'Chapter 17 — Bending Stress in Beams', 'Part 2', [
   { id: 'A', title: 'Set A', questions: [
-    { q: 'Flexure formula σ = ?', o: ['M / (c·I)','M·c / I','I / (M·c)','M·I / c'], a: 1, e: 'σ = Mc/I.' },
-    { q: 'I for rectangle b × h about its centroidal horizontal axis = ?', o: ['bh / 12','bh² / 6','bh³ / 12','b³h / 12'], a: 2, e: 'Standard formula.' },
-    { q: 'Maximum bending stress occurs at:', o: ['Neutral axis','Extreme fibre','Mid-depth','Web'], a: 1, e: 'σ ∝ y; max at y = c.' },
+    { q: 'Bending stress is zero at the:', o: ['Neutral axis','Extreme fibre','Support only','Load only'], a: 0, e: 'The neutral axis has zero bending stress.' },
+    { q: 'Maximum bending stress occurs at:', o: ['Neutral axis','Outer fibers','Mid-depth only','Anywhere'], a: 1, e: 'Stress is largest farthest from the neutral axis.' },
+    { q: 'Larger bending moment generally means bending stress:', o: ['Decreases','Increases','Becomes zero','Is unrelated'], a: 1, e: 'Stress grows with moment.' },
   ]},
   { id: 'B', title: 'Set B', questions: [
-    { q: 'Rectangle b = 0.3 m, h = 0.6 m. I (m⁴) = ?', n: 0.0054, t: 0.0001, e: '0.3·0.216/12 = 0.0054.' },
-    { q: 'Same section, M = 100 kN·m, c = 0.3 m. σ (kPa) = ?', n: 5555.6, t: 5, e: 'M·c/I = 100·0.3/0.0054 ≈ 5555.6.' },
-    { q: 'Section modulus S = I/c. For above: S = ?', n: 0.018, t: 0.0005, e: '0.0054/0.3 = 0.018 m³.' },
+    { q: 'Same section: Beam A has M = 50, Beam B has M = 100. Beam B stress is:', o: ['Half','Same','Double','Zero'], a: 2, e: 'Same section and double moment gives double stress.' },
+    { q: 'Same moment: a deeper beam usually has bending stress that is:', o: ['Lower','Higher','Always zero','Unchanged'], a: 0, e: 'Depth spreads material farther from the neutral axis.' },
+    { q: 'Where should you look for critical bending stress on a moment diagram?', o: ['Largest moment','Smallest label','Only supports','Only left end'], a: 0, e: 'Largest moment gives the critical region.' },
   ]},
   { id: 'C', title: 'Set C', questions: [
-    { q: 'For a beam, doubling depth h (rectangle): σ_max becomes:', o: ['Half','1/4','Same','Double'], a: 1, e: 'σ = M·(h/2)/(bh³/12) = 6M/(bh²); h doubled → σ ¼.' },
+    { q: 'For a beam, increasing depth usually makes bending stress:', o: ['Lower','Higher','Same','Undefined'], a: 0, e: 'Deeper sections are more efficient in bending.' },
     { q: 'I-shaped sections place material:', o: ['Near neutral axis (efficient)','Far from neutral axis (efficient)','Uniformly','Randomly'], a: 1, e: 'Far material maximizes I for given weight.' },
-    { q: 'Plastic section modulus Z is generally:', o: ['Smaller than S','Equal to S','Larger than S','Negative'], a: 2, e: 'Z > S; ratio is shape factor.' },
+    { q: 'The full numeric bending-stress formula is taught after:', o: ['Moment of inertia','Before forces','Before area','Never'], a: 0, e: 'Chapter 20 supplies the needed geometry property.' },
   ]},
 ]);
 
@@ -8922,7 +9009,7 @@ E('chapter-19-centroids', 'Chapter 19 — Centroids', 'Part 3', [
   { id: 'C', title: 'Set C', questions: [
     { q: 'Plastic neutral axis of an I-section divides area into two:', o: ['Halves by depth','Halves by area','Halves by weight','Quarter sections'], a: 1, e: 'PNA = equal-area axis.' },
     { q: 'For an unsymmetric section, σ_top and σ_bottom are:', o: ['Always equal','Generally different','Always zero','Equal in magnitude'], a: 1, e: 'Different y distances → different σ.' },
-    { q: 'Why locate the centroid before computing I?', o: ['Aesthetics','Bending formula uses I about centroidal axis','Stability','Cost'], a: 1, e: 'σ = Mc/I uses centroidal I.' },
+    { q: 'Why locate the centroid before computing I?', o: ['Aesthetics','I is needed about the centroidal axis','Stability','Cost'], a: 1, e: 'Composite-section I is computed about the overall centroidal axis.' },
   ]},
 ]);
 
@@ -8940,25 +9027,25 @@ E('chapter-20-moment-of-inertia-second-moment-of-area', 'Chapter 20 — Moment o
   { id: 'C', title: 'Set C', questions: [
     { q: 'For an I-section, most material should be:', o: ['Near neutral axis','Away from neutral axis','At neutral axis only','Equally distributed'], a: 1, e: 'Maximize d² contribution.' },
     { q: 'Section modulus S = I/c is used because:', o: ['σ = M·S','σ = M/S','σ = S·c','σ = S/I'], a: 1, e: 'σ_max = M/S.' },
-    { q: 'Composite section (R rect minus hole): use:', o: ['Add Is','Subtract hole I','Ignore hole','Double the rect'], a: 1, e: 'Negative-area subtraction.' },
+    { q: 'For M = 80×10⁶ N·mm, c = 300 mm, I = 5.4×10⁹ mm⁴, σ ≈ MPa:', n: 4.44, t: 0.02, e: 'σ = Mc/I = 4.44 N/mm² = 4.44 MPa.' },
   ]},
 ]);
 
 E('chapter-21-vectors', 'Chapter 21 — Vectors', 'Part 3', [
   { id: 'A', title: 'Set A', questions: [
     { q: 'A vector has:', o: ['Magnitude only','Direction only','Magnitude and direction','Mass'], a: 2, e: 'Definition.' },
-    { q: 'Magnitude of (3, 4):', n: 5, t: 0, e: '√(9+16).' },
+    { q: 'A vector has components (3, 4). Its x-component is:', n: 3, t: 0, e: 'The first component is x.' },
     { q: 'Sum of (1, 2) and (3, −2):', o: ['(4, 0)','(2, 0)','(4, 4)','(2, 4)'], a: 0, e: 'Component-wise.' },
   ]},
   { id: 'B', title: 'Set B', questions: [
-    { q: 'A 100 N force at 60° has horizontal component:', n: 50, t: 0.5, e: '100 cos60° = 50.' },
-    { q: 'Same force, vertical component:', n: 86.6, t: 0.5, e: '100 sin60° ≈ 86.6.' },
-    { q: 'Two forces 30 N east + 40 N north. Resultant magnitude:', n: 50, t: 0.5, e: '√(900+1600).' },
+    { q: 'Force A has Fx = 30, Force B has Fx = -10. Resultant Fx = ?', n: 20, t: 0.5, e: '30 + (-10) = 20.' },
+    { q: 'Force A has Fy = 20, Force B has Fy = 15. Resultant Fy = ?', n: 35, t: 0.5, e: '20 + 15 = 35.' },
+    { q: 'Component addition means add:', o: ['X with X and Y with Y','X with Y','Only magnitudes','Only angles'], a: 0, e: 'Keep components separated by axis.' },
   ]},
   { id: 'C', title: 'Set C', questions: [
-    { q: 'Reaction vector R = (R_x, R_y). Magnitude (kN) for (3, 4):', n: 5, t: 0, e: '√25.' },
-    { q: 'Direction angle of (1, 1) from x-axis (deg):', n: 45, t: 0.5, e: 'tan⁻¹(1/1).' },
-    { q: 'Sum of forces in x: 100 cos30 − 50. Approx:', n: 36.6, t: 1, e: '86.6 − 50.' },
+    { q: 'Reaction vector R = (R_x, R_y). If R_x = 3, the x-component is:', n: 3, t: 0, e: 'Read the x-component directly.' },
+    { q: 'Direction signs matter because vectors have:', o: ['Magnitude only','Direction as well as magnitude','No units','No axes'], a: 1, e: 'A vector includes direction.' },
+    { q: 'Sum of x-components: 86.6 − 50 = ?', n: 36.6, t: 1, e: 'Subtract the x-components.' },
   ]},
 ]);
 
@@ -9052,7 +9139,7 @@ E('chapter-26-polynomials-and-the-bending-moment-equation', 'Chapter 26 — Poly
   { id: 'C', title: 'Set C', questions: [
     { q: 'For w=4, L=6, M(x) at x = 3 (midspan):', n: 18, t: 0.1, e: '4·3·3/2 = 18.' },
     { q: 'M(x) for cantilever with tip P at x measured from tip: M(x) = ?', o: ['P','−P·x','+P·x','PL'], a: 1, e: 'Linear in x.' },
-    { q: 'Why the bending equation is a polynomial:', o: ['Loads are polynomial-distributed','Convention only','Random','Stiffness'], a: 0, e: 'Integrating polynomial loads yields polynomial moments.' },
+    { q: 'For M(x)=40x−4x², the associated shear expression is:', o: ['40−8x','40x','−4x²','x²'], a: 0, e: 'Chapter 33 teaches this as dM/dx.' },
   ]},
 ]);
 
@@ -9124,7 +9211,7 @@ E('chapter-30-matrices-basic', 'Chapter 30 — Matrices (Basic)', 'Part 4', [
   { id: 'C', title: 'Set C', questions: [
     { q: 'In FEM, [K]{u} = {F} relates:', o: ['Mass and accel','Stiffness, displacement, force','Stress and strain','Density and volume'], a: 1, e: 'Stiffness equation.' },
     { q: '[K] is typically:', o: ['Asymmetric','Symmetric (small-disp linear elasticity)','Random','Diagonal'], a: 1, e: 'For linear elastic.' },
-    { q: 'Solving for {u} requires:', o: ['Inverse (or factorization) of K','Multiplication only','Eigenvalues','Determinant only'], a: 0, e: '{u} = K⁻¹{F}.' },
+    { q: 'A propped cantilever is solved by stiffness methods because it also needs:', o: ['Compatibility','Color settings','Rounding only','No supports'], a: 0, e: 'Indeterminate structures need deformation compatibility.' },
   ]},
 ]);
 
@@ -9162,7 +9249,7 @@ E('chapter-32-sequences-and-series', 'Chapter 32 — Sequences and Series', 'Par
 E('chapter-33-limits-conceptual-introduction', 'Chapter 33 — Limits — Conceptual Introduction', 'Part 4', [
   { id: 'A', title: 'Set A', questions: [
     { q: 'lim_{x→2} (x + 3) = ?', n: 5, t: 0, e: 'Direct substitution.' },
-    { q: 'lim_{x→0} sin(x)/x = ?', n: 1, t: 0, e: 'Standard limit.' },
+    { q: 'The derivative dM/dx represents the slope of:', o: ['Moment diagram','Load list','Material table','Grid only'], a: 0, e: 'It is the limiting slope of M(x).' },
     { q: 'lim_{x→∞} 1/x = ?', n: 0, t: 0, e: '1/x → 0.' },
   ]},
   { id: 'B', title: 'Set B', questions: [
@@ -9172,7 +9259,7 @@ E('chapter-33-limits-conceptual-introduction', 'Chapter 33 — Limits — Concep
   ]},
   { id: 'C', title: 'Set C', questions: [
     { q: 'In FEM, refining mesh size h → 0 ideally gives:', o: ['Worse results','Convergence to exact solution','No effect','Divergence'], a: 1, e: 'Convergence.' },
-    { q: 'Moment as derivative of shear M\' = V relies on:', o: ['Algebra only','Calculus / limits','Geometry','Statistics'], a: 1, e: 'Calculus link.' },
+    { q: 'Shear as derivative of moment, V = dM/dx, relies on:', o: ['Algebra only','Calculus / limits','Geometry','Statistics'], a: 1, e: 'Calculus link.' },
     { q: 'A limit may exist even if the function value at the point:', o: ['Always equals it','Is undefined','Is negative','Is zero'], a: 1, e: 'Limit ≠ value of f at that point sometimes.' },
   ]},
 ]);

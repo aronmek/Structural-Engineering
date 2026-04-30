@@ -34,7 +34,7 @@ Organize into 5 Parts:
 - Do not use a concept inside a worked example until it has been explained with physical meaning and at least one worked example.
 - If an early chapter needs to mention a later idea, label it as a preview and do not require the reader to calculate with it yet.
 - Arithmetic and algebra chapters should use measurement, layout, cost, area, volume, and simple capacity examples before statics concepts are taught.
-- Do not use forces, reactions, stress, bending moment, shear, deflection, moment of inertia, DCR, or ETABS design output as required knowledge before their teaching chapters.
+- Do not use forces, reactions, stress, bending moment, shear, deflection, moment of inertia, demand/capacity shorthand, or ETABS design output as required knowledge before their teaching chapters.
 
 For every topic, include ALL of the following sections IN ORDER:
 
@@ -398,7 +398,7 @@ This part is dedicated entirely to the physics that underlies all structural eng
   - Find centroid first (Chapter 19)
   - Apply parallel axis theorem to each part
   - Sum the results
-- Engineering use: I controls bending stiffness and completes the quantitative bending-stress check deferred from Chapter 17
+- Engineering use: I controls bending stiffness and completes the quantitative bending-stress check deferred from Chapter 17; include a worked $\sigma = Mc/I$ example here, after $I$ is taught
 - ETABS connection: Frame Section properties dialog shows I33 (bending about major/strong axis) and I22 (minor/weak axis) — these ARE the I values you calculated; verify your hand calculation against ETABS output
 
 ### Chapter 21: Vectors
@@ -470,9 +470,11 @@ This part is dedicated entirely to the physics that underlies all structural eng
 - Direct proportion: if load doubles, stress doubles (σ ∝ P, because σ = P/A with A constant)
 - Inverse proportion: if area doubles, stress halves (σ ∝ 1/A)
 - Key structural proportionality relationships:
-  - Deflection δ ∝ L³ — doubling span multiplies deflection by 8×
+  - Simply supported UDL deflection uses $\delta_{max}=5wL^4/(384EI)$ — doubling span multiplies deflection by 16×
+  - Cantilever tip deflection uses $\delta_{tip}=PL^3/(3EI)$ — doubling cantilever length multiplies this case by 8×
   - Deflection δ ∝ 1/I — doubling I halves deflection
   - Deflection δ ∝ 1/E — stiffer material = less deflection
+- Include a worked exact deflection calculation only here, after $E$ and $I$ have both been taught
 - ETABS use: understanding why increasing beam depth (and thus I) has a dramatic effect; proportionality lets you estimate results before running ETABS and sanity-check after
 
 ### Chapter 28: Exponential Functions
@@ -502,6 +504,7 @@ This part is dedicated entirely to the physics that underlies all structural eng
   - {d} = displacement vector — how much each joint moves (what we want to find)
   - {F} = force vector — the applied loads (what we know)
   - Solving for {d}: {d} = [K]⁻¹{F}
+- Reintroduce indeterminate structures here: explain that propped cantilevers and continuous beams need deformation compatibility in addition to equilibrium, and show how the stiffness method solves them
 - This equation is what ETABS solves every single time you click "Run Analysis" — with potentially hundreds of thousands of simultaneous equations
 - ETABS connection: Analyze > Run Analysis — the solver log that appears shows ETABS factoring [K] and solving for {d}; understanding this makes every ETABS result comprehensible rather than mysterious
 

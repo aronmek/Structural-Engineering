@@ -13,7 +13,7 @@ E('chapter-1-variables-and-expressions', 'Chapter 1 — Variables and Expression
   ]},
   { id: 'C', title: 'Set C', questions: [
     { q: 'A reaction R_A = (wL/2) + P/2 with w=4, L=6, P=20: R_A = ?', n: 22, t: 0, e: '12 + 10 = 22.' },
-    { q: 'Stress σ = P/A + Mc/I has how many terms?', n: 2, t: 0, e: 'Two: P/A and Mc/I (sum).' },
+    { q: 'A total length formula L = ns + 2e has how many terms on the right?', n: 2, t: 0, e: 'Two terms: ns and 2e.' },
     { q: 'Doubling x in 5x doubles the result. This holds because of:', o: ['Distributive property','Linearity (proportionality)','Order of operations','Pythagoras'], a: 1, e: 'The expression is linear in x.' },
   ]},
 ]);
@@ -44,7 +44,7 @@ E('chapter-3-rearranging-formulas', 'Chapter 3 — Rearranging Formulas', 'Part 
   ]},
   { id: 'B', title: 'Set B', questions: [
     { q: 'V = (1/3)π r²h → h = ?', o: ['3V/(πr²)','V/(3πr²)','V·r²/3','πr²/3V'], a: 0, e: 'Multiply by 3, divide by πr².' },
-    { q: 'σ = Mc/I → I = ?', o: ['σM/c','Mc/σ','σc/M','M/(σc)'], a: 1, e: 'Cross-multiply: I = Mc/σ.' },
+    { q: 'L = ns + 2e → s = ?', o: ['(L - 2e)/n','L - 2en','n/(L - 2e)','L/n + 2e'], a: 0, e: 'Subtract 2e, then divide by n.' },
     { q: 'For δ = PL/(AE), solving for A gives:', o: ['PL/(δE)','δE/(PL)','P/(δLE)','PLE/δ'], a: 0, e: 'Cross-multiply and isolate A.' },
   ]},
   { id: 'C', title: 'Set C', questions: [
@@ -102,7 +102,7 @@ E('chapter-6-quadratic-equations', 'Chapter 6 — Quadratic Equations', 'Part 1'
     { q: 'Solve x² + 4x − 5 = 0 (positive root).', n: 1, t: 0, e: '(x+5)(x−1) = 0.' },
   ]},
   { id: 'C', title: 'Set C', questions: [
-    { q: 'Bending stress σ varies as Mc/I. Doubling I:', o: ['Doubles σ','Halves σ','Quarters σ','No effect'], a: 1, e: 'σ inversely proportional to I.' },
+    { q: 'Demand/capacity ratio = demand/capacity. Doubling capacity:', o: ['Doubles ratio','Halves ratio','Quarters ratio','No effect'], a: 1, e: 'The ratio is inversely proportional to capacity.' },
     { q: 'A quadratic moment curve M(x) = wx(L−x)/2 reaches max at x = ?', o: ['0','L/4','L/2','L'], a: 2, e: 'Symmetric parabola peaks at midspan.' },
     { q: 'For w = 4, L = 8, max M = wL²/8 = ?', n: 32, t: 0, e: '4·64/8 = 32.' },
   ]},
@@ -116,7 +116,7 @@ E('chapter-7-inequalities', 'Chapter 7 — Inequalities', 'Part 1', [
   ]},
   { id: 'B', title: 'Set B', questions: [
     { q: 'Solve 3 ≤ 2x − 1 ≤ 9.', o: ['1 ≤ x ≤ 5','2 ≤ x ≤ 5','1 ≤ x ≤ 4','2 ≤ x ≤ 4'], a: 1, e: 'Add 1: 4 ≤ 2x ≤ 10 → 2 ≤ x ≤ 5.' },
-    { q: 'A serviceability check: actual deflection 18 mm, limit 20 mm. Status:', o: ['Fails','Passes','Indeterminate','Fails marginally'], a: 1, e: '18 ≤ 20 → passes.' },
+    { q: 'A movement check: actual movement 18 mm, limit 20 mm. Status:', o: ['Fails','Passes','Indeterminate','Fails marginally'], a: 1, e: '18 ≤ 20 → passes.' },
     { q: 'A demand-to-capacity ratio D/C ≤ 1.0 means:', o: ['Element fails','Element acceptable','Overdesigned','Indeterminate'], a: 1, e: 'D/C ≤ 1 indicates capacity sufficient.' },
   ]},
   { id: 'C', title: 'Set C', questions: [
@@ -135,7 +135,7 @@ E('chapter-8-exponents-and-powers', 'Chapter 8 — Exponents and Powers', 'Part 
   { id: 'B', title: 'Set B', questions: [
     { q: '(2x²)³ = ?', o: ['8x⁶','6x⁵','2x⁶','8x⁵'], a: 0, e: '2³ = 8; (x²)³ = x⁶.' },
     { q: 'I = b·h³/12. If h doubles, I changes by factor:', n: 8, t: 0, e: '2³ = 8.' },
-    { q: 'PL³/(48EI). If L is halved, deflection becomes:', o: ['Half','1/4','1/8','1/16'], a: 2, e: '(½)³ = 1/8.' },
+    { q: 'If volume varies with side length cubed, halving side length makes volume:', o: ['Half','1/4','1/8','1/16'], a: 2, e: '(1/2)^3 = 1/8.' },
   ]},
   { id: 'C', title: 'Set C', questions: [
     { q: 'x^(1/2) means:', o: ['Square','Square root','Reciprocal','Halve'], a: 1, e: 'Fractional exponent 1/2 = √.' },
@@ -157,7 +157,7 @@ E('chapter-9-introduction-to-functions', 'Chapter 9 — Introduction to Function
   ]},
   { id: 'C', title: 'Set C', questions: [
     { q: 'M(x) = wx(L−x)/2 is a function of:', o: ['Position only (given w,L)','Time','Material','Section'], a: 0, e: 'Internal moment depends on x along span.' },
-    { q: 'σ(M) = Mc/I is a function of:', o: ['M','c','I','All of the above'], a: 3, e: 'Multivariable; primary input typically M.' },
-    { q: 'Deflection δ(L) = 5wL⁴/(384EI) — δ is sensitive to:', o: ['L (4th power)','E (linear)','w (linear)','c'], a: 0, e: 'L⁴ dominates sensitivity.' },
+    { q: 'Cost C(x) = 120x + 500 is a function of:', o: ['x','500 only','120 only','nothing'], a: 0, e: 'Changing x changes C.' },
+    { q: 'Area A(s) = s² is most sensitive to:', o: ['s squared','a constant','units only','sign only'], a: 0, e: 'Area changes with the square of side length.' },
   ]},
 ]);

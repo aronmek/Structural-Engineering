@@ -847,7 +847,11 @@ You do not need to have studied algebra. You do not need to know any physics. Yo
 - Be able to perform every common hand calculation a structural engineer uses daily
 - Be able to model a multi-story building in ETABS 22, run analysis, and interpret the results
 
-The book is organized into five parts. Each part builds directly on the previous one. Do not skip ahead — every chapter introduces vocabulary and ideas the next one assumes you already know.
+The book is organized so each part builds directly on the previous one. Do not skip ahead — every chapter introduces vocabulary and ideas the next one assumes you already know.
+
+This book follows one strict rule: **a term is not considered explained until the book has defined it, shown why it matters, and worked through at least one example using it.** A word-bank entry is useful, but it is not enough by itself. Until a concept has been explained this way, it may appear only as a clearly labeled preview.
+
+When a later engineering idea is mentioned early, read it as a signpost, not as something you must already understand. For example, Part 0 may say that fractions will later appear in beam formulas, but it will not require you to solve beam formulas before beams have been explained.
 
 ---
 
@@ -861,8 +865,8 @@ Every chapter — without exception — contains the following nine sections in 
 | **B — Concept Introduction** | Plain English explanation with a real-world analogy |
 | **C — The Physics Behind It** | The physical meaning before any formula is shown (when applicable) |
 | **D — The Math** | The formula, every symbol explained, fully worked numerical example |
-| **E — Structural Engineering Application** | A real engineering problem solved end-to-end |
-| **F — ETABS Connection** | Exact menu paths and an immediate hands-on Mini-Task in ETABS 22 |
+| **E — Structural Engineering Application** | A real engineering problem using only concepts already explained; any future idea is labeled as preview |
+| **F — ETABS Connection** | Exact menu paths and an immediate hands-on Mini-Task in ETABS 22, only after the needed physical idea has been taught |
 | **G — Common Mistakes** | The 2–4 most frequent beginner errors and how to avoid them |
 | **H — Chapter Practice Task** | A complete structural problem with full worked solution and ETABS verification |
 | **I — Chapter Summary Table** | Concept • Formula • Engineering Use • ETABS Location |
@@ -882,6 +886,19 @@ Every chapter — without exception — contains the following nine sections in 
 ## A Note on Tone
 
 This book never says "obviously," "simply," or "just." If something is genuinely difficult, it will say so and walk you through it slowly. If you feel lost in any chapter, go back to the Word Bank — almost every confusion can be traced to a single unfamiliar term.
+
+## Reader Knowledge Ledger
+
+The book keeps track of what has actually been explained:
+
+| Stage | Concepts the reader can use confidently | Concepts that are only previews until later |
+|-------|-----------------------------------------|--------------------------------------------|
+| Part 0 | Numbers, signs, arithmetic, fractions, decimals, percentages, powers, roots, order of operations, estimation | Force, stress, moment, beam, support, ETABS design output |
+| Part 1 | Variables, expressions, equations, rearranging, units, systems, quadratics, inequalities, functions | Physical equilibrium, bending moment, deflection, stiffness |
+| Part 2 | Forces, loads, equilibrium, moments, supports, internal forces, stress and strain | Advanced section properties, 3D vectors, matrix analysis |
+| Part 3 | Area, perimeter, centroid, moment of inertia, vectors, trigonometry, coordinates | Precalculus behavior and software matrix solving |
+| Part 4 | Polynomials, proportionality, exponentials, logarithms, matrices, limits | Full ETABS workflow details |
+| Part 5 | ETABS modeling, loading, analysis, result interpretation, and design workflow | Project-specific code requirements beyond this introductory guide |
 
 ---
 
@@ -1033,14 +1050,14 @@ Every measurement in engineering is a real number on a number line. To the right
 - $|-7| = 7$
 - $|0| = 0$
 
-### D. Engineering Use
+### D. Later Engineering Use
 
-In structural engineering, signs encode direction:
-- A reaction of $+50$ kN means the support pushes up by 50 kN.
-- A stress of $-20$ MPa means compression (the bar is being squeezed).
-- A coordinate $z = -3$ m might mean 3 m below ground.
+For now, signs mean direction on a number line:
+- $+3$ can mean 3 m above a reference level.
+- $-3$ can mean 3 m below that same reference level.
+- $|{-3}| = 3$ means the distance from the reference is 3 m.
 
-Absolute value is used in checks like "max deflection $|\delta| \le L/250$" — we care about size, not sign.
+Later, the same sign idea will describe force direction, compression, tension, and movement. Those engineering words are previews only; the arithmetic skill here is reading sign and size separately.
 
 ### E. Common Mistakes
 
@@ -1098,11 +1115,11 @@ Addition combines quantities. Subtraction takes one quantity away from another. 
 
 **Multi-term:** $5 - 3 + 8 - 2 = 8$. Work left to right, treating each term with its own sign.
 
-**Engineering example.** A column has reactions $+30, -10, +5, -8$ kN summed: $30 - 10 + 5 - 8 = 17\ \mathrm{kN}$.
+**Measurement example.** A floor level changes by $+30, -10, +5, -8$ mm during a survey. The total change is $30 - 10 + 5 - 8 = 17\ \mathrm{mm}$.
 
-### D. Engineering Use
+### D. Later Engineering Use
 
-Equilibrium ($\Sigma F = 0$) is one giant signed addition. Forces upward are positive; forces downward are negative; they must add to zero. If the sum is non-zero, either you missed a force, the body is accelerating, or you mixed up signs.
+Structural engineering uses signed addition constantly. Later, upward and downward forces will be added the same way survey changes were added above. For this chapter, the goal is only to become comfortable combining positive and negative numbers.
 
 ### E. Common Mistakes
 
@@ -1116,9 +1133,9 @@ Equilibrium ($\Sigma F = 0$) is one giant signed addition. Forces upward are pos
 > 2. $4 - 9$
 > 3. $-3 - (-8)$
 > 4. $12.4 - 5.07 + 0.6$
-> 5. (Engineering) Sum of vertical forces: $+25, -40, +20, -8$
+> 5. Sum of signed changes: $+25, -40, +20, -8$
 >
-> **Answers:** 1) 5  2) −5  3) 5  4) 7.93  5) −3 (downward)
+> **Answers:** 1) 5  2) −5  3) 5  4) 7.93  5) −3
 
 ### G. Summary Table
 
@@ -1168,13 +1185,11 @@ $1.2 \times 0.05$: $12 \times 5 = 60$, total decimals = 1+2 = 3, so $0.060 = 0.0
 **Division:** convert to multiplication by reciprocal.
 $\dfrac{6}{0.5} = 6 \times \dfrac{1}{0.5} = 6 \times 2 = 12$
 
-**Engineering example.** A beam carries $w = 4\ \mathrm{kN/m}$ over $L = 6$ m. Total load = $w \times L = 4 \times 6 = 24$ kN.
+**Measurement example.** A drawing has 4 equal bays, each 6 m long. Total length = $4 \times 6 = 24$ m.
 
-### D. Engineering Use
+### D. Later Engineering Use
 
-- Total load = load per length × length (multiplication)
-- Stress = force ÷ area (division)
-- Reactions split: load × distance ÷ span (combined)
+Multiplication and division will later convert between totals and rates: total length from repeated bay spacing, total cost from cost per meter, and eventually total load from load per meter. The engineering words are not needed yet; the skill is recognizing "per" as division and repeated equal groups as multiplication.
 
 ### E. Common Mistakes
 
@@ -1189,9 +1204,9 @@ $\dfrac{6}{0.5} = 6 \times \dfrac{1}{0.5} = 6 \times 2 = 12$
 > 2. $(-4)(-9)$
 > 3. $\dfrac{-48}{-6}$
 > 4. $0.4 \times 0.25$
-> 5. (Engineering) Stress $\sigma = P/A$ for $P = 200$ kN, $A = 0.005\ \mathrm{m}^2$
+> 5. A 200 m total length is split equally among 5 identical segments. Find the length of each segment.
 >
-> **Answers:** 1) −42  2) 36  3) 8  4) 0.10  5) $40{,}000$ kPa = 40 MPa
+> **Answers:** 1) −42  2) 36  3) 8  4) 0.10  5) 40 m
 
 ### G. Summary Table
 
@@ -1237,12 +1252,12 @@ $\dfrac{2}{3} \div \dfrac{4}{5} = \dfrac{2}{3} \times \dfrac{5}{4} = \dfrac{10}{
 
 **Engineering example.** A beam spans 6 m. Mid-span is $\tfrac{1}{2} \cdot 6 = 3$ m. Quarter-span is $\tfrac{1}{4} \cdot 6 = 1.5$ m.
 
-### D. Engineering Use
+### D. Later Engineering Use
 
-- Centroid of a triangle is $\tfrac{1}{3}$ of the height from the base
-- Max moment of a simply supported UDL: $\tfrac{wL^2}{8}$
-- Cantilever tip deflection: $\tfrac{PL^3}{3EI}$ — the $\tfrac{1}{3}$ is a fraction
-- Code reduction factors are often fractions: $\phi = \tfrac{9}{10}$ for bending in ACI
+Fractions will later appear in formulas because engineering often deals with halves, thirds, quarters, and ratios. For now, use fractions in familiar geometry and measurement ideas:
+- Half of a 6 m span is $\tfrac{1}{2} \cdot 6 = 3$ m.
+- Quarter of a 6 m span is $\tfrac{1}{4} \cdot 6 = 1.5$ m.
+- A factor of $\tfrac{9}{10}$ means keeping 9 parts out of 10.
 
 ### E. Common Mistakes
 
@@ -1257,7 +1272,7 @@ $\dfrac{2}{3} \div \dfrac{4}{5} = \dfrac{2}{3} \times \dfrac{5}{4} = \dfrac{10}{
 > 2. $\tfrac{3}{4} - \tfrac{1}{6}$
 > 3. $\tfrac{2}{3} \times \tfrac{9}{8}$
 > 4. $\tfrac{5}{6} \div \tfrac{10}{3}$
-> 5. (Engineering) Max moment $M = \tfrac{wL^2}{8}$ for $w = 12, L = 4$
+> 5. Find one eighth of $12 \times 4^2$.
 >
 > **Answers:** 1) $\tfrac{13}{20}$  2) $\tfrac{7}{12}$  3) $\tfrac{3}{4}$  4) $\tfrac{1}{4}$  5) $24$
 
@@ -1304,14 +1319,13 @@ Engineering uses both: load factors are sometimes 1.4 (decimal) or 140% (same th
 - Increase 50 by 10%: $50 \times 1.10 = 55$
 - Decrease 50 by 10%: $50 \times 0.90 = 45$
 
-**Engineering example.** Live load reduction: a code allows reducing live load by 20% for large tributary areas. Original LL = $5\ \mathrm{kPa}$ → reduced $= 0.80 \times 5 = 4\ \mathrm{kPa}$.
+**Measurement example.** A 5 m length is reduced by 20%. New length $= 0.80 \times 5 = 4$ m.
 
 ### D. Engineering Use
 
-- Load factors: $1.2D$, $1.6L$ (i.e., 120% and 160%)
-- Reinforcement ratio: $\rho = A_s / (bd)$ usually written as 0.5%–4%
-- Damping ratio: 5% in design seismic analyses
-- Slope: 1% slope = 1 cm per meter
+- Design often compares values as percentages: 80% used, 20% remaining, 5% increase, 15% reduction.
+- Later, load factors and design ratios will use the same decimal-percent conversions.
+- Slope can be written as a percent: 1% slope means 1 cm rise per 1 m run.
 
 ### E. Common Mistakes
 
@@ -1323,8 +1337,8 @@ Engineering uses both: load factors are sometimes 1.4 (decimal) or 140% (same th
 
 > 1. Convert: $0.075$ to %; $7\%$ to decimal
 > 2. Compute: 12% of 250
-> 3. A column carries $P = 800$ kN. After live-load reduction of 15%, what's the reduced demand if 200 kN was live load?
-> 4. A beam is over-stressed by 8%. By what factor must capacity increase?
+> 3. A total of 800 units includes 200 units that may be reduced by 15%. What is the new total?
+> 4. A value must increase by 8%. What multiplier should you use?
 >
 > **Answers:** 1) 7.5%, 0.07  2) 30  3) Reduced LL = $0.85 \cdot 200 = 170$; total = $600 + 170 = 770$ kN  4) Multiply capacity by at least $1.08$.
 
@@ -1384,12 +1398,14 @@ $(2 \times 10^4)(3 \times 10^5) = 6 \times 10^9$
 
 **Engineering example.** Steel modulus $E = 200$ GPa = $200 \times 10^9$ Pa = $2 \times 10^{11}$ Pa.
 
-### D. Engineering Use
+### D. Later Engineering Use
 
-- Stress in Pa is huge; engineers write 30 MPa = $30 \times 10^6$ Pa.
-- Moment of inertia: $I = bh^3/12$ — a cube.
-- Deflection: $\delta = PL^3/(3EI)$ — span cubed.
-- Buckling: $P_{cr} = \pi^2 EI/L^2$ — span squared in denominator.
+Powers and roots are the arithmetic behind square areas, cubic volumes, and scientific notation:
+- A square footing with side $s$ has area $s^2$.
+- A cube with side $s$ has volume $s^3$.
+- Very large or small quantities are easier to read in scientific notation.
+
+Later chapters will use the same exponent rules in beam stiffness and deflection formulas.
 
 ### E. Common Mistakes
 
@@ -1402,9 +1418,9 @@ $(2 \times 10^4)(3 \times 10^5) = 6 \times 10^9$
 > 1. Compute: $5^3,\ (-2)^4,\ \sqrt{144},\ \sqrt[3]{27}$
 > 2. Simplify: $x^5 \cdot x^3$; $(y^2)^4$; $z^7 / z^4$
 > 3. Convert: $4{,}500{,}000$ to scientific; $7.2 \times 10^{-4}$ to decimal
-> 4. (Engineering) $I = bh^3/12$ for $b = 0.3$ m, $h = 0.6$ m. Compute $I$ in m⁴, then in mm⁴.
+> 4. A rectangular box is $0.3$ m wide, $0.6$ m tall, and $0.6$ m long. Compute its volume.
 >
-> **Answers:** 1) 125, 16, 12, 3  2) $x^8, y^8, z^3$  3) $4.5 \times 10^6$, $0.00072$  4) $0.3 \cdot 0.216 / 12 = 0.0054\ \mathrm{m^4} = 5.4 \times 10^9\ \mathrm{mm^4}$
+> **Answers:** 1) 125, 16, 12, 3  2) $x^8, y^8, z^3$  3) $4.5 \times 10^6$, $0.00072$  4) $0.3 \times 0.6 \times 0.6 = 0.108\ \mathrm{m^3}$
 
 ### G. Summary Table
 
@@ -1456,14 +1472,14 @@ Top: $12 - 8 = 4$. Bottom: 2. Result: 2.
 **$10 - 6 \div 2 + 4$**
 $= 10 - 3 + 4 = 11$ (left-to-right for ÷ and + −)
 
-**Engineering example.** Compute $\dfrac{wL^2}{8}$ for $w = 5, L = 6$:
-$\dfrac{5 \cdot 6^2}{8} = \dfrac{5 \cdot 36}{8} = \dfrac{180}{8} = 22.5\ \mathrm{kN\cdot m}$
+**Formula example.** Compute $\dfrac{5L^2}{8}$ for $L = 6$:
+$\dfrac{5 \cdot 6^2}{8} = \dfrac{5 \cdot 36}{8} = \dfrac{180}{8} = 22.5$
 
 (Power before multiplication.)
 
 ### D. Engineering Use
 
-Every formula in this book — bending stress, deflection, capacity — relies on PEMDAS. A single slip in operation order can give answers off by orders of magnitude.
+Every formula later in this book relies on PEMDAS. A single slip in operation order can give answers that are far too large or far too small.
 
 ### E. Common Mistakes
 
@@ -1478,9 +1494,9 @@ Every formula in this book — bending stress, deflection, capacity — relies o
 > 2. $(7 + 2) \cdot 3$
 > 3. $4^2 - 6 \div 3$
 > 4. $\dfrac{8 + 2 \cdot 5}{3}$
-> 5. (Engineering) Cantilever tip $\delta = \dfrac{PL^3}{3EI}$ for $P=10, L=2, E=200, I=0.0001$
+> 5. Evaluate $\dfrac{10 \cdot 2^3}{3 \cdot 200 \cdot 0.0001}$
 >
-> **Answers:** 1) 13  2) 27  3) 14  4) 6  5) $\delta = \dfrac{10 \cdot 8}{3 \cdot 200 \cdot 0.0001} = \dfrac{80}{0.06} = 1333.\overline{3}$ (units depend on inputs).
+> **Answers:** 1) 13  2) 27  3) 14  4) 6  5) $\dfrac{10 \cdot 8}{3 \cdot 200 \cdot 0.0001} = \dfrac{80}{0.06} = 1333.\overline{3}$
 
 ### G. Summary Table
 
@@ -1585,9 +1601,9 @@ Use this to check ETABS's reported 6800 kN — within 5%, ✓.
 
 | Word | Pronunciation | Plain English Meaning | Used In |
 |------|---------------|----------------------|---------|
-| **Variable** | "VAIR-ee-ah-bul" | A letter that stands in for a number we don't know yet, or that can change | $P$ in $\sigma = P/A$ |
+| **Variable** | "VAIR-ee-ah-bul" | A letter that stands in for a number we don't know yet, or that can change | $L$ for length |
 | **Expression** | "ex-PRESH-un" | A combination of numbers, variables, and operations — but no equals sign | $3x + 5$ |
-| **Constant** | "KON-stant" | A number whose value never changes | The $9.81$ in weight = $m \times 9.81$ |
+| **Constant** | "KON-stant" | A number whose value never changes | The $2$ in $2s + 1$ |
 | **Coefficient** | "co-ih-FISH-ent" | The number multiplying a variable | The $3$ in $3x$ |
 | **Substitute** | "SUB-stih-toot" | To replace a variable with a number | Putting $x = 4$ into $3x + 5$ |
 | **Evaluate** | "ee-VAL-yoo-ate" | To calculate the final number after substitution | $3(4) + 5 = 17$ |
@@ -1597,13 +1613,15 @@ Use this to check ETABS's reported 6800 kN — within 5%, ✓.
 
 A variable is a placeholder. Imagine ordering coffee online: the form has a box labeled "Quantity" — that empty box is a variable. It will hold a number eventually, but right now it is just a name waiting for a value.
 
-In structural engineering, almost nothing has a fixed value at the start of a calculation. The load on a beam, the size of a column, the strength of concrete — all of these are unknowns until you choose them or calculate them. Algebra is the language we use to describe how these unknowns relate to one another.
+In structural engineering, almost nothing has a fixed value at the start of a calculation. A length, a spacing, a count of repeated bays, or a chosen member size may all be unknown until you choose them or calculate them. Algebra is the language we use to describe how these unknowns relate to one another.
 
 > **Real-world analogy:** A recipe says "use F cups of flour and S cups of sugar, where F = 2S." You don't know F or S yet, but you know their relationship. The same idea runs through every engineering formula.
 
-### C. The Physics Behind It
+### C. What This Means in Measurement
 
-Engineers describe the physical world with formulas. A formula is a sentence written in symbols. The symbols are variables that stand for measurable physical quantities — force, length, area, stress, etc. When you write $\sigma = P/A$, you are saying *"The amount of stress in a member equals the force pushing on it divided by the area resisting that force."* The variables are not abstract — they are real measurable things in the real world.
+Engineers describe measurable things with formulas. A formula is a sentence written in symbols. The symbols are variables that stand for quantities such as length, spacing, count, width, or height. Later, variables will also stand for force, stress, moment, and other physical quantities. Those are not needed yet.
+
+For now, read a formula like $L = 3s + 2$ as a sentence: "The total length $L$ equals three equal spacings $s$, plus 2 extra meters."
 
 ### D. The Math
 
@@ -1626,40 +1644,39 @@ Final answer: $3x + 5 = 17$ when $x = 4$.
 
 ### E. Structural Engineering Application
 
-The most fundamental formula in structural engineering is **stress**:
+**Problem.** A small frame has 3 equal bays. Each bay has spacing $s = 4\ [\mathrm{m}]$. There is also a 1 m overhang on each end. Find the total length $L$.
 
-$$\sigma = \frac{P}{A}$$
+The formula is:
+
+$$L = 3s + 2e$$
 
 where:
-- $\sigma$ ("SIG-mah") = stress, in $[\mathrm{MPa}]$ (megapascals, equivalent to $[\mathrm{N/mm^2}]$)
-- $P$ = axial force, in $[\mathrm{N}]$ or $[\mathrm{kN}]$
-- $A$ = cross-sectional area, in $[\mathrm{mm^2}]$ or $[\mathrm{m^2}]$
-
-**Problem.** A steel rod has a cross-sectional area $A = 500\ [\mathrm{mm^2}]$ and carries a tensile force $P = 75{,}000\ [\mathrm{N}]$ ($75\ [\mathrm{kN}]$). Calculate the stress.
+- $L$ = total length
+- $s$ = spacing of one bay
+- $e$ = overhang length at one end
 
 **Solution:**
 
-1. Write the formula: $\sigma = \dfrac{P}{A}$
-2. Substitute values: $\sigma = \dfrac{75{,}000}{500}$
-3. Divide: $\sigma = 150\ [\mathrm{N/mm^2}] = 150\ [\mathrm{MPa}]$
+1. Write the expression: $3s + 2e$
+2. Substitute values: $3(4) + 2(1)$
+3. Multiply: $12 + 2$
+4. Add: $14\ [\mathrm{m}]$
 
-**What this means:** Every square millimeter of the rod's cross-section is pulling on the next with a force of 150 newtons. If the steel's yield stress is $250\ [\mathrm{MPa}]$, the rod is safe ($150 < 250$). If yield were only $100\ [\mathrm{MPa}]$, the rod would have already permanently stretched.
+**What this means:** Algebra lets one short expression describe many possible layouts. If the spacing changes, you substitute the new value for $s$ and evaluate again.
 
 ### F. ETABS Connection
 
 Every input field in ETABS is a variable waiting for a value.
 
-- **Define > Materials > Add New Material** has fields for $E$, $F_y$, $F_u$ — these are variables in the formulas ETABS uses internally
-- **Define > Section Properties > Frame Sections** has fields for width $b$ and depth $h$ — variables in $A = b \times h$ and $I = bh^3/12$
+- **Define > Grid Systems** has fields for spacing and number of grid lines — these are variables describing the model layout
+- **Define > Section Properties > Frame Sections** has fields for width $b$ and depth $h$ — variables that ETABS later uses in section calculations
 
 > **Try it in ETABS 22:**
 > 1. Open ETABS 22
 > 2. Go to **Define > Materials**
 > 3. Click **Add New Material**
-> 4. In the dialog, find the **"Modulus of Elasticity, E"** field
-> 5. Notice the field is empty until you supply a number — that empty field is the variable $E$
-> 6. Type `200000` (for steel, in MPa) and click OK
-> 7. ETABS will now use $E = 200{,}000\ [\mathrm{MPa}]$ everywhere it needs the modulus
+> 4. Notice that each box is empty until you supply a number — each empty box is a variable waiting for a value
+> 5. Type any trial spacing into one grid field and watch ETABS use that value to place the grid line
 
 ### G. Common Mistakes
 
@@ -1667,42 +1684,25 @@ Every input field in ETABS is a variable waiting for a value.
 2. **Forgetting the coefficient.** In $3x$, the $3$ is multiplied. Writing $3x = 3 + x$ is wrong; $3x$ means $3 \times x$.
 3. **Skipping units when substituting.** $P = 75{,}000$ alone is meaningless. Always write $P = 75{,}000\ [\mathrm{N}]$.
 
-### H. Chapter Practice Task — Stress in a Tie Rod
+### H. Chapter Practice Task — Grid Length
 
-> **Scenario:** A steel tie rod in the roof bracing of a warehouse must carry a tensile force of $P = 120\ [\mathrm{kN}]$. The rod has a circular cross-section with diameter $d = 20\ [\mathrm{mm}]$. The steel grade is $F_y = 350\ [\mathrm{MPa}]$.
+> **Scenario:** A simple frame layout has 4 equal bays and one overhang at each end. Each bay spacing is $s = 5\ [\mathrm{m}]$. Each overhang is $e = 1.5\ [\mathrm{m}]$.
 >
 > **Given:**
-> - $P = 120\ [\mathrm{kN}] = 120{,}000\ [\mathrm{N}]$
-> - $d = 20\ [\mathrm{mm}]$
-> - $F_y = 350\ [\mathrm{MPa}]$
+> - $s = 5\ [\mathrm{m}]$
+> - $e = 1.5\ [\mathrm{m}]$
+> - Formula: $L = 4s + 2e$
 >
 > **Tasks:**
-> 1. Calculate the cross-sectional area $A$ using $A = \pi d^2 / 4$
-> 2. Calculate the stress $\sigma = P/A$
-> 3. Compare the stress to $F_y$ — is the rod safe?
-> 4. Verify the result in ETABS 22
+> 1. Substitute $s$ and $e$ into the expression
+> 2. Evaluate the expression
+> 3. State the total length with units
 
 > **Worked Solution:**
 >
-> **Step 1 — Area:**
-> $A = \dfrac{\pi d^2}{4} = \dfrac{3.14159 \times (20)^2}{4} = \dfrac{3.14159 \times 400}{4} = \dfrac{1256.6}{4} = 314.16\ [\mathrm{mm^2}]$
+> $L = 4s + 2e = 4(5) + 2(1.5) = 20 + 3 = 23\ [\mathrm{m}]$
 >
-> **Step 2 — Stress:**
-> $\sigma = \dfrac{P}{A} = \dfrac{120{,}000}{314.16} = 381.97\ [\mathrm{N/mm^2}] = 381.97\ [\mathrm{MPa}]$
->
-> **Step 3 — Safety check:** Compare $\sigma$ to $F_y$:
-> $381.97\ [\mathrm{MPa}] > 350\ [\mathrm{MPa}]$
->
-> The rod is **NOT safe** — the stress exceeds the yield. Either increase the diameter or use a higher-grade steel.
->
-> **Step 4 — ETABS Verification:**
-> 1. **Define > Section Properties > Frame Sections > Add New Property > Steel > Solid Round** — set diameter $d = 20\ \mathrm{mm}$
-> 2. **Define > Materials** — confirm steel with $F_y = 350\ \mathrm{MPa}$
-> 3. Draw a vertical 1 m frame element using this section
-> 4. **Assign > Frame Loads > Point** — apply $P = 120\ \mathrm{kN}$ at the top in the axial direction
-> 5. Run analysis (F5)
-> 6. **Design > Steel Frame Design > Start Design**
-> 7. Click the member; the DCR (Demand/Capacity Ratio) should be greater than 1.0, confirming the failure
+> The total grid length is $23\ [\mathrm{m}]$.
 
 ### I. Chapter Summary Table
 
@@ -1710,7 +1710,7 @@ Every input field in ETABS is a variable waiting for a value.
 |---------|---------|----------------|----------------|
 | Variable | $x$ | Placeholder for any unknown value | Every input field |
 | Expression | $ax + b$ | Building block of formulas | Section property dialogs |
-| Stress (intro) | $\sigma = P/A$ | Force per unit area | Define > Materials (uses $\sigma$ internally) |
+| Substitution | Replace a variable with a value | Compute layout quantities | Grid and section input fields |
 
 <div style="page-break-after: always;"></div>
 
@@ -1733,9 +1733,11 @@ An equation is a balance scale. The equals sign is the pivot. Whatever you do to
 
 > **Real-world analogy:** Imagine a luggage scale showing "your bag plus 3 books = 12 kg." To find your bag's weight, you remove the 3 books from one side. You must also subtract their weight from the other side: bag = 12 − (weight of 3 books).
 
-### C. The Physics Behind It
+### C. What This Means in Measurement
 
-Equations express physical balance. The most important equations in structural engineering — the equilibrium equations $\Sigma F = 0$ and $\Sigma M = 0$ — are statements that opposing physical effects exactly cancel. When you "solve" them, you are finding the unknown force or moment that makes the physical balance work in the real world.
+Equations express a condition that must be true. In a layout problem, an equation might say that several equal spacings must add up to a known total length. Solving the equation finds the unknown spacing that makes the layout fit.
+
+Later, equations will also express physical balance in structures. That idea is called equilibrium and is explained in Part 2.
 
 ### D. The Math
 
@@ -1760,30 +1762,30 @@ The four inverse-operation pairs you need:
 
 ### E. Structural Engineering Application
 
-**Problem.** A column of cross-sectional area $A = 50{,}000\ [\mathrm{mm^2}]$ is loaded so that its stress reaches $\sigma = 8\ [\mathrm{MPa}]$. What is the axial load $P$?
+**Problem.** A straight grid line is $17\ [\mathrm{m}]$ long. It has 3 equal bays and a 1 m overhang at each end. What bay spacing $s$ makes the layout fit?
 
-The formula is $\sigma = P/A$. We know $\sigma$ and $A$; we want $P$.
+The formula is:
+
+$$3s + 2 = 17$$
 
 **Solution:**
 
-1. Write the equation: $\sigma = \dfrac{P}{A}$
-2. Substitute known values: $8 = \dfrac{P}{50{,}000}$
-3. Multiply both sides by $50{,}000$ (inverse of dividing by 50,000): $8 \times 50{,}000 = P$
-4. Calculate: $P = 400{,}000\ [\mathrm{N}] = 400\ [\mathrm{kN}]$
+1. Write the equation: $3s + 2 = 17$
+2. Subtract $2$ from both sides: $3s = 15$
+3. Divide both sides by $3$: $s = 5$
 
-**What this means:** A vertical column in a building carrying $400\ [\mathrm{kN}]$ — roughly the weight of 40 small cars — produces $8\ [\mathrm{MPa}]$ of compressive stress. Concrete with $f'_c = 30\ [\mathrm{MPa}]$ has plenty of margin.
+**What this means:** Each bay must be $5\ [\mathrm{m}]$ wide. If you used a different spacing, the total length would not equal 17 m.
 
 ### F. ETABS Connection
 
-When ETABS reports stress in a member, you can use a simple linear equation to back-calculate the force, or vice versa. ETABS solves billions of linear equations internally — every reaction, displacement, and member force comes from solving systems of these.
+ETABS uses equations whenever you define a model. If you enter a total grid length and number of spaces, you are deciding the spacing relationship. Later, ETABS also solves large systems of equations for reactions, displacements, and member forces; those physical results are explained after statics is introduced.
 
 > **Try it in ETABS 22:**
-> 1. Open any analyzed model
-> 2. **Display > Show Tables > Analysis Results > Frame Output > Frame Forces**
-> 3. Pick any column row; note its axial force $P$
-> 4. Look up the column's section area $A$ in **Display > Show Tables > Model > Frame Section Property Definitions**
-> 5. Hand-calculate $\sigma = P/A$ using the values you just read
-> 6. The result is the axial stress — you have just solved a linear equation that ETABS solved as part of millions
+> 1. Start a new model
+> 2. Open the grid definition dialog
+> 3. Choose a total length of 17 m with 3 equal spaces and 1 m overhang at each end
+> 4. Confirm that each repeated spacing is 5 m
+> 5. The software is using the same relationship: $3s + 2 = 17$
 
 ### G. Common Mistakes
 
@@ -1791,48 +1793,37 @@ When ETABS reports stress in a member, you can use a simple linear equation to b
 2. **Wrong inverse operation.** To undo $+5$ you subtract, not divide. Match each operation with its correct inverse.
 3. **Forgetting to check.** Always substitute your answer back. If both sides don't equal, you made an error.
 
-### H. Chapter Practice Task — Required Column Area
+### H. Chapter Practice Task — Unknown Bay Spacing
 
-> **Scenario:** You are designing a concrete column. The factored axial load is $P = 1{,}500\ [\mathrm{kN}]$. The allowable compressive stress in the concrete is $\sigma_{\text{allow}} = 12\ [\mathrm{MPa}]$. Find the minimum required cross-sectional area, then choose a square column dimension.
+> **Scenario:** A grid line is $26\ [\mathrm{m}]$ long. It contains 4 equal bays and a $1\ [\mathrm{m}]$ overhang at each end. Find the bay spacing $s$.
 >
 > **Given:**
-> - $P = 1{,}500\ [\mathrm{kN}] = 1{,}500{,}000\ [\mathrm{N}]$
-> - $\sigma_{\text{allow}} = 12\ [\mathrm{MPa}] = 12\ [\mathrm{N/mm^2}]$
+> - Total length: $26\ [\mathrm{m}]$
+> - Overhangs: $1\ [\mathrm{m}]$ each, so $2\ [\mathrm{m}]$ total
+> - Equation: $4s + 2 = 26$
 >
 > **Tasks:**
-> 1. Solve $\sigma = P/A$ for $A_{\min}$
-> 2. Find the side length of a square column with that area
-> 3. Round up to a practical size
-> 4. Verify in ETABS
+> 1. Subtract 2 from both sides
+> 2. Divide by 4
+> 3. State the spacing with units
 
 > **Worked Solution:**
 >
-> **Step 1 — Solve for A:**
-> Start with $\sigma = \dfrac{P}{A}$.
-> Multiply both sides by $A$: $\sigma \cdot A = P$
-> Divide both sides by $\sigma$: $A = \dfrac{P}{\sigma}$
-> Substitute: $A = \dfrac{1{,}500{,}000}{12} = 125{,}000\ [\mathrm{mm^2}]$
+> $4s + 2 = 26$
 >
-> **Step 2 — Square side:**
-> $A = s^2$, so $s = \sqrt{A} = \sqrt{125{,}000} = 353.55\ [\mathrm{mm}]$
+> $4s = 24$
 >
-> **Step 3 — Round up:** Use $s = 400\ [\mathrm{mm}]$ for a practical, code-friendly column ($A = 400 \times 400 = 160{,}000\ [\mathrm{mm^2}]$).
+> $s = 6\ [\mathrm{m}]$
 >
-> **Step 4 — ETABS Verification:**
-> 1. **Define > Section Properties > Frame Sections > Add New Property > Concrete Rectangular** — depth = 400, width = 400
-> 2. Draw a single column 3 m tall
-> 3. Apply $P = 1500\ \mathrm{kN}$ axial at the top (**Assign > Joint Loads > Forces** — Z = −1500)
-> 4. Pin-support the base (**Assign > Joint > Restraints**)
-> 5. Run analysis
-> 6. **Display > Show Tables > Frame Forces** — read $P$ at the base; check $\sigma = P/A = 1{,}500{,}000 / 160{,}000 = 9.4\ \mathrm{MPa}$, well below the 12 MPa limit
+> Each bay spacing is $6\ [\mathrm{m}]$.
 
 ### I. Chapter Summary Table
 
 | Concept | Formula | Engineering Use | ETABS Location |
 |---------|---------|----------------|----------------|
-| Linear equation | $ax + b = c$ | Solving for unknown force, area, or stress | Used internally everywhere |
+| Linear equation | $ax + b = c$ | Solving for unknown lengths, counts, or spacings | Used internally everywhere |
 | Inverse operation | $+ \leftrightarrow -$, $\times \leftrightarrow \div$ | Isolating any variable | — |
-| Solving for force | $P = \sigma \cdot A$ | Given stress, find load | Verify against Frame Forces table |
+| Solving for spacing | $s = (L - 2e)/n$ | Fit repeated bays into a total length | Grid definition |
 
 <div style="page-break-after: always;"></div>
 
@@ -1842,70 +1833,76 @@ When ETABS reports stress in a member, you can use a simple linear equation to b
 
 | Word | Pronunciation | Plain English Meaning | Used In |
 |------|---------------|----------------------|---------|
-| **Rearrange** | "ree-ah-RAYNJ" | Move terms to make a different variable the subject | Turning $\sigma = P/A$ into $A = P/\sigma$ |
+| **Rearrange** | "ree-ah-RAYNJ" | Move terms to make a different variable the subject | Turning $L = ns + 2e$ into $s = (L - 2e)/n$ |
 | **Transpose** | "tranz-POZE" | Move a term from one side of the equals sign to the other | "Transposing $A$ to the other side" |
 | **Subject of the formula** | — | The single variable on its own on one side | $\sigma$ is the subject of $\sigma = P/A$ |
 
 ### B. Concept Introduction
 
-You will rarely use a formula exactly as it is first written. A textbook might give you $\sigma = P/A$, but in real work you might know the stress and force, and need the area; or know the stress and area, and need the force. Rearranging a formula means choosing a new "subject" — the variable you want alone on the left.
+You will rarely use a formula exactly as it is first written. A drawing formula might give total length from spacing, but in real work you might know the total length and need the spacing. Rearranging a formula means choosing a new "subject" — the variable you want alone on the left.
 
 > **Real-world analogy:** A recipe gives quantities for 4 servings, but you have 6 guests. You don't throw out the recipe — you rearrange the proportions. The information is the same; the form is different.
 
 ### C. The Physics Behind It
 
-The physics doesn't change when you rearrange — only the algebra. $\sigma = P/A$ and $P = \sigma \cdot A$ describe exactly the same physical reality (force, area, and stress are linked). Rearranging just lets you solve for whichever physical quantity you need.
+The measured relationship doesn't change when you rearrange — only the algebra. $L = ns + 2e$ and $s = (L - 2e)/n$ describe the same layout. Rearranging just lets you solve for whichever quantity you need.
 
 ### D. The Math
 
 The rule is simple: do the same operation to both sides until the variable you want is alone.
 
-**Worked example.** Start with $\sigma = \dfrac{P}{A}$. Make $A$ the subject.
+**Worked example.** Start with $L = ns + 2e$. Make $s$ the subject.
 
-1. Write the formula: $\sigma = \dfrac{P}{A}$
-2. Multiply both sides by $A$: $\sigma \cdot A = \dfrac{P}{A} \cdot A$
-3. The $A$s cancel on the right: $\sigma \cdot A = P$
-4. Divide both sides by $\sigma$: $\dfrac{\sigma \cdot A}{\sigma} = \dfrac{P}{\sigma}$
-5. The $\sigma$s cancel on the left: $A = \dfrac{P}{\sigma}$
+1. Write the formula: $L = ns + 2e$
+2. Subtract $2e$ from both sides: $L - 2e = ns$
+3. Divide both sides by $n$: $\dfrac{L - 2e}{n} = s$
+4. Rewrite with the subject on the left: $s = \dfrac{L - 2e}{n}$
 
-The same formula now solves for $A$.
+The same formula now solves for spacing.
 
-**Worked example 2.** Start with $A = \dfrac{\pi d^2}{4}$. Solve for $d$.
+**Worked example 2.** Start with $L = ns + 2e$. Make $e$ the subject.
 
-1. Multiply both sides by $4$: $4A = \pi d^2$
-2. Divide both sides by $\pi$: $\dfrac{4A}{\pi} = d^2$
-3. Take the square root of both sides: $d = \sqrt{\dfrac{4A}{\pi}}$
+1. Subtract $ns$ from both sides: $L - ns = 2e$
+2. Divide both sides by $2$: $e = \dfrac{L - ns}{2}$
 
 ### E. Structural Engineering Application
 
-The bending stress formula has three variables: $\sigma = \dfrac{Mc}{I}$.
+A common early layout formula is:
+
+$$L = ns + 2e$$
+
+where:
+- $L$ = total grid length
+- $n$ = number of equal bays
+- $s$ = spacing of each bay
+- $e$ = overhang at one end
 
 | Want to find | Rearrange to |
 |-------------|-------------|
-| Stress $\sigma$ given $M, c, I$ | $\sigma = \dfrac{Mc}{I}$ |
-| Required moment of inertia $I$ given $\sigma_{\text{allow}}, M, c$ | $I = \dfrac{Mc}{\sigma}$ |
-| Allowable moment $M$ given $\sigma_{\text{allow}}, c, I$ | $M = \dfrac{\sigma I}{c}$ |
+| Total length $L$ | $L = ns + 2e$ |
+| Bay spacing $s$ | $s = \dfrac{L - 2e}{n}$ |
+| End overhang $e$ | $e = \dfrac{L - ns}{2}$ |
 
-**Problem.** A beam carries $M = 50\ [\mathrm{kN \cdot m}] = 50{,}000{,}000\ [\mathrm{N \cdot mm}]$. The allowable bending stress is $\sigma = 165\ [\mathrm{MPa}]$. The distance to the extreme fiber is $c = 200\ [\mathrm{mm}]$. Find the minimum required moment of inertia.
+**Problem.** A grid line must fit inside $L = 32\ [\mathrm{m}]$. It has $n = 5$ equal bays and $e = 1\ [\mathrm{m}]$ overhang at each end. Find the required bay spacing.
 
 **Solution:**
 
-1. Rearrange: $I = \dfrac{Mc}{\sigma}$
-2. Substitute: $I = \dfrac{50{,}000{,}000 \times 200}{165}$
-3. Multiply numerator: $50{,}000{,}000 \times 200 = 10{,}000{,}000{,}000$
-4. Divide: $I = \dfrac{10{,}000{,}000{,}000}{165} = 60{,}606{,}061\ [\mathrm{mm^4}]$
+1. Rearrange: $s = \dfrac{L - 2e}{n}$
+2. Substitute: $s = \dfrac{32 - 2(1)}{5}$
+3. Simplify numerator: $32 - 2 = 30$
+4. Divide: $s = 6\ [\mathrm{m}]$
 
-**What this means:** Pick a section whose $I_{33}$ (in ETABS) is at least $60.6 \times 10^6\ [\mathrm{mm^4}]$.
+**What this means:** Five 6 m bays plus two 1 m overhangs exactly fill 32 m.
 
 ### F. ETABS Connection
 
-ETABS gives you $\sigma$ and $M$; you use rearranged formulas to back-calculate other quantities, and to choose section sizes before running the model. The "Section Properties" dialog reports $I$ — comparing your required $I$ from rearrangement to the catalog values is how you select sections.
+ETABS contains many input fields connected by formulas. Rearranging helps you decide what value to enter before you model. For example, if the total grid length is fixed, you rearrange the layout formula to choose the bay spacing.
 
 > **Try it in ETABS 22:**
-> 1. **Define > Section Properties > Frame Sections** — open any rectangular concrete beam
-> 2. Click **Section Properties...**; note the value of $I_{33}$
-> 3. Compare to the required $I$ from your hand calculation
-> 4. If catalog $I_{33}$ < required $I$, choose a deeper beam and repeat — you have just performed practical section design using rearrangement
+> 1. Open the grid definition dialog
+> 2. Decide on a total length, number of bays, and overhangs
+> 3. Use $s = (L - 2e)/n$ to calculate the spacing before entering it
+> 4. Enter the spacing and confirm the total dimension matches your calculation
 
 ### G. Common Mistakes
 
@@ -1913,52 +1910,42 @@ ETABS gives you $\sigma$ and $M$; you use rearranged formulas to back-calculate 
 2. **Forgetting to do operations to *every* term.** When dividing by $\sigma$, every term on each side must be divided.
 3. **Losing the negative sign.** Moving a $-3$ across the equals sign means it becomes $+3$ on the other side — this is just algebra, but it's easy to forget.
 
-### H. Chapter Practice Task — Choosing a Beam Depth
+### H. Chapter Practice Task — Choosing a Bay Spacing
 
-> **Scenario:** A simply supported beam spans $L = 6\ [\mathrm{m}]$ and carries a uniform load $w = 20\ [\mathrm{kN/m}]$. The allowable bending stress is $\sigma_{\text{allow}} = 200\ [\mathrm{MPa}]$. The beam is rectangular concrete with width $b = 300\ [\mathrm{mm}]$. Find the minimum depth $h$.
+> **Scenario:** A rectangular building side is $L = 42\ [\mathrm{m}]$ long. The architect wants $n = 6$ equal bays and a $1.5\ [\mathrm{m}]$ overhang at each end. Find the bay spacing $s$.
 >
 > **Given:**
-> - Maximum moment for a simply supported uniformly loaded beam: $M_{\max} = wL^2/8$
-> - Rectangular section: $I = bh^3/12$ and $c = h/2$
-> - Bending stress: $\sigma = Mc/I$
+> - $L = 42\ [\mathrm{m}]$
+> - $n = 6$
+> - $e = 1.5\ [\mathrm{m}]$
+> - $L = ns + 2e$
 >
 > **Tasks:**
-> 1. Compute $M_{\max}$
-> 2. Substitute $I$ and $c$ for a rectangle into $\sigma = Mc/I$ and simplify
-> 3. Rearrange for $h$
-> 4. Solve numerically
-> 5. Verify in ETABS
+> 1. Rearrange for $s$
+> 2. Substitute values
+> 3. Solve numerically
+> 4. Check by substituting back into the original formula
 
 > **Worked Solution:**
 >
-> **Step 1 — Maximum moment:**
-> $M_{\max} = \dfrac{wL^2}{8} = \dfrac{20 \times 6^2}{8} = \dfrac{20 \times 36}{8} = \dfrac{720}{8} = 90\ [\mathrm{kN \cdot m}] = 90{,}000{,}000\ [\mathrm{N \cdot mm}]$
+> **Step 1 — Rearrange:**
+> $s = \dfrac{L - 2e}{n}$
 >
-> **Step 2 — Substitute into bending stress:**
-> $\sigma = \dfrac{Mc}{I} = \dfrac{M \cdot (h/2)}{bh^3/12} = \dfrac{M \cdot h/2 \cdot 12}{bh^3} = \dfrac{6M}{bh^2}$
+> **Step 2 — Substitute:**
+> $s = \dfrac{42 - 2(1.5)}{6}$
 >
-> **Step 3 — Rearrange for $h$:**
-> $\sigma = \dfrac{6M}{bh^2}$ → $h^2 = \dfrac{6M}{b\sigma}$ → $h = \sqrt{\dfrac{6M}{b\sigma}}$
+> **Step 3 — Solve:**
+> $s = \dfrac{42 - 3}{6} = \dfrac{39}{6} = 6.5\ [\mathrm{m}]$
 >
-> **Step 4 — Plug in numbers:**
-> $h = \sqrt{\dfrac{6 \times 90{,}000{,}000}{300 \times 200}} = \sqrt{\dfrac{540{,}000{,}000}{60{,}000}} = \sqrt{9{,}000} = 94.87\ [\mathrm{mm}]$
->
-> Round up to a practical depth such as $h = 500\ [\mathrm{mm}]$ (concrete needs depth for cover, reinforcement, and serviceability — the bending stress alone is rarely the governing limit; this calculation establishes the absolute minimum).
->
-> **Step 5 — ETABS Verification:**
-> 1. Create a 6 m long simply supported beam, $b \times h = 300 \times 500\ \mathrm{mm}$
-> 2. **Assign > Frame Loads > Distributed** — $w = 20\ \mathrm{kN/m}$ in gravity direction
-> 3. Run analysis
-> 4. **Display > Show Frame Forces > Moment 3-3** — confirm $M_{\max} \approx 90\ \mathrm{kN \cdot m}$ at mid-span
-> 5. Run **Design > Concrete Frame Design > Start Design** to see required reinforcement and confirm bending capacity
+> **Step 4 — Check:**
+> $ns + 2e = 6(6.5) + 2(1.5) = 39 + 3 = 42\ [\mathrm{m}]$ ✓
 
 ### I. Chapter Summary Table
 
 | Concept | Formula | Engineering Use | ETABS Location |
 |---------|---------|----------------|----------------|
 | Rearranging | Same operation, both sides | Adapting any formula to find any unknown | All design checks |
-| Bending stress, all forms | $\sigma = Mc/I$, $I = Mc/\sigma$, $M = \sigma I/c$ | Sizing beams, finding capacity | Section Properties; Concrete/Steel Design |
-| Required depth (rectangle) | $h = \sqrt{6M/(b\sigma)}$ | Initial beam sizing | Frame Section depth field |
+| Layout formula, all forms | $L = ns + 2e$, $s = (L - 2e)/n$, $e = (L - ns)/2$ | Planning grid dimensions | Grid spacing fields |
 
 <div style="page-break-after: always;"></div>
 
@@ -2012,9 +1999,9 @@ The $\mathrm{m}$ cancels with $\mathrm{m}$, leaving $\mathrm{mm}$.
 | MPa | N/mm² | 1 (they are equal) |
 | t/m³ | kN/m³ | 9.81 (×g) |
 
-**Verifying the stress formula dimensionally:**
+**Verifying an area formula dimensionally:**
 
-$\sigma = \dfrac{P}{A}$ → $\dfrac{[\mathrm{N}]}{[\mathrm{mm^2}]} = [\mathrm{N/mm^2}] = [\mathrm{MPa}]$ ✓
+$A = b \cdot h$ → $[\mathrm{mm}] \cdot [\mathrm{mm}] = [\mathrm{mm^2}]$ ✓
 
 ### E. Structural Engineering Application
 
@@ -2073,20 +2060,20 @@ ETABS lets you choose units globally and locally, and it converts internally. Bu
 >
 > Units check: $[\mathrm{kN/m^3}] \times [\mathrm{m}] = [\mathrm{kN/m^2}] = [\mathrm{kPa}]$ ✓
 >
-> **Step 3 — ETABS Verification:**
+> **Step 3 — ETABS Connection:**
 > 1. **Define > Materials > Concrete** — confirm Weight per Unit Volume = $24.5\ \mathrm{kN/m^3}$ (or $25$)
 > 2. **Define > Section Properties > Slab Sections** — create a 200 mm thick slab
 > 3. **Define > Load Patterns** — DL with Self Weight Multiplier = 1.0
 > 4. Draw a $5\ \mathrm{m} \times 5\ \mathrm{m}$ slab, run analysis
-> 5. **Display > Show Tables > Joint Reactions** — sum vertical reactions; the total should equal $5\ \mathrm{kPa} \times 25\ \mathrm{m^2} = 125\ \mathrm{kN}$ (the slab's self-weight)
+> 5. Later, after reactions are explained, you can use ETABS tables to confirm the total self-weight. For now, the important unit result is $5\ \mathrm{kPa} \times 25\ \mathrm{m^2} = 125\ \mathrm{kN}$.
 
 ### I. Chapter Summary Table
 
 | Concept | Formula | Engineering Use | ETABS Location |
 |---------|---------|----------------|----------------|
 | Length conversion | $\mathrm{m} \to \mathrm{mm}$ via ×1000 | Section dimensions | Edit > Preferences > Units |
-| Force conversion | $\mathrm{kN} \to \mathrm{N}$ via ×1000 | Loads, reactions | All load dialogs |
-| Stress / pressure | $1\ \mathrm{MPa} = 1\ \mathrm{N/mm^2} = 1000\ \mathrm{kPa}$ | Material strength vs. floor load | Material dialog vs. Area Load dialog |
+| Force conversion | $\mathrm{kN} \to \mathrm{N}$ via ×1000 | Later load calculations | All load dialogs |
+| Pressure unit | $1\ \mathrm{kPa} = 1\ \mathrm{kN/m^2}$ | Area load units later | Area Load dialog |
 | Weight from mass | $W = m \cdot g$ | Self-weight | Material weight per unit volume |
 | Slab self-weight | $q = \gamma \cdot t$ | Dead load on floors | Self Weight Multiplier in load pattern |
 
@@ -2098,11 +2085,11 @@ ETABS lets you choose units globally and locally, and it converts internally. Bu
 
 | Word | Pronunciation | Plain English Meaning | Used In |
 |------|---------------|----------------------|---------|
-| **System** | "SIS-tem" | A set of equations sharing the same variables | Two reactions, two equations |
+| **System** | "SIS-tem" | A set of equations sharing the same variables | Two unknown dimensions |
 | **Simultaneous** | "sy-mul-TAY-nee-us" | Holding true at the same time | Both equations satisfied together |
 | **Substitution** | "sub-stih-TOO-shun" | Solve one for a variable, plug into the other | First method shown below |
 | **Elimination** | "ee-lim-ih-NAY-shun" | Add or subtract equations to remove a variable | Second method shown below |
-| **Equilibrium equation** | "ee-kwih-LIB-ree-um" | A statement that all forces (or moments) sum to zero | $\Sigma F_y = 0$, $\Sigma M = 0$ |
+| **Pair of equations** | — | Two equations used together | Total length and total cost |
 
 ### B. Concept Introduction
 
@@ -2110,14 +2097,15 @@ When two unknowns appear, one equation isn't enough — the equation has many po
 
 > **Real-world analogy:** Two friends together weigh 150 kg, and their difference is 20 kg. One equation alone (sum = 150) admits infinitely many possibilities. Both equations together pin down a unique answer.
 
-### C. The Physics Behind It
+### C. What This Means in Measurement
 
-A simply supported beam has two supports — call their reactions $R_A$ and $R_B$. Two unknowns means we need two physical principles:
+A single equation may not give enough information. If two unknown dimensions appear, you need two separate facts about them.
 
-1. **Vertical equilibrium**: the sum of all upward forces equals the sum of all downward forces. $\Sigma F_y = 0$.
-2. **Rotational equilibrium**: the moments about any point sum to zero. $\Sigma M = 0$.
+Example: suppose a rectangular opening has width $w$ and height $h$.
+- Fact 1: width plus height equals 7 m, so $w + h = 7$.
+- Fact 2: width is 1 m more than height, so $w - h = 1$.
 
-These give us two equations in $R_A$ and $R_B$. Solving the system is exactly how engineers find support reactions by hand.
+Together, those two facts are enough to find both dimensions. Later, Part 2 will use systems of equations for forces and supports, after those physical ideas have been explained.
 
 ### D. The Math
 
@@ -2148,91 +2136,73 @@ $$x - y = 4$$
 
 ### E. Structural Engineering Application
 
-**Problem.** A simply supported beam spans $L = 8\ [\mathrm{m}]$. A point load $P = 60\ [\mathrm{kN}]$ acts $a = 3\ [\mathrm{m}]$ from the left support. Find the reactions $R_A$ (left) and $R_B$ (right).
+**Problem.** A rectangular equipment opening must have width $w$ and height $h$. The width plus height must be $7\ [\mathrm{m}]$. The width must be $1\ [\mathrm{m}]$ more than the height. Find $w$ and $h$.
 
-```
-       P = 60 kN
-         |
-         v
-A ───────┴───────────────── B
-|<- 3m ->|<------ 5m ----->|
-^                          ^
-RA                         RB
-|<-------- L = 8m -------->|
-```
+Write the two equations:
 
-**Solution:**
+$$w + h = 7$$
+$$w - h = 1$$
 
-**Equation 1 — Vertical equilibrium ($\Sigma F_y = 0$):**
-$R_A + R_B - P = 0$ → $R_A + R_B = 60$
+**Solution by elimination:**
 
-**Equation 2 — Moment about A ($\Sigma M_A = 0$):**
-Take counterclockwise positive. The load $P$ creates a clockwise moment $P \times a$. The reaction $R_B$ creates a counterclockwise moment $R_B \times L$.
-$R_B \times 8 - 60 \times 3 = 0$ → $R_B \times 8 = 180$ → $R_B = 22.5\ [\mathrm{kN}]$
+1. Add the equations: $(w + h) + (w - h) = 7 + 1$
+2. The $h$ terms cancel: $2w = 8$
+3. Divide by 2: $w = 4\ [\mathrm{m}]$
+4. Substitute into $w + h = 7$: $4 + h = 7$, so $h = 3\ [\mathrm{m}]$
 
-**Substitute back into Equation 1:**
-$R_A + 22.5 = 60$ → $R_A = 37.5\ [\mathrm{kN}]$
+**Check:** $w - h = 4 - 3 = 1$ ✓
 
-**Check ($\Sigma M_B = 0$):**
-$R_A \times 8 - P \times 5 = 37.5 \times 8 - 60 \times 5 = 300 - 300 = 0$ ✓
-
-**What this means:** The closer support carries more load — $R_A = 37.5$ kN vs. $R_B = 22.5$ kN — because the load is nearer to A. Every structural calculation begins with reactions like these.
+**What this means:** Two independent facts let you determine two unknown dimensions.
 
 ### F. ETABS Connection
 
-ETABS uses the **stiffness method** internally to solve massive systems of simultaneous equations — for a 5-story building, the system can have tens of thousands of equations. Every joint reaction ETABS reports is the result of solving such a system. You verify by hand-calculating the reactions of a single beam and comparing to ETABS output.
+ETABS eventually solves massive systems of simultaneous equations. At this point, you do not need the physical meaning of those equations yet. The algebra idea is enough: many unknowns require enough independent equations to determine them.
 
 > **Try it in ETABS 22:**
-> 1. Create a single 8 m horizontal beam: pin support at left (joint A), roller at right (joint B)
-> 2. **Assign > Frame Loads > Point** — apply $-60\ \mathrm{kN}$ in Z at $3\ \mathrm{m}$ from left
-> 3. Run analysis (F5)
-> 4. **Display > Show Tables > Joint Reactions**
-> 5. Confirm: $R_A = 37.5\ \mathrm{kN}$ and $R_B = 22.5\ \mathrm{kN}$ — exactly your hand calculation
+> 1. In any dialog with several related inputs, notice that changing one value may require another value to adjust
+> 2. Treat those relationships as equations
+> 3. Later, after forces and supports are explained, you will use ETABS results to verify structural systems of equations
 
 ### G. Common Mistakes
 
-1. **Sign convention errors.** Mixing up clockwise and counterclockwise. State your sign convention at the start of every problem.
-2. **Wrong moment arm.** The moment arm is the *perpendicular* distance from the line of action of the force to the pivot — not the diagonal.
-3. **Forgetting to take moments about the right point.** Taking moments about a support eliminates that support's reaction from the equation, leaving only one unknown.
+1. **Using two equations that say the same thing.** $x + y = 10$ and $2x + 2y = 20$ are not independent; the second is just twice the first.
+2. **Substituting into the wrong place.** After solving one variable, plug it into an original equation to avoid carrying an earlier mistake.
+3. **Dropping a negative sign during elimination.** Write each line clearly before adding or subtracting equations.
 
-### H. Chapter Practice Task — Two Point Loads
+### H. Chapter Practice Task — Two Unknown Dimensions
 
-> **Scenario:** A 10 m simply supported beam has two point loads: $P_1 = 40\ [\mathrm{kN}]$ at $2\ [\mathrm{m}]$ from the left, and $P_2 = 60\ [\mathrm{kN}]$ at $7\ [\mathrm{m}]$ from the left. Find $R_A$ and $R_B$.
+> **Scenario:** A rectangular panel has width $w$ and height $h$. The width plus height is $9\ [\mathrm{m}]$. The width is $3\ [\mathrm{m}]$ more than the height. Find $w$ and $h$.
 >
 > **Tasks:**
-> 1. Write $\Sigma F_y = 0$
-> 2. Write $\Sigma M_A = 0$
-> 3. Solve the system for $R_A$, $R_B$
-> 4. Verify in ETABS
+> 1. Write the two equations
+> 2. Solve by elimination
+> 3. Check both equations
 
 > **Worked Solution:**
 >
-> **Step 1 — Vertical equilibrium:**
-> $R_A + R_B = P_1 + P_2 = 40 + 60 = 100\ [\mathrm{kN}]$
+> **Step 1 — Equations:**
+> $w + h = 9$
+> $w - h = 3$
 >
-> **Step 2 — Moment about A:**
-> $R_B \times 10 - P_1 \times 2 - P_2 \times 7 = 0$
-> $10 R_B = 40 \times 2 + 60 \times 7 = 80 + 420 = 500$
-> $R_B = 50\ [\mathrm{kN}]$
+> **Step 2 — Add equations:**
+> $(w + h) + (w - h) = 9 + 3$
+> $2w = 12$
+> $w = 6\ [\mathrm{m}]$
 >
-> **Step 3 — Back-substitute:** $R_A = 100 - 50 = 50\ [\mathrm{kN}]$
+> **Step 3 — Back-substitute:**
+> $6 + h = 9$ → $h = 3\ [\mathrm{m}]$
 >
-> **Check ($\Sigma M_B = 0$):** $R_A \times 10 - P_1 \times 8 - P_2 \times 3 = 500 - 320 - 180 = 0$ ✓
->
-> **Step 4 — ETABS Verification:**
-> 1. Build the 10 m beam with two point loads at the given locations
-> 2. Run analysis
-> 3. Read joint reactions; both should be $50\ \mathrm{kN}$
+> **Check:**
+> $w + h = 6 + 3 = 9$ ✓
+> $w - h = 6 - 3 = 3$ ✓
 
 ### I. Chapter Summary Table
 
 | Concept | Formula | Engineering Use | ETABS Location |
 |---------|---------|----------------|----------------|
-| Vertical equilibrium | $\Sigma F_y = 0$ | Sum of vertical forces equals zero | Joint Reactions table |
-| Moment equilibrium | $\Sigma M = 0$ | Sum of moments about any point equals zero | Built into solver |
 | Substitution method | Solve, plug in | Two-unknown problems | — |
 | Elimination method | Add/subtract equations | Two-unknown problems | — |
-| Beam reactions | From the two-equation system | Every supported beam in every model | Display > Show Joint Reactions |
+| Independent equations | Need one independent equation per unknown | Layout and later structural problems | Solver setup |
 
 <div style="page-break-after: always;"></div>
 
@@ -2243,25 +2213,27 @@ ETABS uses the **stiffness method** internally to solve massive systems of simul
 | Word | Pronunciation | Plain English Meaning | Used In |
 |------|---------------|----------------------|---------|
 | **Quadratic** | "kwod-RAT-ik" | An equation with $x^2$ as the highest power | $ax^2 + bx + c = 0$ |
-| **Parabola** | "pah-RAB-oh-lah" | The U-shaped graph of a quadratic | Bending moment diagram |
+| **Parabola** | "pah-RAB-oh-lah" | The U-shaped graph of a quadratic | Camber or arch shape |
 | **Discriminant** | "dis-KRIM-ih-nant" | The $b^2 - 4ac$ piece — tells how many solutions exist | Inside the square root |
 | **Roots** | "ROOTS" | The values of $x$ that make the equation equal zero | Where the parabola crosses zero |
-| **Vertex** | "VER-teks" | The high or low point of the parabola | Where moment is maximum |
-| **Buckling** | "BUK-ling" | Sudden sideways failure of a slender column | Euler buckling load |
+| **Vertex** | "VER-teks" | The high or low point of the parabola | Highest point of an arch |
+| **Camber** | "KAM-ber" | A small upward curve built into a member | Parabolic shape |
 
 ### B. Concept Introduction
 
-A quadratic equation has $x^2$ in it. Its graph is a parabola — a smooth curve shaped like a U (or upside-down U). Quadratic equations show up the moment any physical quantity depends on the *square* of something else — and that happens constantly in structural engineering.
+A quadratic equation has $x^2$ in it. Its graph is a parabola — a smooth curve shaped like a U (or upside-down U). Quadratics are useful whenever a quantity rises and then falls in a smooth, symmetric way.
 
-> **Real-world analogy:** The path of a thrown ball is a parabola. So is a beam's bending moment diagram under uniform load. The same math describes both.
+> **Real-world analogy:** The path of a thrown ball is a parabola. A gently curved arch or cambered member can also be described with a parabola. Beam moment diagrams also use parabolas later, after bending has been explained.
 
-### C. The Physics Behind It
+### C. What This Means in Geometry
 
-For a simply supported beam under a uniform load $w$, the bending moment at distance $x$ from the left support is:
+Imagine a shallow arch that starts at ground level, rises to a highest point, then returns to ground level. If the shape is symmetric and smooth, a quadratic can describe its height.
 
-$$M(x) = \frac{wL}{2} \cdot x - \frac{w}{2} \cdot x^2$$
+One simple example is:
 
-This is a quadratic in $x$. Plotted, it forms a parabola opening downward — moment is zero at both supports and maximum at mid-span. The peak of this parabola is the most important number on the diagram, because it is where the beam is closest to failing in bending.
+$$y = 6x - x^2$$
+
+where $x$ is the horizontal position in meters and $y$ is the height in meters. The $-x^2$ term makes the curve turn back downward.
 
 ### D. The Math
 
@@ -2303,31 +2275,31 @@ Roots: $x = 1$ and $x = -2.5$.
 
 ### E. Structural Engineering Application
 
-**Problem — find where bending moment is zero.** A simply supported beam $L = 6\ [\mathrm{m}]$ carries a uniform load $w = 10\ [\mathrm{kN/m}]$. Where along the beam is the bending moment equal to $20\ [\mathrm{kN \cdot m}]$?
+**Problem — find where a parabolic arch reaches a height.** An arch profile is described by:
 
-The moment equation:
-$$M(x) = \dfrac{wL}{2}x - \dfrac{w}{2}x^2 = \dfrac{10 \times 6}{2}x - \dfrac{10}{2}x^2 = 30x - 5x^2$$
+$$y = 6x - x^2$$
 
-Set $M(x) = 20$:
-$30x - 5x^2 = 20$ → $5x^2 - 30x + 20 = 0$ → $x^2 - 6x + 4 = 0$
+where $x$ is position from the left end in meters and $y$ is height in meters. Where is the arch $8\ [\mathrm{m}]$ high?
 
-Apply the quadratic formula with $a=1$, $b=-6$, $c=4$:
-$x = \dfrac{6 \pm \sqrt{36 - 16}}{2} = \dfrac{6 \pm \sqrt{20}}{2} = \dfrac{6 \pm 4.472}{2}$
+Set $y = 8$:
+$6x - x^2 = 8$ → $x^2 - 6x + 8 = 0$
 
-$x_1 = 5.236\ [\mathrm{m}]$, $x_2 = 0.764\ [\mathrm{m}]$
+Factor:
+$(x - 2)(x - 4) = 0$
 
-**What this means:** The bending moment equals $20\ \mathrm{kN \cdot m}$ at two locations — once on the way up (at 0.764 m) and once on the way down (at 5.236 m), symmetric about mid-span.
+So:
+$x = 2\ [\mathrm{m}]$ or $x = 4\ [\mathrm{m}]$
+
+**What this means:** The arch reaches 8 m high twice — once while rising and once while falling.
 
 ### F. ETABS Connection
 
-The bending moment diagram in ETABS is a quadratic curve under uniform load. Recognizing this shape lets you instantly verify that the diagram is plausible. A straight-line moment diagram under a uniform load is a sign of a modeling error.
+Later, ETABS will draw result diagrams that can be linear, parabolic, or more complex. For now, the useful idea is visual recognition: a quadratic creates a smooth parabola, not a straight line.
 
 > **Try it in ETABS 22:**
-> 1. Create a 6 m simply supported beam with $w = 10\ \mathrm{kN/m}$
-> 2. Run analysis
-> 3. **Display > Show Frame Forces > Moment 3-3**
-> 4. Click on the beam — the diagram is a smooth parabola, peaking at $M_{\max} = wL^2/8 = 45\ \mathrm{kN \cdot m}$ at mid-span
-> 5. Right-click the beam → "Show Member Force Diagram" to see the values at any $x$ — these are the values from the quadratic $M(x)$
+> 1. Sketch the curve $y = 6x - x^2$ for $x = 0$ through $6$
+> 2. Notice that the curve starts at 0, rises, then returns to 0
+> 3. Later, when ETABS shows a curved result diagram, you will already recognize the basic parabolic shape
 
 ### G. Common Mistakes
 
@@ -2335,45 +2307,38 @@ The bending moment diagram in ETABS is a quadratic curve under uniform load. Rec
 2. **Stopping at one root.** Quadratics usually have two solutions. Both may be physically meaningful (or one may be discarded as outside the beam).
 3. **Confusing $x^2$ with $2x$.** $x^2 = x \cdot x$, not $x + x$. The whole structure of the problem changes.
 
-### H. Chapter Practice Task — Where Does Bending Moment Equal a Threshold?
+### H. Chapter Practice Task — Where Does an Arch Reach a Height?
 
-> **Scenario:** An 8 m simply supported beam carries $w = 15\ \mathrm{kN/m}$. The reinforcement designer wants to know: between which two points along the beam is the bending moment greater than $80\ \mathrm{kN \cdot m}$? (Inside this region, additional bottom reinforcement is required.)
+> **Scenario:** A parabolic arch profile is $y = 8x - x^2$. Find where the arch is $12\ [\mathrm{m}]$ high.
 >
 > **Tasks:**
-> 1. Write $M(x)$
-> 2. Set $M(x) = 80$ and solve the quadratic for the two boundary $x$ values
-> 3. Identify the region between them
-> 4. Verify in ETABS
+> 1. Set $y = 12$
+> 2. Rearrange to standard quadratic form
+> 3. Solve for the two $x$ values
+> 4. Explain why there are two positions
 
 > **Worked Solution:**
 >
-> **Step 1 — Moment equation:**
-> $M(x) = \dfrac{wL}{2}x - \dfrac{w}{2}x^2 = 60x - 7.5x^2$
+> **Step 1 — Set height equal to 12:**
+> $8x - x^2 = 12$
 >
-> **Step 2 — Set equal to 80:**
-> $60x - 7.5x^2 = 80$ → $7.5x^2 - 60x + 80 = 0$ → divide by 7.5: $x^2 - 8x + 10.667 = 0$
+> **Step 2 — Rearrange:**
+> $x^2 - 8x + 12 = 0$
 >
-> Apply formula with $a = 1$, $b = -8$, $c = 10.667$:
-> $x = \dfrac{8 \pm \sqrt{64 - 42.668}}{2} = \dfrac{8 \pm \sqrt{21.332}}{2} = \dfrac{8 \pm 4.619}{2}$
-> $x_1 = 1.69\ [\mathrm{m}]$, $x_2 = 6.31\ [\mathrm{m}]$
+> **Step 3 — Factor:**
+> $(x - 2)(x - 6) = 0$
+> $x = 2\ [\mathrm{m}]$ or $x = 6\ [\mathrm{m}]$
 >
-> **Step 3 — Region:** Between 1.69 m and 6.31 m, the moment exceeds $80\ \mathrm{kN \cdot m}$. Region length = $6.31 - 1.69 = 4.62\ \mathrm{m}$.
->
-> Maximum moment check: $M_{\max} = wL^2/8 = 15 \times 64 / 8 = 120\ \mathrm{kN \cdot m}$ at mid-span — confirms 80 is exceeded near mid-span.
->
-> **Step 4 — ETABS Verification:**
-> 1. Build the 8 m beam, $w = 15\ \mathrm{kN/m}$
-> 2. **Display > Show Frame Forces > Moment 3-3**
-> 3. Hover the cursor along the beam — note the $x$ values where the moment crosses $80\ \mathrm{kN \cdot m}$; they should match $1.69\ \mathrm{m}$ and $6.31\ \mathrm{m}$ within rounding
+> **Step 4 — Meaning:**
+> The arch reaches 12 m high on the way up at 2 m and on the way down at 6 m.
 
 ### I. Chapter Summary Table
 
 | Concept | Formula | Engineering Use | ETABS Location |
 |---------|---------|----------------|----------------|
 | Quadratic formula | $x = \dfrac{-b \pm \sqrt{b^2 - 4ac}}{2a}$ | Find roots of any quadratic | Internal solver math |
-| Beam moment (UDL) | $M(x) = \dfrac{wL}{2}x - \dfrac{w}{2}x^2$ | Compute moment anywhere on beam | Moment 3-3 diagram |
-| Maximum moment (UDL) | $M_{\max} = \dfrac{wL^2}{8}$ | Quick design check | Peak of moment diagram |
-| Parabola shape | Visual check | Confirm correct loading | Display > Show Frame Forces |
+| Parabolic profile | $y = ax^2 + bx + c$ | Arch/camber geometry | Visual check |
+| Two roots | Two places where the curve crosses a chosen height | Layout interpretation | — |
 
 <div style="page-break-after: always;"></div>
 
@@ -2383,22 +2348,26 @@ The bending moment diagram in ETABS is a quadratic curve under uniform load. Rec
 
 | Word | Pronunciation | Plain English Meaning | Used In |
 |------|---------------|----------------------|---------|
-| **Inequality** | "in-ee-KWOL-ih-tee" | A statement that two quantities are NOT equal — one is bigger | $\sigma \le F_y$ |
-| **Demand** | "dee-MAND" | What is being asked of a member — the applied load effect | Applied moment $M_u$ |
-| **Capacity** | "kah-PASS-ih-tee" | What the member can resist — its strength | Allowable moment $M_R$ |
-| **Demand-Capacity Ratio (DCR)** | — | Demand ÷ Capacity; must be ≤ 1.0 | ETABS design output |
-| **Limit state** | "LIM-it stayt" | A boundary the structure must not cross | Yield, deflection, buckling |
+| **Inequality** | "in-ee-KWOL-ih-tee" | A statement that two quantities are NOT equal — one is bigger | $8 \le 10$ |
+| **Demand** | "dee-MAND" | What is being asked of an item | Required amount |
+| **Capacity** | "kah-PASS-ih-tee" | What an item can provide or hold | Allowable amount |
+| **Demand-capacity ratio** | — | Demand ÷ capacity; must be ≤ 1.0 | Basic capacity check |
+| **Limit state** | "LIM-it stayt" | A boundary that must not be crossed | Demand must stay below capacity |
 | **Compliance** | "kom-PLY-ans" | Meeting code requirements | What design checks ensure |
 
 ### B. Concept Introduction
 
-Almost every structural calculation ends in an inequality, not an equation. We don't say "stress equals strength" — we say "stress must be less than or equal to strength." Equality means the member is right on the edge of failure. We design for inequality.
+Almost every structural check ends in an inequality, not an equation. We do not want the required amount to equal or exceed the available capacity; we want the required amount to be less than or equal to the capacity. Equality means the item is exactly at its limit.
 
 > **Real-world analogy:** A bridge sign reads "Maximum vehicle weight: 10 tonnes." The bridge weight capacity is 10 t. Your truck weighs 8 t. The inequality $8 \le 10$ tells you it is safe to cross.
 
 ### C. The Physics Behind It
 
-Materials have a yield stress: a value beyond which they permanently deform and (eventually) break. Code-based design ensures that under all expected loads, the actual stress (the **demand**) is less than the strength (the **capacity**). This is the entire purpose of structural design: keep demand ≤ capacity for every member, every load combination, every limit state.
+The physical details of structural limits are taught later. The inequality idea is already useful now: every check compares **demand** to **capacity**.
+
+$$\text{Demand} \le \text{Capacity}$$
+
+If the demand is smaller, the check passes. If the demand is larger, the check fails.
 
 ### D. The Math
 
@@ -2429,78 +2398,71 @@ Solution: any $x$ less than or equal to 4 works.
 
 **The universal design check:**
 
-$$\text{DCR} = \dfrac{\text{Demand}}{\text{Capacity}} \le 1.0$$
+$$\text{Ratio} = \dfrac{\text{Demand}}{\text{Capacity}} \le 1.0$$
 
-For an axially loaded column:
-- Demand: $\sigma_{\text{applied}} = P/A$
-- Capacity: allowable stress $\sigma_{\text{allow}}$
-- Check: $\sigma_{\text{applied}} \le \sigma_{\text{allow}}$ → DCR = $\sigma_{\text{applied}} / \sigma_{\text{allow}} \le 1.0$
+For any basic capacity check:
+- Demand = required amount
+- Capacity = allowable amount
+- Check: demand $\le$ capacity
+- Ratio = demand / capacity $\le 1.0$
 
-**Problem.** A steel column carries $P = 800\ [\mathrm{kN}]$. Its area is $A = 6{,}000\ [\mathrm{mm^2}]$. The allowable stress is $\sigma_{\text{allow}} = 200\ [\mathrm{MPa}]$. Check the column.
+**Problem.** A temporary platform is allowed to carry $10$ storage units. The planned storage is $8$ units. Check the platform using an inequality and demand/capacity ratio.
 
 **Solution:**
 
-1. Demand: $\sigma = P/A = 800{,}000 / 6{,}000 = 133.33\ [\mathrm{MPa}]$
-2. DCR: $133.33 / 200 = 0.667$
-3. Check: $0.667 \le 1.0$ ✓
+1. Demand: $8$ units
+2. Capacity: $10$ units
+3. Ratio: $8 / 10 = 0.80$
+4. Check: $0.80 \le 1.0$ ✓
 
-The column is safe with a 33% reserve of capacity.
+The platform passes with 20% capacity remaining.
 
-**What if the column carries 1,300 kN instead?**
-1. $\sigma = 1{,}300{,}000 / 6{,}000 = 216.67\ [\mathrm{MPa}]$
-2. DCR = $216.67/200 = 1.083$
-3. $1.083 > 1.0$ ✗ — the column fails.
+**What if the planned storage is 12 units instead?**
+1. Ratio = $12/10 = 1.20$
+2. $1.20 > 1.0$ ✗ — the check fails.
 
 ### F. ETABS Connection
 
-ETABS design output displays the DCR for every designed member. The color coding goes from green (low ratio) to red (over 1.0). Reading these values is reading inequalities visually.
+Later, ETABS design output will display demand/capacity ratios for designed members. The color coding goes from green (low ratio) to red (over 1.0). For now, the important idea is the inequality: ratio $\le 1.0$ passes.
 
 > **Try it in ETABS 22:**
 > 1. After running analysis and design, go to **Design > Steel Frame Design > Display Design Info > P-M Ratio**
-> 2. Every member shows a colored stripe and a number — the DCR
+> 2. Every member shows a colored stripe and a number — the demand/capacity ratio
 > 3. Click any member; a popup details the demand $M$, $P$, $V$, and capacity values
-> 4. Members with DCR > 1.0 are flagged red — they fail the inequality
+> 4. Members with ratio > 1.0 are flagged red — they fail the inequality
 
 ### G. Common Mistakes
 
 1. **Forgetting to flip when multiplying by negative.** $-2x \le 8$ becomes $x \ge -4$, not $x \le -4$.
-2. **Reading DCR as a percentage of utilization, not as a ratio.** A DCR of 0.85 means 85% utilized, leaving 15% reserve. A DCR of 1.05 is 5% over — the member fails by 5%.
-3. **Checking only one limit state.** A beam might pass bending but fail in deflection or shear. All limit states must satisfy their own inequalities.
+2. **Reading a ratio as a raw percentage.** A ratio of 0.85 means 85% utilized, leaving 15% reserve. A ratio of 1.05 is 5% over the limit.
+3. **Checking only one limit.** A real design may have several separate limits. Each one needs its own inequality.
 
-### H. Chapter Practice Task — Multiple Limit-State Check
+### H. Chapter Practice Task — Multiple Capacity Checks
 
-> **Scenario:** A beam has applied moment $M_u = 90\ [\mathrm{kN \cdot m}]$, applied shear $V_u = 70\ [\mathrm{kN}]$, and applied deflection $\delta = 18\ [\mathrm{mm}]$. The capacities are $M_R = 110\ [\mathrm{kN \cdot m}]$, $V_R = 100\ [\mathrm{kN}]$, $\delta_{\text{allow}} = L/300$ where $L = 6{,}000\ [\mathrm{mm}]$. Check all three limit states and find the governing DCR.
+> **Scenario:** A temporary work zone has three limits: storage limit = 110 units, access limit = 100 units, and movement limit = 20 mm. The planned demands are storage = 90 units, access = 70 units, and movement = 18 mm. Check all three and find the governing demand/capacity ratio.
 >
 > **Tasks:**
-> 1. Compute DCR for moment, shear, and deflection
+> 1. Compute the demand/capacity ratio for storage, access, and movement
 > 2. Check each against 1.0
-> 3. Identify the governing (highest) DCR
-> 4. Verify in ETABS
+> 3. Identify the governing (highest) ratio
 
 > **Worked Solution:**
 >
-> **DCR for moment:** $90 / 110 = 0.818$
-> **DCR for shear:** $70 / 100 = 0.700$
-> **Allowable deflection:** $\delta_{\text{allow}} = 6{,}000 / 300 = 20\ \mathrm{mm}$
-> **DCR for deflection:** $18 / 20 = 0.900$
+> **Ratio for storage:** $90 / 110 = 0.818$
+> **Ratio for access:** $70 / 100 = 0.700$
+> **Ratio for movement:** $18 / 20 = 0.900$
 >
 > All three < 1.0 → beam passes.
 >
-> Governing limit state: **deflection** with DCR = 0.900 — closest to failure.
->
-> **ETABS Verification:**
-> 1. Build the beam in ETABS, apply the loads producing $M_u$, $V_u$
-> 2. **Design > Concrete Frame Design > Display Design Info > Longitudinal Reinforcing** — read the moment DCR
-> 3. **Display > Show Deformed Shape** — confirm the actual deflection
-> 4. The governing utilization (largest DCR) is what ETABS reports as the design ratio
+> Governing limit state: **movement** with ratio = 0.900 — closest to failure.
 
 ### I. Chapter Summary Table
 
 | Concept | Formula | Engineering Use | ETABS Location |
 |---------|---------|----------------|----------------|
-| DCR | Demand / Capacity ≤ 1.0 | Universal design check | Design > Display Design Info |
-| Yield check | $\sigma \le F_y$ | Steel members | Steel Frame Design |
-| Deflection limit | $\delta \le L/300$ (typical) | Serviceability | Show Deformed Shape |
+| Demand/capacity ratio | Demand / Capacity ≤ 1.0 | Universal design check | Design output later |
+| Basic check | Demand $\le$ capacity | All design checks | Design output later |
+| Governing ratio | Largest demand/capacity ratio | Closest check to the limit | Design summary later |
 | Inequality direction flip | When ×/÷ by negative | Ensures correct logic | — |
 
 <div style="page-break-after: always;"></div>
@@ -2517,17 +2479,19 @@ ETABS design output displays the DCR for every designed member. The color coding
 | **Squared** | "SKWAIRD" | Raised to the second power | $b^2$ = "b squared" |
 | **Cubed** | "KYOOBD" | Raised to the third power | $h^3$ = "h cubed" |
 | **Square root** | "SKWAIR ROOT" | The number that, squared, gives the original | $\sqrt{25} = 5$ |
-| **Moment of inertia** | "MOH-ment of in-ER-shuh" | A section property — see Chapter 20 | $I = bh^3/12$ |
+| **Volume** | "VOL-yoom" | Space inside a 3D object | $V = bhl$ |
 
 ### B. Concept Introduction
 
-An exponent is a shortcut for repeated multiplication. $h^3$ means $h \times h \times h$. This isn't a quirk — it's a deeply important pattern, because in structural engineering, depth of a section affects stiffness *cubically*. Doubling depth multiplies stiffness by 8.
+An exponent is a shortcut for repeated multiplication. $h^3$ means $h \times h \times h$. Squares appear in area. Cubes appear in volume. Later, exponents will also explain why some structural properties change very quickly when a dimension changes.
 
-> **Real-world analogy:** A 1-meter-deep beam is far more than twice as stiff as a 0.5-meter-deep beam — it's eight times as stiff, because of the cube.
+> **Real-world analogy:** A square that is twice as wide and twice as tall has four times the area. A cube that is twice as wide, twice as tall, and twice as deep has eight times the volume.
 
 ### C. The Physics Behind It
 
-A beam resists bending by having material far from the neutral axis. The further out, the more leverage to resist bending — and the relationship is cubic, not linear. This is why deep beams are vastly more efficient: a tiny increase in depth pays off in stiffness in a way no other dimension can match.
+Area and volume show why exponents matter physically. If you double the side length of a square, its area does not double; it becomes four times as large. If you double the side length of a cube, its volume becomes eight times as large.
+
+Later, Chapter 20 explains a structural property called moment of inertia. It also uses powers, but it is not needed for this chapter.
 
 ### D. The Math
 
@@ -2550,79 +2514,65 @@ $\sqrt{125{,}000} = \sqrt{25 \times 5{,}000} = 5 \times \sqrt{5{,}000} \approx 5
 
 ### E. Structural Engineering Application
 
-The moment of inertia of a rectangle is:
-$$I = \dfrac{bh^3}{12}$$
+The volume of a rectangular block is:
+$$V = bhl$$
 
-**Problem.** Calculate $I$ for two beams: (a) $b = 300, h = 400$, (b) $b = 300, h = 800$.
+**Problem.** Calculate the volume for two blocks: (a) $b = 2, h = 2, l = 2$, (b) $b = 4, h = 4, l = 4$.
 
 **Solution (a):**
-$h^3 = 400^3 = 64{,}000{,}000\ [\mathrm{mm^3}]$
-$I = (300 \times 64{,}000{,}000)/12 = 19{,}200{,}000{,}000/12 = 1.6 \times 10^9\ [\mathrm{mm^4}]$
+$V = 2 \times 2 \times 2 = 2^3 = 8\ [\mathrm{m^3}]$
 
 **Solution (b):**
-$h^3 = 800^3 = 512{,}000{,}000\ [\mathrm{mm^3}]$
-$I = (300 \times 512{,}000{,}000)/12 = 153{,}600{,}000{,}000/12 = 1.28 \times 10^{10}\ [\mathrm{mm^4}]$
+$V = 4 \times 4 \times 4 = 4^3 = 64\ [\mathrm{m^3}]$
 
-**Ratio:** $1.28 \times 10^{10} / 1.6 \times 10^9 = 8.0$
+**Ratio:** $64 / 8 = 8.0$
 
-Doubling depth from 400 to 800 multiplied $I$ by **exactly 8**. This is the cube law in action.
+Doubling each side length multiplied the volume by **exactly 8**. This is the cube law in action.
 
 ### F. ETABS Connection
 
-Section property values in ETABS — particularly $I_{33}$ (about the strong axis) — depend on the cube of depth. When you change a section's depth in **Define > Section Properties > Frame Sections**, ETABS automatically recomputes $I$ using $bh^3/12$ and uses the new value everywhere downstream. Knowing the cube law helps you predict the impact of a change before re-running analysis.
+ETABS contains many quantities that use powers. Some are simple geometry, such as areas and volumes. Later, section properties will also use powers. Knowing exponent rules helps you predict whether changing a dimension has a small effect or a large one.
 
 > **Try it in ETABS 22:**
-> 1. **Define > Section Properties > Frame Sections > Add New Property > Concrete Rectangular**
-> 2. Create "Beam-A" with $b = 300, h = 400$
-> 3. Click **Section Properties...** — note $I_{33}$
-> 4. Modify to "Beam-B" with $b = 300, h = 800$
-> 5. Open Section Properties again — confirm $I_{33}$ is exactly 8× the previous
+> 1. Compute $2^2$, $2^3$, and $2^4$
+> 2. Notice that each extra exponent multiplies by another 2
+> 3. Later, when ETABS reports section properties, look for units like mm², mm³, and mm⁴; the exponent tells you the kind of quantity
 
 ### G. Common Mistakes
 
 1. **$h^3 \neq 3h$.** Cubing means multiplying three times, not multiplying by three.
 2. **Adding exponents when bases differ.** $x^2 \cdot y^3 \neq xy^5$. The rule only applies to the same base.
-3. **Forgetting the units of $I$.** $I$ is in $[\mathrm{mm}^4]$, not $\mathrm{mm}$. Length × length × length × length.
+3. **Forgetting exponent units.** If length is in meters, area is in $\mathrm{m^2}$ and volume is in $\mathrm{m^3}$.
 
-### H. Chapter Practice Task — Comparing Two Section Choices
+### H. Chapter Practice Task — Comparing Two Block Sizes
 
-> **Scenario:** You must choose between two beams of equal cross-sectional area but different proportions:
-> - Section X: $b = 600\ \mathrm{mm}, h = 200\ \mathrm{mm}$ (wide and shallow)
-> - Section Y: $b = 200\ \mathrm{mm}, h = 600\ \mathrm{mm}$ (narrow and deep)
->
-> Both have $A = 120{,}000\ \mathrm{mm^2}$.
+> **Scenario:** Compare two square plan areas:
+> - Square X: side $s = 3\ \mathrm{m}$
+> - Square Y: side $s = 6\ \mathrm{m}$
 >
 > **Tasks:**
-> 1. Calculate $I$ for each
+> 1. Calculate area $A = s^2$ for each
 > 2. Find the ratio
-> 3. Determine which is stiffer in bending and by how much
-> 4. Verify in ETABS
+> 3. Explain why doubling the side length does not merely double the area
 
 > **Worked Solution:**
 >
-> **Section X:**
-> $h^3 = 200^3 = 8{,}000{,}000\ [\mathrm{mm^3}]$
-> $I_X = 600 \times 8{,}000{,}000 / 12 = 4{,}800{,}000{,}000 / 12 = 4.0 \times 10^8\ [\mathrm{mm^4}]$
+> **Square X:**
+> $A_X = 3^2 = 9\ \mathrm{m^2}$
 >
-> **Section Y:**
-> $h^3 = 600^3 = 216{,}000{,}000\ [\mathrm{mm^3}]$
-> $I_Y = 200 \times 216{,}000{,}000 / 12 = 43{,}200{,}000{,}000 / 12 = 3.6 \times 10^9\ [\mathrm{mm^4}]$
+> **Square Y:**
+> $A_Y = 6^2 = 36\ \mathrm{m^2}$
 >
-> **Ratio:** $I_Y / I_X = 3.6 \times 10^9 / 4.0 \times 10^8 = 9.0$
+> **Ratio:** $A_Y/A_X = 36/9 = 4$
 >
-> Section Y is **9 times stiffer** despite having identical area. **Depth dominates.**
->
-> **ETABS Verification:**
-> 1. Create both sections in ETABS
-> 2. Apply the same load on identical beam spans
-> 3. **Display > Show Deformed Shape** — Section Y deflection should be 1/9 of Section X's
+> Square Y has **4 times** the area because both side directions doubled: $2 \times 2 = 4$.
 
 ### I. Chapter Summary Table
 
 | Concept | Formula | Engineering Use | ETABS Location |
 |---------|---------|----------------|----------------|
-| Cube of depth | $h^3$ | Determines bending stiffness | $I_{33}$ in Section Properties |
-| Moment of inertia (rect) | $I = bh^3/12$ | Beam stiffness, bending stress | Section Properties dialog |
+| Square | $s^2$ | Area scaling | Plan and section geometry |
+| Cube | $s^3$ | Volume scaling | Material quantity estimates |
 | Square root | $\sqrt{x}$ | Solve for unknown side | Manual sizing calculations |
 
 <div style="page-break-after: always;"></div>
@@ -2633,25 +2583,33 @@ Section property values in ETABS — particularly $I_{33}$ (about the strong axi
 
 | Word | Pronunciation | Plain English Meaning | Used In |
 |------|---------------|----------------------|---------|
-| **Function** | "FUNK-shun" | A rule that turns each input into one output | $M(x)$ — moment as a function of position |
+| **Function** | "FUNK-shun" | A rule that turns each input into one output | $C(L)$ — cost as a function of length |
 | **Input** | "IN-put" | The value you put in | $x$ — distance along the beam |
-| **Output** | "OWT-put" | The value the function gives back | $M$ — bending moment |
+| **Output** | "OWT-put" | The value the function gives back | Cost, area, or total length |
 | **Domain** | "doh-MAYN" | The set of allowed inputs | $0 \le x \le L$ for a beam |
 | **Range** | "RAYNJ" | The set of possible outputs | $0 \le M \le M_{\max}$ |
 | **Independent variable** | — | The input you control | Position $x$ |
-| **Dependent variable** | — | The output that depends on the input | Moment $M$ |
+| **Dependent variable** | — | The output that depends on the input | Cost $C$ |
 
 ### B. Concept Introduction
 
 A function is a rule that takes one number in and gives one number out — every time the same way. Think of it as a vending machine: input a button code, output a specific snack. Every input has exactly one corresponding output.
 
-In structural engineering, almost every diagram is the graph of a function. The bending moment diagram is the function $M(x)$ — moment plotted against position. The deflection curve is the function $\delta(x)$. Recognizing these as functions makes them readable instead of mysterious.
+In structural work, many quantities depend on other quantities. Total cost depends on length. Total grid length depends on spacing. Area depends on side length. A function is how we write that dependable relationship.
+
+Later, structural result diagrams will also be functions. Those diagrams are easier to understand after force, support, and bending have been explained.
 
 > **Real-world analogy:** A function is a recipe: you put in ingredients (input), follow a procedure (the rule), get out a dish (output). The same ingredients always give the same dish.
 
-### C. The Physics Behind It
+### C. What This Means in Measurement
 
-Physical relationships are functions because the physical world is consistent. A given load at a given position produces a specific deflection — not a random one. When we write $\delta = f(P, L, E, I)$, we are saying: deflection is a function of load, span, material modulus, and moment of inertia.
+Measurement relationships are functions because the same input gives the same output. If a material costs $120$ dollars per meter plus a fixed delivery fee of $500$, then a 10 m order always has the same cost.
+
+That relationship can be written:
+
+$$C(L) = 120L + 500$$
+
+where $L$ is length and $C(L)$ is the cost for that length.
 
 ### D. The Math
 
@@ -2670,45 +2628,33 @@ This is **not** $f$ times $x$. It is the value of the function $f$ when the inpu
 
 ### E. Structural Engineering Application
 
-Bending moment along a uniformly loaded beam:
+Material order cost can be written as a function:
 
-$$M(x) = \dfrac{wL}{2}x - \dfrac{w}{2}x^2$$
+$$C(L) = 120L + 500$$
 
-This is a function. Input $x$ (a position from 0 to $L$); output $M$ (the bending moment at that position).
+This is a function. Input $L$ (length in meters); output $C$ (cost).
 
-**Problem.** A beam has $L = 6\ \mathrm{m}$, $w = 10\ \mathrm{kN/m}$. Compute $M$ at $x = 0$, $1$, $2$, $3$, $4$, $5$, $6$.
+**Problem.** Compute $C$ for $L = 0$, $5$, $10$, and $20$.
 
-| $x$ [m] | $M(x) = 30x - 5x^2$ [kN·m] |
-|---------|---------------------------|
-| 0 | $0$ |
-| 1 | $30 - 5 = 25$ |
-| 2 | $60 - 20 = 40$ |
-| 3 | $90 - 45 = 45$ |
-| 4 | $120 - 80 = 40$ |
-| 5 | $150 - 125 = 25$ |
-| 6 | $180 - 180 = 0$ |
+| $L$ [m] | $C(L) = 120L + 500$ |
+|---------|----------------------|
+| 0 | $500$ |
+| 5 | $120(5) + 500 = 1{,}100$ |
+| 10 | $120(10) + 500 = 1{,}700$ |
+| 20 | $120(20) + 500 = 2{,}900$ |
 
-The maximum is at $x = 3$ (mid-span), confirming $M_{\max} = 45\ \mathrm{kN \cdot m}$.
-
-**Domain:** $0 \le x \le 6$
-**Range:** $0 \le M \le 45$
+**Domain:** $L \ge 0$ because negative length is not physically meaningful.
+**Range:** $C \ge 500$ because the fixed delivery fee applies even when the variable length is zero.
 
 ### F. ETABS Connection
 
-Every diagram ETABS draws is the graph of a function:
-- Bending moment diagram = $M(x)$
-- Shear force diagram = $V(x)$
-- Deflection curve = $\delta(x)$
-- Story drift profile = drift($z$) where $z$ is height
-
-Hovering over the diagrams in ETABS reads off function values at any input — your eye is performing the function evaluation.
+Many ETABS tables and diagrams are functions: one input location gives one output value. The physical diagrams are explained later. For now, the key idea is that a software table often pairs an input with a computed output.
 
 > **Try it in ETABS 22:**
-> 1. Run analysis on any beam model
-> 2. **Display > Show Frame Forces > Moment 3-3**
-> 3. Right-click the beam → "Show Member Force Diagram"
-> 4. Move the cursor along the beam — the value of $M$ at that exact $x$ updates in real time
-> 5. You are watching ETABS evaluate $M(x)$ for every position you point at
+> 1. Make a small table with input length $L = 0, 5, 10, 20$
+> 2. Compute output cost using $C(L) = 120L + 500$
+> 3. Notice that every input has exactly one output
+> 4. Later, ETABS result tables will use the same input-output pattern
 
 ### G. Common Mistakes
 
@@ -2716,46 +2662,34 @@ Hovering over the diagrams in ETABS reads off function values at any input — y
 2. **Plotting input on the wrong axis.** By convention, input is horizontal ($x$-axis), output vertical ($y$-axis).
 3. **Confusing the function rule with a single value.** $f(x) = 2x + 3$ is the rule; $f(5) = 13$ is one specific output.
 
-### H. Chapter Practice Task — Tabulating a Deflection Function
+### H. Chapter Practice Task — Tabulating a Cost Function
 
-> **Scenario:** A simply supported beam carries uniform load $w = 12\ \mathrm{kN/m}$ over span $L = 5\ \mathrm{m}$. The deflection function is approximately $\delta(x) = \dfrac{wx(L^3 - 2Lx^2 + x^3)}{24EI}$. With $E = 30{,}000\ \mathrm{MPa}$ and $I = 5 \times 10^8\ \mathrm{mm^4}$, tabulate $\delta$ at $x = 0, L/4, L/2, 3L/4, L$ in mm.
+> **Scenario:** A material order has cost $C(L) = 85L + 250$, where $L$ is length in meters.
 >
 > **Tasks:**
-> 1. Convert all to consistent units ($w$ in N/mm, $L$ in mm, etc.)
-> 2. Evaluate $\delta(x)$ at each point
-> 3. Identify the maximum deflection
-> 4. Compare to ETABS
+> 1. Evaluate $C(L)$ at $L = 0, 4, 8, 12$
+> 2. Identify the input and output
+> 3. State the domain for a real material order
 
 > **Worked Solution:**
 >
-> **Unit conversion:**
-> $w = 12\ \mathrm{kN/m} = 12\ \mathrm{N/mm}$
-> $L = 5{,}000\ \mathrm{mm}$
-> $E = 30{,}000\ \mathrm{MPa} = 30{,}000\ \mathrm{N/mm^2}$
-> $I = 5 \times 10^8\ \mathrm{mm^4}$
-> $EI = 30{,}000 \times 5 \times 10^8 = 1.5 \times 10^{13}\ \mathrm{N \cdot mm^2}$
+> $C(0) = 85(0) + 250 = 250$
 >
-> **At $x = 0$:** $\delta = 0$ (support, fixed)
+> $C(4) = 85(4) + 250 = 590$
 >
-> **At $x = L/2 = 2{,}500\ \mathrm{mm}$:** Use the simpler mid-span formula $\delta_{\max} = \dfrac{5wL^4}{384EI}$
-> $\delta = \dfrac{5 \times 12 \times (5{,}000)^4}{384 \times 1.5 \times 10^{13}} = \dfrac{5 \times 12 \times 6.25 \times 10^{14}}{5.76 \times 10^{15}} = \dfrac{3.75 \times 10^{16}}{5.76 \times 10^{15}} = 6.51\ \mathrm{mm}$
+> $C(8) = 85(8) + 250 = 930$
 >
-> **At $x = L$:** $\delta = 0$ (support)
+> $C(12) = 85(12) + 250 = 1{,}270$
 >
-> **Maximum:** $\delta_{\max} \approx 6.51\ \mathrm{mm}$, well within typical $L/300 = 16.7\ \mathrm{mm}$ limit
->
-> **ETABS Verification:**
-> 1. Build the beam, apply $w = 12\ \mathrm{kN/m}$
-> 2. **Display > Show Deformed Shape**
-> 3. Maximum deflection at mid-span should match $\sim 6.5\ \mathrm{mm}$
+> Input: length $L$. Output: cost $C$. For a real order, the domain is $L \ge 0$.
 
 ### I. Chapter Summary Table
 
 | Concept | Notation | Engineering Use | ETABS Location |
 |---------|----------|----------------|----------------|
 | Function | $f(x)$ | Rule turning input to output | Every diagram |
-| Moment as a function | $M(x)$ | Bending moment along beam | Moment 3-3 diagram |
-| Deflection as a function | $\delta(x)$ | Displacement along beam | Deformed Shape |
+| Cost as a function | $C(L)$ | Quantity estimating | Tables and reports |
+| Layout as a function | $L(s)$ | Grid planning | Grid definition |
 | Domain | $0 \le x \le L$ | Where the function is defined | Length of the member |
 
 <div style="page-break-after: always;"></div>
@@ -2789,7 +2723,7 @@ Hovering over the diagrams in ETABS reads off function values at any input — y
 | **Mass** | "MASS" | How much matter an object contains | Measured in kg |
 | **Point load** | — | A force concentrated at one location | A column on a beam |
 | **Distributed load** | — | A force spread over a length or area | Slab self-weight |
-| **Reaction** | "ree-AK-shun" | The force a support pushes back with | Support reaction |
+| **Support force** | — | A force supplied by something holding an object | Table pushing up on book |
 | **Free Body Diagram (FBD)** | — | A drawing of an object showing every force on it | Every problem starts here |
 
 ### B. Concept Introduction
@@ -2835,7 +2769,7 @@ Point load (P):              Distributed load (w):
 | Area load | $q$ | kN/m² (= kPa) | Floor live load |
 | Self-weight | (auto) | kN | Structure's own weight |
 
-**The Free Body Diagram (FBD).** This is the single most important tool in statics. You isolate one body — a beam, a column, a node — and draw every force acting *on* it as an arrow. Nothing else. No supports drawn, just the forces they apply.
+**The Free Body Diagram (FBD).** This is the single most important drawing tool in statics. You isolate one body and draw every force acting *on* it as an arrow. At this stage, focus on applied forces and support forces. The formal support-reaction vocabulary is introduced in Chapter 11 and support types are introduced in Chapter 14.
 
 ### D. The Math
 
@@ -2847,20 +2781,20 @@ Every force is a **vector**: it has both magnitude and direction. We will study 
 
 To draw an FBD:
 
-1. Sketch the body alone (no supports)
-2. Replace each support with the force(s) it applies (its reactions)
-3. Draw all applied loads as arrows in their actual directions
-4. Label every arrow with its magnitude (or unknown name like $R_A$)
+1. Sketch the body alone
+2. Draw all applied loads as arrows in their actual directions
+3. Draw any obvious support force arrows, such as a table pushing upward
+4. Label every known arrow with its magnitude
 
 ### E. Structural Engineering Application
 
-**Problem.** A simply supported beam $L = 5\ \mathrm{m}$ carries:
-- Self-weight: $w_{sw} = 5\ \mathrm{kN/m}$
-- Floor finish: $w_{ff} = 2\ \mathrm{kN/m}$ (additional dead load)
-- Live load: $w_{ll} = 8\ \mathrm{kN/m}$
-- A point load $P = 30\ \mathrm{kN}$ at mid-span
+**Problem.** A 5 m member has:
+- A uniform downward load from self-weight: $w_{sw} = 5\ \mathrm{kN/m}$
+- A uniform downward load from finishes: $w_{ff} = 2\ \mathrm{kN/m}$
+- A uniform downward live load: $w_{ll} = 8\ \mathrm{kN/m}$
+- A point load $P = 30\ \mathrm{kN}$ at the middle
 
-Draw the FBD.
+Draw the applied-load part of the FBD and compute total downward load.
 
 ```
                           P = 30 kN
@@ -2868,8 +2802,6 @@ Draw the FBD.
                               v
         Total w = 15 kN/m  ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓
                           ──────┬──────────
-                          ^                ^
-                          RA               RB
                           |<──── 5 m ─────>|
 ```
 
@@ -2878,7 +2810,7 @@ Total distributed force: $w \times L = 15 \times 5 = 75\ \mathrm{kN}$
 Plus point load: $30\ \mathrm{kN}$
 Total downward: $105\ \mathrm{kN}$
 
-By symmetry of the loads (uniform load + central point load): $R_A = R_B = 105/2 = 52.5\ \mathrm{kN}$.
+The upward support forces needed to hold this member are explained in Chapter 11. For now, the force skill is identifying and summing the downward loads.
 
 ### F. ETABS Connection
 
@@ -2893,21 +2825,21 @@ Forces are entered in ETABS through several menus, each matching a physical type
 | Self-weight | Set in load pattern multiplier |
 
 > **Try it in ETABS 22:**
-> 1. Create a 5 m horizontal beam, supported at both ends
+> 1. Create a 5 m horizontal frame object
 > 2. **Define > Load Patterns** — add "DL" (Self Weight Multiplier = 1)
 > 3. **Assign > Frame Loads > Distributed** — select the beam, apply $w = 7\ \mathrm{kN/m}$ in DL (this represents finishes)
 > 4. Add "LL" load pattern with multiplier 0
 > 5. **Assign > Frame Loads > Distributed** — apply $w = 8\ \mathrm{kN/m}$ in LL
 > 6. **Assign > Frame Loads > Point** — apply $P = 30\ \mathrm{kN}$ at mid-span in LL
-> 7. Run analysis and view reactions — the FBD you drew is now solved
+> 7. Do not solve it yet; this task is only about entering the forces in the correct directions
 
 ### G. Common Mistakes
 
 1. **Confusing kg and kN.** Self-weight code values often appear as "kg/m²" — multiply by 9.81 and divide by 1000 to get kPa.
-2. **Drawing the FBD with the supports.** The supports become arrows (reactions); they are not drawn.
+2. **Mixing the object and the forces.** The FBD should make force arrows easy to see; support details come later.
 3. **Missing self-weight.** The structure weighs something even before any external load — always include it.
 
-### H. Chapter Practice Task — Floor Beam FBD
+### H. Chapter Practice Task — Floor Beam Load FBD
 
 > **Scenario:** A 6 m long floor beam supports:
 > - A 200 mm thick concrete slab tributary 2.5 m wide
@@ -2918,9 +2850,8 @@ Forces are entered in ETABS through several menus, each matching a physical type
 > **Tasks:**
 > 1. Convert each area load to a line load on the beam (kN/m)
 > 2. Sum to find total $w$
-> 3. Draw the FBD with reactions
-> 4. Compute $R_A$ and $R_B$ (symmetric loading)
-> 5. Verify in ETABS
+> 3. Draw the applied downward loads on an FBD
+> 4. Compute total downward load on the beam
 
 > **Worked Solution:**
 >
@@ -2935,9 +2866,9 @@ Forces are entered in ETABS through several menus, each matching a physical type
 >
 > **Total:** $w = 12.5 + 2.5 + 7.5 + 4 = 26.5\ \mathrm{kN/m}$
 >
-> **Reactions (symmetric):** $R_A = R_B = 26.5 \times 6 / 2 = 79.5\ \mathrm{kN}$
+> **Total downward load:** $26.5 \times 6 = 159\ \mathrm{kN}$
 >
-> **ETABS Verification:** Build a 6 m beam, apply 26.5 kN/m, run analysis, confirm reactions = 79.5 kN.
+> Chapter 11 explains how upward support forces balance this downward total.
 
 ### I. Chapter Summary Table
 
@@ -2957,7 +2888,7 @@ Forces are entered in ETABS through several menus, each matching a physical type
 
 | Word | Pronunciation | Plain English Meaning | Used In |
 |------|---------------|----------------------|---------|
-| **Equilibrium** | "ee-kwih-LIB-ree-um" | Perfect balance — nothing moves | $\Sigma F = 0$, $\Sigma M = 0$ |
+| **Equilibrium** | "ee-kwih-LIB-ree-um" | Perfect balance — nothing moves | $\Sigma F = 0$ |
 | **Static** | "STAT-ik" | Not moving | Statics = study of non-moving structures |
 | **Sum** | "SUM" | Total of all values added together | $\Sigma F$ |
 | **Sigma** | "SIG-mah" | Greek letter $\Sigma$ meaning "sum of" | $\Sigma F_y$ |
@@ -2977,10 +2908,11 @@ A building doesn't move. That simple fact is the entire foundation of structural
 
 **Newton's First Law:** An object at rest remains at rest unless an unbalanced force acts on it.
 
-A building is at rest. Therefore, the forces on it must be balanced. Therefore:
+A building is at rest. Therefore, the forces on it must be balanced. In this chapter we balance forces:
 - All horizontal forces sum to zero: $\Sigma F_x = 0$
 - All vertical forces sum to zero: $\Sigma F_y = 0$
-- All moments (rotational tendencies) sum to zero: $\Sigma M = 0$
+
+Rotational balance uses moments and is introduced in Chapter 12.
 
 **Newton's Third Law:** For every action, there is an equal and opposite reaction.
 
@@ -2989,15 +2921,14 @@ When a beam rests on a column, the beam pushes the column down. The column pushe
 **A note on signs.** Choose a positive direction at the start of every problem and stick to it. Common conventions:
 - Up is positive for vertical forces
 - Right is positive for horizontal forces
-- Counterclockwise is positive for moments (we'll cover this in Chapter 12)
 
 ### D. The Math
 
-The three equilibrium equations:
+The force equilibrium equations:
 
-$$\Sigma F_x = 0 \quad \Sigma F_y = 0 \quad \Sigma M = 0$$
+$$\Sigma F_x = 0 \quad \Sigma F_y = 0$$
 
-In two dimensions (which covers most beam problems), these three equations let you solve for up to three unknowns.
+In this chapter, we use these equations only for force balance. Moment equilibrium is next.
 
 **Worked example.** A box weighing $W = 200\ \mathrm{N}$ sits on a frictionless surface. A horizontal cable pulls right with $F_1 = 50\ \mathrm{N}$. Another horizontal cable pulls left with $F_2$. The surface pushes up with $N$. Find $F_2$ and $N$ for equilibrium.
 
@@ -3016,7 +2947,7 @@ $\Sigma F_y = 0$: $N - W = 0$ → $N = 200\ \mathrm{N}$
 
 ### E. Structural Engineering Application
 
-**Problem.** A simply supported beam $L = 6\ \mathrm{m}$ carries a point load $P = 60\ \mathrm{kN}$ at mid-span. Find $R_A$ and $R_B$.
+**Problem.** A beam carries a point load $P = 60\ \mathrm{kN}$ at mid-span and is supported symmetrically at both ends. Find $R_A$ and $R_B$ using force balance and symmetry.
 
 ```
               P = 60 kN
@@ -3032,21 +2963,17 @@ $\Sigma F_y = 0$: $N - W = 0$ → $N = 200\ \mathrm{N}$
 Take up as positive:
 $R_A + R_B - 60 = 0$ → $R_A + R_B = 60\ \mathrm{kN}$
 
-**Step 2 — Moment equilibrium about A ($\Sigma M_A = 0$):**
-Take counterclockwise as positive:
-- $R_A$ acts at A → moment = 0 (no arm)
-- Load $P = 60\ \mathrm{kN}$ acts at $x = 3\ \mathrm{m}$, downward → clockwise moment = $-60 \times 3 = -180\ \mathrm{kN \cdot m}$
-- Reaction $R_B$ at $x = 6\ \mathrm{m}$, upward → counterclockwise moment = $+R_B \times 6$
+**Step 2 — Use symmetry:**
+The load is exactly centered and the supports are identical, so both supports carry the same force: $R_A = R_B$.
 
-$\Sigma M_A = 0$: $R_B \times 6 - 60 \times 3 = 0$ → $R_B = 30\ \mathrm{kN}$
+**Step 3 — Split the total:**
+$R_A = R_B = 60/2 = 30\ \mathrm{kN}$.
 
-**Step 3 — Substitute back:** $R_A = 60 - 30 = 30\ \mathrm{kN}$
-
-By symmetry, this makes sense: the load is at the center, so each support carries half.
+Non-symmetric beams require moment equilibrium, which is taught in Chapter 12.
 
 ### F. ETABS Connection
 
-ETABS solves $\Sigma F = 0$ and $\Sigma M = 0$ at every joint of every model — that's tens of thousands of equations for a typical building. Reactions reported in ETABS are the solution of these equations.
+ETABS solves force balance and rotational balance at every joint of every model. In this chapter, use ETABS reactions only to verify vertical force balance.
 
 > **Try it in ETABS 22:**
 > 1. Create a 6 m simply supported beam, apply $P = 60\ \mathrm{kN}$ at mid-span
@@ -3054,50 +2981,37 @@ ETABS solves $\Sigma F = 0$ and $\Sigma M = 0$ at every joint of every model —
 > 3. **Display > Show Tables > Joint Reactions**
 > 4. Confirm both reactions = $30\ \mathrm{kN}$
 > 5. Sum vertical reactions: $30 + 30 = 60\ \mathrm{kN}$ = applied load → vertical equilibrium ✓
-> 6. Take moments by hand around either support — they should balance to zero
+> 6. Moment checks come in Chapter 12
 
 ### G. Common Mistakes
 
 1. **Wrong sign convention.** Mixing up up/down. Pick once and stay consistent.
 2. **Forgetting horizontal equilibrium.** With horizontal loads (wind), you must also satisfy $\Sigma F_x = 0$.
-3. **Using two parallel equations of moments only.** This gives dependent equations. Always include at least one $\Sigma F = 0$ if possible.
+3. **Trying to solve non-symmetric supports with force balance alone.** You need Chapter 12's moment equilibrium for that.
 
-### H. Chapter Practice Task — Beam with Multiple Loads
+### H. Chapter Practice Task — Symmetric Beam Force Balance
 
-> **Scenario:** A simply supported beam $L = 10\ \mathrm{m}$ carries:
-> - Point load $P_1 = 50\ \mathrm{kN}$ at $x = 2\ \mathrm{m}$
-> - Point load $P_2 = 80\ \mathrm{kN}$ at $x = 6\ \mathrm{m}$
-> - Uniform load $w = 10\ \mathrm{kN/m}$ over the entire span
+> **Scenario:** A symmetric beam carries a centered point load $P = 40\ \mathrm{kN}$ and a uniform load $w = 6\ \mathrm{kN/m}$ over $L = 10\ \mathrm{m}$.
 >
 > **Tasks:**
 > 1. Compute total load
-> 2. Apply $\Sigma F_y = 0$ and $\Sigma M_A = 0$
-> 3. Solve for $R_A$ and $R_B$
-> 4. Check by taking moments about B
-> 5. Verify in ETABS
+> 2. Apply $\Sigma F_y = 0$
+> 3. Use symmetry to solve for $R_A$ and $R_B$
 
 > **Worked Solution:**
 >
-> **Total downward load:** $W_{total} = P_1 + P_2 + w \cdot L = 50 + 80 + 10 \times 10 = 230\ \mathrm{kN}$
+> **Total downward load:** $W_{total} = P + wL = 40 + 6(10) = 100\ \mathrm{kN}$
 >
-> **$\Sigma M_A = 0$ (counterclockwise positive):**
-> Distributed load $w \cdot L = 100\ \mathrm{kN}$ acts at its centroid, $x = L/2 = 5\ \mathrm{m}$.
-> $R_B \times 10 - 50 \times 2 - 80 \times 6 - 100 \times 5 = 0$
-> $10 R_B = 100 + 480 + 500 = 1080$
-> $R_B = 108\ \mathrm{kN}$
+> **Force balance:** $R_A + R_B = 100\ \mathrm{kN}$
 >
-> **$\Sigma F_y = 0$:** $R_A + R_B = 230$ → $R_A = 230 - 108 = 122\ \mathrm{kN}$
->
-> **Check ($\Sigma M_B = 0$):** $R_A \times 10 - P_1 \times 8 - P_2 \times 4 - w \cdot L \times 5 = 1220 - 400 - 320 - 500 = 0$ ✓
->
-> **ETABS Verification:** Build the beam with these loads, run, read reactions = 122 and 108 kN.
+> **Symmetry:** $R_A = R_B = 50\ \mathrm{kN}$
 
 ### I. Chapter Summary Table
 
 | Concept | Formula | Engineering Use | ETABS Location |
 |---------|---------|----------------|----------------|
-| Vertical equilibrium | $\Sigma F_y = 0$ | Sum of vertical forces | Joint Reactions |
-| Horizontal equilibrium | $\Sigma F_x = 0$ | Sum of horizontal forces | Joint Reactions (lateral) |
+| Vertical force equilibrium | $\Sigma F_y = 0$ | Sum of vertical forces | Joint Reactions |
+| Horizontal force equilibrium | $\Sigma F_x = 0$ | Sum of horizontal forces | Joint Reactions (lateral) |
 | Newton's First Law | rest stays at rest | Justifies static analysis | Foundation of solver |
 | Newton's Third Law | equal & opposite | Why supports react | Reaction display |
 
@@ -3485,7 +3399,7 @@ A **propped cantilever** is fixed + roller (4 reactions — one degree staticall
 
 ### D. The Math
 
-The number of equilibrium equations available in 2D is 3 ($\Sigma F_x$, $\Sigma F_y$, $\Sigma M$). If the number of unknown reactions equals 3, the structure is **statically determinate** — solvable using equilibrium alone. If reactions exceed 3, it's **indeterminate** — requires additional equations (deformation compatibility), which is where finite element software like ETABS earns its keep.
+The number of equilibrium equations available in 2D is 3 ($\Sigma F_x$, $\Sigma F_y$, $\Sigma M$). If the number of unknown reactions equals 3, the structure is **statically determinate** — solvable using equilibrium alone. If reactions exceed 3, it is **indeterminate**. Indeterminate structures require deformation ideas and software methods introduced later, so this chapter only identifies them.
 
 **Worked example.** Identify the support reactions for a 5 m cantilever with $P = 10\ \mathrm{kN}$ at the free end.
 
@@ -3496,20 +3410,15 @@ $\Sigma M_A = 0$: $M_A - 10 \times 5 = 0$ → $M_A = 50\ \mathrm{kN \cdot m}$ (C
 
 ### E. Structural Engineering Application
 
-**Problem.** A 6 m beam carries $P = 40\ \mathrm{kN}$ at $x = 4\ \mathrm{m}$ from left. Find reactions if the beam is:
+**Problem.** A 6 m beam carries $P = 40\ \mathrm{kN}$ at $x = 4\ \mathrm{m}$ from left. Compare the support unknowns if the beam is:
 (a) simply supported (pin at left, roller at right)
 (b) propped cantilever (fixed at left, roller at right)
 
 **Case (a) — simply supported:**
-$\Sigma M_A = 0$: $R_B \times 6 - 40 \times 4 = 0$ → $R_B = 26.67\ \mathrm{kN}$
-$R_A = 40 - 26.67 = 13.33\ \mathrm{kN}$
+Unknowns: horizontal reaction at the pin, vertical reaction at the pin, vertical reaction at the roller. Three unknowns, so a 2D simply supported beam is determinate.
 
 **Case (b) — propped cantilever:**
-This has 4 reactions (3 at fixed + 1 at roller); it's indeterminate. By the standard formula for a fixed-roller beam with point load:
-$R_B = \dfrac{Pa^2(3L - a)}{2L^3}$ where $a$ = distance from fixed support
-$R_B = \dfrac{40 \times 16 \times (18 - 4)}{2 \times 216} = \dfrac{40 \times 16 \times 14}{432} = \dfrac{8960}{432} = 20.74\ \mathrm{kN}$
-
-The remaining reactions (vertical and moment at A) come from equilibrium.
+Unknowns: horizontal reaction, vertical reaction, and moment at the fixed end, plus vertical reaction at the roller. Four unknowns, so equilibrium alone is not enough. ETABS can solve it because it also accounts for member stiffness and deformation.
 
 ### F. ETABS Connection
 
@@ -3710,7 +3619,7 @@ ETABS computes $N$, $V$, and $M$ at every section of every member and plots them
 
 1. **Confusing shear and bending moment diagrams.** Shear is linear under UDL; moment is parabolic.
 2. **Wrong sign convention on the cut.** Always state your convention. The trick is consistency.
-3. **Forgetting that $V = 0$ where $M$ is maximum.** Mathematically, $V = dM/dx$. Zero shear = peak moment.
+3. **Forgetting that peak moment occurs where the shear diagram crosses zero.** The calculus explanation comes later; for now, remember this as a diagram rule.
 
 ### H. Chapter Practice Task — Cantilever SFD and BMD
 
@@ -3868,7 +3777,7 @@ ETABS uses Hooke's Law internally. When you define a material (Define > Material
 > $\sigma = 80{,}000 / 314 = 254.78\ \mathrm{MPa}$ ✓ ($< 350$, elastic)
 > $\varepsilon = 254.78 / 200{,}000 = 0.001274$
 > $\Delta L = 0.001274 \times 3{,}000 = 3.82\ \mathrm{mm}$
-> DCR = $254.78 / 350 = 0.728$ — safe
+> Demand/capacity ratio = $254.78 / 350 = 0.728$ — safe
 >
 > **ETABS Verification:** Build a vertical truss element 3 m, A = 314 mm², apply 80 kN axial. Run analysis. Read the elongation in the deformed shape — it should be ~3.8 mm.
 
@@ -3889,10 +3798,10 @@ ETABS uses Hooke's Law internally. When you define a material (Define > Material
 
 | Word | Pronunciation | Plain English Meaning | Used In |
 |------|---------------|----------------------|---------|
-| **Bending stress** | — | Stress in a beam from bending | $\sigma = Mc/I$ |
+| **Bending stress** | — | Stress in a beam from bending | Tension/compression from curvature |
 | **Flexural stress** | "FLEX-yoo-rul" | Same as bending stress | $\sigma_b$ |
 | **Neutral axis** | "NOO-trul" | Line through cross-section where stress = 0 | At centroid |
-| **Section modulus** | — | $S = I/c$, combines I and c | $\sigma = M/S$ |
+| **Section modulus** | — | A section property used in the full bending-stress formula | Chapter 20/advanced design |
 | **Fiber** | "FY-ber" | A thin horizontal strip of cross-section | Outermost = max stress |
 | **Sagging** | — | Beam curving like a smile | Positive M |
 | **Hogging** | — | Beam curving like a frown | Negative M |
@@ -3905,14 +3814,12 @@ When a beam bends, one face stretches (tension) and the opposite face compresses
 
 ### C. The Physics Behind It
 
-The bending stress formula:
+The full bending-stress formula uses a geometry property called **moment of inertia**. Chapter 20 teaches that property and then performs the exact calculation. This chapter focuses on the physical pattern first:
 
-$$\sigma = \dfrac{M \cdot c}{I}$$
-
-Where:
-- $M$ = bending moment at the cross-section [N·mm]
-- $c$ = distance from neutral axis to outermost fiber [mm]
-- $I$ = moment of inertia of cross-section about the neutral axis [mm⁴]
+- Larger bending moment means larger bending stress.
+- Stress is zero at the neutral axis.
+- Stress is largest at the farthest top or bottom fiber.
+- Deeper sections usually reduce bending stress because more material is farther from the neutral axis.
 
 Stress varies linearly across the section:
 
@@ -3933,70 +3840,53 @@ The maximum stress occurs at the top and bottom faces — that's why $c = h/2$ f
 
 ### D. The Math
 
-For a rectangular section, $b$ wide and $h$ deep:
-$$I = \dfrac{bh^3}{12} \qquad c = \dfrac{h}{2}$$
+In this chapter, use proportional comparisons instead of the full formula:
 
-So: $\sigma = \dfrac{M \cdot h/2}{bh^3/12} = \dfrac{6M}{bh^2}$
+| Change | Bending stress trend |
+|--------|----------------------|
+| Moment doubles | Stress doubles |
+| Same moment, deeper section | Stress decreases |
+| Same section, larger moment | Stress increases |
 
-The **section modulus**:
-$$S = \dfrac{I}{c} \quad \mathrm{(for\ rectangle:}\ S = bh^2/6\mathrm{)}$$
+**Worked example.** Beam A and Beam B have the same section. Beam A has bending moment $M = 40\ \mathrm{kN \cdot m}$, and Beam B has $M = 80\ \mathrm{kN \cdot m}$. Which has larger bending stress?
 
-So $\sigma = M / S$.
-
-**Worked example.** A rectangular concrete beam $b = 300, h = 600\ \mathrm{mm}$ carries $M = 80\ \mathrm{kN \cdot m}$ at a critical section. Find the maximum bending stress.
-
-Convert: $M = 80\ \mathrm{kN \cdot m} = 80 \times 10^6\ \mathrm{N \cdot mm}$
-
-$I = bh^3/12 = 300 \times 600^3 / 12 = 300 \times 216{,}000{,}000 / 12 = 5.4 \times 10^9\ \mathrm{mm^4}$
-$c = h/2 = 300\ \mathrm{mm}$
-$\sigma = Mc/I = (80 \times 10^6 \times 300) / (5.4 \times 10^9) = 2.4 \times 10^{10} / 5.4 \times 10^9 = 4.44\ \mathrm{MPa}$
-
-Maximum bending stress = 4.44 MPa.
+Beam B has twice the moment, so it has twice the bending stress. Chapter 20 turns this proportional idea into an exact stress calculation.
 
 ### E. Structural Engineering Application
 
-**Problem.** Check if the above beam is safe for an allowable concrete bending stress of $\sigma_{allow} = 12\ \mathrm{MPa}$.
+**Problem.** Two rectangular beams carry the same bending moment. Beam A is shallow. Beam B is deeper. Which one will usually have lower bending stress?
 
-DCR = $4.44 / 12 = 0.37$ → safe with significant reserve.
-
-For reinforced concrete in real design, the analysis is more nuanced (cracked section, rebar contribution), but the elastic uncracked check gives a quick first-pass answer. This is exactly what ETABS uses for serviceability checks.
+Beam B. A deeper section spreads material farther from the neutral axis, which makes the beam more effective in bending. Chapter 20 gives the geometry formula that turns this idea into numbers.
 
 ### F. ETABS Connection
 
-ETABS computes bending stress at every section internally, but does not directly display $\sigma$ — it shows $M$, and uses Mc/I logic in the design module to convert into reinforcement requirements.
+ETABS shows bending moment diagrams before it shows design requirements. At this stage, use the moment diagram to locate where bending stress will be largest: where the bending moment is largest.
 
 > **Try it in ETABS 22:**
-> 1. **Display > Show Frame Forces > Moment 3-3** — get $M$ at the critical section
-> 2. **Define > Section Properties > Frame Sections** → click your section → **Section Properties** → read $I_{33}$
-> 3. Compute $c$ as $h/2$
-> 4. Hand-calculate $\sigma = Mc/I$
-> 5. Compare to allowable — this is exactly what ETABS does inside its design module
+> 1. **Display > Show Frame Forces > Moment 3-3** — find where $M$ is largest
+> 2. Mark that location as the place bending stress will be most critical
+> 3. Continue to Chapter 20 for the exact $Mc/I$ stress calculation after $I$ is taught
 
 ### G. Common Mistakes
 
-1. **Wrong units for $M$.** Convert $M$ to $\mathrm{N \cdot mm}$ when working in mm.
-2. **Using full depth $h$ for $c$.** It's $h/2$, not $h$.
-3. **Forgetting parallel axis when section is composite.** Important for I-beams and T-beams (covered in Chapter 20).
+1. **Thinking bending stress is uniform.** It is zero near the neutral axis and largest at the outer fibers.
+2. **Looking only at force and ignoring moment.** Bending stress follows bending moment, not just total load.
+3. **Using the formula before the geometry is ready.** Use this chapter for the stress pattern, then Chapter 20 for the exact formula.
 
-### H. Chapter Practice Task — Steel I-Beam Bending Check
+### H. Chapter Practice Task — Locate Critical Bending Region
 
-> **Scenario:** A steel I-beam has $I = 1.5 \times 10^8\ \mathrm{mm^4}$ and total depth $h = 400\ \mathrm{mm}$. It carries $M = 200\ \mathrm{kN \cdot m}$. Steel $F_y = 350\ \mathrm{MPa}$. Check.
+> **Scenario:** A beam's bending moment diagram has values: 0 kN·m at the left support, 60 kN·m at quarter-span, 95 kN·m at mid-span, 60 kN·m at three-quarter-span, and 0 kN·m at the right support.
 >
 > **Worked Solution:**
 >
-> $c = h/2 = 200\ \mathrm{mm}$
-> $M = 200 \times 10^6\ \mathrm{N \cdot mm}$
-> $\sigma = Mc/I = (200 \times 10^6 \times 200) / (1.5 \times 10^8) = 4 \times 10^{10} / 1.5 \times 10^8 = 266.67\ \mathrm{MPa}$
-> DCR = $266.67/350 = 0.762$ — safe.
->
-> **ETABS:** Run analysis with this beam, run **Steel Frame Design**, the unity check (DCR) should be ~0.76 in bending.
+> The largest moment is 95 kN·m at mid-span, so the largest bending stress will occur at mid-span. The top and bottom fibers at that section are the critical locations.
 
 ### I. Chapter Summary Table
 
 | Concept | Formula | Engineering Use | ETABS Location |
 |---------|---------|----------------|----------------|
-| Bending stress | $\sigma = Mc/I$ | Beam design | Inside Steel/Concrete Design |
-| Section modulus | $S = I/c$ | $\sigma = M/S$ shortcut | Section Properties |
+| Bending stress pattern | Zero at neutral axis, max at outer fibers | Beam design | Moment diagram + design output |
+| Full formula | Introduced after $I$ in Chapter 20 | Quantitative stress check | Section Properties |
 | Maximum stress location | Outer fiber, $c = h/2$ | Where to check | Top/bottom of section |
 
 <div style="page-break-after: always;"></div>
@@ -4078,14 +3968,14 @@ $A = 2 \times (b_f \cdot t_f) + (h_w \cdot t_w) = 2 \times (200 \times 20) + (36
 
 $\sigma = P/A = 1{,}500{,}000 / 11{,}600 = 129.3\ \mathrm{MPa}$
 
-For $F_y = 350\ \mathrm{MPa}$: DCR = 129.3 / 350 = 0.37 — safe.
+For $F_y = 350\ \mathrm{MPa}$: demand/capacity ratio = $129.3 / 350 = 0.37$ — safe.
 
 ### F. ETABS Connection
 
 In **Define > Section Properties > Frame Sections**, when you choose a rectangular concrete or a built-up steel section, ETABS computes $A$ from the dimensions you enter. The same $A$ is used in:
 - Self-weight calculation (with material density)
 - Axial stress checks
-- Stiffness matrix entries
+- Later stiffness calculations
 
 > **Try it in ETABS 22:**
 > 1. **Define > Section Properties > Frame Sections > Add New Property**
@@ -4190,11 +4080,11 @@ For a T-beam, knowing $\bar{y}$ tells you:
 - The distance to top fiber: $c_{top} = h - \bar{y}$
 - The distance to bottom fiber: $c_{bot} = \bar{y}$
 
-These distances are needed for the bending stress formula $\sigma = Mc/I$, where $c$ is different for top and bottom faces if the section is asymmetric.
+These distances are needed for the full bending-stress formula after moment of inertia is explained in Chapter 20. If a section is asymmetric, the top and bottom distances are different, so the top and bottom bending stresses will not be equal.
 
 In our T-section: $c_{top} = 500 - 307.14 = 192.86$ mm; $c_{bot} = 307.14$ mm.
 
-Bending stress is therefore higher on the bottom face (since $c_{bot} > c_{top}$).
+For the same bending moment and same section stiffness, the bottom face is more critical here because $c_{bot} > c_{top}$.
 
 ### F. ETABS Connection
 
@@ -4247,7 +4137,7 @@ In **Section Designer**, after drawing any cross-section, click **Properties**. 
 |---------|---------|----------------|----------------|
 | Centroid | $\bar{y} = \Sigma(A_i y_i)/\Sigma A_i$ | Locate neutral axis | Section Designer Properties |
 | Symmetric shape | Centroid on symmetry line | Quick lookup | Built-in shapes |
-| $c_{top}, c_{bot}$ | From centroid to face | Bending stress check | Manual calc |
+| $c_{top}, c_{bot}$ | From centroid to face | Bending stress check after Chapter 20 | Manual calc |
 
 <div style="page-break-after: always;"></div>
 
@@ -4262,7 +4152,7 @@ In **Section Designer**, after drawing any cross-section, click **Properties**. 
 | **Parallel axis theorem** | — | Shifts $I$ from one axis to a parallel axis | $I = I_c + Ad^2$ |
 | **Strong axis** | — | The axis about which $I$ is largest | Major bending |
 | **Weak axis** | — | The axis about which $I$ is smallest | Minor bending |
-| **Radius of gyration** | "jy-RAY-shun" | $r = \sqrt{I/A}$, used in column buckling | Slenderness |
+| **Radius of gyration** | "jy-RAY-shun" | $r = \sqrt{I/A}$, a later column-stability property | Slenderness |
 
 ### B. Concept Introduction
 
@@ -4272,11 +4162,9 @@ Moment of inertia $I$ measures how spread out a section's area is from the axis 
 
 ### C. The Physics Behind It
 
-In bending, fibers far from the neutral axis stretch and compress more, contributing more resistance. The contribution of each tiny area $dA$ to bending resistance is $y^2 \cdot dA$ (note the square). Adding these up:
+In bending, fibers far from the neutral axis stretch and compress more, contributing more resistance. Moment of inertia measures this idea by weighting area farther from the axis more heavily. The distance is squared, which is why depth matters so much.
 
-$$I = \int y^2 \, dA$$
-
-For practical engineering, we don't compute the integral — we use formulas for common shapes:
+For practical engineering, we use formulas for common shapes:
 
 | Shape | $I$ about centroidal axis |
 |-------|--------------------------|
@@ -4304,6 +4192,26 @@ $$I_{total} = \sum \left( I_{c,i} + A_i \cdot d_i^2 \right)$$
 $I_{total} = 5.333 \times 10^8 + 4.59 \times 10^8 + 0.25 \times 10^8 + 6.12 \times 10^8 = 1.63 \times 10^9\ \mathrm{mm^4}$
 
 This $I$ is what governs bending stiffness for the T-section.
+
+Now the deferred bending-stress check from Chapter 17 can be made quantitative:
+
+$$\sigma = \dfrac{M c}{I} \qquad \mathrm{or} \qquad \sigma = \dfrac{M}{S},\quad S = \dfrac{I}{c}$$
+
+Here $M$ comes from the moment diagram, $c$ comes from the centroid distances in Chapter 19, and $I$ comes from this chapter. This is why the book waited until now to use the full formula.
+
+**Worked example — bending stress after $I$ is known.** A rectangular beam has $b = 300\ \mathrm{mm}$, $h = 600\ \mathrm{mm}$, and moment $M = 80\ \mathrm{kN\cdot m}$ at the critical section. Find the maximum bending stress.
+
+First convert moment to matching units:
+$M = 80\ \mathrm{kN\cdot m} = 80 \times 10^6\ \mathrm{N\cdot mm}$
+
+For the rectangle:
+$I = bh^3/12 = 300(600^3)/12 = 5.4 \times 10^9\ \mathrm{mm^4}$
+$c = h/2 = 300\ \mathrm{mm}$
+
+Then:
+$$\sigma = \dfrac{Mc}{I} = \dfrac{(80 \times 10^6)(300)}{5.4 \times 10^9} = 4.44\ \mathrm{MPa}$$
+
+This is the exact calculation Chapter 17 pointed toward but did not yet have enough geometry to perform.
 
 ### E. Structural Engineering Application
 
@@ -4354,6 +4262,7 @@ ETABS reports $I_{33}$ (about the strong axis, used for major-axis bending) and 
 | Rectangle $I$ | $bh^3/12$ | Beam stiffness | Section Properties |
 | Parallel axis | $I = I_c + Ad^2$ | Composite sections | Built into Section Designer |
 | Strong vs weak axis | $I_{33}$ vs $I_{22}$ | Major vs minor bending | Section Properties dialog |
+| Bending stress | $\sigma = Mc/I = M/S$ | Exact flexural stress check | Moment diagram + section properties |
 
 <div style="page-break-after: always;"></div>
 
@@ -4380,87 +4289,80 @@ A scalar is just a number with units (mass, temperature). A vector is a number p
 Forces are vectors. To analyze any structure with forces in multiple directions, you must:
 
 1. Pick a coordinate system (typically X horizontal, Y vertical for 2D)
-2. Resolve every force into its X and Y **components**
+2. Write each force as X and Y **components**
 3. Sum components separately
 
 Then the equilibrium equations $\Sigma F_x = 0$ and $\Sigma F_y = 0$ apply directly.
 
 ### D. The Math
 
-**Component decomposition** of a force $F$ acting at angle $\theta$ from the x-axis:
-$$F_x = F \cos\theta \qquad F_y = F \sin\theta$$
+In this chapter, components are given directly. Chapter 22 teaches how to get components from an angle, and Chapter 23 teaches how to find a resultant magnitude from perpendicular components.
 
-**Resultant** of two perpendicular components:
-$$R = \sqrt{F_x^2 + F_y^2}$$
-
-**Direction** of the resultant:
-$$\theta = \tan^{-1}\left(\dfrac{F_y}{F_x}\right)$$
-
-**Adding two vectors $\vec{A}$ and $\vec{B}$:**
+**Adding two vectors $\vec{A}$ and $\vec{B}$ by components:**
 $$R_x = A_x + B_x \qquad R_y = A_y + B_y$$
 
-**Worked example.** A force $F = 50\ \mathrm{kN}$ acts at $30°$ above horizontal. Find $F_x$ and $F_y$.
+**Worked example.** Two forces act at a joint. Force A has components $A_x = 12\ \mathrm{kN}$ and $A_y = 5\ \mathrm{kN}$. Force B has components $B_x = -3\ \mathrm{kN}$ and $B_y = 7\ \mathrm{kN}$. Find the resultant components.
 
-$F_x = 50 \cos(30°) = 50 \times 0.866 = 43.30\ \mathrm{kN}$
-$F_y = 50 \sin(30°) = 50 \times 0.500 = 25.00\ \mathrm{kN}$
+$R_x = 12 + (-3) = 9\ \mathrm{kN}$
+$R_y = 5 + 7 = 12\ \mathrm{kN}$
 
 ```
-            F = 50 kN
-              ↗
-            ↗   ↑ Fy = 25
-          ↗     │
-        ↗       │
-      ────────────→ Fx = 43.3
-       30°
+            Ry = 12 kN
+              ↑
+              │
+              │
+              └────────→ Rx = 9 kN
 ```
 
 ### E. Structural Engineering Application
 
-**Problem.** A roof truss diagonal carries a tensile force $F = 80\ \mathrm{kN}$ at $60°$ above horizontal. Find the horizontal and vertical components transmitted to the supporting column.
+**Problem.** A joint receives two already-resolved force components from connected members:
+- Member 1: $F_x = 30\ \mathrm{kN}$, $F_y = 20\ \mathrm{kN}$
+- Member 2: $F_x = -10\ \mathrm{kN}$, $F_y = 15\ \mathrm{kN}$
 
-$F_x = 80 \cos(60°) = 80 \times 0.5 = 40\ \mathrm{kN}$
-$F_y = 80 \sin(60°) = 80 \times 0.866 = 69.3\ \mathrm{kN}$
+Find the combined components.
 
-The column receives 40 kN horizontal and 69.3 kN vertical from the truss diagonal.
+$R_x = 30 + (-10) = 20\ \mathrm{kN}$
+$R_y = 20 + 15 = 35\ \mathrm{kN}$
+
+The joint's net force components are 20 kN in X and 35 kN in Y.
 
 ### F. ETABS Connection
 
-In ETABS, every force is a vector. When you assign **Joint Loads > Forces**, you enter Fx, Fy, Fz components separately. ETABS does not resolve angles for you — you must compute components first.
+In ETABS, every force is a vector. When you assign **Joint Loads > Forces**, you enter Fx, Fy, Fz components separately. Angle-to-component calculations come in Chapter 22.
 
 > **Try it in ETABS 22:**
 > 1. **Assign > Joint Loads > Forces**
 > 2. The dialog has six fields: Fx, Fy, Fz, Mx, My, Mz
-> 3. To apply a 50 kN force at 30° in the XZ plane: enter Fx = 43.3, Fz = -25 (negative if downward), leave others zero
+> 3. To apply a force with known components, enter each component in the correct field
 > 4. Click OK; visualize with **Display > Show Loads**
 
 ### G. Common Mistakes
 
-1. **Confusing sin and cos.** $\cos$ pairs with the side adjacent to the angle. Sketch always before computing.
-2. **Sign of components.** A downward Y component is negative.
-3. **Adding magnitudes directly.** Two 50 kN forces at right angles give a resultant of $\sqrt{50^2 + 50^2} = 70.7$ kN — not 100.
+1. **Ignoring signs.** Left/right and up/down components must keep their signs.
+2. **Adding X to Y.** Add X components only with X components, and Y only with Y.
+3. **Adding angled magnitudes directly.** Resolve to components first; Chapter 22 teaches how.
 
-### H. Chapter Practice Task — Combining Two Forces
+### H. Chapter Practice Task — Combining Component Forces
 
-> **Scenario:** Two cables pull on a node: cable 1 has $F_1 = 60\ \mathrm{kN}$ at $20°$ above horizontal (right); cable 2 has $F_2 = 80\ \mathrm{kN}$ at $50°$ above horizontal (also right). Find the resultant.
+> **Scenario:** Two member forces at a node are already resolved into components:
+> - Force 1: $F_{1x} = 56\ \mathrm{kN}$, $F_{1y} = 21\ \mathrm{kN}$
+> - Force 2: $F_{2x} = 51\ \mathrm{kN}$, $F_{2y} = 61\ \mathrm{kN}$
+> Find the resultant components.
 >
 > **Worked Solution:**
 >
-> $F_{1x} = 60 \cos 20° = 56.38$; $F_{1y} = 60 \sin 20° = 20.52$
-> $F_{2x} = 80 \cos 50° = 51.42$; $F_{2y} = 80 \sin 50° = 61.28$
-> $R_x = 56.38 + 51.42 = 107.80\ \mathrm{kN}$
-> $R_y = 20.52 + 61.28 = 81.80\ \mathrm{kN}$
-> $R = \sqrt{107.80^2 + 81.80^2} = \sqrt{11{,}620.84 + 6{,}691.24} = \sqrt{18{,}312.08} = 135.32\ \mathrm{kN}$
-> $\theta = \tan^{-1}(81.80 / 107.80) = \tan^{-1}(0.7588) = 37.20°$
+> $R_x = 56 + 51 = 107\ \mathrm{kN}$
+> $R_y = 21 + 61 = 82\ \mathrm{kN}$
 >
-> **ETABS:** Apply two joint loads with these components, run analysis, read the reaction at the supported node — should be 135.3 kN at 37.2°.
+> Chapter 23 shows how to turn these components into a single resultant magnitude.
 
 ### I. Chapter Summary Table
 
 | Concept | Formula | Engineering Use | ETABS Location |
 |---------|---------|----------------|----------------|
-| Component decomposition | $F_x = F\cos\theta$ | Resolve inclined loads | Joint Loads input |
-| Resultant magnitude | $R = \sqrt{R_x^2 + R_y^2}$ | Combine forces | Display > Show Reactions |
-| Resultant direction | $\theta = \tan^{-1}(R_y/R_x)$ | Force direction | — |
+| Component addition | $R_x = \Sigma F_x$, $R_y = \Sigma F_y$ | Combine known components | Joint Loads input |
+| Vector sign | Direction matters | Force balance | Loads and reactions |
 
 <div style="page-break-after: always;"></div>
 
@@ -4866,9 +4768,9 @@ For a simply supported beam with a uniform load $w$ over span $L$:
 
 - Shear force: $V(x) = \frac{wL}{2} - wx$ — degree 1 (linear)
 - Bending moment: $M(x) = \frac{wL}{2}x - \frac{w}{2}x^2$ — degree 2 (parabolic)
-- Deflection: $\delta(x) \propto x(L^3 - 2Lx^2 + x^3)$ — degree 4 (quartic)
+- Deflection shape is often described by higher-degree polynomials; exact deflection formulas are introduced only when needed.
 
-Each integration of load increases degree by one. Loading is degree 0 (constant); shear degree 1; moment degree 2; slope degree 3; deflection degree 4. This pattern repeats throughout structural mechanics.
+For this chapter, the key pattern is enough: a uniform load gives a linear shear diagram and a quadratic moment diagram. Chapter 33 explains the calculus bridge that connects the two diagrams.
 
 ### D. The Math
 
@@ -4906,37 +4808,42 @@ Maximum at $x = 5$: $M_{\max} = 100\ \mathrm{kN \cdot m}$ (= $wL^2/8 = 8 \cdot 1
 
 ### F. ETABS Connection
 
-ETABS plots these polynomials as diagrams. Linear shear → straight line; parabolic moment → smooth curve; cubic deflection → smooth S-shape between supports.
+ETABS plots these polynomials as diagrams. Linear shear gives a straight line; parabolic moment gives a smooth curve.
 
 > **Try it in ETABS 22:**
 > 1. Build the 10 m beam, $w = 8\ \mathrm{kN/m}$
 > 2. **Display > Show Frame Forces > Shear 2-2** — confirm linear, $V = \pm 40$ at supports
 > 3. **Display > Show Frame Forces > Moment 3-3** — confirm parabola peaking at 100 kN·m
-> 4. **Display > Show Deformed Shape** — confirm smooth quartic deflection
+> 4. Deflection shapes are discussed separately after the force diagrams are understood
 
 ### G. Common Mistakes
 
 1. **Mixing up shear (linear) with moment (parabolic).** They're plotted on different diagrams; never confuse the shapes.
-2. **Forgetting that maximum moment occurs where shear = 0.** $V = dM/dx$, so peak $M$ ↔ zero $V$.
+2. **Forgetting that maximum moment occurs where the shear diagram crosses zero.** Chapter 33 explains the calculus reason; the diagram rule is enough for this chapter.
 3. **Not closing parentheses in computer formulas.** Many engineers swap $-w/2 \cdot x^2$ for $-w/2 x^2$ — algebraically the same but easily mistyped.
 
-### H. Chapter Practice Task — Two-Span Continuous Beam
+### H. Chapter Practice Task — Simply Supported Polynomial Table
 
-> **Scenario:** A 12 m beam supported at three points (each 6 m apart) with $w = 10\ \mathrm{kN/m}$. The continuous-beam formula gives $M_{support} = -wL^2/8 = -45$ kN·m at the middle support and $M_{span} = +9wL^2/128$ at mid-span.
+> **Scenario:** A simply supported beam has $L = 8\ \mathrm{m}$ and $w = 6\ \mathrm{kN/m}$. Its reaction at each end is $R = wL/2 = 24\ \mathrm{kN}$. Use $V(x)=24-6x$ and $M(x)=24x-3x^2$.
 >
 > **Tasks:**
-> 1. Compute support and span moments
-> 2. Sketch the BMD shape (negative over support, positive at mid-span)
-> 3. Verify in ETABS
+> 1. Evaluate $V(x)$ and $M(x)$ at $x=0,2,4,6,8$
+> 2. Identify where $M$ is largest
+> 3. Sketch the straight shear line and parabolic moment curve
 
 > **Worked Solution:**
 >
-> $M_{support} = -10 \cdot 36 / 8 = -45\ \mathrm{kN \cdot m}$
-> $M_{span} = 9 \cdot 10 \cdot 36 / 128 = 25.31\ \mathrm{kN \cdot m}$
+> | $x$ | $V(x)$ | $M(x)$ |
+> |-----|--------|--------|
+> | 0 | 24 | 0 |
+> | 2 | 12 | 36 |
+> | 4 | 0 | 48 |
+> | 6 | -12 | 36 |
+> | 8 | -24 | 0 |
 >
-> Diagram: parabola dipping to $-45$ over the middle support and rising to $+25$ in each span.
+> Maximum moment is $48\ \mathrm{kN\cdot m}$ at mid-span where shear crosses zero.
 >
-> **ETABS:** Build a 12 m frame on three supports (pin at each end, roller in middle), apply UDL, run analysis, view BMD — should match.
+> **ETABS:** Build the same simply supported beam, apply UDL, run analysis, and compare the SFD/BMD values.
 
 ### I. Chapter Summary Table
 
@@ -4971,13 +4878,28 @@ Two quantities are **directly proportional** if their ratio is constant: $y/x = 
 |---------|-----------------|--------|
 | Stress $\sigma$ | $\propto P$ (force) | $\sigma = P/A$ |
 | Stress $\sigma$ | $\propto 1/A$ (area) | $\sigma = P/A$ |
-| Deflection $\delta$ | $\propto w$ (load) | Linear elastic |
-| Deflection $\delta$ | $\propto L^4$ (span) | $\delta = 5wL^4/384EI$ |
-| Deflection $\delta$ | $\propto 1/I$ | Stiffer ⇒ less deflection |
-| Deflection $\delta$ | $\propto 1/E$ | Stiffer material ⇒ less deflection |
-| Buckling load $P_{cr}$ | $\propto 1/L^2$ | $P_{cr} = \pi^2 EI/L^2$ |
+| Beam deflection $\delta$ | $\propto w$ (load) | More load ⇒ more deflection |
+| Beam deflection $\delta$ | $\propto L^4$ (span) | Span has a very strong effect |
+| Beam deflection $\delta$ | $\propto 1/I$ | Larger moment of inertia ⇒ less deflection |
+| Beam deflection $\delta$ | $\propto 1/E$ | Stiffer material ⇒ less deflection |
 
-The most striking is **$\delta \propto L^4$**: doubling span multiplies deflection by 16!
+Here **deflection** means vertical movement of a beam under load. This chapter first uses deflection for scaling, then introduces two common exact elastic formulas. The most striking scaling is **$\delta \propto L^4$**: doubling span multiplies deflection by 16.
+
+Now that Part 3 has introduced moment of inertia $I$ and Chapter 16 introduced modulus $E$, the common elastic deflection formulas can be used responsibly:
+
+| Beam and load | Maximum deflection |
+|---------------|--------------------|
+| Simply supported beam, uniform load $w$ | $\delta_{max} = \dfrac{5wL^4}{384EI}$ |
+| Cantilever, point load $P$ at free end | $\delta_{tip} = \dfrac{PL^3}{3EI}$ |
+
+Where:
+- $w$ = load per length
+- $P$ = point load
+- $L$ = span or cantilever length
+- $E$ = modulus of elasticity
+- $I$ = moment of inertia
+
+These formulas explain the proportionality table above. For example, in the simply supported formula, $L^4$ appears in the numerator, so span has a very strong effect. $E$ and $I$ appear in the denominator, so stiffer material or a stiffer section reduces deflection.
 
 ### D. The Math
 
@@ -4990,6 +4912,14 @@ The most striking is **$\delta \propto L^4$**: doubling span multiplies deflecti
 **Worked example.** A beam deflects 5 mm under load. If span doubles, by what factor does deflection grow?
 
 Since $\delta \propto L^4$, doubling $L$ multiplies $\delta$ by $2^4 = 16$. New deflection ≈ $80$ mm.
+
+**Exact formula example.** A simply supported steel beam has $w = 8\ \mathrm{kN/m}$, $L = 6\ \mathrm{m}$, $E = 200{,}000\ \mathrm{MPa}$, and $I = 8.0 \times 10^8\ \mathrm{mm^4}$. Find maximum deflection.
+
+Use consistent units: $w = 8\ \mathrm{N/mm}$, $L = 6000\ \mathrm{mm}$, $E = 200{,}000\ \mathrm{N/mm^2}$.
+
+$$\delta_{max} = \dfrac{5wL^4}{384EI} = \dfrac{5(8)(6000^4)}{384(200{,}000)(8.0 \times 10^8)} = 8.44\ \mathrm{mm}$$
+
+This is the full calculation that earlier chapters only previewed qualitatively.
 
 ### E. Structural Engineering Application
 
@@ -5035,10 +4965,12 @@ ETABS will compute exact deflections — but proportional reasoning before runni
 
 | Concept | Formula | Engineering Use | ETABS Location |
 |---------|---------|----------------|----------------|
-| Direct proportion | $y \propto x$ | Stress vs load | Result scaling |
-| Inverse proportion | $y \propto 1/x$ | Stress vs area | — |
+| Direct proportion | $y \propto x$ | Stress vs load, deflection vs load | Result scaling |
+| Inverse proportion | $y \propto 1/x$ | Stress vs area, deflection vs stiffness | — |
 | Span effect | $\delta \propto L^4$ | Span-doubles ⇒ 16× δ | Show Deformed Shape |
 | Inertia effect | $\delta \propto 1/I$ | Beam depth choice | Section properties |
+| SS UDL deflection | $5wL^4/(384EI)$ | Exact serviceability check | Deformed shape/table output |
+| Cantilever tip deflection | $PL^3/(3EI)$ | Exact cantilever check | Deformed shape/table output |
 
 <div style="page-break-after: always;"></div>
 
@@ -5285,6 +5217,28 @@ Then $d_2 = 0.03\ \mathrm{m}$.
 
 This trivial 2×2 example is the seed of all structural analysis software.
 
+**Reintroducing indeterminate beams.** Chapter 14 identified propped cantilevers and continuous beams as **indeterminate** because they have more unknown reactions than the three 2D equilibrium equations can solve. The missing ingredient is not another force-balance equation; it is **compatibility**: connected parts of the structure must deform together.
+
+The stiffness method handles this by solving for displacements first:
+
+$$[K]\{d\} = \{F\}$$
+
+Once ETABS finds the displacement vector $\{d\}$, it computes reactions and member forces. That is why ETABS can solve:
+- A propped cantilever, where the prop force depends on beam stiffness.
+- A two-span continuous beam, where the middle support moment depends on how both spans deform together.
+
+For a common special case, a propped cantilever of length $L$ with point load $P$ at distance $a$ from the fixed end has prop reaction:
+
+$$R_B = \dfrac{Pa^2(3L-a)}{2L^3}$$
+
+This formula is not from equilibrium alone. It comes from combining equilibrium with deformation compatibility. That is the same logic the stiffness matrix applies automatically to more complicated buildings.
+
+**Worked example.** A propped cantilever has $L = 6\ \mathrm{m}$ and $P = 40\ \mathrm{kN}$ at $a = 4\ \mathrm{m}$ from the fixed end.
+
+$$R_B = \dfrac{40(4^2)(3(6)-4)}{2(6^3)} = \dfrac{40(16)(14)}{432} = 20.74\ \mathrm{kN}$$
+
+After $R_B$ is known, the remaining fixed-end vertical reaction and fixed-end moment can be found using equilibrium. The key lesson is sequencing: equilibrium identifies the unknowns, deformation compatibility supplies the extra equation, and the stiffness method scales that idea to full models.
+
 ### F. ETABS Connection
 
 When you click **Analyze > Run Analysis**, ETABS:
@@ -5328,6 +5282,7 @@ Every result you see — reactions, member forces, deflections — descends from
 | Matrix-vector product | $[K]\{d\} = \{F\}$ | Whole-structure analysis | Internal solver |
 | Stiffness matrix | $[K]$ from element stiffnesses | Building model | Built automatically |
 | Matrix solve | $\{d\} = [K]^{-1}\{F\}$ | Find displacements | Run Analysis |
+| Compatibility | Connected displacements match | Indeterminate beams | Stiffness method |
 
 <div style="page-break-after: always;"></div>
 
@@ -5553,6 +5508,25 @@ $\dfrac{x^2 - 9}{x - 3} = \dfrac{(x-3)(x+3)}{x-3} = x + 3$ for $x \neq 3$
 $\lim_{x \to 3} (x + 3) = 6$
 
 The function approaches 6 even though it's not defined at 3.
+
+**Calculus bridge — why shear and moment are linked.** A derivative is a limit of slopes over smaller and smaller intervals:
+
+$$\dfrac{dM}{dx} = \lim_{\Delta x \to 0}\dfrac{M(x+\Delta x)-M(x)}{\Delta x}$$
+
+For beam diagrams, this slope of the moment diagram is the shear force:
+
+$$V = \dfrac{dM}{dx}$$
+
+You do not need to take a full calculus course to use the practical result:
+- If $V$ is positive, $M$ is increasing.
+- If $V$ is negative, $M$ is decreasing.
+- If $V=0$, $M$ has a local peak or valley.
+
+**Worked example.** From Chapter 26, $M(x)=40x-4x^2$ for a simply supported beam with uniform load. The derivative is:
+
+$$\dfrac{dM}{dx}=40-8x$$
+
+So $V(x)=40-8x$. At $x=5\ \mathrm{m}$, $V=0$, and Chapter 26 found the maximum moment at that same location. This reintroduces the earlier diagram rule as a taught idea rather than a memorized shortcut.
 
 ### E. Structural Engineering Application
 
@@ -5913,7 +5887,7 @@ The model's degrees of freedom (DOFs) drive the size of $[K]$. For a 5-story 4×
 ### G. Common Mistakes
 
 1. **Missing joints.** Beams not connected to columns (drawn slightly off the grid intersection) act as floating elements.
-2. **Skipping diaphragm assignment.** Without a rigid diaphragm, lateral analysis gives meaningless mode shapes.
+2. **Skipping diaphragm assignment.** Without a rigid diaphragm, later lateral-analysis results can become misleading.
 3. **Forgetting base restraints.** Without supports, the model is unstable; ETABS will warn.
 
 ### H. Chapter Practice Task — Build the Tutorial Building
@@ -6047,7 +6021,7 @@ Pressing **Analyze > Run Analysis** triggers the entire numerical process: assem
 
 ### C. The Physics Behind It
 
-The matrix equation $[K]\{d\} = \{F\}$ from Chapter 30 is solved. For modal/dynamic analysis, ETABS additionally solves the eigenvalue problem $[K]\{\phi\} = \omega^2 [M]\{\phi\}$ to find natural frequencies $\omega$ and mode shapes $\{\phi\}$.
+The matrix equation $[K]\{d\} = \{F\}$ from Chapter 30 is solved. For modal/dynamic analysis, ETABS also solves a vibration problem to find natural frequencies and mode shapes. The advanced eigenvalue math is handled by the software; your task here is to set the mass source, request enough modes, and check whether the reported periods make physical sense.
 
 ### D. The Math
 
@@ -6195,7 +6169,7 @@ After analysis, ETABS can perform code-based design checks. For concrete: rebar 
 
 ### C. The Physics Behind It
 
-Capacity must exceed demand. For concrete columns: $P_u, M_u$ from analysis must lie inside the $\phi P_n$ vs $\phi M_n$ interaction diagram. For steel beams: $M_u \le \phi M_n$ where $\phi M_n$ depends on lateral-torsional buckling unbraced length.
+Capacity must exceed demand. For concrete columns, ETABS compares the analysis forces against a column capacity envelope called an interaction diagram. For steel beams, ETABS compares required bending strength to available bending strength and accounts for unbraced length where the selected code requires it.
 
 ### D. The Math
 
@@ -6688,7 +6662,7 @@ const mathDict = [
   { keys: ['I'],  symbol: 'I',  pronounce: 'capital I',    name: 'Second Moment of Area',          desc: 'I = bh³/12 (rectangle). Larger I → stiffer beam, smaller deflection and stress.',                             slug: 'chapter-20-moment-of-inertia-second-moment-of-area' },
   { keys: ['A'],  symbol: 'A',  pronounce: 'capital A',    name: 'Cross-Sectional Area',           desc: 'Area of the cross-section (m² or mm²). In σ = P/A and δ = PL/(AE).',                                       slug: 'chapter-18-areas-and-perimeters' },
   { keys: ['M'],  symbol: 'M',  pronounce: 'capital M',    name: 'Bending Moment',                 desc: 'Internal moment about the neutral axis. M_max = wL²/8 (SS UDL). Units: kN·m.',                               slug: 'chapter-15-internal-forces-axial-shear-and-bending-moment' },
-  { keys: ['V'],  symbol: 'V',  pronounce: 'capital V',    name: 'Shear Force',                    desc: 'Internal force parallel to the section. V = dM/dx. Max at supports. Units: kN.',                            slug: 'chapter-15-internal-forces-axial-shear-and-bending-moment' },
+  { keys: ['V'],  symbol: 'V',  pronounce: 'capital V',    name: 'Shear Force',                    desc: 'Internal force parallel to the section. After limits, V = dM/dx explains why peak moment occurs where shear crosses zero. Units: kN.', slug: 'chapter-33-limits-conceptual-introduction' },
   { keys: ['P'],  symbol: 'P',  pronounce: 'capital P',    name: 'Axial Load / Point Force',       desc: 'Force along or transverse to a member. Units: kN or N. Axial: σ = P/A.',                                   slug: 'chapter-10-what-is-a-force' },
   { keys: ['L'],  symbol: 'L',  pronounce: 'capital L',    name: 'Span Length',                    desc: 'Clear or c-to-c span. Deflection ∝ L⁴ — doubling span ×16 deflection.',                                      slug: 'chapter-27-rational-functions-and-proportionality' },
   { keys: ['w'],  symbol: 'w',  pronounce: 'lowercase w',  name: 'Distributed Load (UDL)',         desc: 'Load per unit length (kN/m) or area (kPa). Total = w×L. Max moment = wL²/8.',                               slug: 'chapter-13-types-of-loads-in-structural-engineering' },
@@ -6711,7 +6685,7 @@ const mathDict = [
   { keys: ['\\frac{5wL^4}{384EI}'],
     symbol: '5wL⁴/384EI',  pronounce: '5 w L to the fourth, over 384 E I', name: 'Midspan Deflection — SS UDL',      desc: 'Max deflection at midspan. Note L⁴ dependence — doubling span multiplies δ by 16.',    slug: 'chapter-27-rational-functions-and-proportionality' },
   { keys: ['\\frac{PL^3}{3EI}'],
-    symbol: 'PL³/3EI',    pronounce: 'P L cubed over 3 E I',            name: 'Tip Deflection — Cantilever',      desc: 'Maximum deflection at free end of a cantilever with point load P at the tip.',            slug: 'chapter-27-rational-functions-and-proportionality' },
+    symbol: 'PL³/3EI',    pronounce: 'P L cubed over 3 E I', name: 'Cantilever Tip Deflection', desc: 'Maximum deflection at the free end of a cantilever with a point load.', slug: 'chapter-27-rational-functions-and-proportionality' },
   { keys: ['\\frac{\\pi^2 EI}{L^2}','\\pi^2EI/L^2'],
     symbol: 'π²EI/L²',   pronounce: 'pi squared E I over L squared', name: 'Euler Critical Buckling Load',       desc: 'P_cr for a pin-ended column. Reduce L by effective length factor k for other end conditions.',  slug: 'chapter-27-rational-functions-and-proportionality' },
 ];
@@ -8456,9 +8430,9 @@ E('chapter-a1-numbers-and-the-number-line', 'Chapter A1 — Numbers and the Numb
       e: 'On the number line, more negative is further left, hence smaller. -7 < -2 < 0 < 1.' },
     { q: 'What is |−9|?', n: 9, t: 0,
       e: 'Absolute value = distance from 0, always non-negative. |−9| = 9.' },
-    { q: 'A reaction reported as −12 kN means the support force is:', o: [
-        'Smaller than +12 kN', 'Acting in the opposite direction (still magnitude 12)', 'A measurement error', 'Compression always'], a: 1,
-      e: 'Sign indicates direction; |F| = 12 kN regardless of sign.' },
+    { q: 'A measurement change reported as −12 mm means:', o: [
+        'Smaller magnitude than +12 mm', 'A decrease of 12 mm', 'A measurement error', 'Always compression'], a: 1,
+      e: 'The sign gives direction of change; the magnitude is 12 mm.' },
   ]},
   { id: 'B', title: 'Set B — Mixed', questions: [
     { q: 'Order from smallest to largest: −3.5, 0.5, −7, 2', o: [
@@ -8471,13 +8445,13 @@ E('chapter-a1-numbers-and-the-number-line', 'Chapter A1 — Numbers and the Numb
       e: 'Distance from 0 to 0 is 0.' },
   ]},
   { id: 'C', title: 'Set C — Engineering', questions: [
-    { q: 'In a stress diagram, σ = +20 MPa typically means:', o: [
-        'Tension', 'Compression', 'Shear', 'Bending'], a: 0,
-      e: 'Convention: positive normal stress = tension; negative = compression.' },
+    { q: 'A floor elevation change of +20 mm typically means:', o: [
+        'Moved upward', 'Moved downward', 'No movement', 'Area increased'], a: 0,
+      e: 'Positive and negative signs track direction once a convention is chosen.' },
     { q: 'A coordinate z = −3 m on a building model means:', o: [
         '3 m above ground', '3 m below ground (basement)', 'Distance from origin only', 'An error'], a: 1,
       e: 'Negative z indicates a position below the reference (ground level).' },
-    { q: 'If a deflection limit is |δ| ≤ 20 mm, which deflection FAILS?', o: [
+    { q: 'If an allowed level change is |change| ≤ 20 mm, which change FAILS?', o: [
         '15 mm', '−18 mm', '−22 mm', '+20 mm'], a: 2,
       e: '|−22| = 22 > 20, so it exceeds the limit.' },
   ]},
@@ -8500,14 +8474,13 @@ E('chapter-a2-addition-and-subtraction', 'Chapter A2 — Addition and Subtractio
     { q: 'Which equals −10 − (−4)?', o: ['−14', '−6', '+6', '+14'], a: 1,
       e: '−10 + 4 = −6.' },
   ]},
-  { id: 'C', title: 'Set C — Engineering equilibrium', questions: [
-    { q: 'Vertical forces (kN, + up): +25, −40, +20, −8. Sum = ?', n: -3, t: 0,
-      e: '25 − 40 + 20 − 8 = −3 kN (net 3 kN downward).' },
-    { q: 'For static equilibrium ΣF_y = 0, if applied loads sum to −60 kN, total reactions must equal:', o: [
-        '−60 kN', '0 kN', '+60 kN', 'Cannot determine'], a: 2,
-      e: 'Reactions must cancel applied: +60 kN (upward).' },
-    { q: 'A column has axial demands per floor: +120, +80, +60, +40, +20 kN (compression as +). Total at base = ?', n: 320, t: 0,
-      e: 'Cumulative compression = sum = 320 kN.' },
+  { id: 'C', title: 'Set C — Engineering arithmetic', questions: [
+    { q: 'Signed level changes (mm): +25, −40, +20, −8. Sum = ?', n: -3, t: 0,
+      e: '25 − 40 + 20 − 8 = −3 mm.' },
+    { q: 'A bay length is changed by −60 mm, then +25 mm. Net change = ?', n: -35, t: 0,
+      e: '−60 + 25 = −35 mm.' },
+    { q: 'Floor area demands per zone: 120, 80, 60, 40, 20 m². Total = ?', n: 320, t: 0,
+      e: 'Add the areas: 320 m².' },
   ]},
 ]);
 
@@ -8528,14 +8501,14 @@ E('chapter-a3-multiplication-and-division', 'Chapter A3 — Multiplication and D
     { q: 'Which expression is undefined?', o: ['0/5', '5/0', '0/0', 'Both b and c'], a: 3,
       e: 'Division by zero is undefined; 0/0 is also undefined (indeterminate).' },
   ]},
-  { id: 'C', title: 'Set C — Stress calc', questions: [
-    { q: 'Compute σ = P/A for P = 200 kN, A = 0.005 m². Result in kPa = ?', n: 40000, t: 1,
-      e: '200 ÷ 0.005 = 40,000 kPa = 40 MPa.' },
-    { q: 'Total uniform load on a beam: w = 4 kN/m, L = 6 m. Total = ?', n: 24, t: 0,
-      e: 'Total = w × L = 4 × 6 = 24 kN.' },
-    { q: 'σ = M·y/I. If M doubles and other terms stay the same, σ:', o: [
+  { id: 'C', title: 'Set C — Engineering arithmetic', questions: [
+    { q: 'A rectangular pad is 4 m by 6 m. Area = ?', n: 24, t: 0,
+      e: 'Area = length × width = 4 × 6.' },
+    { q: 'A line load value is 4 units/m over 6 m. Total units = ?', n: 24, t: 0,
+      e: 'Total = rate × length = 4 × 6.' },
+    { q: 'If a quantity doubles and all else stays the same, the product:', o: [
         'Halves', 'Stays same', 'Doubles', 'Quadruples'], a: 2,
-      e: 'σ is directly proportional to M.' },
+      e: 'Multiplication by 2 doubles the product.' },
   ]},
 ]);
 
@@ -8557,13 +8530,12 @@ E('chapter-a4-fractions', 'Chapter A4 — Fractions', 'Part 0', [
       e: '(2·3+1)/3 = 7/3 ≈ 2.333.' },
   ]},
   { id: 'C', title: 'Set C — Engineering', questions: [
-    { q: 'For a simply supported UDL beam, M_max = wL²/8. With w=12, L=4, M_max = ?', n: 24, t: 0,
-      e: '12 × 16 / 8 = 192/8 = 24 kN·m.' },
-    { q: 'Centroid of a triangle from its base is what fraction of its height?', o: ['1/2', '1/3', '2/3', '3/4'], a: 1,
-      e: 'Triangle centroid lies 1/3 up from base (or 2/3 down from apex).' },
-    { q: 'A cantilever tip deflection PL³/(3EI) — the 1/3 comes from:', o: [
-        'Trial and error', 'Integration of the moment curve', 'A code factor', 'Approximation'], a: 1,
-      e: 'It arises from integrating the bending moment curve twice.' },
+    { q: 'A layout has 8 equal spaces over 24 m. Each space = ?', n: 3, t: 0,
+      e: '24 / 8 = 3 m.' },
+    { q: 'One third of a 9 m height is:', n: 3, t: 0,
+      e: '9 × 1/3 = 3 m.' },
+    { q: 'A 12 m member is split into thirds. One third = ?', n: 4, t: 0,
+      e: '12 / 3 = 4 m.' },
   ]},
 ]);
 
@@ -8636,12 +8608,12 @@ E('chapter-a7-order-of-operations-pemdas', 'Chapter A7 — Order of Operations (
       e: 'Without parentheses, exponent before negation: −(3²) = −9.' },
   ]},
   { id: 'C', title: 'Set C — Engineering formulas', questions: [
-    { q: 'Compute wL²/8 for w = 5 kN/m, L = 6 m. Result (kN·m) = ?', n: 22.5, t: 0.1,
+    { q: 'Compute aL²/8 for a = 5, L = 6. Result = ?', n: 22.5, t: 0.1,
       e: '5 × 36 / 8 = 180/8 = 22.5.' },
-    { q: 'PL³/(3EI) with P = 10, L = 2, E = 200, I = 0.0001. Result = ?', n: 1333.33, t: 0.5,
-      e: '10·8 / (3·200·0.0001) = 80/0.06 ≈ 1333.33.' },
-    { q: 'In a software formula, w*L^2/8 may be ambiguous. The safest equivalent is:', o: [
-        'w*L^2/8', '(w*L^2)/8', 'w*L*L/8', 'Both b and c'], a: 3,
+    { q: 'Compute ab³/(3cd) as a generic formula with a = 10, b = 2, c = 200, d = 0.0001. Result = ?', n: 1333.33, t: 0.5,
+      e: 'This is formula-substitution practice: 10·8 / (3·200·0.0001) = 80/0.06 ≈ 1333.33.' },
+    { q: 'In a software formula, a*L^2/8 may be ambiguous. The safest equivalent is:', o: [
+        'a*L^2/8', '(a*L^2)/8', 'a*L*L/8', 'Both b and c'], a: 3,
       e: 'Both explicit-parenthesis and explicit-multiplication forms eliminate ambiguity.' },
   ]},
 ]);
@@ -8693,7 +8665,7 @@ E('chapter-1-variables-and-expressions', 'Chapter 1 — Variables and Expression
   ]},
   { id: 'C', title: 'Set C', questions: [
     { q: 'A reaction R_A = (wL/2) + P/2 with w=4, L=6, P=20: R_A = ?', n: 22, t: 0, e: '12 + 10 = 22.' },
-    { q: 'Stress σ = P/A + Mc/I has how many terms?', n: 2, t: 0, e: 'Two: P/A and Mc/I (sum).' },
+    { q: 'A total length formula L = ns + 2e has how many terms on the right?', n: 2, t: 0, e: 'Two terms: ns and 2e.' },
     { q: 'Doubling x in 5x doubles the result. This holds because of:', o: ['Distributive property','Linearity (proportionality)','Order of operations','Pythagoras'], a: 1, e: 'The expression is linear in x.' },
   ]},
 ]);
@@ -8724,7 +8696,7 @@ E('chapter-3-rearranging-formulas', 'Chapter 3 — Rearranging Formulas', 'Part 
   ]},
   { id: 'B', title: 'Set B', questions: [
     { q: 'V = (1/3)π r²h → h = ?', o: ['3V/(πr²)','V/(3πr²)','V·r²/3','πr²/3V'], a: 0, e: 'Multiply by 3, divide by πr².' },
-    { q: 'σ = Mc/I → I = ?', o: ['σM/c','Mc/σ','σc/M','M/(σc)'], a: 1, e: 'Cross-multiply: I = Mc/σ.' },
+    { q: 'L = ns + 2e → s = ?', o: ['(L - 2e)/n','L - 2en','n/(L - 2e)','L/n + 2e'], a: 0, e: 'Subtract 2e, then divide by n.' },
     { q: 'For δ = PL/(AE), solving for A gives:', o: ['PL/(δE)','δE/(PL)','P/(δLE)','PLE/δ'], a: 0, e: 'Cross-multiply and isolate A.' },
   ]},
   { id: 'C', title: 'Set C', questions: [
@@ -8782,7 +8754,7 @@ E('chapter-6-quadratic-equations', 'Chapter 6 — Quadratic Equations', 'Part 1'
     { q: 'Solve x² + 4x − 5 = 0 (positive root).', n: 1, t: 0, e: '(x+5)(x−1) = 0.' },
   ]},
   { id: 'C', title: 'Set C', questions: [
-    { q: 'Bending stress σ varies as Mc/I. Doubling I:', o: ['Doubles σ','Halves σ','Quarters σ','No effect'], a: 1, e: 'σ inversely proportional to I.' },
+    { q: 'Demand/capacity ratio = demand/capacity. Doubling capacity:', o: ['Doubles ratio','Halves ratio','Quarters ratio','No effect'], a: 1, e: 'The ratio is inversely proportional to capacity.' },
     { q: 'A quadratic moment curve M(x) = wx(L−x)/2 reaches max at x = ?', o: ['0','L/4','L/2','L'], a: 2, e: 'Symmetric parabola peaks at midspan.' },
     { q: 'For w = 4, L = 8, max M = wL²/8 = ?', n: 32, t: 0, e: '4·64/8 = 32.' },
   ]},
@@ -8796,7 +8768,7 @@ E('chapter-7-inequalities', 'Chapter 7 — Inequalities', 'Part 1', [
   ]},
   { id: 'B', title: 'Set B', questions: [
     { q: 'Solve 3 ≤ 2x − 1 ≤ 9.', o: ['1 ≤ x ≤ 5','2 ≤ x ≤ 5','1 ≤ x ≤ 4','2 ≤ x ≤ 4'], a: 1, e: 'Add 1: 4 ≤ 2x ≤ 10 → 2 ≤ x ≤ 5.' },
-    { q: 'A serviceability check: actual deflection 18 mm, limit 20 mm. Status:', o: ['Fails','Passes','Indeterminate','Fails marginally'], a: 1, e: '18 ≤ 20 → passes.' },
+    { q: 'A movement check: actual movement 18 mm, limit 20 mm. Status:', o: ['Fails','Passes','Indeterminate','Fails marginally'], a: 1, e: '18 ≤ 20 → passes.' },
     { q: 'A demand-to-capacity ratio D/C ≤ 1.0 means:', o: ['Element fails','Element acceptable','Overdesigned','Indeterminate'], a: 1, e: 'D/C ≤ 1 indicates capacity sufficient.' },
   ]},
   { id: 'C', title: 'Set C', questions: [
@@ -8815,7 +8787,7 @@ E('chapter-8-exponents-and-powers', 'Chapter 8 — Exponents and Powers', 'Part 
   { id: 'B', title: 'Set B', questions: [
     { q: '(2x²)³ = ?', o: ['8x⁶','6x⁵','2x⁶','8x⁵'], a: 0, e: '2³ = 8; (x²)³ = x⁶.' },
     { q: 'I = b·h³/12. If h doubles, I changes by factor:', n: 8, t: 0, e: '2³ = 8.' },
-    { q: 'PL³/(48EI). If L is halved, deflection becomes:', o: ['Half','1/4','1/8','1/16'], a: 2, e: '(½)³ = 1/8.' },
+    { q: 'If volume varies with side length cubed, halving side length makes volume:', o: ['Half','1/4','1/8','1/16'], a: 2, e: '(1/2)^3 = 1/8.' },
   ]},
   { id: 'C', title: 'Set C', questions: [
     { q: 'x^(1/2) means:', o: ['Square','Square root','Reciprocal','Halve'], a: 1, e: 'Fractional exponent 1/2 = √.' },
@@ -8837,8 +8809,8 @@ E('chapter-9-introduction-to-functions', 'Chapter 9 — Introduction to Function
   ]},
   { id: 'C', title: 'Set C', questions: [
     { q: 'M(x) = wx(L−x)/2 is a function of:', o: ['Position only (given w,L)','Time','Material','Section'], a: 0, e: 'Internal moment depends on x along span.' },
-    { q: 'σ(M) = Mc/I is a function of:', o: ['M','c','I','All of the above'], a: 3, e: 'Multivariable; primary input typically M.' },
-    { q: 'Deflection δ(L) = 5wL⁴/(384EI) — δ is sensitive to:', o: ['L (4th power)','E (linear)','w (linear)','c'], a: 0, e: 'L⁴ dominates sensitivity.' },
+    { q: 'Cost C(x) = 120x + 500 is a function of:', o: ['x','500 only','120 only','nothing'], a: 0, e: 'Changing x changes C.' },
+    { q: 'Area A(s) = s² is most sensitive to:', o: ['s squared','a constant','units only','sign only'], a: 0, e: 'Area changes with the square of side length.' },
   ]},
 ]);
 
@@ -8854,31 +8826,31 @@ E('chapter-10-what-is-a-force', 'Chapter 10 — What Is a Force?', 'Part 2', [
   ]},
   { id: 'B', title: 'Set B', questions: [
     { q: 'A force is fully described by:', o: ['Magnitude only','Direction only','Magnitude, direction, and point of application','Mass'], a: 2, e: 'Vector quantity with line of action.' },
-    { q: 'Two forces at right angles, 3 and 4 kN. Resultant magnitude:', n: 5, t: 0, e: '√(9+16) = 5.' },
-    { q: 'A 500 N force at 30° has horizontal component:', n: 433.0, t: 1, e: '500·cos30° ≈ 433.' },
+    { q: 'Two downward loads, 3 and 4 kN. Total downward load:', n: 7, t: 0, e: 'Same direction, so add them.' },
+    { q: 'A 500 N force arrow points downward. Its magnitude is:', n: 500, t: 0, e: 'Magnitude is the size of the force.' },
   ]},
   { id: 'C', title: 'Set C', questions: [
-    { q: 'External forces include:', o: ['Internal stresses','Loads, reactions, weight','Material properties','Section dimensions'], a: 1, e: 'Loads and reactions are external.' },
+    { q: 'External forces include:', o: ['Internal stresses','Applied loads and weight','Material properties','Section dimensions'], a: 1, e: 'Chapter 10 focuses on applied forces and weight.' },
     { q: 'Newton III states action and reaction are:', o: ['Equal in magnitude, same direction','Equal in magnitude, opposite direction','Different magnitudes','Always zero'], a: 1, e: 'Equal and opposite.' },
-    { q: 'Vertical component of 500 N at 30° above horizontal:', n: 250, t: 1, e: '500·sin30° = 250.' },
+    { q: 'Two downward forces 500 N and 250 N total:', n: 750, t: 1, e: 'Same direction, so add them.' },
   ]},
 ]);
 
 E('chapter-11-equilibrium-and-the-sum-of-forces', 'Chapter 11 — Equilibrium and the Sum of Forces', 'Part 2', [
   { id: 'A', title: 'Set A', questions: [
-    { q: 'For 2D equilibrium, the three equations are ΣF_x, ΣF_y, and:', o: ['ΣF_z','ΣM','Σσ','ΣE'], a: 1, e: 'Sum of moments = 0.' },
+    { q: 'In this chapter, force equilibrium uses:', o: ['ΣF_x and ΣF_y','ΣM only','Σσ only','ΣE only'], a: 0, e: 'Chapter 11 balances forces; moments come next.' },
     { q: 'ΣF_y = 0 with applied −60 kN. Reactions sum:', n: 60, t: 0, e: 'Reactions balance applied loads.' },
     { q: 'Equilibrium implies acceleration is:', n: 0, t: 0, e: 'Static body: a = 0.' },
   ]},
   { id: 'B', title: 'Set B', questions: [
-    { q: 'Beam pin at A, roller at B; how many unknown reactions total?', n: 3, t: 0, e: 'Pin (2) + roller (1).' },
-    { q: 'Choosing moment center at a support eliminates that support\'s reaction because:', o: ['It is zero','Its moment arm is zero','It vanishes by symmetry','It is internal'], a: 1, e: 'Force passes through center → no moment.' },
+    { q: 'For symmetric loading on identical supports, the two vertical reactions are:', o: ['Equal','Always zero','Opposite signs','Unrelated'], a: 0, e: 'Symmetry splits the vertical load equally.' },
+    { q: 'Non-symmetric support reactions generally need:', o: ['Moment equilibrium from Chapter 12','Only counting terms','No equations','Percentages'], a: 0, e: 'Moment equilibrium is introduced in Chapter 12.' },
     { q: 'For a simply supported beam with central P, reactions are each:', o: ['P','P/2','P/4','2P'], a: 1, e: 'Symmetric loading → equal reactions of P/2.' },
   ]},
   { id: 'C', title: 'Set C', questions: [
-    { q: 'A beam (L = 6 m) carries P = 30 kN at 2 m from A. R_B = ?', n: 10, t: 0.1, e: 'ΣM_A = 6 R_B − 30·2 = 0 → R_B = 10.' },
-    { q: 'For the same beam, R_A = ?', n: 20, t: 0.1, e: 'R_A = 30 − 10 = 20.' },
-    { q: 'A determinate planar structure has reactions = 3. If unknowns = 4, the structure is:', o: ['Unstable','Determinate','Once indeterminate','Mechanism'], a: 2, e: 'One redundant reaction.' },
+    { q: 'A centered 30 kN load on two identical supports gives each support:', n: 15, t: 0.1, e: 'Symmetry: 30/2 = 15 kN.' },
+    { q: 'A symmetric beam has total downward load 80 kN. Each support force = ?', n: 40, t: 0.1, e: '80/2 = 40 kN.' },
+    { q: 'If vertical loads sum to 120 kN downward, vertical reactions must sum to:', n: 120, t: 0, e: 'Force balance requires equal upward total.' },
   ]},
 ]);
 
@@ -8889,13 +8861,13 @@ E('chapter-12-moments-rotational-forces', 'Chapter 12 — Moments (Rotational Fo
     { q: 'Sign convention (typical): counter-clockwise is:', o: ['Negative','Positive','Zero','Undefined'], a: 1, e: 'CCW = positive (right-hand rule).' },
   ]},
   { id: 'B', title: 'Set B', questions: [
-    { q: 'A 100 N force at 30° from a 0.5 m arm: M = ?', n: 25, t: 0.1, e: '100 · 0.5 · sin30° = 25.' },
+    { q: 'A 100 N force has perpendicular distance 0.5 m from the pivot. M = ?', n: 50, t: 0.1, e: 'Moment = force × perpendicular distance = 100 × 0.5.' },
     { q: 'A couple (two equal opposite forces 0.3 m apart, 80 N each):', n: 24, t: 0, e: '80 · 0.3 = 24 N·m, independent of pivot.' },
     { q: 'Moment about a point on the line of action of the force is:', n: 0, t: 0, e: 'Zero arm.' },
   ]},
   { id: 'C', title: 'Set C', questions: [
     { q: 'Beam: pin at A, roller at B (L = 4 m). Point load 20 kN at 1 m from A. R_B = ?', n: 5, t: 0.1, e: 'ΣM_A: 4 R_B = 20·1 → R_B = 5.' },
-    { q: 'Bending moment is the integral of:', o: ['Slope','Shear','Stress','Curvature'], a: 1, e: 'M = ∫V dx.' },
+    { q: 'A bending moment causes a member to tend to:', o: ['Rotate or bend','Change color','Lose units','Become area'], a: 0, e: 'Moment is rotational tendency.' },
     { q: 'Maximum moment in a simply supported UDL beam occurs at:', o: ['Supports','Quarter-points','Midspan','Cantilever tip'], a: 2, e: 'Symmetric loading → midspan max.' },
   ]},
 ]);
@@ -8939,7 +8911,7 @@ E('chapter-14-support-conditions', 'Chapter 14 — Support Conditions', 'Part 2'
 E('chapter-15-internal-forces-axial-shear-and-bending-moment', 'Chapter 15 — Internal Forces: Axial, Shear, and Bending Moment', 'Part 2', [
   { id: 'A', title: 'Set A', questions: [
     { q: 'Three internal forces in a beam are axial, shear, and:', o: ['Pressure','Bending moment','Density','Strain'], a: 1, e: 'N, V, M.' },
-    { q: 'Shear V is the integral of distributed load (with sign). True/False (1=True, 0=False):', n: 1, t: 0, e: 'dV/dx = −w → integrate.' },
+    { q: 'For a simply supported UDL beam, the shear diagram shape is linear. True/False (1=True, 0=False):', n: 1, t: 0, e: 'Uniform load gives a straight shear diagram in this book.' },
     { q: 'In a simply supported UDL beam, V at midspan is:', n: 0, t: 0, e: 'Symmetric load → V = 0 at center.' },
   ]},
   { id: 'B', title: 'Set B', questions: [
@@ -8948,7 +8920,7 @@ E('chapter-15-internal-forces-axial-shear-and-bending-moment', 'Chapter 15 — I
     { q: 'For a cantilever (length L) with tip load P, M at the support is:', o: ['0','P','P·L','P·L/2'], a: 2, e: '|M| = P·L at fixed end.' },
   ]},
   { id: 'C', title: 'Set C', questions: [
-    { q: 'In a shear diagram, max moment occurs where shear:', o: ['Is max','Is min','Crosses zero','Is constant'], a: 2, e: 'dM/dx = V; V = 0 → max M.' },
+    { q: 'In a shear diagram, max moment occurs where shear:', o: ['Is max','Is min','Crosses zero','Is constant'], a: 2, e: 'Use the diagram rule: zero shear marks peak moment.' },
     { q: 'A truss member has only:', o: ['Bending','Axial force','Shear','Torsion'], a: 1, e: 'Two-force member: pure axial.' },
     { q: 'Axial force N (kN) on column with three floors, each transferring 50 kN. Total at base = ?', n: 150, t: 0, e: '3 × 50 = 150.' },
   ]},
@@ -8974,19 +8946,19 @@ E('chapter-16-stress-and-strain', 'Chapter 16 — Stress and Strain', 'Part 2', 
 
 E('chapter-17-bending-stress-in-beams', 'Chapter 17 — Bending Stress in Beams', 'Part 2', [
   { id: 'A', title: 'Set A', questions: [
-    { q: 'Flexure formula σ = ?', o: ['M / (c·I)','M·c / I','I / (M·c)','M·I / c'], a: 1, e: 'σ = Mc/I.' },
-    { q: 'I for rectangle b × h about its centroidal horizontal axis = ?', o: ['bh / 12','bh² / 6','bh³ / 12','b³h / 12'], a: 2, e: 'Standard formula.' },
-    { q: 'Maximum bending stress occurs at:', o: ['Neutral axis','Extreme fibre','Mid-depth','Web'], a: 1, e: 'σ ∝ y; max at y = c.' },
+    { q: 'Bending stress is zero at the:', o: ['Neutral axis','Extreme fibre','Support only','Load only'], a: 0, e: 'The neutral axis has zero bending stress.' },
+    { q: 'Maximum bending stress occurs at:', o: ['Neutral axis','Outer fibers','Mid-depth only','Anywhere'], a: 1, e: 'Stress is largest farthest from the neutral axis.' },
+    { q: 'Larger bending moment generally means bending stress:', o: ['Decreases','Increases','Becomes zero','Is unrelated'], a: 1, e: 'Stress grows with moment.' },
   ]},
   { id: 'B', title: 'Set B', questions: [
-    { q: 'Rectangle b = 0.3 m, h = 0.6 m. I (m⁴) = ?', n: 0.0054, t: 0.0001, e: '0.3·0.216/12 = 0.0054.' },
-    { q: 'Same section, M = 100 kN·m, c = 0.3 m. σ (kPa) = ?', n: 5555.6, t: 5, e: 'M·c/I = 100·0.3/0.0054 ≈ 5555.6.' },
-    { q: 'Section modulus S = I/c. For above: S = ?', n: 0.018, t: 0.0005, e: '0.0054/0.3 = 0.018 m³.' },
+    { q: 'Same section: Beam A has M = 50, Beam B has M = 100. Beam B stress is:', o: ['Half','Same','Double','Zero'], a: 2, e: 'Same section and double moment gives double stress.' },
+    { q: 'Same moment: a deeper beam usually has bending stress that is:', o: ['Lower','Higher','Always zero','Unchanged'], a: 0, e: 'Depth spreads material farther from the neutral axis.' },
+    { q: 'Where should you look for critical bending stress on a moment diagram?', o: ['Largest moment','Smallest label','Only supports','Only left end'], a: 0, e: 'Largest moment gives the critical region.' },
   ]},
   { id: 'C', title: 'Set C', questions: [
-    { q: 'For a beam, doubling depth h (rectangle): σ_max becomes:', o: ['Half','1/4','Same','Double'], a: 1, e: 'σ = M·(h/2)/(bh³/12) = 6M/(bh²); h doubled → σ ¼.' },
+    { q: 'For a beam, increasing depth usually makes bending stress:', o: ['Lower','Higher','Same','Undefined'], a: 0, e: 'Deeper sections are more efficient in bending.' },
     { q: 'I-shaped sections place material:', o: ['Near neutral axis (efficient)','Far from neutral axis (efficient)','Uniformly','Randomly'], a: 1, e: 'Far material maximizes I for given weight.' },
-    { q: 'Plastic section modulus Z is generally:', o: ['Smaller than S','Equal to S','Larger than S','Negative'], a: 2, e: 'Z > S; ratio is shape factor.' },
+    { q: 'The full numeric bending-stress formula is taught after:', o: ['Moment of inertia','Before forces','Before area','Never'], a: 0, e: 'Chapter 20 supplies the needed geometry property.' },
   ]},
 ]);
 
@@ -9026,7 +8998,7 @@ E('chapter-19-centroids', 'Chapter 19 — Centroids', 'Part 3', [
   { id: 'C', title: 'Set C', questions: [
     { q: 'Plastic neutral axis of an I-section divides area into two:', o: ['Halves by depth','Halves by area','Halves by weight','Quarter sections'], a: 1, e: 'PNA = equal-area axis.' },
     { q: 'For an unsymmetric section, σ_top and σ_bottom are:', o: ['Always equal','Generally different','Always zero','Equal in magnitude'], a: 1, e: 'Different y distances → different σ.' },
-    { q: 'Why locate the centroid before computing I?', o: ['Aesthetics','Bending formula uses I about centroidal axis','Stability','Cost'], a: 1, e: 'σ = Mc/I uses centroidal I.' },
+    { q: 'Why locate the centroid before computing I?', o: ['Aesthetics','I is needed about the centroidal axis','Stability','Cost'], a: 1, e: 'Composite-section I is computed about the overall centroidal axis.' },
   ]},
 ]);
 
@@ -9044,25 +9016,25 @@ E('chapter-20-moment-of-inertia-second-moment-of-area', 'Chapter 20 — Moment o
   { id: 'C', title: 'Set C', questions: [
     { q: 'For an I-section, most material should be:', o: ['Near neutral axis','Away from neutral axis','At neutral axis only','Equally distributed'], a: 1, e: 'Maximize d² contribution.' },
     { q: 'Section modulus S = I/c is used because:', o: ['σ = M·S','σ = M/S','σ = S·c','σ = S/I'], a: 1, e: 'σ_max = M/S.' },
-    { q: 'Composite section (R rect minus hole): use:', o: ['Add Is','Subtract hole I','Ignore hole','Double the rect'], a: 1, e: 'Negative-area subtraction.' },
+    { q: 'For M = 80×10⁶ N·mm, c = 300 mm, I = 5.4×10⁹ mm⁴, σ ≈ MPa:', n: 4.44, t: 0.02, e: 'σ = Mc/I = 4.44 N/mm² = 4.44 MPa.' },
   ]},
 ]);
 
 E('chapter-21-vectors', 'Chapter 21 — Vectors', 'Part 3', [
   { id: 'A', title: 'Set A', questions: [
     { q: 'A vector has:', o: ['Magnitude only','Direction only','Magnitude and direction','Mass'], a: 2, e: 'Definition.' },
-    { q: 'Magnitude of (3, 4):', n: 5, t: 0, e: '√(9+16).' },
+    { q: 'A vector has components (3, 4). Its x-component is:', n: 3, t: 0, e: 'The first component is x.' },
     { q: 'Sum of (1, 2) and (3, −2):', o: ['(4, 0)','(2, 0)','(4, 4)','(2, 4)'], a: 0, e: 'Component-wise.' },
   ]},
   { id: 'B', title: 'Set B', questions: [
-    { q: 'A 100 N force at 60° has horizontal component:', n: 50, t: 0.5, e: '100 cos60° = 50.' },
-    { q: 'Same force, vertical component:', n: 86.6, t: 0.5, e: '100 sin60° ≈ 86.6.' },
-    { q: 'Two forces 30 N east + 40 N north. Resultant magnitude:', n: 50, t: 0.5, e: '√(900+1600).' },
+    { q: 'Force A has Fx = 30, Force B has Fx = -10. Resultant Fx = ?', n: 20, t: 0.5, e: '30 + (-10) = 20.' },
+    { q: 'Force A has Fy = 20, Force B has Fy = 15. Resultant Fy = ?', n: 35, t: 0.5, e: '20 + 15 = 35.' },
+    { q: 'Component addition means add:', o: ['X with X and Y with Y','X with Y','Only magnitudes','Only angles'], a: 0, e: 'Keep components separated by axis.' },
   ]},
   { id: 'C', title: 'Set C', questions: [
-    { q: 'Reaction vector R = (R_x, R_y). Magnitude (kN) for (3, 4):', n: 5, t: 0, e: '√25.' },
-    { q: 'Direction angle of (1, 1) from x-axis (deg):', n: 45, t: 0.5, e: 'tan⁻¹(1/1).' },
-    { q: 'Sum of forces in x: 100 cos30 − 50. Approx:', n: 36.6, t: 1, e: '86.6 − 50.' },
+    { q: 'Reaction vector R = (R_x, R_y). If R_x = 3, the x-component is:', n: 3, t: 0, e: 'Read the x-component directly.' },
+    { q: 'Direction signs matter because vectors have:', o: ['Magnitude only','Direction as well as magnitude','No units','No axes'], a: 1, e: 'A vector includes direction.' },
+    { q: 'Sum of x-components: 86.6 − 50 = ?', n: 36.6, t: 1, e: 'Subtract the x-components.' },
   ]},
 ]);
 
@@ -9156,7 +9128,7 @@ E('chapter-26-polynomials-and-the-bending-moment-equation', 'Chapter 26 — Poly
   { id: 'C', title: 'Set C', questions: [
     { q: 'For w=4, L=6, M(x) at x = 3 (midspan):', n: 18, t: 0.1, e: '4·3·3/2 = 18.' },
     { q: 'M(x) for cantilever with tip P at x measured from tip: M(x) = ?', o: ['P','−P·x','+P·x','PL'], a: 1, e: 'Linear in x.' },
-    { q: 'Why the bending equation is a polynomial:', o: ['Loads are polynomial-distributed','Convention only','Random','Stiffness'], a: 0, e: 'Integrating polynomial loads yields polynomial moments.' },
+    { q: 'For M(x)=40x−4x², the associated shear expression is:', o: ['40−8x','40x','−4x²','x²'], a: 0, e: 'Chapter 33 teaches this as dM/dx.' },
   ]},
 ]);
 
@@ -9228,7 +9200,7 @@ E('chapter-30-matrices-basic', 'Chapter 30 — Matrices (Basic)', 'Part 4', [
   { id: 'C', title: 'Set C', questions: [
     { q: 'In FEM, [K]{u} = {F} relates:', o: ['Mass and accel','Stiffness, displacement, force','Stress and strain','Density and volume'], a: 1, e: 'Stiffness equation.' },
     { q: '[K] is typically:', o: ['Asymmetric','Symmetric (small-disp linear elasticity)','Random','Diagonal'], a: 1, e: 'For linear elastic.' },
-    { q: 'Solving for {u} requires:', o: ['Inverse (or factorization) of K','Multiplication only','Eigenvalues','Determinant only'], a: 0, e: '{u} = K⁻¹{F}.' },
+    { q: 'A propped cantilever is solved by stiffness methods because it also needs:', o: ['Compatibility','Color settings','Rounding only','No supports'], a: 0, e: 'Indeterminate structures need deformation compatibility.' },
   ]},
 ]);
 
@@ -9266,7 +9238,7 @@ E('chapter-32-sequences-and-series', 'Chapter 32 — Sequences and Series', 'Par
 E('chapter-33-limits-conceptual-introduction', 'Chapter 33 — Limits — Conceptual Introduction', 'Part 4', [
   { id: 'A', title: 'Set A', questions: [
     { q: 'lim_{x→2} (x + 3) = ?', n: 5, t: 0, e: 'Direct substitution.' },
-    { q: 'lim_{x→0} sin(x)/x = ?', n: 1, t: 0, e: 'Standard limit.' },
+    { q: 'The derivative dM/dx represents the slope of:', o: ['Moment diagram','Load list','Material table','Grid only'], a: 0, e: 'It is the limiting slope of M(x).' },
     { q: 'lim_{x→∞} 1/x = ?', n: 0, t: 0, e: '1/x → 0.' },
   ]},
   { id: 'B', title: 'Set B', questions: [
@@ -9276,7 +9248,7 @@ E('chapter-33-limits-conceptual-introduction', 'Chapter 33 — Limits — Concep
   ]},
   { id: 'C', title: 'Set C', questions: [
     { q: 'In FEM, refining mesh size h → 0 ideally gives:', o: ['Worse results','Convergence to exact solution','No effect','Divergence'], a: 1, e: 'Convergence.' },
-    { q: 'Moment as derivative of shear M\' = V relies on:', o: ['Algebra only','Calculus / limits','Geometry','Statistics'], a: 1, e: 'Calculus link.' },
+    { q: 'Shear as derivative of moment, V = dM/dx, relies on:', o: ['Algebra only','Calculus / limits','Geometry','Statistics'], a: 1, e: 'Calculus link.' },
     { q: 'A limit may exist even if the function value at the point:', o: ['Always equals it','Is undefined','Is negative','Is zero'], a: 1, e: 'Limit ≠ value of f at that point sometimes.' },
   ]},
 ]);
