@@ -4,8 +4,11 @@ export type WhyPanel = {
   mistake: string;
   whyItFails: string;
   whyItWorks: string;
+  anchor?: string;
   visual?: 'number-line' | 'decimal-grid' | 'fraction-bars' | 'balance' | 'unit-squares' | 'trig-triangle' | 'inertia' | 'equilibrium';
 };
+
+const defaultWhyAnchor = 'b-concept-introduction';
 
 export const whyPanels: WhyPanel[] = [
   {
@@ -32,7 +35,43 @@ export const whyPanels: WhyPanel[] = [
     whyItWorks: 'Multiplication makes equal groups; division asks either how many groups or how large each group is. Because both talk about the same equal grouping, each operation reverses the other.',
   },
   {
+    slug: 'chapter-a3-multiplication-and-division',
+    anchor: 'c-the-math-worked-examples',
+    title: 'Why a negative times a negative becomes positive',
+    mistake: 'A common beginner mistake is counting the two minus signs and deciding the answer must still be negative.',
+    whyItFails: 'The sign rule must stay consistent with patterns we already know. If -3 x 4 = -12, then decreasing the second factor by 1 each step adds 3: -3 x 3 = -9, -3 x 2 = -6, -3 x 1 = -3, -3 x 0 = 0. The next step, -3 x -1, must be 3 or the pattern breaks.',
+    whyItWorks: 'A negative factor reverses direction. Multiplying by a negative reverses once; multiplying by another negative reverses again, bringing the direction back to positive.',
+    visual: 'number-line',
+  },
+  {
+    slug: 'chapter-a3-multiplication-and-division',
+    anchor: 'c-the-math-worked-examples',
+    title: 'Why counting decimal places works when multiplying',
+    mistake: 'The tempting shortcut is to multiply 12 x 5 = 60 and then write 0.60 or 0.6 without asking what size pieces were multiplied.',
+    whyItFails: '1.2 is 12 tenths and 0.05 is 5 hundredths. Tenths times hundredths make thousandths. If the answer were 0.6, then multiplying by 0.05, a tiny part, would keep half of 1.2 instead of taking only five hundredths of it.',
+    whyItWorks: 'Ignore the decimal point only long enough to multiply the counting numbers. Then put back the place value. One decimal place times two decimal places means thousandths, so 12 x 5 = 60 thousandths = 0.060 = 0.06.',
+    visual: 'decimal-grid',
+  },
+  {
+    slug: 'chapter-a3-multiplication-and-division',
+    anchor: 'c-the-math-worked-examples',
+    title: 'Why 0.2 x 0.3 = 0.06, not 0.6',
+    mistake: 'A common mistake is multiplying 2 x 3 and writing 0.6 because the visible digits make 6.',
+    whyItFails: '0.2 means 2 tenths and 0.3 means 3 tenths. The product asks for 3 tenths of 2 tenths. That is far smaller than 6 tenths. A partial amount of 0.2 cannot become 0.6.',
+    whyItWorks: 'Tenths times tenths make hundredths. 0.2 x 0.3 = 2/10 x 3/10 = 6/100 = 0.06. The answer has two decimal places because the product is counted in hundredths.',
+    visual: 'decimal-grid',
+  },
+  {
+    slug: 'chapter-a3-multiplication-and-division',
+    anchor: 'c-the-math-worked-examples',
+    title: 'Why dividing by 0.5 makes the answer bigger',
+    mistake: 'A beginner may expect division to always make numbers smaller, so 6 divided by 0.5 feels like it should be less than 6.',
+    whyItFails: 'Division asks how many divisor-sized pieces fit. Half-size pieces are smaller than whole-size pieces, so more of them fit in the same amount. Six contains twelve halves.',
+    whyItWorks: 'Dividing by 0.5 asks, "How many halves are in this?" Each whole has 2 halves, so 6 wholes have 12 halves. That is why 6 / 0.5 = 12.',
+  },
+  {
     slug: 'chapter-a4-fractions',
+    anchor: 'c-the-math-worked-examples',
     title: 'Why fractions need common denominators to add',
     mistake: 'The common mistake is adding tops and bottoms: 1/2 + 1/3 = 2/5.',
     whyItFails: 'Halves and thirds are different-sized pieces. Two fifths is made of fifth-sized pieces, so it does not count the original pieces. A half plus a third is bigger than a half, but 2/5 is smaller than a half.',
@@ -41,10 +80,47 @@ export const whyPanels: WhyPanel[] = [
   },
   {
     slug: 'chapter-a4-fractions',
+    anchor: 'c-the-math-worked-examples',
     title: 'Why multiplying fractions can make a smaller number',
     mistake: 'A beginner mistake is expecting 1/2 x 1/3 to get bigger because multiplication often sounded like "make more" when we used whole numbers.',
     whyItFails: 'Here multiplication means "part of." One third of one half is not larger than one half; it is a smaller slice inside that half. Getting 2/5 or 1/5 does not match the picture of taking a third of a half.',
     whyItWorks: 'Cut a rectangle into 2 equal vertical parts, then cut it into 3 equal horizontal parts. The overlap of 1 vertical part and 1 horizontal part is 1 little rectangle out of 6. That is why 1/2 x 1/3 = 1/6.',
+    visual: 'fraction-bars',
+  },
+  {
+    slug: 'chapter-a4-fractions',
+    anchor: 'b-concept-introduction',
+    title: 'Why multiplying the top and bottom keeps the same fraction',
+    mistake: 'A common mistake is thinking 1/2 and 2/4 are different amounts because the numbers look different.',
+    whyItFails: 'If the whole is the same size, cutting every old piece into two smaller equal pieces changes the number of pieces, not the amount shaded. One half becomes two fourths, but the shaded length did not grow.',
+    whyItWorks: 'Multiplying numerator and denominator by the same number subdivides each piece equally. The piece names change, but the total shaded amount stays the same.',
+    visual: 'fraction-bars',
+  },
+  {
+    slug: 'chapter-a4-fractions',
+    anchor: 'c-the-math-worked-examples',
+    title: 'Why multiplying fractions means part of a part',
+    mistake: 'A common mistake is adding across and writing 2/3 x 4/5 = 6/8, or expecting multiplication to always make the number larger.',
+    whyItFails: 'Multiplication by a fraction asks for part of the first amount. Four fifths of two thirds cannot be larger than two thirds because four fifths means not all of it.',
+    whyItWorks: 'The numerator counts chosen slices in one direction and the denominator counts all slices in that direction. When two cuts cross, total little pieces are bottom x bottom and chosen overlapping pieces are top x top.',
+    visual: 'fraction-bars',
+  },
+  {
+    slug: 'chapter-a4-fractions',
+    anchor: 'c-the-math-worked-examples',
+    title: 'Why dividing fractions flips only the divisor',
+    mistake: 'A common mistake is flipping both fractions, or flipping the first fraction instead of the fraction after the division sign.',
+    whyItFails: 'Division asks how many divisor-sized pieces fit inside the dividend. Changing the dividend changes the amount being measured, so it answers a different question.',
+    whyItWorks: 'Dividing by a fraction is the same as asking how many of those fractional pieces fit. Multiplying by the reciprocal counts those pieces, so only the divisor flips.',
+    visual: 'fraction-bars',
+  },
+  {
+    slug: 'chapter-a4-fractions',
+    anchor: 'c-the-math-worked-examples',
+    title: 'Why reducing a fraction does not change its value',
+    mistake: 'A common mistake is thinking 18/24 becomes smaller when reduced to 3/4 because the numbers are smaller.',
+    whyItFails: 'The numerator and denominator shrink together by the same factor. The amount shaded does not shrink; only the size of the pieces being counted changes.',
+    whyItWorks: 'Reducing divides both top and bottom by the same number. That joins equal small pieces into larger equal pieces while preserving the same portion of the whole.',
     visual: 'fraction-bars',
   },
   {
@@ -57,6 +133,7 @@ export const whyPanels: WhyPanel[] = [
   },
   {
     slug: 'chapter-a5-decimals-and-percentages',
+    anchor: 'c-the-math-worked-examples',
     title: 'Why 0.2 + 0.6 = 0.8, not 0.06 or 0.6',
     mistake: 'A common mistake is lining up the digits without respecting place value, or mixing addition with multiplication and writing 0.06.',
     whyItFails: '0.2 is 2 tenths and 0.6 is 6 tenths. Adding them counts tenths: 2 tenths plus 6 tenths is 8 tenths. Writing 0.06 means 6 hundredths, which is smaller than 0.2, so it cannot be the sum of 0.2 and 0.6.',
@@ -65,10 +142,29 @@ export const whyPanels: WhyPanel[] = [
   },
   {
     slug: 'chapter-a5-decimals-and-percentages',
+    anchor: 'c-the-math-worked-examples',
     title: 'Why 0.2 x 0.3 = 0.06, not 0.6',
     mistake: 'A common mistake is multiplying 2 x 3 and writing 0.6 because the digits 2 and 3 make 6.',
     whyItFails: '0.2 means 2 tenths, and 0.3 means 3 tenths. The product asks for 3 tenths of 2 tenths. That is much smaller than 6 tenths. If it were 0.6, then taking only part of 0.2 somehow became three times bigger than 0.2, which does not add up.',
     whyItWorks: 'Tenths times tenths make hundredths. 0.2 x 0.3 = 2/10 x 3/10 = 6/100 = 0.06. The two decimal places come from counting hundredths, not from moving a dot by memory.',
+    visual: 'decimal-grid',
+  },
+  {
+    slug: 'chapter-a5-decimals-and-percentages',
+    anchor: 'c-the-math-worked-examples',
+    title: 'Why moving between decimals and percents works',
+    mistake: 'A common mistake is moving the decimal point by memory without knowing whether the number should get bigger or smaller.',
+    whyItFails: 'Percent means per hundred. If 0.05 became 50%, that would mean 50 out of 100, which is one half. But 0.05 is only five hundredths, not one half.',
+    whyItWorks: 'To write a decimal as percent, ask how many hundredths it is. 0.05 is 5 hundredths, so it is 5%. To write percent as a decimal, divide by 100.',
+    visual: 'decimal-grid',
+  },
+  {
+    slug: 'chapter-a5-decimals-and-percentages',
+    anchor: 'c-the-math-worked-examples',
+    title: 'Why percent increase uses 1.10 instead of 0.10',
+    mistake: 'A common mistake is increasing by 10% by multiplying the original by 0.10 and stopping there.',
+    whyItFails: 'Multiplying by 0.10 gives only the added part, not the original plus the added part. For 50, 0.10 x 50 = 5, but the increased amount should still include the original 50.',
+    whyItWorks: 'A 10% increase means keep 100% of the original and add 10% more. That is 110% total, or 1.10 as a decimal. So 50 x 1.10 = 55.',
     visual: 'decimal-grid',
   },
   {
@@ -254,6 +350,6 @@ export const whyPanels: WhyPanel[] = [
   },
 ];
 
-export function panelsForSlug(slug: string) {
-  return whyPanels.filter(panel => panel.slug === slug);
+export function panelsForSlug(slug: string, anchor = defaultWhyAnchor) {
+  return whyPanels.filter(panel => panel.slug === slug && (panel.anchor ?? defaultWhyAnchor) === anchor);
 }

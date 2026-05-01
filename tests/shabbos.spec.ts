@@ -45,6 +45,19 @@ test('forced online Shabbos preview shows the overlay', async ({ page }) => {
   await expect(page.getByText('All work is complete for Shabbos.')).toBeVisible();
 });
 
+test('online Shabbos overlay cannot be toggled closed with F12', async ({ page }) => {
+  await page.goto('/?shabbos=active');
+
+  const overlay = page.getByRole('dialog', { name: 'Shabbos mode' });
+  await expect(overlay).toBeVisible();
+  await expect(page.getByText('Press F12 to close')).toHaveCount(0);
+
+  await page.keyboard.press('F12');
+
+  await expect(overlay).toBeVisible();
+  await expect(page.getByText('Press F12 to close')).toHaveCount(0);
+});
+
 test('offline mode does not auto-enable Shabbos mode even when forced', async ({ page }) => {
   await page.goto('/?offline=1&shabbos=active');
 

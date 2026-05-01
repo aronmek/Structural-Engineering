@@ -2,7 +2,7 @@ import { useEffect, useMemo, useRef, useState } from 'react';
 import { marked } from 'marked';
 import renderMathInElement from 'katex/contrib/auto-render';
 import { BookOpen, Menu, Moon, Printer, Search, Sun } from 'lucide-react';
-import { bookFiles, buildChapterIndex, slugify, type Chapter } from './content';
+import { bookFiles, buildChapterIndex, slugify, stripMarkdown, type Chapter } from './content';
 import { GeometryVisuals } from './GeometryVisuals';
 import { WhyPanels } from './WhyPanels';
 import { ShabbosOverlay, useShabbosMode } from './ShabbosOverlay';
@@ -11,11 +11,11 @@ marked.use({
   gfm: true,
   breaks: false,
   renderer: {
-    heading(token: any) {
+    heading(token: any, level?: number, raw?: string) {
       const text = typeof token === 'string' ? token : token.text || token.raw || '';
-      const raw = typeof token === 'string' ? token : token.raw || text;
-      const depth = typeof token === 'string' ? 2 : token.depth || 2;
-      const id = slugify(raw || text);
+      const rawText = typeof token === 'string' ? raw || text : token.raw || text;
+      const depth = typeof token === 'string' ? level || 2 : token.depth || 2;
+      const id = slugify(rawText || text);
       return `<h${depth} id="${id}">${text}</h${depth}>`;
     },
   },
@@ -24,7 +24,7 @@ marked.use({
 function chapterMarkdown(fileId: string, slug: string) {
   const file = bookFiles.find(item => item.id === fileId) ?? bookFiles[0];
   if (!slug) return file.markdown;
-  const lines = file.markdown.split('\n');
+  const lines = file.markdown.replace(/\r\n?/g, '\n').split('\n');
   const headingIndex = lines.findIndex(line => /^#{1,2}\s+/.test(line) && slugify(line.replace(/^#{1,2}\s+/, '')) === slug);
   if (headingIndex < 0) return file.markdown;
   const level = lines[headingIndex].match(/^#+/)?.[0].length ?? 2;
@@ -38,6 +38,61 @@ function groupedChapters(chapters: Chapter[]) {
     groups[chapter.part].push(chapter);
     return groups;
   }, {});
+}
+
+type MarkdownSection = {
+  anchor: string;
+  html: string;
+};
+
+function escapeHtml(value: string) {
+  return value
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;');
+}
+
+function renderMarkdown(markdown: string) {
+  const mathSpans: string[] = [];
+  const protectedMarkdown = markdown.replace(/\$\$[\s\S]+?\$\$|\$(?:\\.|[^$\n])+?\$/g, match => {
+    const token = `@@MATH${mathSpans.length}@@`;
+    mathSpans.push(match);
+    return token;
+  });
+  let html = marked.parse(protectedMarkdown) as string;
+  mathSpans.forEach((math, index) => {
+    html = html.replace(`@@MATH${index}@@`, escapeHtml(math));
+  });
+  return html;
+}
+
+function markdownSections(markdown: string): MarkdownSection[] {
+  const sections: Array<{ anchor: string; markdown: string }> = [];
+  const lines = markdown.replace(/\r\n?/g, '\n').split('\n');
+  let buffer: string[] = [];
+  let anchor = 'chapter-opening';
+
+  function flush() {
+    if (!buffer.length) return;
+    sections.push({ anchor, markdown: buffer.join('\n') });
+  }
+
+  for (const line of lines) {
+    const sectionHeading = line.match(/^###\s+(.+)$/);
+    if (sectionHeading) {
+      flush();
+      anchor = slugify(stripMarkdown(sectionHeading[1]));
+      buffer = [line];
+    } else {
+      buffer.push(line);
+    }
+  }
+  flush();
+
+  return sections.map((section) => ({
+    anchor: section.anchor,
+    html: renderMarkdown(section.markdown),
+  }));
 }
 
 export function App() {
@@ -56,7 +111,7 @@ export function App() {
   }, [theme]);
 
   const markdown = useMemo(() => chapterMarkdown(current.fileId, current.slug), [current]);
-  const html = useMemo(() => marked.parse(markdown) as string, [markdown]);
+  const sections = useMemo(() => markdownSections(markdown), [markdown]);
 
   useEffect(() => {
     if (!contentRef.current) return;
@@ -68,7 +123,7 @@ export function App() {
       throwOnError: false,
     });
     contentRef.current.scrollIntoView({ block: 'start' });
-  }, [html]);
+  }, [sections]);
 
   const groups = useMemo(() => groupedChapters(chapters), [chapters]);
   const searchResults = useMemo(() => {
@@ -141,9 +196,15 @@ export function App() {
         {shabbos.loading && <div className="status-pill">Checking Shabbos mode...</div>}
         {!shabbos.loading && shabbos.message && !shabbos.active && <div className="status-pill muted">{shabbos.message}</div>}
         <article className="chapter-card">
-          <div ref={contentRef} className="markdown-body" dangerouslySetInnerHTML={{ __html: html }} />
+          <div ref={contentRef} className="markdown-body">
+            {sections.map((section, index) => (
+              <section className="markdown-section" key={`${current.slug}-${section.anchor}-${index}`}>
+                <div dangerouslySetInnerHTML={{ __html: section.html }} />
+                <WhyPanels slug={current.slug} anchor={section.anchor} />
+              </section>
+            ))}
+          </div>
           <GeometryVisuals slug={current.slug} />
-          <WhyPanels slug={current.slug} />
         </article>
       </main>
 

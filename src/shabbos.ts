@@ -5,6 +5,7 @@ export type ShabbosState = {
   locationLabel?: string;
   startsAt?: string;
   endsAt?: string;
+  toggleHint?: string;
 };
 
 const disabledOfflineState: ShabbosState = {

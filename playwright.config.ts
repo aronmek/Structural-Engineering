@@ -7,13 +7,13 @@ export default defineConfig({
   fullyParallel: true,
   reporter: 'list',
   use: {
-    baseURL: 'http://127.0.0.1:5173',
+    baseURL: 'http://127.0.0.1:4175',
     trace: 'on-first-retry',
   },
   webServer: {
-    command: 'npx vite --host 127.0.0.1 --port 5173',
-    url: 'http://127.0.0.1:5173',
-    reuseExistingServer: true,
+    command: 'npx vite --host 127.0.0.1 --port 4175 --strictPort',
+    url: 'http://127.0.0.1:4175',
+    reuseExistingServer: false,
     timeout: 30_000,
   },
   projects: [

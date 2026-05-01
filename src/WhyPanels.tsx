@@ -2,10 +2,11 @@ import { panelsForSlug, type WhyPanel } from './whyLibrary';
 
 type Props = {
   slug: string;
+  anchor: string;
 };
 
-export function WhyPanels({ slug }: Props) {
-  const panels = panelsForSlug(slug);
+export function WhyPanels({ slug, anchor }: Props) {
+  const panels = panelsForSlug(slug, anchor);
   if (!panels.length) return null;
 
   return (
@@ -78,7 +79,7 @@ function DecimalGrid() {
 function FractionBars() {
   return (
     <div className="why-visual" aria-label="Fraction bars showing common denominators and fraction multiplication">
-      <svg viewBox="0 0 520 180" role="img">
+      <svg viewBox="0 0 560 260" role="img">
         <text x="20" y="28" className="wv-title">Use same-sized pieces before counting</text>
         <rect x="24" y="55" width="180" height="34" className="wv-cell" />
         <rect x="24" y="55" width="90" height="34" className="wv-shade" />
@@ -89,6 +90,16 @@ function FractionBars() {
         <line x1="84" y1="110" x2="84" y2="144" className="wv-line" />
         <line x1="144" y1="110" x2="144" y2="144" className="wv-line" />
         <text x="220" y="133" className="wv-text">1/3 is one of three equal pieces</text>
+        <g transform="translate(30 175)">
+          {Array.from({ length: 6 }).map((_, i) => {
+            const row = Math.floor(i / 2);
+            const col = i % 2;
+            return <rect key={i} x={col * 46} y={row * 22} width="45" height="21" className={i === 0 ? 'wv-overlap' : 'wv-cell'} />;
+          })}
+        </g>
+        <text x="150" y="195" className="wv-text">1/2 cut one way</text>
+        <text x="150" y="220" className="wv-text">1/3 cut the other way</text>
+        <text x="330" y="208" className="wv-text strong">overlap = 1 out of 6</text>
       </svg>
     </div>
   );

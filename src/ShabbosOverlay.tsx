@@ -28,7 +28,7 @@ export function useShabbosMode() {
         active: !current.active,
         message: current.active ? 'Shabbos mode is disabled in offline mode.' : 'Offline Shabbos preview is active.',
         locationLabel: current.active ? undefined : 'Offline preview',
-        endsAt: current.active ? undefined : 'Press F12 to close',
+        toggleHint: current.active ? undefined : 'Press F12 to close',
       }));
     }
     window.addEventListener('keydown', onKeyDown);
@@ -63,6 +63,7 @@ export function ShabbosOverlay({ state }: { state: ShabbosState }) {
           <div className="shabbos-meta">
             {state.locationLabel && <span>{state.locationLabel}</span>}
             {state.endsAt && <span>Reopens after {state.endsAt}</span>}
+            {state.toggleHint && <span>{state.toggleHint}</span>}
           </div>
         </div>
       </div>
