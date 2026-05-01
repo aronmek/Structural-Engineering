@@ -52,10 +52,13 @@ export function ShabbosOverlay({ state }: { state: ShabbosState }) {
             Close your eyes and think: I am already a successful structural engineer, using my gifts with calm, dignity, and abundance.
           </p>
           <p>
-            Because when we hold Shabbos, we remember that our work is only one small part of something much larger. We rest as partners in the whole universe, trusting that success depends on God, and that rest is also part of the work.
+            Because when we hold Shabbos, we remember that our work is only one small part of something much larger. We rest as partners in the whole universe, trusting that success depends on the eibershter, and that rest is also part of the work.
           </p>
           <p>
-            Make the best of Shabbos, and may God make the best of you. Hatzlucha Rabba. I am waiting for you to shine. Taty.
+            Make the best of Shabbos, and may the bashefer make the best of you. Hatzlucha Rabba. I am waiting for you to shine. Taty.
+          </p>
+          <p>
+            I'll never know if you saw this message. I hope you'll never see this.. If you do I trust you that you'll make the right choices!
           </p>
           <div className="shabbos-meta">
             {state.locationLabel && <span>{state.locationLabel}</span>}
