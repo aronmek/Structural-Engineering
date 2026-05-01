@@ -5,21 +5,29 @@
 This repository contains the full book in two formats:
 
 - **Modular Markdown** — for PDF conversion via pandoc / md-to-pdf / VS Code
-- **Interactive HTML webapp** — `book.html`, a single-file static webapp with sidebar navigation, search, cross-references, dark mode, print/PDF export, and **interactive SVG diagrams** (number line, force vectors, beam SFD/BMD, bending stress, mode shapes, mesh convergence)
+- **React SPA** — a Vite app that imports the Markdown sources directly, renders math with KaTeX, adds sidebar navigation, search, dark mode, print support, geometry visuals, collapsed "Why" explanations, and Shabbos mode
 
 ---
 
-## Quick Start (Interactive HTML)
+## Quick Start (React SPA)
 
 ```powershell
-# Build (regenerates book.html from the Markdown sources)
-powershell -ExecutionPolicy Bypass -File .\bundle.ps1
+# Install dependencies
+npm install
 
-# Open
-Start-Process .\book.html
+# Start local development server
+npm run dev
+
+# Production build
+npm run build
+
+# Local-only offline build
+npm run build:offline
 ```
 
-The output `book.html` is **fully self-contained** — open by double-click, no server, no install. Chapter Markdown is embedded inline; rendering libraries (marked, KaTeX) load from CDN on first open and are then cached by the browser.
+The production output is written to `dist/` and can be served by any static host. The legacy `book.html` and `book-offline.html` files are kept only as generated historical artifacts; the React app is now the primary experience.
+
+GitHub Pages runs `npm run build`, which is the normal online mode. In online mode, Shabbos mode checks network time, IP-based location, and sunset data. `npm run build:offline` is local-only and writes `dist-offline/`; automatic Shabbos blocking is disabled there, but you can press `F12` to preview or close the Shabbos overlay manually.
 
 ### Free Deployment
 
@@ -37,7 +45,10 @@ To enable it:
 - **Sidebar TOC** — collapsible by Part, click any chapter to jump
 - **Cross-references** — every "Chapter N" mention is auto-linked to that chapter
 - **Search** (Ctrl+K) — full-text across all chapters with highlighted snippets
-- **Interactive SVG diagrams** appear in:
+- **Geometry visual graph labs** appear in the geometry chapters to show area, coordinate changes, trigonometry, and moment-of-inertia ideas before the formulas are used
+- **Collapsed Why panels** explain why common mistakes fail and why the correct rules always hold, using only concepts that were already introduced
+- **Shabbos mode** checks network time and IP-based location, then blocks study from Friday sunset until 72 minutes after Saturday sunset with a rest overlay
+- **Interactive SVG diagrams** in the legacy generated HTML appear in:
   - Ch A1 — drag the marker on the number line
   - Ch 11 / 13 / 15 / 26 — adjust load and span on a simply supported beam, watch SFD/BMD update
   - Ch 17 — vary moment and section dimensions, see stress distribution
@@ -53,9 +64,13 @@ To enable it:
 
 | File | Contents |
 |------|----------|
-| `book.html` | **Generated** — self-contained interactive webapp (open this!) |
-| `book-template.html` | Webapp shell (HTML/CSS/JS) consumed by `bundle.ps1` |
-| `bundle.ps1` | Build script: embeds Markdown into the template |
+| `src/` | React SPA source |
+| `package.json` | Vite/React build scripts and dependencies |
+| `dist/` | **Generated** production SPA output after `npm run build` |
+| `book.html` | Legacy generated static webapp |
+| `book-offline.html` | Legacy generated offline static webapp |
+| `book-template.html` | Legacy static shell consumed by `bundle.ps1` |
+| `bundle.ps1` | Legacy build script for single-file HTML artifacts |
 | `00-Front-Matter.md` | Title, preface, how to use this book |
 | `00b-Part0-Arithmetic.md` | Chapters A1–A8 — Arithmetic Foundations |
 | `01-Part1-Algebra.md` | Chapters 1–9 — Algebra |
