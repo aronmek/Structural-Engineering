@@ -12,10 +12,21 @@ export function useShabbosMode() {
 
   useEffect(() => {
     let cancelled = false;
-    resolveShabbosState().then(next => {
-      if (!cancelled) setState(next);
-    });
-    return () => { cancelled = true; };
+    let intervalId: number | undefined;
+
+    function refresh() {
+      resolveShabbosState().then(next => {
+        if (!cancelled) setState(next);
+      });
+    }
+
+    refresh();
+    if (!isOfflineMode()) intervalId = window.setInterval(refresh, 5 * 60 * 1000);
+
+    return () => {
+      cancelled = true;
+      if (intervalId !== undefined) window.clearInterval(intervalId);
+    };
   }, []);
 
   useEffect(() => {
