@@ -23,11 +23,14 @@ npm run build
 
 # Local-only offline build
 npm run build:offline
+
+# Single-file offline bundle
+npm run bundle:offline
 ```
 
 The production output is written to `dist/` and can be served by any static host. The legacy `book.html` and `book-offline.html` files are kept only as generated historical artifacts; the React app is now the primary experience.
 
-GitHub Pages runs `npm run build`, which is the normal online mode. In online mode, Shabbos mode checks network time, IP-based location, and sunset data. `npm run build:offline` is local-only and writes `dist-offline/`; automatic Shabbos blocking is disabled there, but you can press `F12` to preview or close the Shabbos overlay manually.
+GitHub Pages runs `npm run build`, which is the normal online mode. In online mode, Shabbos mode checks network time, IP-based location, and sunset data. `npm run build:offline` is local-only and writes `dist-offline/`; automatic Shabbos blocking is disabled there, but you can press `F12` to preview or close the Shabbos overlay manually. `npm run bundle:offline` rebuilds `dist-offline/` and writes `structural-engineering-offline.html`, a self-contained file with the app JS, CSS, and KaTeX fonts inlined for direct browser opening.
 
 ### Free Deployment
 
@@ -67,10 +70,12 @@ To enable it:
 | `src/` | React SPA source |
 | `package.json` | Vite/React build scripts and dependencies |
 | `dist/` | **Generated** production SPA output after `npm run build` |
+| `structural-engineering-offline.html` | **Generated** single-file offline React SPA after `npm run bundle:offline` |
 | `book.html` | Legacy generated static webapp |
 | `book-offline.html` | Legacy generated offline static webapp |
 | `book-template.html` | Legacy static shell consumed by `bundle.ps1` |
 | `bundle.ps1` | Legacy build script for single-file HTML artifacts |
+| `bundle-offline.ps1` | Inlines the React offline build into one HTML file |
 | `00-Front-Matter.md` | Title, preface, how to use this book |
 | `00b-Part0-Arithmetic.md` | Chapters A1–A8 — Arithmetic Foundations |
 | `01-Part1-Algebra.md` | Chapters 1–9 — Algebra |

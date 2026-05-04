@@ -1,4 +1,9 @@
+/// <reference types="node" />
+
 import { defineConfig, devices } from '@playwright/test';
+
+const port = Number(process.env.PLAYWRIGHT_PORT || 4177);
+const baseURL = `http://127.0.0.1:${port}`;
 
 export default defineConfig({
   testDir: './tests',
@@ -7,13 +12,13 @@ export default defineConfig({
   fullyParallel: true,
   reporter: 'list',
   use: {
-    baseURL: 'http://127.0.0.1:4175',
+    baseURL,
     trace: 'on-first-retry',
   },
   webServer: {
-    command: 'npx vite --host 127.0.0.1 --port 4175 --strictPort',
-    url: 'http://127.0.0.1:4175',
-    reuseExistingServer: false,
+    command: `npx vite --host 127.0.0.1 --port ${port} --strictPort`,
+    url: baseURL,
+    reuseExistingServer: !process.env.CI,
     timeout: 30_000,
   },
   projects: [

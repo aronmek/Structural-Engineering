@@ -71,11 +71,11 @@ E('chapter-a3-multiplication-and-division', 'Chapter A3 — Multiplication and D
     { q: '−48 ÷ −6 = ?', n: 8, t: 0,
       e: 'Same signs → positive.' },
   ]},
-  { id: 'B', title: 'Set B — Decimals', questions: [
-    { q: '0.4 × 0.25 = ?', n: 0.1, t: 0.001,
-      e: 'Decimal places: 1+2 = 3. 4×25 = 100 → 0.100 = 0.1.' },
-    { q: '6 ÷ 0.5 = ?', n: 12, t: 0,
-      e: 'Dividing by ½ is multiplying by 2.' },
+  { id: 'B', title: 'Set B — Division and zero', questions: [
+    { q: '84 ÷ 7 = ?', n: 12, t: 0,
+      e: 'Division asks how many groups of 7 fit in 84. Since 7×12 = 84, the answer is 12.' },
+    { q: '0 ÷ 5 = ?', n: 0, t: 0,
+      e: 'Zero split into five equal groups still gives 0 in each group.' },
     { q: 'Which expression is undefined?', o: ['0/5', '5/0', '0/0', 'Both b and c'], a: 3,
       e: 'Division by zero is undefined; 0/0 is also undefined (indeterminate).' },
   ]},

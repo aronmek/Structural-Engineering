@@ -149,7 +149,7 @@ Structural engineering uses signed addition constantly. Later, upward and downwa
 | **Quotient** | "KWOH-shent" | Result of division |
 | **Factor** | "FAK-tor" | A number being multiplied |
 | **Divisor** | "dih-VYE-zor" | The number you divide by |
-| **Reciprocal** | "rih-SIP-roh-kul" | $1/x$ |
+| **Inverse operation** | "IN-vurs op-er-AY-shun" | An operation that undoes another operation |
 
 ### B. Concept Introduction
 
@@ -171,11 +171,8 @@ Same idea for division.
 - $(-15) \div 3 = -5$
 - $(-20) \div (-4) = 5$
 
-**Multiplication of decimals:** count total decimal places.
-$1.2 \times 0.05$: $12 \times 5 = 60$, total decimals = 1+2 = 3, so $0.060 = 0.06$.
-
-**Division:** convert to multiplication by reciprocal.
-$\dfrac{6}{0.5} = 6 \times \dfrac{1}{0.5} = 6 \times 2 = 12$
+**Division:** use equal groups and inverse multiplication.
+$24 \div 6 = 4$ because $6 \times 4 = 24$.
 
 **Measurement example.** A drawing has 4 equal bays, each 6 m long. Total length = $4 \times 6 = 24$ m.
 
@@ -187,18 +184,18 @@ Multiplication and division will later convert between totals and rates: total l
 
 1. **Forgetting the sign rule of two negatives.** $(-2)(-5) = +10$, not $-10$.
 2. **Dividing by zero.** Undefined. Always check the denominator.
-3. **Dropping decimal places in multiplication.** $0.2 \times 0.3 = 0.06$, not $0.6$.
+3. **Thinking division always makes a number smaller.** $24 \div 6$ is smaller than 24, but $6 \div 6 = 1$ and $0 \div 6 = 0$. Division asks about equal groups; it does not follow one size rule.
 
 ### F. Chapter Practice Task
 
 > Compute:
 > 1. $(-6)(7)$
 > 2. $(-4)(-9)$
-> 3. $\dfrac{-48}{-6}$
-> 4. $0.4 \times 0.25$
+> 3. $-48 \div -6$
+> 4. $56 \div 7$
 > 5. A 200 m total length is split equally among 5 identical segments. Find the length of each segment.
 >
-> **Answers:** 1) −42  2) 36  3) 8  4) 0.10  5) 40 m
+> **Answers:** 1) −42  2) 36  3) 8  4) 8  5) 40 m
 
 ### G. Summary Table
 

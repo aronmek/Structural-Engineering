@@ -1,3 +1,5 @@
+/// <reference types="node" />
+
 import { expect, test } from '@playwright/test';
 
 type MockApisOptions = {
@@ -150,7 +152,7 @@ test('offline mode does not auto-enable Shabbos mode even when forced', async ({
   await page.goto('/?offline=1&shabbos=active');
 
   await expect(page.getByRole('dialog', { name: 'Shabbos mode' })).toHaveCount(0);
-  await expect(page.getByText('Shabbos mode is disabled in offline mode.')).toBeVisible();
+  await expect(page.getByText('Shabbos mode is disabled in offline mode.')).toHaveCount(0);
 });
 
 test('offline mode toggles Shabbos overlay with F12', async ({ page }) => {
