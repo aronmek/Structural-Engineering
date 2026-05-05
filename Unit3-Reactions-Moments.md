@@ -24,19 +24,84 @@ Every support stops some type of motion. When a support stops a motion, it gener
 
 There are three basic support types in 2D structural work:
 
-```
-PIN SUPPORT           ROLLER SUPPORT         FIXED SUPPORT
-(bolted connection    (bridge bearing,        (embedded in
- with rotation free)   Teflon pad)             concrete wall)
+<figure class="structural-diagram" aria-label="Three structural support types: pin, roller, and fixed">
+<svg viewBox="0 0 600 200" xmlns="http://www.w3.org/2000/svg">
+  <!-- === PIN SUPPORT (left) === -->
+  <!-- beam connection point -->
+  <circle cx="100" cy="50" r="6" fill="#2563eb"/>
+  <!-- triangle body -->
+  <polygon points="100,50 70,110 130,110" class="sd-support"/>
+  <!-- ground line + hatching -->
+  <line x1="55" y1="110" x2="145" y2="110" class="sd-beam" stroke-width="3"/>
+  <line x1="55" y1="116" x2="67" y2="110" class="sd-ground"/>
+  <line x1="70" y1="116" x2="82" y2="110" class="sd-ground"/>
+  <line x1="85" y1="116" x2="97" y2="110" class="sd-ground"/>
+  <line x1="100" y1="116" x2="112" y2="110" class="sd-ground"/>
+  <line x1="115" y1="116" x2="127" y2="110" class="sd-ground"/>
+  <line x1="130" y1="116" x2="142" y2="110" class="sd-ground"/>
+  <!-- Reaction arrows -->
+  <line x1="100" y1="140" x2="100" y2="120" class="sd-force-up" stroke-width="2.5"/>
+  <polygon points="100,112 95,122 105,122" class="sd-arrow-up"/>
+  <line x1="76" y1="50" x2="62" y2="50" class="sd-force-h" stroke-width="2.5"/>
+  <polygon points="54,50 64,45 64,55" class="sd-arrow-h"/>
+  <!-- Labels -->
+  <text x="100" y="30" text-anchor="middle" class="sd-title">PIN</text>
+  <text x="100" y="160" text-anchor="middle" class="sd-label-bold">R_V + R_H</text>
+  <text x="100" y="175" text-anchor="middle" class="sd-label">2 reactions</text>
+  <text x="100" y="190" text-anchor="middle" class="sd-label">Blocks H &amp; V, free to rotate</text>
 
-     ┴                      ┴                     ┴
-    /│\                    /O\                   │║║║║
-   / │ \                  ─────                  ║║║║║
-   
-Blocks: H and V        Blocks: V only          Blocks: H, V, rotation
-Reactions: R_H, R_V    Reaction: R_V           Reactions: H, V, M
-Count: 2               Count: 1                Count: 3
-```
+  <!-- === ROLLER SUPPORT (center) === -->
+  <!-- beam connection point -->
+  <circle cx="300" cy="50" r="6" fill="#2563eb"/>
+  <!-- triangle body -->
+  <polygon points="300,50 270,100 330,100" class="sd-support"/>
+  <!-- circle wheel -->
+  <ellipse cx="285" cy="112" rx="9" ry="9" class="sd-support"/>
+  <ellipse cx="315" cy="112" rx="9" ry="9" class="sd-support"/>
+  <!-- ground line + hatching -->
+  <line x1="255" y1="121" x2="345" y2="121" class="sd-beam" stroke-width="3"/>
+  <line x1="255" y1="127" x2="267" y2="121" class="sd-ground"/>
+  <line x1="270" y1="127" x2="282" y2="121" class="sd-ground"/>
+  <line x1="285" y1="127" x2="297" y2="121" class="sd-ground"/>
+  <line x1="300" y1="127" x2="312" y2="121" class="sd-ground"/>
+  <line x1="315" y1="127" x2="327" y2="121" class="sd-ground"/>
+  <line x1="330" y1="127" x2="342" y2="121" class="sd-ground"/>
+  <!-- Reaction arrow (vertical only) -->
+  <line x1="300" y1="150" x2="300" y2="130" class="sd-force-up" stroke-width="2.5"/>
+  <polygon points="300,122 295,132 305,132" class="sd-arrow-up"/>
+  <!-- Labels -->
+  <text x="300" y="30" text-anchor="middle" class="sd-title">ROLLER</text>
+  <text x="300" y="170" text-anchor="middle" class="sd-label-bold">R_V only</text>
+  <text x="300" y="185" text-anchor="middle" class="sd-label">1 reaction</text>
+  <text x="300" y="200" text-anchor="middle" class="sd-label">Blocks V, free H &amp; rotation</text>
+
+  <!-- === FIXED SUPPORT (right) === -->
+  <!-- wall -->
+  <rect x="480" y="20" width="18" height="110" class="sd-support-fixed"/>
+  <line x1="480" y1="20" x2="468" y2="32" class="sd-ground"/>
+  <line x1="480" y1="35" x2="468" y2="47" class="sd-ground"/>
+  <line x1="480" y1="50" x2="468" y2="62" class="sd-ground"/>
+  <line x1="480" y1="65" x2="468" y2="77" class="sd-ground"/>
+  <line x1="480" y1="80" x2="468" y2="92" class="sd-ground"/>
+  <line x1="480" y1="95" x2="468" y2="107" class="sd-ground"/>
+  <line x1="480" y1="110" x2="468" y2="122" class="sd-ground"/>
+  <!-- beam stub -->
+  <line x1="498" y1="50" x2="560" y2="50" class="sd-beam" stroke-width="4"/>
+  <!-- Reaction arrows -->
+  <line x1="520" y1="80" x2="520" y2="62" class="sd-force-up" stroke-width="2.5"/>
+  <polygon points="520,54 515,64 525,64" class="sd-arrow-up"/>
+  <line x1="558" y1="50" x2="540" y2="50" class="sd-force-h" stroke-width="2.5"/>
+  <polygon points="532,50 542,45 542,55" class="sd-arrow-h"/>
+  <!-- Moment arc -->
+  <path d="M 545 30 A 20 20 0 0 1 565 50" fill="none" stroke="#7c3aed" stroke-width="2.5"/>
+  <polygon points="565,50 558,44 562,54" fill="#7c3aed"/>
+  <!-- Labels -->
+  <text x="520" y="18" text-anchor="middle" class="sd-title">FIXED</text>
+  <text x="520" y="110" text-anchor="middle" class="sd-label-bold">R_V + R_H + M</text>
+  <text x="520" y="125" text-anchor="middle" class="sd-label">3 reactions</text>
+  <text x="520" y="140" text-anchor="middle" class="sd-label">Blocks H, V &amp; rotation</text>
+</svg>
+</figure>
 
 A **simply supported beam** is pin at one end + roller at the other: $2 + 1 = 3$ reactions. With three equilibrium equations ($\Sigma F_x = 0$, $\Sigma F_y = 0$, $\Sigma M = 0$), three unknowns can be found — the structure is **statically determinate**.
 
@@ -155,16 +220,58 @@ where $d_\perp$ is the **perpendicular** distance from the force's line of actio
 
 Sign convention: choose once. Counterclockwise (CCW) positive is common.
 
-```
-Force F downward at distance d from pivot A:
-   
-   A ──────────────── F↓
-   pivot              |
-                   <--d-->
-                   
-Moment of F about A = F × d  (clockwise = negative if CCW is positive)
-                           = −F × d
-```
+<figure class="structural-diagram" aria-label="Moment sign convention: clockwise negative, counterclockwise positive">
+<svg viewBox="0 0 560 160" xmlns="http://www.w3.org/2000/svg">
+  <!-- Left: Clockwise (negative) moment -->
+  <!-- Beam -->
+  <line x1="40" y1="80" x2="220" y2="80" class="sd-beam" stroke-width="4"/>
+  <!-- Pivot marker at A -->
+  <polygon points="40,80 20,110 60,110" class="sd-support"/>
+  <line x1="15" y1="110" x2="65" y2="110" class="sd-beam" stroke-width="2"/>
+  <text x="40" y="128" text-anchor="middle" class="sd-label-bold">A</text>
+  <!-- Downward force at right -->
+  <line x1="200" y1="40" x2="200" y2="78" class="sd-force-down" stroke-width="3"/>
+  <polygon points="200,80 195,70 205,70" class="sd-arrow-down"/>
+  <text x="200" y="32" text-anchor="middle" class="sd-label-red">F ↓</text>
+  <!-- Dimension arrow -->
+  <line x1="40" y1="95" x2="200" y2="95" class="sd-dim"/>
+  <polygon points="40,95 50,91 50,99" fill="#64748b"/>
+  <polygon points="200,95 190,91 190,99" fill="#64748b"/>
+  <text x="120" y="108" text-anchor="middle" class="sd-label">d</text>
+  <!-- CW rotation arc -->
+  <path d="M 80 60 A 40 40 0 0 1 120 40" fill="none" stroke="#dc2626" stroke-width="2.5"/>
+  <polygon points="120,40 112,48 124,50" fill="#dc2626"/>
+  <!-- Label -->
+  <text x="130" y="145" text-anchor="middle" class="sd-label-red">Clockwise = NEGATIVE</text>
+  <text x="130" y="158" text-anchor="middle" class="sd-label-red">M = −F × d</text>
+
+  <!-- Divider -->
+  <line x1="280" y1="20" x2="280" y2="140" stroke="#cbd5e1" stroke-width="1.5" stroke-dasharray="6 4"/>
+
+  <!-- Right: Counter-clockwise (positive) moment -->
+  <!-- Beam -->
+  <line x1="300" y1="80" x2="540" y2="80" class="sd-beam" stroke-width="4"/>
+  <!-- Pivot marker at A -->
+  <polygon points="300,80 280,110 320,110" class="sd-support"/>
+  <line x1="275" y1="110" x2="325" y2="110" class="sd-beam" stroke-width="2"/>
+  <text x="300" y="128" text-anchor="middle" class="sd-label-bold">A</text>
+  <!-- Upward force at right -->
+  <line x1="500" y1="78" x2="500" y2="40" class="sd-force-up" stroke-width="3"/>
+  <polygon points="500,38 495,48 505,48" class="sd-arrow-up"/>
+  <text x="500" y="32" text-anchor="middle" class="sd-label-green">F ↑</text>
+  <!-- Dimension arrow -->
+  <line x1="300" y1="95" x2="500" y2="95" class="sd-dim"/>
+  <polygon points="300,95 310,91 310,99" fill="#64748b"/>
+  <polygon points="500,95 490,91 490,99" fill="#64748b"/>
+  <text x="400" y="108" text-anchor="middle" class="sd-label">d</text>
+  <!-- CCW rotation arc -->
+  <path d="M 380 40 A 40 40 0 0 0 420 60" fill="none" stroke="#15803d" stroke-width="2.5"/>
+  <polygon points="420,60 416,48 428,52" fill="#15803d"/>
+  <!-- Label -->
+  <text x="420" y="145" text-anchor="middle" class="sd-label-green">Counter-clockwise = POSITIVE</text>
+  <text x="420" y="158" text-anchor="middle" class="sd-label-green">M = +F × d</text>
+</svg>
+</figure>
 
 ### D. Failure Case
 
@@ -207,14 +314,36 @@ This confirms the symmetry result from Chapter 8 by a different method.
 **Problem.** Simply-supported, $L = 8\ \mathrm{m}$, pin at A, roller at B. Two loads: $P_1 = 40\ \mathrm{kN}$ at $x = 2\ \mathrm{m}$; $P_2 = 20\ \mathrm{kN}$ at $x = 6\ \mathrm{m}$.
 
 **FBD:**
-```
-      P1=40kN     P2=20kN
-         ↓           ↓
-  A──────●───────────●──────B
-  ↑      2m          6m     ↑
-  R_A                      R_B
-  |<──────────── 8 m ──────>|
-```
+<figure class="structural-diagram" aria-label="Simply-supported beam: P1=40kN at 2m, P2=20kN at 6m, L=8m">
+<svg viewBox="0 0 520 120" xmlns="http://www.w3.org/2000/svg">
+  <!-- P1 load -->
+  <line x1="165" y1="16" x2="165" y2="46" class="sd-force-down" stroke-width="3"/>
+  <polygon points="165,48 160,38 170,38" class="sd-arrow-down"/>
+  <text x="128" y="14" class="sd-label-red">P₁ = 40 kN</text>
+  <!-- P2 load -->
+  <line x1="365" y1="16" x2="365" y2="46" class="sd-force-down" stroke-width="3"/>
+  <polygon points="365,48 360,38 370,38" class="sd-arrow-down"/>
+  <text x="328" y="14" class="sd-label-red">P₂ = 20 kN</text>
+  <!-- Beam -->
+  <rect x="80" y="48" width="360" height="12" rx="2" class="sd-beam-fill"/>
+  <!-- Pin A -->
+  <polygon points="80,60 64,80 96,80" class="sd-support"/>
+  <!-- Roller B -->
+  <circle cx="440" cy="72" r="8" class="sd-support"/>
+  <!-- RA -->
+  <line x1="80" y1="80" x2="80" y2="70" class="sd-force-up" stroke-width="2.5"/>
+  <polygon points="80,68 75,78 85,78" class="sd-arrow-up"/>
+  <text x="60" y="96" class="sd-label-green">R_A</text>
+  <!-- RB -->
+  <line x1="440" y1="80" x2="440" y2="70" class="sd-force-up" stroke-width="2.5"/>
+  <polygon points="440,68 435,78 445,78" class="sd-arrow-up"/>
+  <text x="428" y="96" class="sd-label-green">R_B</text>
+  <!-- Dimension marks -->
+  <text x="165" y="64" text-anchor="middle" class="sd-label" style="fill:#f59e0b">2m</text>
+  <text x="365" y="64" text-anchor="middle" class="sd-label" style="fill:#f59e0b">6m</text>
+  <text x="260" y="108" text-anchor="middle" class="sd-label" style="fill:#64748b">L = 8 m</text>
+</svg>
+</figure>
 
 **Step 1 — Take moments about A** (CCW+):
 $$\Sigma M_A = 0: \quad R_B \times 8 - P_1 \times 2 - P_2 \times 6 = 0$$
@@ -276,17 +405,56 @@ Imagine cutting the beam at any point $x$ and pulling apart the two halves. For 
 - **Shear force $V$**: the vertical force at the cut (balances the net vertical force on the left half)
 - **Bending moment $M$**: the moment at the cut (balances the net moment on the left half about the cut)
 
-```
-         w (uniform load)
-         ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓
-  A──────────────│──────────── B
-  ↑              │             ↑
-  R_A         ← CUT          R_B
-
-Left half after cut:
-  R_A ──────── V (at cut, downward on face)
-  ↑             M (at cut, CCW on face)
-```
+<figure class="structural-diagram" aria-label="Section cut on a uniformly loaded simply-supported beam showing internal forces V and M">
+<svg viewBox="0 0 560 180" xmlns="http://www.w3.org/2000/svg">
+  <!-- UDL arrows -->
+  <text x="280" y="16" text-anchor="middle" class="sd-label-red">w (uniform load)</text>
+  <line x1="100" y1="24" x2="100" y2="42" class="sd-force-down" stroke-width="2"/>
+  <polygon points="100,44 96,35 104,35" class="sd-arrow-down"/>
+  <line x1="145" y1="24" x2="145" y2="42" class="sd-force-down" stroke-width="2"/>
+  <polygon points="145,44 141,35 149,35" class="sd-arrow-down"/>
+  <line x1="190" y1="24" x2="190" y2="42" class="sd-force-down" stroke-width="2"/>
+  <polygon points="190,44 186,35 194,35" class="sd-arrow-down"/>
+  <line x1="280" y1="24" x2="280" y2="42" class="sd-force-down" stroke-width="2"/>
+  <polygon points="280,44 276,35 284,35" class="sd-arrow-down"/>
+  <line x1="370" y1="24" x2="370" y2="42" class="sd-force-down" stroke-width="2"/>
+  <polygon points="370,44 366,35 374,35" class="sd-arrow-down"/>
+  <line x1="415" y1="24" x2="415" y2="42" class="sd-force-down" stroke-width="2"/>
+  <polygon points="415,44 411,35 419,35" class="sd-arrow-down"/>
+  <line x1="460" y1="24" x2="460" y2="42" class="sd-force-down" stroke-width="2"/>
+  <polygon points="460,44 456,35 464,35" class="sd-arrow-down"/>
+  <!-- Beam -->
+  <rect x="80" y="44" width="400" height="14" rx="2" class="sd-beam-fill"/>
+  <!-- Pin support A -->
+  <polygon points="80,58 64,78 96,78" class="sd-support"/>
+  <text x="80" y="94" text-anchor="middle" class="sd-label-bold">A</text>
+  <!-- Roller support B -->
+  <circle cx="480" cy="70" r="8" class="sd-support"/>
+  <text x="480" y="94" text-anchor="middle" class="sd-label-bold">B</text>
+  <!-- Reactions -->
+  <line x1="80" y1="94" x2="80" y2="82" class="sd-force-up" stroke-width="2.5"/>
+  <polygon points="80,80 75,90 85,90" class="sd-arrow-up"/>
+  <text x="60" y="112" class="sd-label-green">R_A</text>
+  <line x1="480" y1="94" x2="480" y2="82" class="sd-force-up" stroke-width="2.5"/>
+  <polygon points="480,80 475,90 485,90" class="sd-arrow-up"/>
+  <text x="468" y="112" class="sd-label-green">R_B</text>
+  <!-- Cut line -->
+  <line x1="280" y1="32" x2="280" y2="110" stroke="#f59e0b" stroke-width="2.5" stroke-dasharray="6 3"/>
+  <text x="288" y="30" class="sd-label" style="fill:#f59e0b;font-weight:700">CUT</text>
+  <!-- Internal V at cut (left face) -->
+  <line x1="280" y1="58" x2="280" y2="80" class="sd-force-down" stroke-width="2.5"/>
+  <polygon points="280,82 275,72 285,72" class="sd-arrow-down"/>
+  <text x="288" y="82" class="sd-label-red">V</text>
+  <!-- Internal M at cut -->
+  <path d="M 264 58 A 16 16 0 0 0 280 74" fill="none" stroke="#7c3aed" stroke-width="2.5"/>
+  <polygon points="280,74 272,74 276,64" fill="#7c3aed"/>
+  <text x="248" y="94" class="sd-label" style="fill:#7c3aed;font-weight:700">M</text>
+  <!-- Labels -->
+  <text x="180" y="130" text-anchor="middle" class="sd-label">Left half: equilibrium gives</text>
+  <text x="180" y="144" text-anchor="middle" class="sd-label-accent">ΣFy=0 → V = R_A − (load on left)</text>
+  <text x="180" y="158" text-anchor="middle" class="sd-label-accent">ΣM_cut=0 → M = R_A·x − ...</text>
+</svg>
+</figure>
 
 Apply $\Sigma F_y = 0$ to the left half: $V = R_A - (\text{load on left half})$.
 Apply $\Sigma M_{cut} = 0$: $M = R_A \cdot x - (\text{moment of load on left half about cut})$.

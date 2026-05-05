@@ -20,21 +20,76 @@ The **cross-section** is the shape you see when you slice a member perpendicular
 
 Most structural sections are built from rectangles. Subtract holes from the outer rectangle to find the net area that carries load. The rule is simple: every rectangle you add, add its area; every rectangle you remove (hole or void), subtract it.
 
-```
-I-SECTION                  BOX SECTION
-  ← b_f →                  ← B →
- ┌────────┐ ↑              ┌──────┐  ↑
- │ flange │ t_f             │┌────┐│  t
- └──┬──┬──┘ ↓              ││hole││  H
-    │  │ ↑                 │└────┘│
-    │web│ h_w               └──────┘  ↓
-    │  │ ↓
- ┌──┴──┴──┐ ↑
- │ flange │ t_f
- └────────┘ ↓
+<figure class="structural-diagram" aria-label="I-section and box section cross-section shapes">
+<svg viewBox="0 0 620 240" xmlns="http://www.w3.org/2000/svg">
+  <!-- ========== I-SECTION (left) ========== -->
+  <text x="170" y="22" text-anchor="middle" class="sd-title">I-SECTION</text>
 
-A = 2(b_f × t_f) + (h_w × t_w)   A = B×H − (B−2t)×(H−2t)
-```
+  <!-- Top flange -->
+  <rect x="70" y="32" width="200" height="28" class="sd-section"/>
+  <!-- Web -->
+  <rect x="152" y="60" width="36" height="120" class="sd-section-web"/>
+  <!-- Bottom flange -->
+  <rect x="70" y="180" width="200" height="28" class="sd-section"/>
+
+  <!-- Width dimension (top) -->
+  <line x1="70" y1="16" x2="270" y2="16" class="sd-dim"/>
+  <polygon points="70,16 80,12 80,20" fill="#64748b"/>
+  <polygon points="270,16 260,12 260,20" fill="#64748b"/>
+  <text x="170" y="12" text-anchor="middle" class="sd-label">b_f</text>
+
+  <!-- Height dimension (right) -->
+  <line x1="282" y1="32" x2="282" y2="208" class="sd-dim"/>
+  <polygon points="282,32 278,42 286,42" fill="#64748b"/>
+  <polygon points="282,208 278,198 286,198" fill="#64748b"/>
+  <text x="295" y="124" text-anchor="middle" class="sd-label">h</text>
+
+  <!-- flange thickness labels -->
+  <line x1="285" y1="32" x2="285" y2="60" class="sd-dim"/>
+  <text x="305" y="50" class="sd-label">t_f</text>
+  <line x1="285" y1="180" x2="285" y2="208" class="sd-dim"/>
+  <text x="305" y="200" class="sd-label">t_f</text>
+
+  <!-- web width label -->
+  <line x1="152" y1="225" x2="188" y2="225" class="sd-dim"/>
+  <polygon points="152,225 162,221 162,229" fill="#64748b"/>
+  <polygon points="188,225 178,221 178,229" fill="#64748b"/>
+  <text x="170" y="238" text-anchor="middle" class="sd-label">t_w</text>
+
+  <!-- formula -->
+  <text x="170" y="215" text-anchor="middle" class="sd-label-accent">A = 2(b_f × t_f) + (h_w × t_w)</text>
+
+  <!-- ========== BOX SECTION (right) ========== -->
+  <text x="480" y="22" text-anchor="middle" class="sd-title">BOX SECTION</text>
+
+  <!-- Outer rectangle -->
+  <rect x="380" y="32" width="200" height="176" class="sd-section"/>
+  <!-- Hollow inner (hole — subtract) -->
+  <rect x="408" y="60" width="144" height="120" fill="var(--panel)" stroke="#2563eb" stroke-width="1.5" stroke-dasharray="5 3"/>
+
+  <!-- Width dimension -->
+  <line x1="380" y1="16" x2="580" y2="16" class="sd-dim"/>
+  <polygon points="380,16 390,12 390,20" fill="#64748b"/>
+  <polygon points="580,16 570,12 570,20" fill="#64748b"/>
+  <text x="480" y="12" text-anchor="middle" class="sd-label">B</text>
+
+  <!-- Height dimension -->
+  <line x1="592" y1="32" x2="592" y2="208" class="sd-dim"/>
+  <polygon points="592,32 588,42 596,42" fill="#64748b"/>
+  <polygon points="592,208 588,198 596,198" fill="#64748b"/>
+  <text x="605" y="124" text-anchor="middle" class="sd-label">H</text>
+
+  <!-- wall thickness label -->
+  <line x1="380" y1="112" x2="408" y2="112" class="sd-dim"/>
+  <text x="394" y="108" text-anchor="middle" class="sd-label">t</text>
+
+  <!-- "hole" label -->
+  <text x="480" y="118" text-anchor="middle" class="sd-label" style="fill:#64748b">hole (subtract)</text>
+
+  <!-- formula -->
+  <text x="480" y="226" text-anchor="middle" class="sd-label-accent">A = B×H − (B−2t)×(H−2t)</text>
+</svg>
+</figure>
 
 ### D. Failure Case
 

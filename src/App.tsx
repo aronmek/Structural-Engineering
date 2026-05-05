@@ -1,7 +1,8 @@
 import { useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
 import { marked } from 'marked';
+import katex from 'katex';
 import renderMathInElement from 'katex/contrib/auto-render';
-import { BookOpen, Menu, Moon, Printer, Search, Sun } from 'lucide-react';
+import { Menu, Moon, Printer, Search, Sun } from 'lucide-react';
 import { bookFiles, buildChapterIndex, slugify, stripMarkdown, type Chapter } from './content';
 import { ChapterExam } from './ChapterExam';
 import { GeometryVisuals } from './GeometryVisuals';
@@ -113,6 +114,7 @@ export function App() {
   const contentRef = useRef<HTMLDivElement>(null);
   const mainRef = useRef<HTMLElement>(null);
   const tooltipHideTimerRef = useRef<number | undefined>(undefined);
+  const tooltipCooldownRef = useRef(false);
   const [mathTooltip, setMathTooltip] = useState<MathTooltipState | null>(null);
   const shabbos = useShabbosMode();
 
@@ -131,9 +133,16 @@ export function App() {
     }
   }
 
+  function closeMathTooltip() {
+    cancelMathTooltipHide();
+    tooltipCooldownRef.current = true;
+    setMathTooltip(null);
+    window.setTimeout(() => { tooltipCooldownRef.current = false; }, 250);
+  }
+
   function scheduleMathTooltipHide() {
     cancelMathTooltipHide();
-    tooltipHideTimerRef.current = window.setTimeout(() => setMathTooltip(null), 180);
+    tooltipHideTimerRef.current = window.setTimeout(closeMathTooltip, 200);
   }
 
   function showMathTooltip(entries: MathGlossaryEntry[], anchor: HTMLElement) {
@@ -168,9 +177,15 @@ export function App() {
       element.dataset.mathTooltip = 'true';
       element.dataset.tooltipName = entries[0].name;
       element.tabIndex = 0;
-      element.addEventListener('mouseenter', () => showMathTooltip(entries, element), { signal: controller.signal });
+      element.addEventListener('mouseenter', () => {
+        if (tooltipCooldownRef.current) return;
+        showMathTooltip(entries, element);
+      }, { signal: controller.signal });
       element.addEventListener('mouseleave', scheduleMathTooltipHide, { signal: controller.signal });
-      element.addEventListener('focus', () => showMathTooltip(entries, element), { signal: controller.signal });
+      element.addEventListener('focus', () => {
+        if (tooltipCooldownRef.current) return;
+        showMathTooltip(entries, element);
+      }, { signal: controller.signal });
       element.addEventListener('blur', scheduleMathTooltipHide, { signal: controller.signal });
     }
 
@@ -182,6 +197,25 @@ export function App() {
       setMathTooltip(null);
     };
   }, [chapters, current.slug, sections]);
+
+  // Close tooltip on Escape or outside click
+  useEffect(() => {
+    function onKeyDown(e: KeyboardEvent) {
+      if (e.key === 'Escape') closeMathTooltip();
+    }
+    function onPointerDown(e: PointerEvent) {
+      const target = e.target as Element | null;
+      if (!target) return;
+      if (target.closest('.math-tooltip') || target.closest('.katex[data-math-tooltip]')) return;
+      closeMathTooltip();
+    }
+    document.addEventListener('keydown', onKeyDown);
+    document.addEventListener('pointerdown', onPointerDown);
+    return () => {
+      document.removeEventListener('keydown', onKeyDown);
+      document.removeEventListener('pointerdown', onPointerDown);
+    };
+  });
 
   const groups = useMemo(() => groupedChapters(chapters), [chapters]);
   const searchResults = useMemo(() => {
@@ -202,7 +236,11 @@ export function App() {
     <div className="app-shell">
       <aside className={menuOpen ? 'sidebar open' : 'sidebar'}>
         <div className="brand">
-          <BookOpen size={22} />
+          <svg className="brand-logo" viewBox="0 0 36 36" width="32" height="32" aria-hidden="true">
+            <rect x="4" y="4" width="28" height="5" rx="1.5" fill="#60a5fa"/>
+            <rect x="15.5" y="9" width="5" height="18" rx="1" fill="#60a5fa"/>
+            <rect x="4" y="27" width="28" height="5" rx="1.5" fill="#60a5fa"/>
+          </svg>
           <div>
             <strong>Structural Engineering & ETABS</strong>
             <span>Self-study React SPA</span>
@@ -276,7 +314,12 @@ export function App() {
         >
           {mathTooltip.entries.map(entry => (
             <div className="math-tooltip-entry" key={entry.name}>
-              <span className="math-tooltip-symbol">{entry.symbol}</span>
+              <span
+                className="math-tooltip-symbol"
+                dangerouslySetInnerHTML={{
+                  __html: katex.renderToString(entry.symbolLatex, { throwOnError: false, displayMode: false }),
+                }}
+              />
               <small>{entry.pronounce}</small>
               <strong>{entry.name}</strong>
               <p>{entry.desc}</p>

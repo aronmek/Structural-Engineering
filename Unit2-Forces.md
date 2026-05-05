@@ -1,4 +1,4 @@
-# Unit 2 — Forces and How They Travel
+﻿# Unit 2 — Forces and How They Travel
 
 > A building stands still. This unit explains why — and what the engineer must calculate to confirm it. You will name every kind of force that acts on a structure, trace how those forces travel from slab to soil, isolate any part of the structure on a diagram, and write the equations that prove the structure is in balance.
 
@@ -75,19 +75,43 @@ $$w\ [\mathrm{kN/m}] = q\ [\mathrm{kPa}] \times b_{\mathrm{trib}}\ [\mathrm{m}]$
 
 **Load path** describes how forces travel from point of origin to foundation:
 
-```
-    People, furniture (Live Load)
-              ↓
-           SLAB (picks up area loads, distributes to beams)
-              ↓
-          BEAMS (collect line loads, transfer to columns)
-              ↓
-         COLUMNS (axial compression, pass load to foundations)
-              ↓
-        FOUNDATIONS (spread load to soil)
-              ↓
-            SOIL (final destination)
-```
+<figure class="structural-diagram" aria-label="Load path from people to soil">
+<svg viewBox="0 0 580 340" xmlns="http://www.w3.org/2000/svg">
+  <!-- People / Live Load -->
+  <rect x="160" y="12" width="260" height="36" rx="6" class="sd-support"/>
+  <text x="290" y="35" text-anchor="middle" class="sd-label-bold">People &amp; Furniture — Live Load (kPa)</text>
+  <!-- Arrow -->
+  <line x1="290" y1="48" x2="290" y2="68" class="sd-force-down" stroke-width="2.5"/>
+  <polygon points="290,76 285,66 295,66" class="sd-arrow-down"/>
+  <!-- SLAB -->
+  <rect x="120" y="76" width="340" height="36" rx="6" class="sd-beam-fill"/>
+  <text x="290" y="99" text-anchor="middle" class="sd-label-bold">SLAB — collects area load, distributes to beams</text>
+  <!-- Arrow -->
+  <line x1="290" y1="112" x2="290" y2="132" class="sd-force-down" stroke-width="2.5"/>
+  <polygon points="290,140 285,130 295,130" class="sd-arrow-down"/>
+  <!-- BEAMS -->
+  <rect x="140" y="140" width="300" height="36" rx="6" class="sd-beam-fill"/>
+  <text x="290" y="163" text-anchor="middle" class="sd-label-bold">BEAMS — collect line load, transfer to columns</text>
+  <!-- Arrow -->
+  <line x1="290" y1="176" x2="290" y2="196" class="sd-force-down" stroke-width="2.5"/>
+  <polygon points="290,204 285,194 295,194" class="sd-arrow-down"/>
+  <!-- COLUMNS -->
+  <rect x="160" y="204" width="260" height="36" rx="6" class="sd-beam-fill"/>
+  <text x="290" y="227" text-anchor="middle" class="sd-label-bold">COLUMNS — axial compression to foundations</text>
+  <!-- Arrow -->
+  <line x1="290" y1="240" x2="290" y2="260" class="sd-force-down" stroke-width="2.5"/>
+  <polygon points="290,268 285,258 295,258" class="sd-arrow-down"/>
+  <!-- FOUNDATIONS -->
+  <rect x="170" y="268" width="240" height="36" rx="6" class="sd-beam-fill"/>
+  <text x="290" y="291" text-anchor="middle" class="sd-label-bold">FOUNDATIONS — spread load to soil</text>
+  <!-- Arrow -->
+  <line x1="290" y1="304" x2="290" y2="318" class="sd-force-down" stroke-width="2.5"/>
+  <polygon points="290,326 285,316 295,316" class="sd-arrow-down"/>
+  <!-- SOIL -->
+  <rect x="200" y="326" width="180" height="8" rx="3" fill="#92400e" opacity="0.6"/>
+  <text x="290" y="322" text-anchor="middle" class="sd-label" style="fill:#92400e;font-weight:700">SOIL</text>
+</svg>
+</figure>
 
 Every layer converts the load from the unit of the layer above to a more concentrated form below.
 
@@ -176,14 +200,38 @@ A floor has five parallel beams, evenly spaced at 3 m centres, spanning 8 m. Eac
 
 Picture a field with rain falling uniformly. Each ditch collects the rainwater from the strip of ground between it and its neighboring ditches. The water flows to whichever ditch is closest. A structural beam works the same way: the floor load flows to the nearest beam. The strip from which a beam collects load is called its **tributary width**.
 
-```
-      Beam 1      Beam 2       Beam 3       Beam 4
-        |            |            |            |
-        |<--1.5 m--->|<--1.5 m--->|<--1.5 m--->|
-              ^            ^            ^
-         b_trib=3m    b_trib=3m    b_trib=3m
-         (Beam 2)    (Beam 3)     (Beam 4)
-```
+<figure class="structural-diagram" aria-label="Tributary width: four beams each collecting load from adjacent half-spans">
+<svg viewBox="0 0 560 140" xmlns="http://www.w3.org/2000/svg">
+  <!-- Floor surface -->
+  <rect x="40" y="30" width="480" height="8" fill="#e2e8f0" stroke="var(--border)" stroke-width="1.5" rx="2"/>
+  <!-- Beam lines vertical -->
+  <line x1="80"  y1="38" x2="80"  y2="100" stroke="#2563eb" stroke-width="3"/>
+  <line x1="200" y1="38" x2="200" y2="100" stroke="#2563eb" stroke-width="3"/>
+  <line x1="320" y1="38" x2="320" y2="100" stroke="#2563eb" stroke-width="3"/>
+  <line x1="440" y1="38" x2="440" y2="100" stroke="#2563eb" stroke-width="3"/>
+  <!-- Beam labels -->
+  <text x="80"  y="118" text-anchor="middle" class="sd-label-bold">Beam 1</text>
+  <text x="200" y="118" text-anchor="middle" class="sd-label-bold">Beam 2</text>
+  <text x="320" y="118" text-anchor="middle" class="sd-label-bold">Beam 3</text>
+  <text x="440" y="118" text-anchor="middle" class="sd-label-bold">Beam 4</text>
+  <!-- Span labels between beams -->
+  <text x="140" y="22" text-anchor="middle" class="sd-label" style="fill:#64748b">← 1.5 m →</text>
+  <text x="260" y="22" text-anchor="middle" class="sd-label" style="fill:#64748b">← 1.5 m →</text>
+  <text x="380" y="22" text-anchor="middle" class="sd-label" style="fill:#64748b">← 1.5 m →</text>
+  <!-- Tributary area shading for Beam 2 -->
+  <rect x="140" y="30" width="120" height="8" fill="#bfdbfe" opacity="0.7"/>
+  <!-- Tributary width annotation for Beam 2 -->
+  <line x1="140" y1="106" x2="260" y2="106" stroke="#dc2626" stroke-width="1.5"/>
+  <line x1="140" y1="102" x2="140" y2="110" stroke="#dc2626" stroke-width="1.5"/>
+  <line x1="260" y1="102" x2="260" y2="110" stroke="#dc2626" stroke-width="1.5"/>
+  <text x="200" y="132" text-anchor="middle" class="sd-label-red">b_trib = 3 m (Beam 2)</text>
+  <!-- Midspan arrows showing load collection direction -->
+  <line x1="140" y1="60" x2="200" y2="60" class="sd-force-h" stroke-width="1.5"/>
+  <polygon points="202,60 192,56 192,64" class="sd-arrow-h"/>
+  <line x1="260" y1="60" x2="200" y2="60" stroke="#2563eb" stroke-width="1.5" fill="none"/>
+  <polygon points="198,60 208,56 208,64" fill="#2563eb"/>
+</svg>
+</figure>
 
 Interior beams (2, 3, 4) each own 1.5 m of slab on each side = 3 m total. The edge beams (1 and 5 in a real 5-beam layout) own only 1.5 m on one side = 1.5 m.
 
@@ -311,14 +359,24 @@ Draw the FBD like this:
 3. Show every support as an upward arrow with an unknown label ($R_A$, $R_B$)
 4. Write the dimensions: span, load positions
 
-```
-           w = 34.0 kN/m (uniform load, downward)
-           ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓
-    ────────────────────────────────
-    ^                              ^
-   R_A                            R_B
-    |<──────────── L = 6 m ──────>|
-```
+<figure class="structural-diagram" aria-label="FBD: simply-supported beam with uniform load w=34 kN/m over L=6m">
+<svg viewBox="0 0 520 120" xmlns="http://www.w3.org/2000/svg">
+  <text x="260" y="14" text-anchor="middle" class="sd-label-red">w = 34.0 kN/m</text>
+  <line x1="100" y1="20" x2="100" y2="38" class="sd-force-down" stroke-width="2"/><polygon points="100,40 96,31 104,31" class="sd-arrow-down"/>
+  <line x1="180" y1="20" x2="180" y2="38" class="sd-force-down" stroke-width="2"/><polygon points="180,40 176,31 184,31" class="sd-arrow-down"/>
+  <line x1="260" y1="20" x2="260" y2="38" class="sd-force-down" stroke-width="2"/><polygon points="260,40 256,31 264,31" class="sd-arrow-down"/>
+  <line x1="340" y1="20" x2="340" y2="38" class="sd-force-down" stroke-width="2"/><polygon points="340,40 336,31 344,31" class="sd-arrow-down"/>
+  <line x1="420" y1="20" x2="420" y2="38" class="sd-force-down" stroke-width="2"/><polygon points="420,40 416,31 424,31" class="sd-arrow-down"/>
+  <rect x="80" y="40" width="360" height="12" rx="2" class="sd-beam-fill"/>
+  <polygon points="80,52 64,72 96,72" class="sd-support"/>
+  <circle cx="440" cy="64" r="8" class="sd-support"/>
+  <line x1="80" y1="72" x2="80" y2="62" class="sd-force-up" stroke-width="2.5"/><polygon points="80,60 75,70 85,70" class="sd-arrow-up"/>
+  <text x="60" y="88" class="sd-label-green">R_A</text>
+  <line x1="440" y1="72" x2="440" y2="62" class="sd-force-up" stroke-width="2.5"/><polygon points="440,60 435,70 445,70" class="sd-arrow-up"/>
+  <text x="428" y="88" class="sd-label-green">R_B</text>
+  <text x="260" y="104" text-anchor="middle" class="sd-label" style="fill:#64748b">L = 6 m</text>
+</svg>
+</figure>
 
 **The rearrangement idea.** A structural formula is a balance — both sides always equal each other, like a perfectly level scale. To find an unknown, you do the same operation to both sides until the unknown stands alone.
 
@@ -367,14 +425,24 @@ $$M = \frac{wL^2}{8} \quad\xrightarrow{\times 8}\quad 8M = wL^2 \quad\xrightarro
 **Problem.** The beam from Chapter 6 (G): $w_u = 73.2\ \mathrm{kN/m}$, $L = 8\ \mathrm{m}$, simply supported (symmetric). 
 
 **Part 1 — Draw the FBD:**
-```
-      w_u = 73.2 kN/m
-      ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓
-  ─────────────────────────────
-  ^                           ^
-  R_A                        R_B
-  |<─────── L = 8 m ────────>|
-```
+<figure class="structural-diagram" aria-label="FBD: beam with UDL w=73.2 kN/m over L=8m, simply supported">
+<svg viewBox="0 0 520 120" xmlns="http://www.w3.org/2000/svg">
+  <text x="260" y="14" text-anchor="middle" class="sd-label-red">w_u = 73.2 kN/m</text>
+  <line x1="90" y1="20" x2="90" y2="38" class="sd-force-down" stroke-width="2"/><polygon points="90,40 86,31 94,31" class="sd-arrow-down"/>
+  <line x1="170" y1="20" x2="170" y2="38" class="sd-force-down" stroke-width="2"/><polygon points="170,40 166,31 174,31" class="sd-arrow-down"/>
+  <line x1="250" y1="20" x2="250" y2="38" class="sd-force-down" stroke-width="2"/><polygon points="250,40 246,31 254,31" class="sd-arrow-down"/>
+  <line x1="330" y1="20" x2="330" y2="38" class="sd-force-down" stroke-width="2"/><polygon points="330,40 326,31 334,31" class="sd-arrow-down"/>
+  <line x1="410" y1="20" x2="410" y2="38" class="sd-force-down" stroke-width="2"/><polygon points="410,40 406,31 414,31" class="sd-arrow-down"/>
+  <rect x="70" y="40" width="390" height="12" rx="2" class="sd-beam-fill"/>
+  <polygon points="70,52 54,72 86,72" class="sd-support"/>
+  <circle cx="460" cy="64" r="8" class="sd-support"/>
+  <line x1="70" y1="72" x2="70" y2="62" class="sd-force-up" stroke-width="2.5"/><polygon points="70,60 65,70 75,70" class="sd-arrow-up"/>
+  <text x="52" y="88" class="sd-label-green">R_A</text>
+  <line x1="460" y1="72" x2="460" y2="62" class="sd-force-up" stroke-width="2.5"/><polygon points="460,60 455,70 465,70" class="sd-arrow-up"/>
+  <text x="448" y="88" class="sd-label-green">R_B</text>
+  <text x="265" y="104" text-anchor="middle" class="sd-label" style="fill:#64748b">L = 8 m</text>
+</svg>
+</figure>
 
 **Part 2 — Find the reactions:**
 
@@ -488,15 +556,34 @@ This gives one equation in two unknowns. The second equation comes from either s
 Draw the FBD, write vertical equilibrium, solve for $R_A$ and $R_B$.
 
 **FBD:**
-```
-   P = 40 kN
-       |           w_u = 25 kN/m
-       v    ↓ ↓ ↓ ↓ v ↓ ↓ ↓ ↓ ↓
-   ────────────────────────────────
-   ^                              ^
-  R_A                            R_B
-   |<──────────── 10 m ─────────>|
-```
+<figure class="structural-diagram" aria-label="FBD: beam with point load P=40kN and UDL w=25 kN/m over 10m">
+<svg viewBox="0 0 560 130" xmlns="http://www.w3.org/2000/svg">
+  <!-- Point load P -->
+  <line x1="150" y1="16" x2="150" y2="44" class="sd-force-down" stroke-width="3"/>
+  <polygon points="150,46 145,37 155,37" class="sd-arrow-down"/>
+  <text x="158" y="22" class="sd-label-red">P = 40 kN</text>
+  <!-- UDL arrows -->
+  <text x="360" y="14" text-anchor="middle" class="sd-label-red">w_u = 25 kN/m</text>
+  <line x1="220" y1="20" x2="220" y2="44" class="sd-force-down" stroke-width="2"/><polygon points="220,46 216,37 224,37" class="sd-arrow-down"/>
+  <line x1="270" y1="20" x2="270" y2="44" class="sd-force-down" stroke-width="2"/><polygon points="270,46 266,37 274,37" class="sd-arrow-down"/>
+  <line x1="320" y1="20" x2="320" y2="44" class="sd-force-down" stroke-width="2"/><polygon points="320,46 316,37 324,37" class="sd-arrow-down"/>
+  <line x1="370" y1="20" x2="370" y2="44" class="sd-force-down" stroke-width="2"/><polygon points="370,46 366,37 374,37" class="sd-arrow-down"/>
+  <line x1="420" y1="20" x2="420" y2="44" class="sd-force-down" stroke-width="2"/><polygon points="420,46 416,37 424,37" class="sd-arrow-down"/>
+  <line x1="470" y1="20" x2="470" y2="44" class="sd-force-down" stroke-width="2"/><polygon points="470,46 466,37 474,37" class="sd-arrow-down"/>
+  <!-- Beam -->
+  <rect x="80" y="46" width="420" height="12" rx="2" class="sd-beam-fill"/>
+  <!-- Pin A -->
+  <polygon points="80,58 64,78 96,78" class="sd-support"/>
+  <!-- Roller B -->
+  <circle cx="500" cy="70" r="8" class="sd-support"/>
+  <!-- Reactions -->
+  <line x1="80" y1="78" x2="80" y2="68" class="sd-force-up" stroke-width="2.5"/><polygon points="80,66 75,76 85,76" class="sd-arrow-up"/>
+  <text x="60" y="94" class="sd-label-green">R_A</text>
+  <line x1="500" y1="78" x2="500" y2="68" class="sd-force-up" stroke-width="2.5"/><polygon points="500,66 495,76 505,76" class="sd-arrow-up"/>
+  <text x="488" y="94" class="sd-label-green">R_B</text>
+  <text x="290" y="110" text-anchor="middle" class="sd-label" style="fill:#64748b">L = 10 m</text>
+</svg>
+</figure>
 
 **Step 1 — Total downward load:**
 $$W = w_u L + P = 25 \times 10 + 40 = 250 + 40 = 290\ \mathrm{kN}$$

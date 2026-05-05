@@ -39,21 +39,58 @@ In structural engineering, area appears everywhere:
 
 **Composite areas.** Split into simple shapes; add their areas (or subtract for holes).
 
-```
-I-section cross-section:
+<figure class="structural-diagram" aria-label="I-section cross-section showing top flange, web, and bottom flange with dimension labels">
+<svg viewBox="0 0 480 260" xmlns="http://www.w3.org/2000/svg">
+  <!-- Top flange -->
+  <rect x="90" y="30" width="200" height="32" class="sd-section"/>
+  <!-- Web -->
+  <rect x="168" y="62" width="44" height="130" class="sd-section-web"/>
+  <!-- Bottom flange -->
+  <rect x="90" y="192" width="200" height="32" class="sd-section"/>
 
-    ←──── b_f ────→
-   ┌─────────────┐  ↑
-   │   FLANGE    │ t_f
-   └────┬───┬────┘  ↓
-        │ W │       ↑
-        │ E │
-        │ B │      h
-        │   │       
-   ┌────┴───┴────┐  ↓ 
-   │   FLANGE    │ t_f
-   └─────────────┘  ↑
-```
+  <!-- Width dimension (top) -->
+  <line x1="90" y1="16" x2="290" y2="16" class="sd-dim"/>
+  <polygon points="90,16 100,12 100,20" fill="#64748b"/>
+  <polygon points="290,16 280,12 280,20" fill="#64748b"/>
+  <text x="190" y="12" text-anchor="middle" class="sd-label">b_f = 200 mm</text>
+
+  <!-- Total height dimension (right) -->
+  <line x1="305" y1="30" x2="305" y2="224" class="sd-dim"/>
+  <polygon points="305,30 301,40 309,40" fill="#64748b"/>
+  <polygon points="305,224 301,214 309,214" fill="#64748b"/>
+  <text x="325" y="130" class="sd-label">h = 400 mm</text>
+
+  <!-- Flange thickness top -->
+  <line x1="302" y1="30" x2="302" y2="62" class="sd-dim"/>
+  <text x="330" y="50" class="sd-label">t_f = 20</text>
+
+  <!-- Flange thickness bottom -->
+  <line x1="302" y1="192" x2="302" y2="224" class="sd-dim"/>
+  <text x="330" y="212" class="sd-label">t_f = 20</text>
+
+  <!-- Web width dimension -->
+  <line x1="168" y1="240" x2="212" y2="240" class="sd-dim"/>
+  <polygon points="168,240 178,236 178,244" fill="#64748b"/>
+  <polygon points="212,240 202,236 202,244" fill="#64748b"/>
+  <text x="190" y="255" text-anchor="middle" class="sd-label">t_w = 10</text>
+
+  <!-- Web height -->
+  <line x1="75" y1="62" x2="75" y2="192" class="sd-dim"/>
+  <polygon points="75,62 71,72 79,72" fill="#64748b"/>
+  <polygon points="75,192 71,182 79,182" fill="#64748b"/>
+  <text x="50" y="130" class="sd-label">h_w = 360</text>
+
+  <!-- Labels inside shapes -->
+  <text x="190" y="51" text-anchor="middle" class="sd-label-bold">FLANGE</text>
+  <text x="190" y="212" text-anchor="middle" class="sd-label-bold">FLANGE</text>
+  <text x="190" y="124" text-anchor="middle" class="sd-label-bold">WEB</text>
+
+  <!-- Formula -->
+  <text x="240" y="100" class="sd-label-accent">A = 2(b_f × t_f) + h_w × t_w</text>
+  <text x="240" y="115" class="sd-label-accent">A = 2(200×20) + 360×10</text>
+  <text x="240" y="130" class="sd-label-accent">A = 11,600 mm²</text>
+</svg>
+</figure>
 
 **Worked example.** I-section with $b_f = 200, t_f = 20, h_w = 360, t_w = 10$ (all mm). Total height = $h_w + 2 t_f = 400$.
 
@@ -170,19 +207,52 @@ Where:
 
 **Worked example.** A T-section: top flange $300 \times 100$ mm, web $100 \times 400$ mm. Find the centroid measured from the bottom.
 
-```
-        ←── 300 ──→
-       ┌──────────┐  ↑
-       │  FLANGE  │ 100
-       └──┬────┬──┘  ↓
-          │    │     ↑
-          │WEB │
-          │    │    400
-          │    │
-          │    │     ↓
-          └────┘
-          ←100→
-```
+<figure class="structural-diagram" aria-label="T-section with flange 300x100 and web 100x400, used for centroid calculation">
+<svg viewBox="0 0 460 260" xmlns="http://www.w3.org/2000/svg">
+  <!-- Web -->
+  <rect x="170" y="100" width="100" height="140" class="sd-section-web"/>
+  <!-- Flange -->
+  <rect x="90" y="60" width="260" height="40" class="sd-section"/>
+
+  <!-- Flange width -->
+  <line x1="90" y1="46" x2="350" y2="46" class="sd-dim"/>
+  <polygon points="90,46 100,42 100,50" fill="#64748b"/>
+  <polygon points="350,46 340,42 340,50" fill="#64748b"/>
+  <text x="220" y="42" text-anchor="middle" class="sd-label">b_f = 300 mm</text>
+
+  <!-- Flange thickness -->
+  <line x1="358" y1="60" x2="358" y2="100" class="sd-dim"/>
+  <polygon points="358,60 354,70 362,70" fill="#64748b"/>
+  <polygon points="358,100 354,90 362,90" fill="#64748b"/>
+  <text x="376" y="84" class="sd-label">t_f = 100</text>
+
+  <!-- Web width -->
+  <line x1="170" y1="246" x2="270" y2="246" class="sd-dim"/>
+  <polygon points="170,246 180,242 180,250" fill="#64748b"/>
+  <polygon points="270,246 260,242 260,250" fill="#64748b"/>
+  <text x="220" y="258" text-anchor="middle" class="sd-label">t_w = 100</text>
+
+  <!-- Total height -->
+  <line x1="60" y1="60" x2="60" y2="240" class="sd-dim"/>
+  <polygon points="60,60 56,70 64,70" fill="#64748b"/>
+  <polygon points="60,240 56,230 64,230" fill="#64748b"/>
+  <text x="38" y="154" text-anchor="middle" class="sd-label">h = 500</text>
+
+  <!-- Web height -->
+  <line x1="82" y1="100" x2="82" y2="240" class="sd-dim"/>
+  <polygon points="82,100 78,110 86,110" fill="#64748b"/>
+  <polygon points="82,240 78,230 86,230" fill="#64748b"/>
+  <text x="60" y="174" text-anchor="middle" class="sd-label">h_w = 400</text>
+
+  <!-- Labels -->
+  <text x="220" y="86" text-anchor="middle" class="sd-label-bold">FLANGE</text>
+  <text x="220" y="175" text-anchor="middle" class="sd-label-bold">WEB</text>
+
+  <!-- Centroid marker (computed) -->
+  <line x1="90" y1="167" x2="350" y2="167" stroke="#f59e0b" stroke-width="2" stroke-dasharray="8 5"/>
+  <text x="356" y="162" class="sd-label" style="fill:#f59e0b;font-weight:700">ȳ (centroid)</text>
+</svg>
+</figure>
 
 | Part | Area $A_i$ (mm²) | $y_i$ from bottom (mm) | $A_i \cdot y_i$ |
 |------|------------------|------------------------|-----------------|
@@ -464,13 +534,26 @@ $$R_x = A_x + B_x \qquad R_y = A_y + B_y$$
 $R_x = 12 + (-3) = 9\ \mathrm{kN}$
 $R_y = 5 + 7 = 12\ \mathrm{kN}$
 
-```
-            Ry = 12 kN
-              ↑
-              │
-              │
-              └────────→ Rx = 9 kN
-```
+<figure class="structural-diagram" aria-label="Vector components: Rx = 9 kN horizontal, Ry = 12 kN vertical">
+<svg viewBox="0 0 320 180" xmlns="http://www.w3.org/2000/svg">
+  <!-- Origin -->
+  <circle cx="80" cy="130" r="5" fill="#2563eb"/>
+  <!-- Rx arrow -->
+  <line x1="80" y1="130" x2="220" y2="130" class="sd-force-h" stroke-width="3"/>
+  <polygon points="222,130 212,125 212,135" class="sd-arrow-h"/>
+  <text x="148" y="148" text-anchor="middle" class="sd-label-accent">R_x = 9 kN</text>
+  <!-- Ry arrow -->
+  <line x1="80" y1="130" x2="80" y2="40" class="sd-force-up" stroke-width="3"/>
+  <polygon points="80,38 75,48 85,48" class="sd-arrow-up"/>
+  <text x="50" y="88" class="sd-label-green">R_y = 12 kN</text>
+  <!-- Resultant -->
+  <line x1="80" y1="130" x2="220" y2="40" stroke="#dc2626" stroke-width="2.5" stroke-dasharray="6 3"/>
+  <polygon points="220,40 211,48 221,52" fill="#dc2626"/>
+  <text x="165" y="80" class="sd-label-red" transform="rotate(-38,165,80)">R = √(9²+12²) = 15 kN</text>
+  <!-- Right angle box -->
+  <rect x="80" y="112" width="18" height="18" fill="none" stroke="#64748b" stroke-width="1.5"/>
+</svg>
+</figure>
 
 
 **Full Worked Examples**
@@ -565,17 +648,37 @@ Inclined loads, sloping members, and lateral bracing all involve triangles. To a
 **Formulas and Derivations**
 
 
-```
-            *
-           /│
-          / │
-         /  │ Opposite
-        /   │
-       / θ  │
-      *─────*
-      Adjacent
-       Hypotenuse = side from θ to opposite-end vertex (the longest side)
-```
+<figure class="structural-diagram" aria-label="Right triangle labeling: hypotenuse, opposite, adjacent and angle theta">
+<svg viewBox="0 0 440 200" xmlns="http://www.w3.org/2000/svg">
+  <!-- Triangle vertices: bottom-left, bottom-right, top-right -->
+  <!-- Bottom-left at (80,160), bottom-right at (320,160), top-right at (320,50) -->
+  <!-- Hypotenuse (red) -->
+  <line x1="80" y1="160" x2="320" y2="50" stroke="#dc2626" stroke-width="3"/>
+  <!-- Adjacent (blue, horizontal) -->
+  <line x1="80" y1="160" x2="320" y2="160" class="sd-force-h" stroke-width="3"/>
+  <!-- Opposite (green, vertical) -->
+  <line x1="320" y1="160" x2="320" y2="50" class="sd-force-up" stroke-width="3"/>
+  <!-- Right angle at bottom-right -->
+  <rect x="302" y="142" width="18" height="18" fill="none" stroke="#64748b" stroke-width="1.5"/>
+  <!-- Angle arc at bottom-left (θ) -->
+  <path d="M 140 160 A 60 60 0 0 1 118 124" fill="none" stroke="#f59e0b" stroke-width="2.5"/>
+  <text x="148" y="148" class="sd-label" style="fill:#f59e0b;font-weight:700">θ</text>
+  <!-- Labels -->
+  <text x="185" y="95" text-anchor="middle" class="sd-label-red" transform="rotate(-25,185,95)">Hypotenuse</text>
+  <text x="200" y="178" text-anchor="middle" class="sd-label-accent">Adjacent</text>
+  <text x="340" y="110" class="sd-label-green">Opposite</text>
+  <!-- Vertex dots -->
+  <circle cx="80" cy="160" r="5" fill="#2563eb"/>
+  <circle cx="320" cy="160" r="5" fill="#2563eb"/>
+  <circle cx="320" cy="50" r="5" fill="#2563eb"/>
+  <!-- SOH CAH TOA reminder -->
+  <rect x="360" y="60" width="72" height="80" rx="5" fill="var(--panel-soft)" stroke="var(--border)" stroke-width="1.5"/>
+  <text x="396" y="82" text-anchor="middle" class="sd-label-bold">SOH</text>
+  <text x="396" y="98" text-anchor="middle" class="sd-label">sin = opp/hyp</text>
+  <text x="396" y="114" text-anchor="middle" class="sd-label-bold">CAH</text>
+  <text x="396" y="130" text-anchor="middle" class="sd-label">cos = adj/hyp</text>
+</svg>
+</figure>
 
 | Function | Definition | Mnemonic |
 |----------|-----------|----------|
@@ -779,16 +882,20 @@ Truss panels often form scalene triangles (no right angles). Computing member le
 **Formulas and Derivations**
 
 
-```
-       C
-      / \
-     /   \
-   b/     \a
-   /       \
-  /  γ      \
- /-α______β-\
-A     c     B
-```
+<figure class="structural-diagram" aria-label="Triangle with sides a, b, c opposite angles alpha, beta, gamma">
+<svg viewBox="0 0 320 180" xmlns="http://www.w3.org/2000/svg">
+  <polygon points="50,155 270,155 160,30" fill="#bfdbfe" fill-opacity="0.3" stroke="#2563eb" stroke-width="2.5"/>
+  <text x="88" y="98" class="sd-label-red" transform="rotate(-50,88,98)">b</text>
+  <text x="225" y="92" class="sd-label-green" transform="rotate(50,225,92)">a</text>
+  <text x="160" y="172" text-anchor="middle" class="sd-label-accent">c</text>
+  <text x="32" y="163" class="sd-label-bold">A (α)</text>
+  <text x="265" y="163" class="sd-label-bold">B (β)</text>
+  <text x="148" y="22" text-anchor="middle" class="sd-label-bold">C (γ)</text>
+  <path d="M 70 155 A 20 20 0 0 1 62 136" fill="none" stroke="#f59e0b" stroke-width="1.5"/>
+  <path d="M 250 155 A 20 20 0 0 0 258 136" fill="none" stroke="#f59e0b" stroke-width="1.5"/>
+  <path d="M 148 44 A 20 20 0 0 1 172 44" fill="none" stroke="#f59e0b" stroke-width="1.5"/>
+</svg>
+</figure>
 
 Sides $a, b, c$ opposite angles $A, B, C$.
 

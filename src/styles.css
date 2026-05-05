@@ -58,6 +58,7 @@ button, input { font: inherit; }
   padding: 18px;
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
+.brand-logo { flex-shrink: 0; }
 .brand strong { display: block; font-size: 15px; line-height: 1.25; }
 .brand span { display: block; color: #b8c4d8; font-size: 12px; margin-top: 2px; }
 
@@ -200,6 +201,40 @@ button, input { font: inherit; }
 .svg-title { font-size: 20px; font-weight: 800; fill: var(--text); }
 .svg-text, .svg-label { font-size: 15px; fill: var(--text); }
 .svg-label { font-weight: 700; }
+
+/* Inline structural diagrams (SVG embedded in markdown) */
+.structural-diagram {
+  margin: 1.5em 0;
+  border-radius: 8px;
+  overflow: hidden;
+  background: var(--panel-soft);
+  border: 1px solid var(--border);
+}
+.structural-diagram svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+.sd-beam { fill: none; stroke: var(--text); stroke-width: 4; stroke-linecap: round; }
+.sd-beam-fill { fill: #bfdbfe; stroke: #2563eb; stroke-width: 2; }
+.sd-force-down { stroke: #dc2626; stroke-width: 3; fill: none; }
+.sd-force-up { stroke: #15803d; stroke-width: 3; fill: none; }
+.sd-force-h { stroke: #2563eb; stroke-width: 3; fill: none; }
+.sd-arrow-down { fill: #dc2626; }
+.sd-arrow-up { fill: #15803d; }
+.sd-arrow-h { fill: #2563eb; }
+.sd-label { font-size: 13px; fill: var(--text); font-family: Inter, ui-sans-serif, sans-serif; }
+.sd-label-bold { font-size: 13px; fill: var(--text); font-weight: 700; font-family: Inter, ui-sans-serif, sans-serif; }
+.sd-label-accent { font-size: 13px; fill: #2563eb; font-weight: 700; font-family: Inter, ui-sans-serif, sans-serif; }
+.sd-label-red { font-size: 13px; fill: #dc2626; font-weight: 700; font-family: Inter, ui-sans-serif, sans-serif; }
+.sd-label-green { font-size: 13px; fill: #15803d; font-weight: 700; font-family: Inter, ui-sans-serif, sans-serif; }
+.sd-title { font-size: 15px; font-weight: 800; fill: var(--text); font-family: Inter, ui-sans-serif, sans-serif; }
+.sd-support { fill: #bfdbfe; stroke: #2563eb; stroke-width: 2; }
+.sd-support-fixed { fill: #e9d5ff; stroke: #7c3aed; stroke-width: 2; }
+.sd-dim { stroke: var(--muted); stroke-width: 1.5; stroke-dasharray: 5 3; fill: none; }
+.sd-section { fill: #bfdbfe; stroke: #2563eb; stroke-width: 2; }
+.sd-section-web { fill: #93c5fd; stroke: #2563eb; stroke-width: 2; }
+.sd-ground { fill: none; stroke: var(--muted); stroke-width: 2; }
 
 .why-stack { margin-top: 18px; }
 .why-panel summary { cursor: pointer; padding: 18px 22px; font-weight: 800; color: var(--accent); }

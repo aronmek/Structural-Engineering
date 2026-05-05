@@ -198,14 +198,35 @@ After this section you can find both support reactions for a simply-supported be
 
 A beam is $6\ \mathrm{m}$ long, supported at its left end (A) and right end (B). A single point load $P = 60\ \mathrm{kN}$ sits $2\ \mathrm{m}$ from A.
 
-```
-                  P = 60 kN
-                      ↓
-        A ────────────┬──────────────── B
-        |<── 2 m ────>|<──── 4 m ──────>|
-        ↑                               ↑
-       R_A                             R_B
-```
+<figure class="structural-diagram" aria-label="Simply-supported beam with point load P at 2m from left support">
+<svg viewBox="0 0 520 130" xmlns="http://www.w3.org/2000/svg">
+  <!-- Load P -->
+  <line x1="200" y1="16" x2="200" y2="50" class="sd-force-down" stroke-width="3"/>
+  <polygon points="200,52 195,42 205,42" class="sd-arrow-down"/>
+  <text x="210" y="30" class="sd-label-red">P = 60 kN</text>
+  <!-- Beam -->
+  <rect x="80" y="52" width="360" height="14" rx="2" class="sd-beam-fill"/>
+  <!-- Pin support A -->
+  <polygon points="80,66 64,86 96,86" class="sd-support"/>
+  <text x="80" y="100" text-anchor="middle" class="sd-label-bold">A</text>
+  <!-- Roller support B -->
+  <circle cx="440" cy="78" r="8" class="sd-support"/>
+  <text x="440" y="100" text-anchor="middle" class="sd-label-bold">B</text>
+  <!-- RA arrow -->
+  <line x1="80" y1="100" x2="80" y2="88" class="sd-force-up" stroke-width="2.5"/>
+  <polygon points="80,86 75,96 85,96" class="sd-arrow-up"/>
+  <text x="60" y="116" class="sd-label-green">R_A</text>
+  <!-- RB arrow -->
+  <line x1="440" y1="100" x2="440" y2="88" class="sd-force-up" stroke-width="2.5"/>
+  <polygon points="440,86 435,96 445,96" class="sd-arrow-up"/>
+  <text x="428" y="116" class="sd-label-green">R_B</text>
+  <!-- Dimension lines -->
+  <line x1="80" y1="72" x2="200" y2="72" stroke="#64748b" stroke-width="1" stroke-dasharray="4 3"/>
+  <line x1="200" y1="72" x2="440" y2="72" stroke="#64748b" stroke-width="1" stroke-dasharray="4 3"/>
+  <text x="140" y="48" text-anchor="middle" class="sd-label" style="fill:#64748b">← 2 m →</text>
+  <text x="320" y="48" text-anchor="middle" class="sd-label" style="fill:#64748b">←── 4 m ──→</text>
+</svg>
+</figure>
 
 Two supports, two unknown upward forces $R_A$ and $R_B$. Vertical balance alone says $R_A + R_B = 60\ \mathrm{kN}$ — but that's one equation with two unknowns. Infinitely many pairs satisfy it: $(30,30)$, $(10,50)$, $(0,60)$, etc. You can't pick one without a second condition.
 

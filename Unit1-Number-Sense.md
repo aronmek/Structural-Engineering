@@ -1,4 +1,4 @@
-# Unit 1 — Engineering Number Sense
+﻿# Unit 1 — Engineering Number Sense
 
 > This unit teaches the number ideas at the moment they become useful. Each chapter introduces a skill through a real engineering problem that requires it. By the end you can read any structural formula, track its units, estimate whether a software result is plausible, and catch factor-of-10 errors before they reach a drawing.
 
@@ -14,12 +14,20 @@ After this section you can check whether a beam's upward support forces balance 
 
 A small beam has one load pushing down and two supports pushing up.
 
-```
-                        10 kN down
-                                    v
-            ^----------------^ 
-      6 kN up          4 kN up
-```
+<figure class="structural-diagram" aria-label="Beam with 10 kN downward load, 6 kN and 4 kN upward reactions">
+<svg viewBox="0 0 360 110" xmlns="http://www.w3.org/2000/svg">
+  <line x1="230" y1="16" x2="230" y2="46" class="sd-force-down" stroke-width="3"/>
+  <polygon points="230,48 225,38 235,38" class="sd-arrow-down"/>
+  <text x="242" y="22" class="sd-label-red">10 kN down</text>
+  <rect x="60" y="48" width="240" height="12" rx="2" class="sd-beam-fill"/>
+  <line x1="90" y1="78" x2="90" y2="68" class="sd-force-up" stroke-width="2.5"/>
+  <polygon points="90,66 85,76 95,76" class="sd-arrow-up"/>
+  <text x="58" y="92" class="sd-label-green">6 kN up</text>
+  <line x1="270" y1="78" x2="270" y2="68" class="sd-force-up" stroke-width="2.5"/>
+  <polygon points="270,66 265,76 275,76" class="sd-arrow-up"/>
+  <text x="258" y="92" class="sd-label-green">4 kN up</text>
+</svg>
+</figure>
 
 The beam is supposed to stand still. So the real question is not "How many force numbers are written down?" The real question is: after the upward pushes and downward pushes fight each other, is anything left over?
 
@@ -34,10 +42,17 @@ If we choose "up" as positive, then the opposite direction, "down," is negative.
 
 The number line is the same idea drawn as a ruler. Positive goes one way. Negative goes the opposite way. Zero is the reference point where nothing is left over.
 
-```
-down / negative                 zero                 up / positive
-<------------------------------- 0 ------------------------------->
-```
+<figure class="structural-diagram" aria-label="Number line: negative (down) on left, zero in centre, positive (up) on right">
+<svg viewBox="0 0 500 60" xmlns="http://www.w3.org/2000/svg">
+  <line x1="30" y1="30" x2="470" y2="30" stroke="var(--muted)" stroke-width="2"/>
+  <polygon points="470,30 460,25 460,35" fill="var(--muted)"/>
+  <polygon points="30,30 40,25 40,35" fill="var(--muted)"/>
+  <circle cx="250" cy="30" r="5" fill="#f59e0b"/>
+  <text x="250" y="20" text-anchor="middle" class="sd-label" style="fill:#f59e0b;font-weight:700">0</text>
+  <text x="80" y="50" text-anchor="middle" class="sd-label-red">down / negative</text>
+  <text x="420" y="50" text-anchor="middle" class="sd-label-green">up / positive</text>
+</svg>
+</figure>
 
 So signed addition is not a list of tricks. It is a bookkeeping method for opposite directions.
 
@@ -79,12 +94,20 @@ So $-10\ \mathrm{kN}$ means "10 kN downward," not "less force than 10 kN."
 
 **Problem.** A simply supported beam carries a downward point load of $18\ \mathrm{kN}$. The left support pushes up with $8\ \mathrm{kN}$, and the right support pushes up with $10\ \mathrm{kN}$. Check whether the beam is vertically balanced.
 
-```
-                                    P = 18 kN down
-                                                      v
-                        ^-------------------^
-       R_A = 8 kN up      R_B = 10 kN up
-```
+<figure class="structural-diagram" aria-label="Beam: P=18kN down, RA=8kN up, RB=10kN up">
+<svg viewBox="0 0 400 110" xmlns="http://www.w3.org/2000/svg">
+  <line x1="260" y1="16" x2="260" y2="46" class="sd-force-down" stroke-width="3"/>
+  <polygon points="260,48 255,38 265,38" class="sd-arrow-down"/>
+  <text x="272" y="22" class="sd-label-red">P = 18 kN down</text>
+  <rect x="60" y="48" width="280" height="12" rx="2" class="sd-beam-fill"/>
+  <line x1="90" y1="80" x2="90" y2="68" class="sd-force-up" stroke-width="2.5"/>
+  <polygon points="90,66 85,76 95,76" class="sd-arrow-up"/>
+  <text x="52" y="95" class="sd-label-green">R_A = 8 kN up</text>
+  <line x1="310" y1="80" x2="310" y2="68" class="sd-force-up" stroke-width="2.5"/>
+  <polygon points="310,66 305,76 315,76" class="sd-arrow-up"/>
+  <text x="270" y="95" class="sd-label-green">R_B = 10 kN up</text>
+</svg>
+</figure>
 
 Choose up as positive:
 

@@ -23,20 +23,47 @@ A force is a <abbr title="[→ Ch5] magnitude + direction + point of application
 **Decomposing into components:**
 Draw the force as the hypotenuse of a right triangle. The horizontal leg and the vertical leg are the components. Three trig ratios define the relationships between the angle and the sides:
 
-```
-Force F at angle θ from horizontal:
+<figure class="structural-diagram" aria-label="Force vector decomposition: F at angle theta gives horizontal Fx and vertical Fy components">
+<svg viewBox="0 0 580 240" xmlns="http://www.w3.org/2000/svg">
+  <!-- Origin point -->
+  <circle cx="80" cy="180" r="5" fill="#2563eb"/>
 
-         F (hypotenuse)
-        ╱
-       ╱  θ
-      ╱────────── F_x = F cos θ  (horizontal)
-      │
-      │ F_y = F sin θ  (vertical)
-      
-SOH: sin θ = opposite / hypotenuse
-CAH: cos θ = adjacent / hypotenuse
-TOA: tan θ = opposite / adjacent
-```
+  <!-- Hypotenuse = F (red) -->
+  <line x1="80" y1="180" x2="340" y2="50" stroke="#dc2626" stroke-width="3.5"/>
+  <polygon points="340,50 328,56 334,68" fill="#dc2626"/>
+  <text x="188" y="96" text-anchor="middle" class="sd-label-red" transform="rotate(-27,188,96)">F (hypotenuse)</text>
+
+  <!-- Horizontal component = Fx (blue) -->
+  <line x1="80" y1="180" x2="340" y2="180" class="sd-force-h" stroke-width="3"/>
+  <polygon points="340,180 330,175 330,185" class="sd-arrow-h"/>
+  <text x="210" y="198" text-anchor="middle" class="sd-label-accent">F_x = F cos θ  (horizontal)</text>
+
+  <!-- Vertical component = Fy (green) -->
+  <line x1="340" y1="180" x2="340" y2="50" class="sd-force-up" stroke-width="3"/>
+  <polygon points="340,50 335,60 345,60" class="sd-arrow-up"/>
+  <text x="400" y="120" class="sd-label-green">F_y = F sin θ</text>
+  <text x="400" y="135" class="sd-label-green">(vertical)</text>
+
+  <!-- Right angle box -->
+  <rect x="322" y="162" width="18" height="18" fill="none" stroke="#64748b" stroke-width="1.5"/>
+
+  <!-- Theta arc -->
+  <path d="M 140 180 A 60 60 0 0 1 116 148" fill="none" stroke="#f59e0b" stroke-width="2.5"/>
+  <text x="148" y="163" class="sd-label" style="fill:#f59e0b;font-weight:700">θ</text>
+
+  <!-- SOH CAH TOA box -->
+  <rect x="440" y="50" width="128" height="96" rx="6" fill="var(--panel-soft)" stroke="var(--border)" stroke-width="1.5"/>
+  <text x="504" y="72" text-anchor="middle" class="sd-label-bold">SOH-CAH-TOA</text>
+  <text x="456" y="92" class="sd-label">sin θ = opp / hyp</text>
+  <text x="456" y="110" class="sd-label">cos θ = adj / hyp</text>
+  <text x="456" y="128" class="sd-label">tan θ = opp / adj</text>
+
+  <!-- Resultant formula box -->
+  <rect x="440" y="160" width="128" height="52" rx="6" fill="var(--panel-soft)" stroke="var(--border)" stroke-width="1.5"/>
+  <text x="504" y="180" text-anchor="middle" class="sd-label-bold">Resultant:</text>
+  <text x="504" y="200" text-anchor="middle" class="sd-label">R = √(Fx² + Fy²)</text>
+</svg>
+</figure>
 
 **Combining components back into a resultant:**
 If you know two perpendicular components $F_x$ and $F_y$, the Pythagorean theorem gives the resultant magnitude:
@@ -131,17 +158,26 @@ Real trusses rarely have purely right-angled panels. Hip roofs, Pratt trusses, a
 
 **The sine rule** says that in any triangle, the ratio of a side to the sine of its opposite angle is constant. This lets you find any angle or side if you know one ratio.
 
-```
-       C
-      / \
-     /   \
-   b/     \a
-   /       \
-  A────────B
-       c
-       
-Sides a, b, c opposite angles A, B, C.
-```
+<figure class="structural-diagram" aria-label="Triangle labeling: sides a, b, c opposite angles A, B, C">
+<svg viewBox="0 0 320 180" xmlns="http://www.w3.org/2000/svg">
+  <!-- Triangle A(50,150), B(270,150), C(160,30) -->
+  <polygon points="50,150 270,150 160,30" fill="#bfdbfe" fill-opacity="0.3" stroke="#2563eb" stroke-width="2.5"/>
+  <!-- Side labels -->
+  <text x="90" y="98" class="sd-label-red" transform="rotate(-50,90,98)">b</text>
+  <text x="225" y="90" class="sd-label-green" transform="rotate(50,225,90)">a</text>
+  <text x="160" y="168" text-anchor="middle" class="sd-label-accent">c</text>
+  <!-- Vertex labels -->
+  <text x="35" y="158" class="sd-label-bold">A</text>
+  <text x="275" y="158" class="sd-label-bold">B</text>
+  <text x="155" y="22" text-anchor="middle" class="sd-label-bold">C</text>
+  <!-- Angle arcs -->
+  <path d="M 70 150 A 20 20 0 0 1 62 131" fill="none" stroke="#f59e0b" stroke-width="1.5"/>
+  <path d="M 250 150 A 20 20 0 0 0 258 131" fill="none" stroke="#f59e0b" stroke-width="1.5"/>
+  <path d="M 148 44 A 20 20 0 0 1 172 44" fill="none" stroke="#f59e0b" stroke-width="1.5"/>
+  <!-- Caption -->
+  <text x="160" y="178" text-anchor="middle" class="sd-label" style="fill:#64748b">Sides a, b, c opposite angles A, B, C</text>
+</svg>
+</figure>
 
 ### D. Failure Case
 

@@ -74,16 +74,62 @@ $W = 70 \times 9.81 = 686.7\ \mathrm{N} = 0.687\ \mathrm{kN}$
 
 **Types of forces in structures:**
 
-```
-Point load (P):              Distributed load (w):
-                             
-       P                       w  (kN/m, evenly spread)
-       |                       ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓
-       v                     ────────────────────
-   ────┬────                 
-       ^
-   one location              spread along a length
-```
+<figure class="structural-diagram" aria-label="Point load versus distributed load comparison">
+<svg viewBox="0 0 560 180" xmlns="http://www.w3.org/2000/svg">
+  <!-- ===== POINT LOAD (left) ===== -->
+  <text x="140" y="22" text-anchor="middle" class="sd-title">Point Load P</text>
+  <!-- Beam -->
+  <rect x="40" y="100" width="200" height="14" rx="3" class="sd-beam-fill"/>
+  <!-- Pin support left -->
+  <polygon points="60,114 44,140 76,140" class="sd-support"/>
+  <line x1="38" y1="140" x2="82" y2="140" stroke="var(--muted)" stroke-width="2"/>
+  <!-- Roller support right -->
+  <polygon points="220,114 204,140 236,140" class="sd-support"/>
+  <circle cx="210" cy="146" r="7" class="sd-support"/>
+  <circle cx="226" cy="146" r="7" class="sd-support"/>
+  <line x1="197" y1="153" x2="243" y2="153" stroke="var(--muted)" stroke-width="2"/>
+  <!-- Point load arrow -->
+  <line x1="140" y1="50" x2="140" y2="98" class="sd-force-down" stroke-width="3"/>
+  <polygon points="140,100 135,90 145,90" class="sd-arrow-down"/>
+  <text x="155" y="38" class="sd-label-red">P</text>
+  <text x="140" y="168" text-anchor="middle" class="sd-label">One location</text>
+  <text x="140" y="180" text-anchor="middle" class="sd-label" style="fill:#64748b">units: kN</text>
+
+  <!-- Divider -->
+  <line x1="290" y1="10" x2="290" y2="170" stroke="#cbd5e1" stroke-width="1.5" stroke-dasharray="5 3"/>
+
+  <!-- ===== DISTRIBUTED LOAD (right) ===== -->
+  <text x="420" y="22" text-anchor="middle" class="sd-title">Distributed Load w</text>
+  <!-- Distributed load arrows -->
+  <line x1="320" y1="55" x2="320" y2="98" class="sd-force-down" stroke-width="2.5"/>
+  <polygon points="320,100 316,90 324,90" class="sd-arrow-down"/>
+  <line x1="350" y1="48" x2="350" y2="98" class="sd-force-down" stroke-width="2.5"/>
+  <polygon points="350,100 346,90 354,90" class="sd-arrow-down"/>
+  <line x1="380" y1="48" x2="380" y2="98" class="sd-force-down" stroke-width="2.5"/>
+  <polygon points="380,100 376,90 384,90" class="sd-arrow-down"/>
+  <line x1="410" y1="48" x2="410" y2="98" class="sd-force-down" stroke-width="2.5"/>
+  <polygon points="410,100 406,90 414,90" class="sd-arrow-down"/>
+  <line x1="440" y1="48" x2="440" y2="98" class="sd-force-down" stroke-width="2.5"/>
+  <polygon points="440,100 436,90 444,90" class="sd-arrow-down"/>
+  <line x1="470" y1="55" x2="470" y2="98" class="sd-force-down" stroke-width="2.5"/>
+  <polygon points="470,100 466,90 474,90" class="sd-arrow-down"/>
+  <!-- Top load bar -->
+  <line x1="320" y1="48" x2="470" y2="48" stroke="#dc2626" stroke-width="2"/>
+  <text x="395" y="38" text-anchor="middle" class="sd-label-red">w (kN/m, evenly spread)</text>
+  <!-- Beam -->
+  <rect x="310" y="100" width="170" height="14" rx="3" class="sd-beam-fill"/>
+  <!-- Pin support left -->
+  <polygon points="330,114 314,140 346,140" class="sd-support"/>
+  <line x1="308" y1="140" x2="352" y2="140" stroke="var(--muted)" stroke-width="2"/>
+  <!-- Roller support right -->
+  <polygon points="460,114 444,140 476,140" class="sd-support"/>
+  <circle cx="450" cy="146" r="7" class="sd-support"/>
+  <circle cx="466" cy="146" r="7" class="sd-support"/>
+  <line x1="437" y1="153" x2="483" y2="153" stroke="var(--muted)" stroke-width="2"/>
+  <text x="395" y="168" text-anchor="middle" class="sd-label">Spread along a length</text>
+  <text x="395" y="180" text-anchor="middle" class="sd-label" style="fill:#64748b">units: kN/m</text>
+</svg>
+</figure>
 
 | Type | Symbol | Units | Example |
 |------|--------|-------|---------|
@@ -123,14 +169,50 @@ To draw an FBD:
 
 Draw the applied-load part of the FBD and compute total downward load.
 
-```
-                          P = 30 kN
-                              |
-                              v
-        Total w = 15 kN/m  ↓ ↓ ↓ ↓ ↓ ↓ ↓ ↓
-                          ──────┬──────────
-                          |<──── 5 m ─────>|
-```
+<figure class="structural-diagram" aria-label="Beam with distributed load 15 kN/m and point load 30 kN at midspan">
+<svg viewBox="0 0 560 170" xmlns="http://www.w3.org/2000/svg">
+  <!-- Distributed load arrows (7 arrows) -->
+  <line x1="100" y1="20" x2="460" y2="20" stroke="#dc2626" stroke-width="2"/>
+  <text x="280" y="15" text-anchor="middle" class="sd-label-red">Total w = 15 kN/m</text>
+  <line x1="100" y1="20" x2="100" y2="68" class="sd-force-down" stroke-width="2"/>
+  <polygon points="100,70 96,60 104,60" class="sd-arrow-down"/>
+  <line x1="160" y1="20" x2="160" y2="68" class="sd-force-down" stroke-width="2"/>
+  <polygon points="160,70 156,60 164,60" class="sd-arrow-down"/>
+  <line x1="220" y1="20" x2="220" y2="68" class="sd-force-down" stroke-width="2"/>
+  <polygon points="220,70 216,60 224,60" class="sd-arrow-down"/>
+  <line x1="280" y1="20" x2="280" y2="68" class="sd-force-down" stroke-width="2"/>
+  <polygon points="280,70 276,60 284,60" class="sd-arrow-down"/>
+  <line x1="340" y1="20" x2="340" y2="68" class="sd-force-down" stroke-width="2"/>
+  <polygon points="340,70 336,60 344,60" class="sd-arrow-down"/>
+  <line x1="400" y1="20" x2="400" y2="68" class="sd-force-down" stroke-width="2"/>
+  <polygon points="400,70 396,60 404,60" class="sd-arrow-down"/>
+  <line x1="460" y1="20" x2="460" y2="68" class="sd-force-down" stroke-width="2"/>
+  <polygon points="460,70 456,60 464,60" class="sd-arrow-down"/>
+
+  <!-- Point load at midspan -->
+  <line x1="280" y1="20" x2="280" y2="68" stroke="#7c3aed" stroke-width="3.5"/>
+  <polygon points="280,70 275,58 285,58" fill="#7c3aed"/>
+  <text x="310" y="18" class="sd-label" style="fill:#7c3aed;font-weight:700">P = 30 kN</text>
+
+  <!-- Beam -->
+  <rect x="90" y="70" width="380" height="16" rx="3" class="sd-beam-fill"/>
+
+  <!-- Pin support left -->
+  <polygon points="110,86 94,112 126,112" class="sd-support"/>
+  <line x1="88" y1="112" x2="132" y2="112" stroke="var(--muted)" stroke-width="2"/>
+  <!-- Roller support right -->
+  <polygon points="450,86 434,112 466,112" class="sd-support"/>
+  <circle cx="440" cy="118" r="7" class="sd-support"/>
+  <circle cx="456" cy="118" r="7" class="sd-support"/>
+  <line x1="427" y1="125" x2="473" y2="125" stroke="var(--muted)" stroke-width="2"/>
+
+  <!-- Span dimension -->
+  <line x1="90" y1="140" x2="470" y2="140" class="sd-dim"/>
+  <polygon points="90,140 100,136 100,144" fill="#64748b"/>
+  <polygon points="470,140 460,136 460,144" fill="#64748b"/>
+  <text x="280" y="155" text-anchor="middle" class="sd-label">5 m</text>
+</svg>
+</figure>
 
 Total distributed load: $w = 5 + 2 + 8 = 15\ \mathrm{kN/m}$
 Total distributed force: $w \times L = 15 \times 5 = 75\ \mathrm{kN}$
@@ -257,15 +339,37 @@ In this chapter, we use these equations only for force balance. Moment equilibri
 
 **Worked example.** A box weighing $W = 200\ \mathrm{N}$ sits on a frictionless surface. A horizontal cable pulls right with $F_1 = 50\ \mathrm{N}$. Another horizontal cable pulls left with $F_2$. The surface pushes up with $N$. Find $F_2$ and $N$ for equilibrium.
 
-```
-            N (up)
-            ^
-            |
-F2 <────[ BOX ]────> F1 = 50 N
-            |
-            v
-            W = 200 N
-```
+<figure class="structural-diagram" aria-label="Free body diagram: box in equilibrium with four forces">
+<svg viewBox="0 0 400 220" xmlns="http://www.w3.org/2000/svg">
+  <!-- Box -->
+  <rect x="150" y="80" width="100" height="60" rx="4" class="sd-beam-fill"/>
+  <text x="200" y="115" text-anchor="middle" class="sd-label-bold">BOX</text>
+  <text x="200" y="128" text-anchor="middle" class="sd-label">W = 200 N</text>
+
+  <!-- N (up) -->
+  <line x1="200" y1="78" x2="200" y2="44" class="sd-force-up" stroke-width="3"/>
+  <polygon points="200,42 195,52 205,52" class="sd-arrow-up"/>
+  <text x="215" y="38" class="sd-label-green">N (up)</text>
+
+  <!-- W (down) -->
+  <line x1="200" y1="142" x2="200" y2="178" class="sd-force-down" stroke-width="3"/>
+  <polygon points="200,180 195,170 205,170" class="sd-arrow-down"/>
+  <text x="215" y="192" class="sd-label-red">W = 200 N</text>
+
+  <!-- F2 (left) -->
+  <line x1="148" y1="110" x2="64" y2="110" class="sd-force-h" stroke-width="3" stroke="#7c3aed"/>
+  <polygon points="62,110 72,105 72,115" fill="#7c3aed"/>
+  <text x="38" y="105" class="sd-label" style="fill:#7c3aed;font-weight:700">F₂</text>
+
+  <!-- F1 (right) -->
+  <line x1="252" y1="110" x2="336" y2="110" class="sd-force-h" stroke-width="3"/>
+  <polygon points="338,110 328,105 328,115" class="sd-arrow-h"/>
+  <text x="342" y="105" class="sd-label-accent">F₁ = 50 N</text>
+
+  <!-- Equations -->
+  <text x="200" y="205" text-anchor="middle" class="sd-label-bold">ΣF_x = 0: F₂ = 50 N    ΣF_y = 0: N = 200 N</text>
+</svg>
+</figure>
 
 $\Sigma F_x = 0$: $F_1 - F_2 = 0$ → $F_2 = 50\ \mathrm{N}$
 $\Sigma F_y = 0$: $N - W = 0$ → $N = 200\ \mathrm{N}$
@@ -276,15 +380,46 @@ $\Sigma F_y = 0$: $N - W = 0$ → $N = 200\ \mathrm{N}$
 
 **Problem.** A beam carries a point load $P = 60\ \mathrm{kN}$ at mid-span and is supported symmetrically at both ends. Find $R_A$ and $R_B$ using force balance and symmetry.
 
-```
-              P = 60 kN
-                  |
-                  v
-        A ───────┴─────────── B
-        ^                     ^
-        RA                    RB
-        |<──── 6 m ────────>|
-```
+<figure class="structural-diagram" aria-label="Simply supported beam with point load at midspan, showing reactions RA and RB">
+<svg viewBox="0 0 560 180" xmlns="http://www.w3.org/2000/svg">
+  <!-- Point load at midspan -->
+  <line x1="280" y1="28" x2="280" y2="78" class="sd-force-down" stroke-width="3.5"/>
+  <polygon points="280,80 275,70 285,70" class="sd-arrow-down"/>
+  <text x="295" y="22" class="sd-label-red">P = 60 kN</text>
+
+  <!-- Beam -->
+  <rect x="80" y="80" width="400" height="16" rx="3" class="sd-beam-fill"/>
+  <!-- Point A label -->
+  <text x="80" y="74" text-anchor="middle" class="sd-label-bold">A</text>
+  <!-- Point B label -->
+  <text x="480" y="74" text-anchor="middle" class="sd-label-bold">B</text>
+
+  <!-- Pin support left (A) -->
+  <polygon points="80,96 60,128 100,128" class="sd-support"/>
+  <line x1="54" y1="128" x2="106" y2="128" stroke="var(--muted)" stroke-width="2"/>
+  <!-- Roller support right (B) -->
+  <polygon points="480,96 460,128 500,128" class="sd-support"/>
+  <circle cx="470" cy="134" r="7" class="sd-support"/>
+  <circle cx="487" cy="134" r="7" class="sd-support"/>
+  <line x1="453" y1="141" x2="504" y2="141" stroke="var(--muted)" stroke-width="2"/>
+
+  <!-- RA arrow (up) -->
+  <line x1="80" y1="155" x2="80" y2="130" class="sd-force-up" stroke-width="3"/>
+  <polygon points="80,128 75,138 85,138" class="sd-arrow-up"/>
+  <text x="50" y="168" class="sd-label-green">R_A = 30 kN</text>
+
+  <!-- RB arrow (up) -->
+  <line x1="480" y1="155" x2="480" y2="144" class="sd-force-up" stroke-width="3"/>
+  <polygon points="480,141 475,151 485,151" class="sd-arrow-up"/>
+  <text x="440" y="168" class="sd-label-green">R_B = 30 kN</text>
+
+  <!-- Span dimension -->
+  <line x1="80" y1="170" x2="480" y2="170" class="sd-dim"/>
+  <polygon points="80,170 90,166 90,174" fill="#64748b"/>
+  <polygon points="480,170 470,166 470,174" fill="#64748b"/>
+  <text x="280" y="180" text-anchor="middle" class="sd-label">6 m</text>
+</svg>
+</figure>
 
 **Step 1 — Vertical equilibrium ($\Sigma F_y = 0$):**
 Take up as positive:
@@ -388,16 +523,54 @@ where $d$ is the **perpendicular** distance from the line of action of $F$ to th
 
 **Sign convention** (for 2D problems): pick one direction as positive (commonly counterclockwise).
 
-```
-   F                                F
-   |                                ^
-   v                                |
-───┴─── (pivot at left)         ────┴─── (pivot at left)
-   |<-d->|                         |<-d->|
-                                
-Clockwise (negative) moment   Counterclockwise (positive) moment
-M = -F·d                      M = +F·d
-```
+<figure class="structural-diagram" aria-label="Moment sign convention: clockwise is negative, counter-clockwise is positive">
+<svg viewBox="0 0 560 170" xmlns="http://www.w3.org/2000/svg">
+  <!-- LEFT: Clockwise (negative) -->
+  <line x1="30" y1="90" x2="230" y2="90" class="sd-beam" stroke-width="4"/>
+  <!-- Pivot at left -->
+  <polygon points="30,90 14,118 46,118" class="sd-support"/>
+  <line x1="8" y1="118" x2="52" y2="118" stroke="var(--muted)" stroke-width="2"/>
+  <text x="30" y="134" text-anchor="middle" class="sd-label-bold">A</text>
+  <!-- Downward force at right -->
+  <line x1="200" y1="44" x2="200" y2="88" class="sd-force-down" stroke-width="3"/>
+  <polygon points="200,90 195,80 205,80" class="sd-arrow-down"/>
+  <text x="214" y="40" class="sd-label-red">F↓</text>
+  <!-- d dimension -->
+  <line x1="30" y1="104" x2="200" y2="104" class="sd-dim"/>
+  <polygon points="30,104 40,100 40,108" fill="#64748b"/>
+  <polygon points="200,104 190,100 190,108" fill="#64748b"/>
+  <text x="115" y="118" text-anchor="middle" class="sd-label">d</text>
+  <!-- CW arc -->
+  <path d="M 70 68 A 46 46 0 0 1 116 46" fill="none" stroke="#dc2626" stroke-width="2.5"/>
+  <polygon points="116,46 107,54 120,56" fill="#dc2626"/>
+  <text x="130" y="150" text-anchor="middle" class="sd-label-red">Clockwise = NEGATIVE</text>
+  <text x="130" y="164" text-anchor="middle" class="sd-label-red">M = −F × d</text>
+
+  <!-- Divider -->
+  <line x1="290" y1="20" x2="290" y2="155" stroke="#cbd5e1" stroke-width="1.5" stroke-dasharray="5 3"/>
+
+  <!-- RIGHT: Counter-clockwise (positive) -->
+  <line x1="310" y1="90" x2="510" y2="90" class="sd-beam" stroke-width="4"/>
+  <!-- Pivot at left -->
+  <polygon points="310,90 294,118 326,118" class="sd-support"/>
+  <line x1="288" y1="118" x2="332" y2="118" stroke="var(--muted)" stroke-width="2"/>
+  <text x="310" y="134" text-anchor="middle" class="sd-label-bold">A</text>
+  <!-- Upward force at right -->
+  <line x1="480" y1="88" x2="480" y2="44" class="sd-force-up" stroke-width="3"/>
+  <polygon points="480,42 475,52 485,52" class="sd-arrow-up"/>
+  <text x="494" y="40" class="sd-label-green">F↑</text>
+  <!-- d dimension -->
+  <line x1="310" y1="104" x2="480" y2="104" class="sd-dim"/>
+  <polygon points="310,104 320,100 320,108" fill="#64748b"/>
+  <polygon points="480,104 470,100 470,108" fill="#64748b"/>
+  <text x="395" y="118" text-anchor="middle" class="sd-label">d</text>
+  <!-- CCW arc -->
+  <path d="M 396 46 A 46 46 0 0 0 442 68" fill="none" stroke="#15803d" stroke-width="2.5"/>
+  <polygon points="442,68 438,56 450,60" fill="#15803d"/>
+  <text x="410" y="150" text-anchor="middle" class="sd-label-green">Counter-clockwise = POSITIVE</text>
+  <text x="410" y="164" text-anchor="middle" class="sd-label-green">M = +F × d</text>
+</svg>
+</figure>
 
 
 **Formulas and Derivations**
@@ -433,13 +606,35 @@ For equilibrium, $\Sigma M_A$ must equal zero — a third force or moment is nee
 
 **Problem.** A cantilever beam of length $L = 4\ \mathrm{m}$ is fixed at A. A point load $P = 25\ \mathrm{kN}$ acts downward at the free end. Find the moment reaction at A.
 
-```
-A (fixed)               P = 25 kN
-|////|                       |
-|////|                       v
-|////├────────────────────────
-|////|<──────── 4 m ────────>|
-```
+<figure class="structural-diagram" aria-label="Cantilever beam fixed at A with point load at free end">
+<svg viewBox="0 0 540 140" xmlns="http://www.w3.org/2000/svg">
+  <!-- Fixed wall -->
+  <rect x="30" y="28" width="16" height="84" class="sd-support-fixed"/>
+  <line x1="30" y1="28" x2="18" y2="40" class="sd-ground"/>
+  <line x1="30" y1="44" x2="18" y2="56" class="sd-ground"/>
+  <line x1="30" y1="60" x2="18" y2="72" class="sd-ground"/>
+  <line x1="30" y1="76" x2="18" y2="88" class="sd-ground"/>
+  <line x1="30" y1="92" x2="18" y2="104" class="sd-ground"/>
+  <!-- Beam -->
+  <rect x="46" y="62" width="420" height="16" rx="3" class="sd-beam-fill"/>
+  <!-- Point load at free end -->
+  <line x1="466" y1="26" x2="466" y2="60" class="sd-force-down" stroke-width="3.5"/>
+  <polygon points="466,62 461,52 471,52" class="sd-arrow-down"/>
+  <text x="480" y="22" class="sd-label-red">P = 25 kN</text>
+  <!-- A label -->
+  <text x="46" y="57" class="sd-label-bold">A</text>
+  <!-- Moment reaction arc at A -->
+  <path d="M 46 50 A 22 22 0 0 0 46 90" fill="none" stroke="#7c3aed" stroke-width="2.5"/>
+  <polygon points="46,90 52,80 40,80" fill="#7c3aed"/>
+  <text x="6" y="72" class="sd-label" style="fill:#7c3aed;font-weight:700">M_A</text>
+  <!-- Span dimension -->
+  <line x1="46" y1="96" x2="466" y2="96" class="sd-dim"/>
+  <polygon points="46,96 56,92 56,100" fill="#64748b"/>
+  <polygon points="466,96 456,92 456,100" fill="#64748b"/>
+  <text x="256" y="112" text-anchor="middle" class="sd-label">L = 4 m</text>
+  <text x="256" y="128" text-anchor="middle" class="sd-label-accent">M_A = P × L = 25 × 4 = 100 kN·m</text>
+</svg>
+</figure>
 
 The fixed support resists vertical force, horizontal force, AND moment.
 
@@ -561,41 +756,73 @@ Buildings carry many different kinds of loads. The structural engineer's first j
 
 **Load path.** All loads must travel from where they're applied down to the foundation:
 
-```
-   Live load on slab
-         |
-         v
-       SLAB ────────┐
-         |          v
-         v       BEAMS
-      BEAMS         |
-         |          v
-         v      COLUMNS
-      COLUMNS       |
-         |          v
-         v   FOUNDATIONS
-      FOUNDS        |
-         |          v
-         v        SOIL
-        SOIL
-```
+<figure class="structural-diagram" aria-label="Load path from live load on slab down to soil">
+<svg viewBox="0 0 520 310" xmlns="http://www.w3.org/2000/svg">
+  <rect x="140" y="12" width="240" height="34" rx="6" class="sd-support" opacity="0.8"/>
+  <text x="260" y="34" text-anchor="middle" class="sd-label-bold">Live Load on Slab (kPa)</text>
+  <line x1="260" y1="46" x2="260" y2="64" class="sd-force-down" stroke-width="2"/>
+  <polygon points="260,66 256,58 264,58" class="sd-arrow-down"/>
+  <rect x="120" y="66" width="280" height="32" rx="5" class="sd-beam-fill"/>
+  <text x="260" y="87" text-anchor="middle" class="sd-label-bold">SLAB — collects area load</text>
+  <line x1="260" y1="98" x2="260" y2="116" class="sd-force-down" stroke-width="2"/>
+  <polygon points="260,118 256,110 264,110" class="sd-arrow-down"/>
+  <rect x="140" y="118" width="240" height="32" rx="5" class="sd-beam-fill"/>
+  <text x="260" y="139" text-anchor="middle" class="sd-label-bold">BEAMS — line load kN/m</text>
+  <line x1="260" y1="150" x2="260" y2="168" class="sd-force-down" stroke-width="2"/>
+  <polygon points="260,170 256,162 264,162" class="sd-arrow-down"/>
+  <rect x="160" y="170" width="200" height="32" rx="5" class="sd-beam-fill"/>
+  <text x="260" y="191" text-anchor="middle" class="sd-label-bold">COLUMNS — axial kN</text>
+  <line x1="260" y1="202" x2="260" y2="220" class="sd-force-down" stroke-width="2"/>
+  <polygon points="260,222 256,214 264,214" class="sd-arrow-down"/>
+  <rect x="170" y="222" width="180" height="32" rx="5" class="sd-beam-fill"/>
+  <text x="260" y="243" text-anchor="middle" class="sd-label-bold">FOUNDATIONS</text>
+  <line x1="260" y1="254" x2="260" y2="272" class="sd-force-down" stroke-width="2"/>
+  <polygon points="260,274 256,266 264,266" class="sd-arrow-down"/>
+  <rect x="190" y="274" width="140" height="24" rx="4" fill="#a16207" opacity="0.7"/>
+  <text x="260" y="291" text-anchor="middle" class="sd-label-bold" style="fill:#fff">SOIL</text>
+</svg>
+</figure>
 
 **Tributary area.** A single beam doesn't carry load from the entire floor — only from the strip of slab that "belongs" to it.
 
-```
-          ┌────────────────────┐
-          │   Slab tributary   │
-          │   to this beam     │
-          ├────────────────────┤
-          │     2.5 m wide     │
-          │     ↓ ↓ ↓ ↓ ↓     │
-          ├──────BEAM──────────┤
-          │     ↑ ↑ ↑ ↑ ↑     │
-          │     2.5 m wide     │
-          │   Slab tributary   │
-          │   to this beam     │
-          └────────────────────┘
-```
+<figure class="structural-diagram" aria-label="Tributary width of a beam: half the distance to each adjacent beam on both sides">
+<svg viewBox="0 0 440 200" xmlns="http://www.w3.org/2000/svg">
+  <!-- Slab area boxes left and right of beam -->
+  <rect x="60" y="30" width="160" height="140" fill="#bfdbfe" stroke="#93c5fd" stroke-width="1" opacity="0.5"/>
+  <rect x="220" y="30" width="160" height="140" fill="#bfdbfe" stroke="#93c5fd" stroke-width="1" opacity="0.5"/>
+
+  <!-- Adjacent beams (dashed) -->
+  <rect x="50" y="90" width="12" height="20" rx="2" fill="#94a3b8" opacity="0.5"/>
+  <rect x="378" y="90" width="12" height="20" rx="2" fill="#94a3b8" opacity="0.5"/>
+
+  <!-- Main beam -->
+  <rect x="214" y="84" width="12" height="32" rx="2" class="sd-beam-fill"/>
+  <text x="220" y="76" text-anchor="middle" class="sd-label-bold">BEAM</text>
+
+  <!-- Load arrows -->
+  <line x1="100" y1="30" x2="100" y2="82" class="sd-force-down" stroke-width="2"/>
+  <polygon points="100,84 96,74 104,74" class="sd-arrow-down"/>
+  <line x1="140" y1="30" x2="140" y2="82" class="sd-force-down" stroke-width="2"/>
+  <polygon points="140,84 136,74 144,74" class="sd-arrow-down"/>
+  <line x1="300" y1="30" x2="300" y2="82" class="sd-force-down" stroke-width="2"/>
+  <polygon points="300,84 296,74 304,74" class="sd-arrow-down"/>
+  <line x1="340" y1="30" x2="340" y2="82" class="sd-force-down" stroke-width="2"/>
+  <polygon points="340,84 336,74 344,74" class="sd-arrow-down"/>
+
+  <!-- Tributary width dimensions -->
+  <line x1="56" y1="178" x2="220" y2="178" class="sd-dim"/>
+  <polygon points="56,178 66,174 66,182" fill="#64748b"/>
+  <polygon points="220,178 210,174 210,182" fill="#64748b"/>
+  <text x="138" y="193" text-anchor="middle" class="sd-label">b_trib / 2 = 2.5 m</text>
+  <line x1="220" y1="178" x2="384" y2="178" class="sd-dim"/>
+  <polygon points="220,178 230,174 230,182" fill="#64748b"/>
+  <polygon points="384,178 374,174 374,182" fill="#64748b"/>
+  <text x="302" y="193" text-anchor="middle" class="sd-label">b_trib / 2 = 2.5 m</text>
+
+  <!-- Total trib label -->
+  <text x="220" y="162" text-anchor="middle" class="sd-label-accent">b_trib = 5 m total</text>
+</svg>
+</figure>
 
 If the slab carries $q\ [\mathrm{kPa}]$ and the beam's tributary width is $b_{trib}\ [\mathrm{m}]$:
 $$w_{beam} = q \cdot b_{trib} \quad [\mathrm{kN/m}]$$
@@ -746,16 +973,67 @@ Every structure ultimately rests on something: a foundation, the ground, another
 
 A support's job is to prevent motion. Each direction of motion that is prevented requires the support to apply a corresponding reaction force (or moment). Newton's Third Law: if the support stops the structure from moving down, the support pushes up.
 
-```
-PIN SUPPORT                ROLLER SUPPORT             FIXED SUPPORT
-                                                       
-   ┴                          ┴                         ┴
-  /│\                        /O\                       │││││
- / │ \                      ─────                      │////│
-                                                       │////│
-Stops H + V motion        Stops V only              Stops H + V + rotation
-2 reactions               1 reaction                  3 reactions
-```
+<figure class="structural-diagram" aria-label="Three support types: pin (2 reactions), roller (1 reaction), fixed (3 reactions)">
+<svg viewBox="0 0 600 200" xmlns="http://www.w3.org/2000/svg">
+  <!-- === PIN SUPPORT === -->
+  <circle cx="100" cy="50" r="6" fill="#2563eb"/>
+  <polygon points="100,50 70,110 130,110" class="sd-support"/>
+  <line x1="55" y1="110" x2="145" y2="110" class="sd-beam" stroke-width="3"/>
+  <line x1="55" y1="116" x2="67" y2="110" class="sd-ground"/>
+  <line x1="70" y1="116" x2="82" y2="110" class="sd-ground"/>
+  <line x1="85" y1="116" x2="97" y2="110" class="sd-ground"/>
+  <line x1="100" y1="116" x2="112" y2="110" class="sd-ground"/>
+  <line x1="115" y1="116" x2="127" y2="110" class="sd-ground"/>
+  <line x1="130" y1="116" x2="142" y2="110" class="sd-ground"/>
+  <line x1="100" y1="140" x2="100" y2="122" class="sd-force-up" stroke-width="2.5"/>
+  <polygon points="100,120 95,130 105,130" class="sd-arrow-up"/>
+  <line x1="72" y1="50" x2="58" y2="50" class="sd-force-h" stroke-width="2.5"/>
+  <polygon points="56,50 66,45 66,55" class="sd-arrow-h"/>
+  <text x="100" y="30" text-anchor="middle" class="sd-title">PIN</text>
+  <text x="100" y="162" text-anchor="middle" class="sd-label-bold">Stops H + V</text>
+  <text x="100" y="176" text-anchor="middle" class="sd-label">2 reactions</text>
+  <text x="100" y="190" text-anchor="middle" class="sd-label" style="fill:#64748b">Free to rotate</text>
+
+  <!-- === ROLLER SUPPORT === -->
+  <circle cx="300" cy="50" r="6" fill="#2563eb"/>
+  <polygon points="300,50 270,100 330,100" class="sd-support"/>
+  <ellipse cx="285" cy="112" rx="9" ry="9" class="sd-support"/>
+  <ellipse cx="315" cy="112" rx="9" ry="9" class="sd-support"/>
+  <line x1="255" y1="121" x2="345" y2="121" class="sd-beam" stroke-width="3"/>
+  <line x1="255" y1="127" x2="267" y2="121" class="sd-ground"/>
+  <line x1="270" y1="127" x2="282" y2="121" class="sd-ground"/>
+  <line x1="285" y1="127" x2="297" y2="121" class="sd-ground"/>
+  <line x1="300" y1="127" x2="312" y2="121" class="sd-ground"/>
+  <line x1="315" y1="127" x2="327" y2="121" class="sd-ground"/>
+  <line x1="330" y1="127" x2="342" y2="121" class="sd-ground"/>
+  <line x1="300" y1="150" x2="300" y2="132" class="sd-force-up" stroke-width="2.5"/>
+  <polygon points="300,130 295,140 305,140" class="sd-arrow-up"/>
+  <text x="300" y="30" text-anchor="middle" class="sd-title">ROLLER</text>
+  <text x="300" y="168" text-anchor="middle" class="sd-label-bold">Stops V only</text>
+  <text x="300" y="182" text-anchor="middle" class="sd-label">1 reaction</text>
+  <text x="300" y="196" text-anchor="middle" class="sd-label" style="fill:#64748b">Free H &amp; rotation</text>
+
+  <!-- === FIXED SUPPORT === -->
+  <rect x="480" y="20" width="18" height="110" class="sd-support-fixed"/>
+  <line x1="480" y1="20" x2="468" y2="32" class="sd-ground"/>
+  <line x1="480" y1="36" x2="468" y2="48" class="sd-ground"/>
+  <line x1="480" y1="52" x2="468" y2="64" class="sd-ground"/>
+  <line x1="480" y1="68" x2="468" y2="80" class="sd-ground"/>
+  <line x1="480" y1="84" x2="468" y2="96" class="sd-ground"/>
+  <line x1="480" y1="100" x2="468" y2="112" class="sd-ground"/>
+  <line x1="498" y1="50" x2="570" y2="50" class="sd-beam" stroke-width="4"/>
+  <line x1="540" y1="78" x2="540" y2="60" class="sd-force-up" stroke-width="2.5"/>
+  <polygon points="540,58 535,68 545,68" class="sd-arrow-up"/>
+  <line x1="568" y1="50" x2="550" y2="50" class="sd-force-h" stroke-width="2.5"/>
+  <polygon points="548,50 558,45 558,55" class="sd-arrow-h"/>
+  <path d="M 550 30 A 20 20 0 0 1 570 50" fill="none" stroke="#7c3aed" stroke-width="2.5"/>
+  <polygon points="570,50 563,44 567,54" fill="#7c3aed"/>
+  <text x="530" y="18" text-anchor="middle" class="sd-title">FIXED</text>
+  <text x="530" y="108" text-anchor="middle" class="sd-label-bold">Stops H, V + rotation</text>
+  <text x="530" y="122" text-anchor="middle" class="sd-label">3 reactions</text>
+  <text x="530" y="136" text-anchor="middle" class="sd-label" style="fill:#64748b">No free movement</text>
+</svg>
+</figure>
 
 | Support | Stops H? | Stops V? | Stops Rotation? | # of Reactions |
 |---------|----------|----------|-----------------|---------------|
@@ -906,18 +1184,77 @@ Imagine a beam under load. If you cut it at any point and look at the exposed fa
 
 These internal effects are not optional — they are demanded by equilibrium. They exist whether or not we draw them.
 
-```
-Before cut:                    After imagined cut at section X:
-                              
-P↓                                P↓
-A───────X──────B               A──────X            X──────B
-^              ^               ^     N→         ←N        ^
-RA            RB              RA    V↑         V↓        RB
-                                    M↺          M↻
-                              
-                           Left side: balanced by      Right side: balanced
-                           internal forces N, V, M     by equal & opposite
-```
+<figure class="structural-diagram" aria-label="Section cut method: beam before and after imagined cut showing internal forces N, V, M">
+<svg viewBox="0 0 600 160" xmlns="http://www.w3.org/2000/svg">
+  <!-- LEFT: Whole beam -->
+  <text x="148" y="18" text-anchor="middle" class="sd-title">Before cut</text>
+  <!-- P load -->
+  <line x1="148" y1="24" x2="148" y2="60" class="sd-force-down" stroke-width="3"/>
+  <polygon points="148,62 143,52 153,52" class="sd-arrow-down"/>
+  <text x="160" y="22" class="sd-label-red">P↓</text>
+  <!-- Beam -->
+  <rect x="50" y="62" width="200" height="14" rx="2" class="sd-beam-fill"/>
+  <!-- Cut line X -->
+  <line x1="175" y1="52" x2="175" y2="90" stroke="#f59e0b" stroke-width="2.5" stroke-dasharray="5 3"/>
+  <text x="178" y="48" class="sd-label" style="fill:#f59e0b;font-weight:700">X</text>
+  <!-- RA -->
+  <line x1="70" y1="90" x2="70" y2="78" class="sd-force-up" stroke-width="2.5"/>
+  <polygon points="70,76 65,86 75,86" class="sd-arrow-up"/>
+  <text x="58" y="104" class="sd-label-green">R_A</text>
+  <!-- RB -->
+  <line x1="230" y1="90" x2="230" y2="78" class="sd-force-up" stroke-width="2.5"/>
+  <polygon points="230,76 225,86 235,86" class="sd-arrow-up"/>
+  <text x="218" y="104" class="sd-label-green">R_B</text>
+  <!-- Labels A and B -->
+  <text x="70" y="56" text-anchor="middle" class="sd-label-bold">A</text>
+  <text x="230" y="56" text-anchor="middle" class="sd-label-bold">B</text>
+
+  <!-- Divider -->
+  <line x1="300" y1="10" x2="300" y2="145" stroke="#cbd5e1" stroke-width="1.5" stroke-dasharray="5 3"/>
+
+  <!-- RIGHT: After cut (left side) -->
+  <text x="450" y="18" text-anchor="middle" class="sd-title">After cut at X — internal forces</text>
+
+  <!-- Left half -->
+  <rect x="320" y="66" width="105" height="14" rx="2" class="sd-beam-fill"/>
+  <text x="330" y="60" class="sd-label-bold">A</text>
+  <!-- RA -->
+  <line x1="340" y1="94" x2="340" y2="82" class="sd-force-up" stroke-width="2.5"/>
+  <polygon points="340,80 335,90 345,90" class="sd-arrow-up"/>
+  <text x="328" y="108" class="sd-label-green">R_A</text>
+  <!-- N axial (right on cut face) -->
+  <line x1="427" y1="73" x2="450" y2="73" class="sd-force-h" stroke-width="2.5"/>
+  <polygon points="452,73 442,68 442,78" class="sd-arrow-h"/>
+  <text x="454" y="70" class="sd-label-accent">N</text>
+  <!-- V shear (up on cut face) -->
+  <line x1="427" y1="80" x2="427" y2="58" class="sd-force-up" stroke-width="2.5"/>
+  <polygon points="427,56 422,66 432,66" class="sd-arrow-up"/>
+  <text x="416" y="52" class="sd-label-green">V</text>
+  <!-- M moment arc -->
+  <path d="M 412 90 A 14 14 0 0 0 428 76" fill="none" stroke="#7c3aed" stroke-width="2"/>
+  <polygon points="428,76 422,84 432,80" fill="#7c3aed"/>
+  <text x="408" y="108" class="sd-label" style="fill:#7c3aed;font-weight:700">M</text>
+
+  <!-- Right half -->
+  <rect x="468" y="66" width="105" height="14" rx="2" fill="#e0e7ff" stroke="#2563eb" stroke-width="1.5"/>
+  <!-- N axial (left, opposite) -->
+  <line x1="466" y1="73" x2="443" y2="73" stroke="#2563eb" stroke-width="2.5" fill="none"/>
+  <polygon points="441,73 451,68 451,78" fill="#2563eb"/>
+  <!-- V shear (down on cut face, opposite) -->
+  <line x1="468" y1="60" x2="468" y2="82" class="sd-force-down" stroke-width="2.5"/>
+  <polygon points="468,84 463,74 473,74" class="sd-arrow-down"/>
+  <!-- RB -->
+  <line x1="553" y1="94" x2="553" y2="82" class="sd-force-up" stroke-width="2.5"/>
+  <polygon points="553,80 548,90 558,90" class="sd-arrow-up"/>
+  <text x="541" y="108" class="sd-label-green">R_B</text>
+
+  <!-- Notation -->
+  <text x="320" y="128" class="sd-label-bold">Left face:</text>
+  <text x="320" y="142" class="sd-label">N (axial), V (shear), M (moment)</text>
+  <text x="468" y="128" class="sd-label-bold">Right face:</text>
+  <text x="468" y="142" class="sd-label">Equal &amp; opposite reactions</text>
+</svg>
+</figure>
 
 **Sign conventions** (most common):
 - $N$: tension positive
@@ -971,29 +1308,45 @@ $V$ is linear (straight line), zero at mid-span. $M$ is quadratic (parabola), pe
 - At $x = 4$: $M_{max} = 48(4) - 6(16) = 192 - 96 = 96\ \mathrm{kN \cdot m}$
 - At $x = 8$: $M = 0$
 
-```
-SFD (kN):
-  +48
-   │\
-   │ \
-   │  \
-   │   \
-0──┼────●────────  (zero at x = 4)
-   │     \
-   │      \
-   │       \
-            \
-             -48
+<figure class="structural-diagram" aria-label="Shear Force Diagram (SFD) and Bending Moment Diagram (BMD) for a simply-supported beam with UDL">
+<svg viewBox="0 0 600 260" xmlns="http://www.w3.org/2000/svg">
+  <!-- ===== SFD (top half) ===== -->
+  <text x="300" y="18" text-anchor="middle" class="sd-title">Shear Force Diagram (SFD)</text>
+  <!-- Axes -->
+  <line x1="60" y1="90" x2="540" y2="90" stroke="var(--muted)" stroke-width="1.5"/>
+  <line x1="60" y1="40" x2="60" y2="140" stroke="var(--muted)" stroke-width="1.5"/>
+  <!-- SFD shape: linear from +48 to -48 -->
+  <polyline points="80,40 300,90 520,140" fill="none" stroke="#2563eb" stroke-width="2.5"/>
+  <polygon points="80,40 60,40 60,50" fill="#2563eb" opacity="0.2"/>
+  <polygon points="520,140 520,90 300,90" fill="#dc2626" opacity="0.15"/>
+  <!-- Zero crossing mark -->
+  <circle cx="300" cy="90" r="4" fill="#f59e0b"/>
+  <!-- Labels -->
+  <text x="72" y="36" class="sd-label-accent">+48 kN</text>
+  <text x="490" y="148" class="sd-label-red">−48 kN</text>
+  <text x="295" y="82" class="sd-label" style="fill:#f59e0b">V=0 at midspan</text>
+  <text x="60" y="160" class="sd-label" style="fill:#64748b">0</text>
+  <text x="80" y="155" class="sd-label" style="fill:#64748b">x=0</text>
+  <text x="290" y="155" class="sd-label" style="fill:#64748b">x=4m</text>
+  <text x="502" y="155" class="sd-label" style="fill:#64748b">x=8m</text>
 
-BMD (kN·m):
-        96 (peak at x = 4)
-       ╱─╲
-      ╱   ╲
-     ╱     ╲
-    ╱       ╲
-   ╱         ╲
-  0────────────0
-```
+  <!-- ===== BMD (bottom half) ===== -->
+  <text x="300" y="178" text-anchor="middle" class="sd-title">Bending Moment Diagram (BMD)</text>
+  <!-- Axes -->
+  <line x1="60" y1="250" x2="540" y2="250" stroke="var(--muted)" stroke-width="1.5"/>
+  <line x1="60" y1="200" x2="60" y2="255" stroke="var(--muted)" stroke-width="1.5"/>
+  <!-- BMD parabolic curve (sagging = positive, below zero line) -->
+  <path d="M 80 250 Q 300 190 520 250" fill="#bfdbfe" fill-opacity="0.5" stroke="#2563eb" stroke-width="2.5"/>
+  <!-- Peak label -->
+  <line x1="300" y1="192" x2="300" y2="250" stroke="#f59e0b" stroke-width="1.5" stroke-dasharray="5 3"/>
+  <text x="308" y="190" class="sd-label-accent">M_max = 96 kN·m</text>
+  <text x="72" y="260" class="sd-label" style="fill:#64748b">0</text>
+  <text x="504" y="260" class="sd-label" style="fill:#64748b">0</text>
+  <text x="80" y="270" class="sd-label" style="fill:#64748b">x=0 (A)</text>
+  <text x="280" y="270" class="sd-label" style="fill:#64748b">x=4m (midspan)</text>
+  <text x="490" y="270" class="sd-label" style="fill:#64748b">x=8m (B)</text>
+</svg>
+</figure>
 
 The shear is linear (straight diagonal), the moment is parabolic (smooth curve).
 
@@ -1212,18 +1565,42 @@ The full bending-stress formula uses a geometry property called **moment of iner
 
 Stress varies linearly across the section:
 
-```
-        +σ_max  (compression)
-       ────────
-       ─────
-       ────
-       ─── ← neutral axis (σ = 0)
-       ────
-       ─────
-       ──────
-       ────────
-       -σ_max  (tension)
-```
+<figure class="structural-diagram" aria-label="Bending stress distribution: compression at top, zero at neutral axis, tension at bottom">
+<svg viewBox="0 0 340 200" xmlns="http://www.w3.org/2000/svg">
+  <!-- Section rectangle -->
+  <rect x="120" y="20" width="60" height="160" rx="3" fill="none" stroke="var(--muted)" stroke-width="2" stroke-dasharray="5 3"/>
+  <!-- Neutral axis -->
+  <line x1="100" y1="100" x2="240" y2="100" stroke="#f59e0b" stroke-width="2" stroke-dasharray="6 3"/>
+  <text x="244" y="104" class="sd-label" style="fill:#f59e0b;font-weight:700">N.A. (σ = 0)</text>
+  <!-- Compression zone (top, blue) -->
+  <polygon points="120,20 180,20 155,100 145,100" fill="#bfdbfe" opacity="0.7"/>
+  <!-- Tension zone (bottom, red) -->
+  <polygon points="145,100 155,100 180,180 120,180" fill="#fee2e2" opacity="0.7"/>
+  <!-- Stress arrows: compression (top, pointing into section) -->
+  <line x1="60" y1="24" x2="118" y2="24" class="sd-force-h" stroke-width="2.5"/>
+  <polygon points="120,24 110,19 110,29" class="sd-arrow-h"/>
+  <text x="18" y="28" class="sd-label-accent">+σ_max</text>
+  <text x="8" y="40" class="sd-label" style="fill:#2563eb">(compression)</text>
+  <!-- Stress arrows: midpoint compression -->
+  <line x1="86" y1="62" x2="118" y2="62" stroke="#2563eb" stroke-width="1.5" fill="none"/>
+  <polygon points="120,62 110,58 110,66" fill="#2563eb"/>
+  <!-- Stress arrows: tension (bottom, pointing away from section) -->
+  <line x1="182" y1="176" x2="240" y2="176" class="sd-force-h" stroke-width="2.5"/>
+  <polygon points="242,176 232,171 232,181" class="sd-arrow-h"/>
+  <text x="248" y="180" class="sd-label-red">−σ_max</text>
+  <text x="248" y="192" class="sd-label" style="fill:#dc2626">(tension)</text>
+  <!-- Midpoint tension arrow -->
+  <line x1="182" y1="138" x2="218" y2="138" stroke="#dc2626" stroke-width="1.5" fill="none"/>
+  <polygon points="220,138 210,133 210,143" fill="#dc2626"/>
+  <!-- Dimension: c from N.A. to top/bottom -->
+  <line x1="92" y1="20" x2="92" y2="100" stroke="#64748b" stroke-width="1.5" stroke-dasharray="4 3"/>
+  <text x="78" y="65" class="sd-label" style="fill:#64748b">c</text>
+  <line x1="92" y1="100" x2="92" y2="180" stroke="#64748b" stroke-width="1.5" stroke-dasharray="4 3"/>
+  <text x="78" y="145" class="sd-label" style="fill:#64748b">c</text>
+  <!-- Formula hint -->
+  <text x="170" y="10" text-anchor="middle" class="sd-label-bold">σ = M·c / I</text>
+</svg>
+</figure>
 
 The maximum stress occurs at the top and bottom faces — that's why $c = h/2$ for a rectangle (half the depth).
 
