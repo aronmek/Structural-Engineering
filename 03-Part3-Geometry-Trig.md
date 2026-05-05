@@ -1,38 +1,34 @@
-# PART 3 — GEOMETRY AND TRIGONOMETRY FOR STRUCTURAL ENGINEERS
+﻿# PART 3 — GEOMETRY AND TRIGONOMETRY FOR STRUCTURAL ENGINEERS
 
 > Welcome to Part 3. You now know algebra and the physics of forces and stress. This part gives you the geometric tools to compute the section properties and member geometry every structural calculation needs: areas, centroids, moments of inertia, vectors, trigonometry, and coordinate geometry. These are the building blocks behind every input field in ETABS's section editor.
 
 <div style="page-break-after: always;"></div>
 
-## Chapter 18 — Areas and Perimeters
+## Chapter 18 — Areas and Perimeters of Structural Cross-Sections
 
-### A. Word Bank
+### A. Achievement
 
-| Word | Pronunciation | Plain English Meaning | Used In |
-|------|---------------|----------------------|---------|
-| **Area** | "AIR-ee-ah" | Amount of surface inside a shape | Cross-section A |
-| **Perimeter** | "peh-RIM-ih-ter" | Total length around a shape | Bar circumference |
-| **Rectangle** | "REK-tang-ul" | Four-sided shape, all right angles | Beam cross-section |
-| **Trapezoid** | "TRAP-eh-zoyd" | Four sides, one pair parallel | Sloping girder |
-| **Composite** | "kom-POZ-it" | Made of multiple simple shapes | I-beam, T-beam |
-| **Flange** | "FLANJ" | Horizontal plate of an I-section | Top/bottom of I-beam |
-| **Web** | "WEB" | Vertical plate of an I-section | Middle of I-beam |
-| **Cross-section** | — | The shape you see when you slice a member | Section properties |
+After this section you can compute the net cross-section area of an I-beam or box section by splitting it into rectangles and subtracting holes — and use the area to calculate axial stress.
 
-### B. Concept Introduction
+### B. The Situation
+
+To check whether a column is safe under a given axial load, you need $\sigma = P/A$. Before you can substitute into the formula, you need $A$ — and the column section is rarely a plain rectangle. It is an I-section, a box tube, or a reinforced concrete section with a pattern of steel bars. Each requires decomposing the shape into simple pieces.
+
+### C. The Intuition
 
 The **cross-section** of a structural member is the shape you see if you cut the member perpendicular to its length. The **area** of the cross-section determines axial stress; the way the area is distributed (the geometry) determines bending stiffness.
 
 > **Real-world analogy:** Cut a loaf of bread perpendicular to the length. The shape of the slice — round, square, oval — is the cross-section. Its area is how much bread you get; its shape determines how hard it is to bend a sandwich made from it.
 
-### C. The Physics Behind It
 
 In structural engineering, area appears everywhere:
 - Axial stress: $\sigma = P/A$ — bigger $A$ means smaller stress
 - Self-weight per length: $w_{sw} = \gamma \cdot A$ — bigger $A$ means heavier member
 - Reinforcement ratio: $\rho = A_s / A_c$ — area of steel over area of concrete
 
-### D. The Math
+
+**Formulas and Derivations**
+
 
 | Shape | Area | Perimeter |
 |-------|------|-----------|
@@ -63,7 +59,9 @@ I-section cross-section:
 
 $A = 2 \times (b_f \cdot t_f) + (h_w \cdot t_w) = 2 \times (200 \times 20) + (360 \times 10) = 8{,}000 + 3{,}600 = 11{,}600\ \mathrm{mm^2}$
 
-### E. Structural Engineering Application
+
+**Full Worked Examples**
+
 
 **Problem.** A steel column with the I-section above carries $P = 1{,}500\ \mathrm{kN}$. Find the axial stress.
 
@@ -71,7 +69,9 @@ $\sigma = P/A = 1{,}500{,}000 / 11{,}600 = 129.3\ \mathrm{MPa}$
 
 For $F_y = 350\ \mathrm{MPa}$: demand/capacity ratio = $129.3 / 350 = 0.37$ — safe.
 
-### F. ETABS Connection
+
+**ETABS Connection**
+
 
 In **Define > Section Properties > Frame Sections**, when you choose a rectangular concrete or a built-up steel section, ETABS computes $A$ from the dimensions you enter. The same $A$ is used in:
 - Self-weight calculation (with material density)
@@ -84,13 +84,34 @@ In **Define > Section Properties > Frame Sections**, when you choose a rectangul
 > 3. Click **Section Properties** — confirm $A = 11{,}600\ \mathrm{mm^2}$
 > 4. Compare with your hand calculation
 
-### G. Common Mistakes
+### D. Failure Case
+
+A designer computes the self-weight of an I-section beam by multiplying $b \times h_{total} \times \gamma_{steel}$ — treating the section as if it were a solid rectangle. An I-section 200 mm wide and 400 mm deep has $A_{solid} = 80{,}000\ \mathrm{mm^2}$. The actual area is $\approx 11{,}600\ \mathrm{mm^2}$. The solid estimate is 6.9× too large, wildly overstating the member weight and the axial stress.
 
 1. **Forgetting to subtract for holes.** Hollow sections need area subtraction.
 2. **Mixing units.** Keep all dimensions in the same unit (mm or m).
 3. **Counting the flange-web overlap twice.** When using $h$ as total height, the web is only $h_w = h - 2t_f$.
 
-### H. Chapter Practice Task — Hollow Box Section
+### E. The Rule
+
+Split any complex cross-section into simple shapes (rectangles, circles, trapezoids). Add areas for solid parts; subtract areas for holes. Never count overlapping regions twice.
+
+### F. The Formal Shorthand
+
+| Shape | Area $A$ |
+|-------|----------|
+| Rectangle | $b \cdot h$ |
+| Triangle | $\tfrac{1}{2}bh$ |
+| Circle | $\pi d^2/4$ |
+| Trapezoid | $\tfrac{1}{2}(a+b)h$ |
+
+Composite: $A_{total} = \sum A_i - \sum A_{holes}$. Then $\sigma = P/A$.
+
+### G. Full Worked Example
+
+See the I-section calculation embedded in the Intuition section above ($A = 11{,}600\ \mathrm{mm^2}$, $\sigma = 129.3\ \mathrm{MPa}$).
+
+### H. Practice Task — Hollow Box Section
 
 > **Scenario:** A hollow rectangular tube, outside $300 \times 200$ mm, wall thickness $10$ mm. Find $A$ and $P$ (perimeter outside).
 >
@@ -103,7 +124,7 @@ In **Define > Section Properties > Frame Sections**, when you choose a rectangul
 >
 > **ETABS:** Use **Section Designer** to draw outer rectangle, then a hole, click **Compute Section Properties** — $A$ should match 9,600 mm².
 
-### I. Chapter Summary Table
+### I. What You Now Know
 
 | Concept | Formula | Engineering Use | ETABS Location |
 |---------|---------|----------------|----------------|
@@ -113,29 +134,28 @@ In **Define > Section Properties > Frame Sections**, when you choose a rectangul
 
 <div style="page-break-after: always;"></div>
 
-## Chapter 19 — Centroids
+## Chapter 19 — Centroids and Moment of Inertia: Locating the Neutral Axis
 
-### A. Word Bank
+### A. Achievement
 
-| Word | Pronunciation | Plain English Meaning | Used In |
-|------|---------------|----------------------|---------|
-| **Centroid** | "SEN-troyd" | Geometric center of a shape | Where it would balance |
-| **Neutral axis** | "NOO-trul" | Horizontal line through centroid where bending stress = 0 | Bending |
-| **Symmetry** | "SIH-meh-tree" | Mirror balance | Centroid lies on axis of symmetry |
-| **Weighted average** | — | Average where each value has a "weight" | Centroid formula |
-| **First moment of area** | — | $\Sigma A_i \cdot y_i$ | Used to find centroid |
+After this section you can compute the centroid location and moment of inertia $I$ for a composite beam section (T-beam, I-beam, or box), and then evaluate the maximum bending stress $\sigma = Mc/I$ for a given moment.
 
-### B. Concept Introduction
+### B. The Situation
 
-The centroid is the geometric center — the point where a shape would balance if cut from cardboard.
+You have computed $M = 80\ \mathrm{kN \cdot m}$ at mid-span of a T-beam. To check whether the beam is safe, you need $\sigma = Mc/I$. Both $c$ (distance from neutral axis to extreme fiber) and $I$ (resistance to bending) depend on the section geometry. And $c$ requires knowing where the neutral axis sits — which requires the centroid. You need two geometry calculations to complete one stress check.
+
+### C. The Intuition
+
+The centroid is the geometric center — the point where a shape would balance if cut from cardboard. In a beam, the neutral axis (where bending stress is zero) passes through the centroid.
 
 > **Real-world analogy:** Try to balance a cardboard cutout of a state on a pencil tip. The point where it sits perfectly is the centroid.
 
-### C. The Physics Behind It
 
 In a beam under bending, the **neutral axis** — the line where bending stress is zero — passes through the centroid of the cross-section. Compression occurs on one side of this line, tension on the other. Knowing the centroid's location is therefore the first step in computing bending stress.
 
-### D. The Math
+
+**Formulas and Derivations**
+
 
 For a **simple symmetric** shape (rectangle, circle), the centroid is at the geometric center.
 
@@ -174,7 +194,9 @@ $\bar{y} = 21{,}500{,}000 / 70{,}000 = 307.14\ \mathrm{mm}$
 
 The centroid is 307 mm above the bottom — closer to the flange than to the bottom of the web, since the flange concentrates a lot of area high up.
 
-### E. Structural Engineering Application
+
+**Full Worked Examples**
+
 
 For a T-beam, knowing $\bar{y}$ tells you:
 - Where the neutral axis sits
@@ -187,7 +209,9 @@ In our T-section: $c_{top} = 500 - 307.14 = 192.86$ mm; $c_{bot} = 307.14$ mm.
 
 For the same bending moment and same section stiffness, the bottom face is more critical here because $c_{bot} > c_{top}$.
 
-### F. ETABS Connection
+
+**ETABS Connection**
+
 
 In **Section Designer**, after drawing any cross-section, click **Properties**. ETABS reports the centroid coordinates, often shown as $C_y$, $C_z$.
 
@@ -197,13 +221,27 @@ In **Section Designer**, after drawing any cross-section, click **Properties**. 
 > 3. Click **Compute Section Properties**
 > 4. The dialog shows centroid location — should match 307 mm
 
-### G. Common Mistakes
+### D. Failure Case
+
+A T-beam centroid is assumed to be at mid-height (250 mm for a 500 mm total section). But the wide flange concentrates area near the top, shifting the centroid upward to 307 mm from the bottom. Using mid-height as the neutral axis gives $c_{bot} = 250$ mm instead of $307$ mm. The bending stress at the bottom fiber is underestimated by $307/250 = 1.23 \times$ — a 23% unconservative error.
 
 1. **Wrong reference axis.** Be consistent — measure all $y_i$ from the same reference (usually the bottom).
 2. **Using overall section centroid for $y_i$.** $y_i$ is the centroid of each *individual* sub-shape, not the whole.
 3. **Forgetting symmetry shortcuts.** A symmetric section has its centroid on the axis of symmetry — no calculation needed.
 
-### H. Chapter Practice Task — L-Section Centroid
+### E. The Rule
+
+The centroid of a composite section is the weighted average of the centroids of its parts, where the weight is area. Choose one reference axis for all measurements. Check your answer: the centroid must lie inside the section and closer to the heavier (larger-area) portions.
+
+### F. The Formal Shorthand
+
+$$\bar{y} = \frac{\sum A_i \cdot y_i}{\sum A_i} \qquad c_{top} = h - \bar{y} \qquad c_{bot} = \bar{y}$$
+
+### G. Full Worked Example
+
+See the T-section centroid calculation embedded in the Intuition section above ($\bar{y} = 307.14\ \mathrm{mm}$).
+
+### H. Practice Task — L-Section Centroid
 
 > **Scenario:** An L-shape: vertical leg $20 \times 200$ mm; horizontal leg $200 \times 20$ mm; sharing the bottom-left corner. Find the centroid.
 >
@@ -232,7 +270,7 @@ In **Section Designer**, after drawing any cross-section, click **Properties**. 
 >
 > **ETABS:** Section Designer → draw L-shape → confirm centroid coords.
 
-### I. Chapter Summary Table
+### I. What You Now Know
 
 | Concept | Formula | Engineering Use | ETABS Location |
 |---------|---------|----------------|----------------|
@@ -242,26 +280,22 @@ In **Section Designer**, after drawing any cross-section, click **Properties**. 
 
 <div style="page-break-after: always;"></div>
 
-## Chapter 20 — Moment of Inertia (Second Moment of Area)
+## Chapter 20 — Moment of Inertia: How Section Shape Controls Bending Stiffness
 
-### A. Word Bank
+### A. Achievement
 
-| Word | Pronunciation | Plain English Meaning | Used In |
-|------|---------------|----------------------|---------|
-| **Moment of inertia** | "in-ER-shuh" | Geometric measure of bending stiffness | $I$, mm⁴ |
-| **Second moment of area** | — | Same as moment of inertia | Synonym |
-| **Parallel axis theorem** | — | Shifts $I$ from one axis to a parallel axis | $I = I_c + Ad^2$ |
-| **Strong axis** | — | The axis about which $I$ is largest | Major bending |
-| **Weak axis** | — | The axis about which $I$ is smallest | Minor bending |
-| **Radius of gyration** | "jy-RAY-shun" | $r = \sqrt{I/A}$, a later column-stability property | Slenderness |
+After this section you can compute $I_{33}$ for a composite section using the parallel axis theorem, confirm the value in ETABS Section Designer, and use $I$ with the centroid from Chapter 19 to calculate bending stress.
 
-### B. Concept Introduction
+### B. The Situation
+
+You know that a deeper beam is stiffer. The moment of inertia $I$ is the mathematical property that captures exactly how much stiffer. Without $I$, the bending stress formula $\sigma = Mc/I$ has a missing denominator. Two beams with the same area but different depths have vastly different $I$ — and bending stress.
+
+### C. The Intuition
 
 Moment of inertia $I$ measures how spread out a section's area is from the axis of bending. The further the area sits from the axis, the larger $I$ becomes — and the stiffer the beam.
 
 > **Real-world analogy:** A flat ruler is easy to bend if you bend it sideways; very hard to bend if you turn it on edge. Same ruler, same area — but the depth in the direction of bending changes $I$ by a huge amount.
 
-### C. The Physics Behind It
 
 In bending, fibers far from the neutral axis stretch and compress more, contributing more resistance. Moment of inertia measures this idea by weighting area farther from the axis more heavily. The distance is squared, which is why depth matters so much.
 
@@ -274,7 +308,9 @@ For practical engineering, we use formulas for common shapes:
 | Circle (any diameter) | $I = \pi d^4/64$ |
 | Hollow circle | $I = \pi(d_o^4 - d_i^4)/64$ |
 
-### D. The Math
+
+**Formulas and Derivations**
+
 
 **Parallel Axis Theorem:**
 $$I_{any\ axis} = I_{centroidal} + A \cdot d^2$$
@@ -314,7 +350,9 @@ $$\sigma = \dfrac{Mc}{I} = \dfrac{(80 \times 10^6)(300)}{5.4 \times 10^9} = 4.44
 
 This is the exact calculation Chapter 17 pointed toward but did not yet have enough geometry to perform.
 
-### E. Structural Engineering Application
+
+**Full Worked Examples**
+
 
 **Cube law in action.** Compare two beams of equal area:
 - Beam A: $b = 200, h = 400$ → $I = 200 \cdot 400^3 / 12 = 1.067 \times 10^9$ mm⁴
@@ -322,7 +360,9 @@ This is the exact calculation Chapter 17 pointed toward but did not yet have eno
 
 Ratio: B has 4× the $I$ of A despite same area — and would deflect 4× less under the same load. **Depth dominates stiffness.**
 
-### F. ETABS Connection
+
+**ETABS Connection**
+
 
 ETABS reports $I_{33}$ (about the strong axis, used for major-axis bending) and $I_{22}$ (about the weak axis, used for minor-axis bending). For an I-beam laid flat (web horizontal), $I_{33}$ might be much smaller than the engineer expects — always confirm orientation.
 
@@ -331,13 +371,31 @@ ETABS reports $I_{33}$ (about the strong axis, used for major-axis bending) and 
 > 2. Read $I_{33}$ and $I_{22}$ — these are the moments of inertia about the major and minor axes
 > 3. Verify by hand using $I = bh^3/12$ for rectangles or the composite method for I-shapes
 
-### G. Common Mistakes
+### D. Failure Case
 
-1. **Forgetting parallel axis.** $I_{c}$ alone is not enough when the part isn't centered on the overall centroid.
+Two rectangular beams have the same cross-sectional area ($A = 60{,}000\ \mathrm{mm^2}$): Beam A is $300 \times 200$ mm, Beam B is $100 \times 600$ mm. An engineer treats them as equivalent because $A$ is the same. Under the same bending moment:
+$I_A = 300 \cdot 200^3/12 = 2.0 \times 10^8\ \mathrm{mm^4}$
+$I_B = 100 \cdot 600^3/12 = 1.8 \times 10^9\ \mathrm{mm^4}$
+Beam B is 9× stiffer in bending. The bending stress in A is 9× greater. They are not equivalent.
+
+1. **Forgetting parallel axis.** $I_c$ alone is not enough when the part isn't centered on the overall centroid.
 2. **Confusing $I_{33}$ and $I_{22}$.** ETABS uses 3-3 = strong axis; 2-2 = weak axis.
 3. **Wrong units.** $I$ has units of length⁴ — not mm³ or mm².
 
-### H. Chapter Practice Task — Compute $I$ for a Built-up I-Section
+### E. The Rule
+
+Compute $I$ of each part about its own centroid ($bh^3/12$), then shift it to the section's overall centroid using the parallel axis theorem. Depth affects $I$ cubically — doubling the depth multiplies $I$ by 8.
+
+### F. The Formal Shorthand
+
+$$I = \frac{bh^3}{12} \quad (\text{rectangle, about own centroid}) \qquad I_{total} = \sum\left(I_{c,i} + A_i d_i^2\right)$$
+$$\sigma_{max} = \frac{Mc}{I} \qquad S = \frac{I}{c} \qquad \sigma_{max} = \frac{M}{S}$$
+
+### G. Full Worked Example
+
+See the T-section $I$ calculation and the rectangle bending stress example embedded in the Intuition section above.
+
+### H. Practice Task — Compute $I$ for a Built-up I-Section
 
 > **Scenario:** I-section: top flange $300 \times 25$, bottom flange $300 \times 25$, web $20 \times 450$ (all mm). Symmetric → centroid at mid-height. Compute $I_{33}$ (about horizontal centroidal axis).
 >
@@ -356,7 +414,7 @@ ETABS reports $I_{33}$ (about the strong axis, used for major-axis bending) and 
 >
 > **ETABS:** Section Designer → build same I-section → confirm $I_{33} \approx 1.0 \times 10^9\ \mathrm{mm^4}$.
 
-### I. Chapter Summary Table
+### I. What You Now Know
 
 | Concept | Formula | Engineering Use | ETABS Location |
 |---------|---------|----------------|----------------|
@@ -367,25 +425,22 @@ ETABS reports $I_{33}$ (about the strong axis, used for major-axis bending) and 
 
 <div style="page-break-after: always;"></div>
 
-## Chapter 21 — Vectors
+## Chapter 21 — Vectors, Trigonometry, and Diagonal Forces
 
-### A. Word Bank
+### A. Achievement
 
-| Word | Pronunciation | Plain English Meaning | Used In |
-|------|---------------|----------------------|---------|
-| **Vector** | "VEK-tor" | A quantity with magnitude and direction | Force, displacement |
-| **Scalar** | "SKAY-ler" | A quantity with magnitude only | Mass, temperature |
-| **Component** | "kom-POH-nent" | Projection of a vector onto an axis | $F_x$, $F_y$ |
-| **Resultant** | "rih-ZUL-tant" | The single vector equivalent to several combined | Net force |
-| **Unit vector** | — | A vector of length 1 used to indicate direction | $\hat{i}, \hat{j}, \hat{k}$ |
+After this section you can decompose a diagonal wind force (or inclined member force) into horizontal and vertical components using trigonometry, find the resultant of multiple force components using the Pythagorean theorem, and apply this to the analysis of a roof truss or inclined strut.
 
-### B. Concept Introduction
+### B. The Situation
+
+A wind load acts perpendicular to an inclined glass facade at 30° from vertical. ETABS shows the wind as a horizontal load, but the facade is not horizontal. To find the actual tension in the facade cables and the compression in the supporting mullions, you need to resolve the force into horizontal and vertical components. This requires trigonometry.
+
+### C. The Intuition
 
 A scalar is just a number with units (mass, temperature). A vector is a number plus a direction (force, velocity, displacement). Adding vectors is *not* the same as adding scalars — direction matters.
 
 > **Real-world analogy:** Walking 3 km north then 4 km east doesn't put you 7 km away from start — it puts you 5 km away (along the diagonal). That diagonal is the resultant vector.
 
-### C. The Physics Behind It
 
 Forces are vectors. To analyze any structure with forces in multiple directions, you must:
 
@@ -395,7 +450,9 @@ Forces are vectors. To analyze any structure with forces in multiple directions,
 
 Then the equilibrium equations $\Sigma F_x = 0$ and $\Sigma F_y = 0$ apply directly.
 
-### D. The Math
+
+**Formulas and Derivations**
+
 
 In this chapter, components are given directly. Chapter 22 teaches how to get components from an angle, and Chapter 23 teaches how to find a resultant magnitude from perpendicular components.
 
@@ -415,7 +472,9 @@ $R_y = 5 + 7 = 12\ \mathrm{kN}$
               └────────→ Rx = 9 kN
 ```
 
-### E. Structural Engineering Application
+
+**Full Worked Examples**
+
 
 **Problem.** A joint receives two already-resolved force components from connected members:
 - Member 1: $F_x = 30\ \mathrm{kN}$, $F_y = 20\ \mathrm{kN}$
@@ -428,7 +487,9 @@ $R_y = 20 + 15 = 35\ \mathrm{kN}$
 
 The joint's net force components are 20 kN in X and 35 kN in Y.
 
-### F. ETABS Connection
+
+**ETABS Connection**
+
 
 In ETABS, every force is a vector. When you assign **Joint Loads > Forces**, you enter Fx, Fy, Fz components separately. Angle-to-component calculations come in Chapter 22.
 
@@ -438,13 +499,27 @@ In ETABS, every force is a vector. When you assign **Joint Loads > Forces**, you
 > 3. To apply a force with known components, enter each component in the correct field
 > 4. Click OK; visualize with **Display > Show Loads**
 
-### G. Common Mistakes
+### D. Failure Case
+
+A wind load of $F = 50\ \mathrm{kN}$ acts horizontally. An engineer adds it to vertical loads as if it were the same kind of force: $50 + 200 = 250\ \mathrm{kN}$. But the horizontal force acts in a different direction. The actual resultant magnitude is $\sqrt{200^2 + 50^2} = 206\ \mathrm{kN}$, and the horizontal component demands lateral capacity the vertical-only combination doesn't check.
 
 1. **Ignoring signs.** Left/right and up/down components must keep their signs.
 2. **Adding X to Y.** Add X components only with X components, and Y only with Y.
 3. **Adding angled magnitudes directly.** Resolve to components first; Chapter 22 teaches how.
 
-### H. Chapter Practice Task — Combining Component Forces
+### E. The Rule
+
+Forces are vectors. Before adding forces from different sources, decompose each into X and Y (and Z) components. Sum components separately: $\Sigma F_x$, $\Sigma F_y$. The resultant magnitude is $|F| = \sqrt{F_x^2 + F_y^2}$.
+
+### F. The Formal Shorthand
+
+$$F_x = F \cos\theta \qquad F_y = F \sin\theta \qquad |F| = \sqrt{F_x^2 + F_y^2} \qquad \theta = \arctan(F_y / F_x)$$
+
+### G. Full Worked Example
+
+See the vector decomposition and combining examples embedded in the Intuition section above.
+
+### H. Practice Task — Combining Component Forces
 
 > **Scenario:** Two member forces at a node are already resolved into components:
 > - Force 1: $F_{1x} = 56\ \mathrm{kN}$, $F_{1y} = 21\ \mathrm{kN}$
@@ -458,7 +533,7 @@ In ETABS, every force is a vector. When you assign **Joint Loads > Forces**, you
 >
 > Chapter 23 shows how to turn these components into a single resultant magnitude.
 
-### I. Chapter Summary Table
+### I. What You Now Know
 
 | Concept | Formula | Engineering Use | ETABS Location |
 |---------|---------|----------------|----------------|
@@ -467,31 +542,28 @@ In ETABS, every force is a vector. When you assign **Joint Loads > Forces**, you
 
 <div style="page-break-after: always;"></div>
 
-## Chapter 22 — Right Triangle Trigonometry
+## Chapter 22 — Right Triangle Trigonometry: Resolving Inclined Forces
 
-### A. Word Bank
+### A. Achievement
 
-| Word | Pronunciation | Plain English Meaning | Used In |
-|------|---------------|----------------------|---------|
-| **Sine** | "SINE" | Opposite over hypotenuse | $\sin\theta$ |
-| **Cosine** | "KOH-sine" | Adjacent over hypotenuse | $\cos\theta$ |
-| **Tangent** | "TAN-jent" | Opposite over adjacent | $\tan\theta$ |
-| **Hypotenuse** | "hy-POT-en-yoos" | Longest side, opposite the right angle | Diagonal brace |
-| **Opposite** | "OP-oh-zit" | Side across from the angle of interest | Vertical leg in a slope |
-| **Adjacent** | "ah-JAY-sent" | Side next to the angle (not the hypotenuse) | Horizontal leg |
-| **SOH-CAH-TOA** | — | Mnemonic for the three ratios | Memory aid |
+After this section you can resolve any force (or inclined member) acting at a known angle into its horizontal and vertical components using $\sin$, $\cos$, and $\tan$, and apply the result to analyze inclined braces and sloped roof loads.
 
-### B. Concept Introduction
+### B. The Situation
+
+A diagonal brace in a steel frame carries a force $F$ along its length at $40°$ from horizontal. To check the columns and beams connected to it, you need the horizontal and vertical components of that force separately. They are two different demands on two different members. Trigonometry converts the single inclined force into those two components.
+
+### C. The Intuition
 
 Trigonometry is the math of triangles. A right triangle has one $90°$ angle. The three trig functions — sine, cosine, tangent — relate the sides and angles. They are the bridge between physical geometry (a roof slope, a brace angle) and the components engineers compute.
 
 > **Real-world analogy:** A ramp. If you know its angle and length, trig tells you exactly how high it rises and how far it runs horizontally.
 
-### C. The Physics Behind It
 
 Inclined loads, sloping members, and lateral bracing all involve triangles. To analyze them, you decompose forces into perpendicular components — and trigonometry gives you the components from the angles.
 
-### D. The Math
+
+**Formulas and Derivations**
+
 
 ```
             *
@@ -526,7 +598,9 @@ Inclined loads, sloping members, and lateral bracing all involve triangles. To a
 Horizontal run = $L \cos(40°) = 5 \times 0.766 = 3.83\ \mathrm{m}$
 Vertical rise = $L \sin(40°) = 5 \times 0.643 = 3.21\ \mathrm{m}$
 
-### E. Structural Engineering Application
+
+**Full Worked Examples**
+
 
 **Problem.** A 12 kN load acts on a roof rafter sloped at $25°$. Resolve into components perpendicular and parallel to the rafter (for purlin design).
 
@@ -535,7 +609,9 @@ Parallel to rafter = $12 \sin(25°) = 12 \times 0.423 = 5.07\ \mathrm{kN}$
 
 The perpendicular component creates bending; the parallel component creates axial force.
 
-### F. ETABS Connection
+
+**ETABS Connection**
+
 
 When entering inclined loads in ETABS, you must trigonometrically resolve them into the global X, Y, Z components first. ETABS does not interpret angles — it only accepts components.
 
@@ -544,13 +620,29 @@ When entering inclined loads in ETABS, you must trigonometrically resolve them i
 > 2. To apply a 12 kN/m load perpendicular to a 25°-sloped rafter: enter the load in the local axis 2 direction (which is perpendicular to the member by default)
 > 3. Or compute $w \cos 25° = 10.87$ in global Z (gravity), enter that — the BMD will reflect this projection
 
-### G. Common Mistakes
+### D. Failure Case
+
+A student computes $\sin(45°) = 0.707$ but the calculator is in radian mode: $\sin(45) = 0.851$ (interpreting 45 as radians). The horizontal component of a $100\ \mathrm{kN}$ brace force at $45°$ is computed as $85.1\ \mathrm{kN}$ instead of $70.7\ \mathrm{kN}$ — a 20% overestimate that affects the column design.
 
 1. **Calculator in degree vs radian mode.** Always check. $\sin(30°) = 0.5$, but $\sin(30\ \mathrm{rad}) = -0.988$.
 2. **Wrong "opposite" side.** It's opposite the angle you're using.
 3. **Mixing up sin and cos when "horizontal" and "vertical" are confused.** Always sketch first.
 
-### H. Chapter Practice Task — Sloped Roof Load
+### E. The Rule
+
+Draw the triangle first. Label the angle, the hypotenuse, the opposite, and the adjacent. Then and only then pick the ratio. If you can't label the triangle, you don't yet know which function to use.
+
+### F. The Formal Shorthand
+
+$$\sin\theta = \frac{\text{Opp}}{H} \qquad \cos\theta = \frac{\text{Adj}}{H} \qquad \tan\theta = \frac{\text{Opp}}{\text{Adj}}$$
+
+Component decomposition: $F_x = F\cos\theta$ (horizontal), $F_y = F\sin\theta$ (vertical), where $\theta$ is from horizontal.
+
+### G. Full Worked Example
+
+See the diagonal brace and the sloped rafter examples embedded in the Intuition section above.
+
+### H. Practice Task — Sloped Roof Load
 
 > **Scenario:** A roof truss member is inclined $35°$ from horizontal. A vertical gravity load of $8\ \mathrm{kN/m}$ acts on the projected horizontal length. Convert to load along the rafter.
 >
@@ -564,7 +656,7 @@ When entering inclined loads in ETABS, you must trigonometrically resolve them i
 >
 > **ETABS:** Build a 35° rafter element, apply Z = -8 kN/m. ETABS handles the inclined geometry; the resulting bending and axial follow the trig automatically.
 
-### I. Chapter Summary Table
+### I. What You Now Know
 
 | Concept | Formula | Engineering Use | ETABS Location |
 |---------|---------|----------------|----------------|
@@ -574,28 +666,28 @@ When entering inclined loads in ETABS, you must trigonometrically resolve them i
 
 <div style="page-break-after: always;"></div>
 
-## Chapter 23 — The Pythagorean Theorem
+## Chapter 23 — The Pythagorean Theorem: Finding Resultant Forces and Diagonal Lengths
 
-### A. Word Bank
+### A. Achievement
 
-| Word | Pronunciation | Plain English Meaning | Used In |
-|------|---------------|----------------------|---------|
-| **Pythagorean** | "pih-THAG-oh-REE-an" | Named after Pythagoras | $a^2 + b^2 = c^2$ |
-| **Theorem** | "THEE-oh-rem" | A mathematical statement that has been proven | Pythagorean theorem |
-| **Right angle** | — | $90°$ angle | Corner of a rectangle |
-| **Legs** | — | The two shorter sides of a right triangle | $a$, $b$ |
+After this section you can find the resultant magnitude of two perpendicular force components (or the length of a diagonal brace) using $c = \sqrt{a^2 + b^2}$, completing the vector resolution cycle started in Chapter 21.
 
-### B. Concept Introduction
+### B. The Situation
+
+You have resolved a wind force into $F_x = 60\ \mathrm{kN}$ and $F_y = 80\ \mathrm{kN}$. Or you've split an inclined brace force into components. Now the question reverses: given two perpendicular components, what is the total magnitude? The Pythagorean theorem gives the answer, and it also gives diagonal member lengths from grid coordinates.
+
+### C. The Intuition
 
 For any right triangle, the square of the hypotenuse equals the sum of the squares of the other two sides.
 
 > **Real-world analogy:** Walk 3 m east, then 4 m north. Your straight-line distance from start is 5 m — because $3^2 + 4^2 = 9 + 16 = 25$, and $\sqrt{25} = 5$.
 
-### C. The Physics Behind It
 
 Whenever you combine two perpendicular components — horizontal/vertical, X/Y, force in two axes — the resultant magnitude follows Pythagoras. It also gives you exact diagonal lengths in framing geometry.
 
-### D. The Math
+
+**Formulas and Derivations**
+
 
 $$a^2 + b^2 = c^2 \quad \mathrm{where}\ c\ \mathrm{is\ the\ hypotenuse}$$
 
@@ -603,7 +695,9 @@ Solve for $c$: $c = \sqrt{a^2 + b^2}$
 
 **Worked example.** Diagonal brace from $(0,0)$ to $(4, 3)$ m: length = $\sqrt{16 + 9} = 5$ m.
 
-### E. Structural Engineering Application
+
+**Full Worked Examples**
+
 
 **Problem.** A column grid is 6 m × 8 m. A diagonal X-brace runs from corner to corner across one bay. Find the brace's length.
 
@@ -613,7 +707,9 @@ $L_{brace} = \sqrt{6^2 + 8^2} = \sqrt{36 + 64} = \sqrt{100} = 10\ \mathrm{m}$
 
 $R = \sqrt{200^2 + 75^2} = \sqrt{40{,}000 + 5{,}625} = \sqrt{45{,}625} = 213.6\ \mathrm{kN}$
 
-### F. ETABS Connection
+
+**ETABS Connection**
+
 
 ETABS uses the distance formula (Pythagorean in coordinates) to compute every member length from joint coordinates. You can verify any member's length using your hand calculation.
 
@@ -622,13 +718,27 @@ ETABS uses the distance formula (Pythagorean in coordinates) to compute every me
 > 2. Apply Pythagoras: $L = \sqrt{(\Delta x)^2 + (\Delta y)^2 + (\Delta z)^2}$
 > 3. Compare to ETABS's Frame property "Length" field — they should match exactly
 
-### G. Common Mistakes
+### D. Failure Case
+
+Two cables hold a hanging load: cable 1 carries $60\ \mathrm{kN}$ horizontally, cable 2 carries $80\ \mathrm{kN}$ vertically. An engineer adds the magnitudes: $60 + 80 = 140\ \mathrm{kN}$ and designs the anchor for 140 kN. The actual resultant on the anchor is $\sqrt{60^2 + 80^2} = 100\ \mathrm{kN}$ — 40% less. But if the cables were both horizontal and parallel, $60 + 80 = 140\ \mathrm{kN}$ would be correct. The Pythagorean theorem only applies when the two components are perpendicular.
 
 1. **Adding magnitudes directly.** $3 + 4 \neq 5$ — only the squares add.
 2. **Forgetting it requires a right angle.** For non-right triangles, use the cosine rule (Chapter 24).
 3. **Sign confusion.** $a$ and $b$ are lengths, always positive.
 
-### H. Chapter Practice Task — Bracing in 3D
+### E. The Rule
+
+The hypotenuse of a right triangle equals the square root of the sum of the squares of the two legs: $c = \sqrt{a^2+b^2}$. This applies to force resultants, geometric diagonals, and 3D distances — but only when the two components are perpendicular.
+
+### F. The Formal Shorthand
+
+$$c = \sqrt{a^2 + b^2} \qquad R = \sqrt{F_x^2 + F_y^2} \qquad L_{3D} = \sqrt{(\Delta x)^2 + (\Delta y)^2 + (\Delta z)^2}$$
+
+### G. Full Worked Example
+
+See the brace diagonal (5 m) and force resultant ($213.6\ \mathrm{kN}$) examples embedded in the Intuition section above.
+
+### H. Practice Task — Bracing in 3D
 
 > **Scenario:** A 3D bracing element runs from joint A at $(0, 0, 0)$ to joint B at $(4, 3, 5)$ m. Find its length.
 >
@@ -638,7 +748,7 @@ ETABS uses the distance formula (Pythagorean in coordinates) to compute every me
 >
 > **ETABS:** Verify by reading joint coords and member length.
 
-### I. Chapter Summary Table
+### I. What You Now Know
 
 | Concept | Formula | Engineering Use | ETABS Location |
 |---------|---------|----------------|----------------|
@@ -648,26 +758,26 @@ ETABS uses the distance formula (Pythagorean in coordinates) to compute every me
 
 <div style="page-break-after: always;"></div>
 
-## Chapter 24 — Trigonometry for Non-Right Triangles
+## Chapter 24 — Trigonometry for Non-Right Triangles: Truss Panel Geometry
 
-### A. Word Bank
+### A. Achievement
 
-| Word | Pronunciation | Plain English Meaning | Used In |
-|------|---------------|----------------------|---------|
-| **Sine rule** | — | Relates sides and opposite angles | Truss geometry |
-| **Cosine rule** | — | Generalizes Pythagoras | Truss geometry |
-| **Oblique** | "oh-BLEEK" | Not a right triangle | Truss panels |
-| **Included angle** | — | Angle between two known sides | Cosine rule application |
+After this section you can find unknown side lengths and angles in a non-right-angled truss panel using the sine rule and cosine rule.
 
-### B. Concept Introduction
+### B. The Situation
+
+A roof truss has a panel where three members meet at angles that form a scalene triangle (no right angles). You know two sides and the included angle, but need the third side to check the member's slenderness ratio. The Pythagorean theorem doesn't apply to non-right triangles. The cosine rule does.
+
+### C. The Intuition
 
 Many real triangles in trusses and bracing are not right-angled. Two general rules cover them: the **sine rule** and the **cosine rule**.
 
-### C. The Physics Behind It
 
 Truss panels often form scalene triangles (no right angles). Computing member lengths and angles requires these rules.
 
-### D. The Math
+
+**Formulas and Derivations**
+
 
 ```
        C
@@ -693,7 +803,9 @@ $$c^2 = a^2 + b^2 - 2ab\cos C$$
 $c^2 = 16 + 25 - 2(4)(5)\cos 70° = 41 - 40(0.342) = 41 - 13.68 = 27.32$
 $c = \sqrt{27.32} = 5.23\ \mathrm{m}$
 
-### E. Structural Engineering Application
+
+**Full Worked Examples**
+
 
 **Problem.** A truss has top chord $a = 6\ \mathrm{m}$ and diagonal $b = 4\ \mathrm{m}$, with included angle $30°$. Find the bottom chord length and the other angles.
 
@@ -703,7 +815,9 @@ Sine rule for angle A (opposite $a$):
 $\sin A / a = \sin C / c$ → $\sin A = (a / c)\sin C = (6/3.23)(0.5) = 0.929$ → $A = 68.32°$
 $B = 180 - 30 - 68.32 = 81.68°$
 
-### F. ETABS Connection
+
+**ETABS Connection**
+
 
 When laying out truss geometry from drawings, you often have a panel angle and two member lengths and need to verify the third. The cosine rule confirms member lengths before you draw nodes in ETABS.
 
@@ -712,13 +826,28 @@ When laying out truss geometry from drawings, you often have a panel angle and t
 > 2. **Edit > Grid Data** or directly **Draw > Frame Object** with explicit start/end coordinates
 > 3. Verify member length matches your cosine-rule answer
 
-### G. Common Mistakes
+### D. Failure Case
+
+A truss panel has two sides of 5 m and 8 m meeting at an angle that appears to be $90°$ in the sketch. The engineer uses Pythagoras: $\sqrt{5^2 + 8^2} = 9.43\ \mathrm{m}$. But the actual angle is $75°$, not $90°$. The correct length by cosine rule: $c = \sqrt{5^2 + 8^2 - 2(5)(8)\cos(75°)} = \sqrt{89 - 20.7} = \sqrt{68.3} = 8.27\ \mathrm{m}$. Using Pythagoras on a non-right triangle overstated the member length by 14% and changed the slenderness check.
 
 1. **Wrong angle in cosine rule.** $C$ must be the angle between sides $a$ and $b$ (the included angle).
 2. **Calculator mode.** Radians vs degrees again.
 3. **Ambiguous case in sine rule.** Two triangles can sometimes satisfy the same data; always sketch.
 
-### H. Chapter Practice Task — Truss Panel Geometry
+### E. The Rule
+
+For a non-right triangle: if you know two sides and the included angle, use the cosine rule to find the third side. If you know a side and its opposite angle, use the sine rule to find others. Always verify with a sketch that your answer is geometrically plausible.
+
+### F. The Formal Shorthand
+
+$$\text{Sine rule:} \quad \frac{a}{\sin A} = \frac{b}{\sin B} = \frac{c}{\sin C}$$
+$$\text{Cosine rule:} \quad c^2 = a^2 + b^2 - 2ab\cos C$$
+
+### G. Full Worked Example
+
+See the truss panel worked examples embedded in the Intuition section above.
+
+### H. Practice Task — Truss Panel Geometry
 
 > **Scenario:** A truss panel has bottom chord 8 m, vertical post 3 m at the right end, and a diagonal connecting the top-of-post to the left end of the bottom chord. Find the diagonal length and the angle it makes with the bottom chord.
 >
@@ -728,7 +857,7 @@ When laying out truss geometry from drawings, you often have a panel angle and t
 >
 > **ETABS:** Place joints at $(0,0,0)$, $(8,0,0)$, $(8,0,3)$. Draw frames, verify member lengths.
 
-### I. Chapter Summary Table
+### I. What You Now Know
 
 | Concept | Formula | Engineering Use | ETABS Location |
 |---------|---------|----------------|----------------|
@@ -737,28 +866,26 @@ When laying out truss geometry from drawings, you often have a panel angle and t
 
 <div style="page-break-after: always;"></div>
 
-## Chapter 25 — Coordinate Geometry
+## Chapter 25 — Coordinate Geometry: Locating Joints and Members in 3D
 
-### A. Word Bank
+### A. Achievement
 
-| Word | Pronunciation | Plain English Meaning | Used In |
-|------|---------------|----------------------|---------|
-| **Coordinate** | "koh-OR-dih-nut" | A number that locates a point | $(x, y, z)$ |
-| **Cartesian** | "kar-TEE-zhun" | The standard X-Y(-Z) grid | Coordinate system |
-| **Origin** | "OR-ih-jin" | The $(0,0,0)$ reference point | Building corner |
-| **Distance formula** | — | Length between two points | Member length |
-| **Slope** | "SLOPE" | Steepness of a line, $\Delta y / \Delta x$ | Roof slope |
-| **Midpoint** | "MID-poynt" | The average of two endpoints | Centerline |
+After this section you can write the coordinates for every column base and beam end in a regular grid, compute the length and slope of any member from its endpoint coordinates, and verify that ETABS joint data matches the design intent.
 
-### B. Concept Introduction
+### B. The Situation
+
+You need to model a new building in ETABS. The structural grid is not orthogonal — there's a diagonal transfer beam from (0, 0, 6) to (8, 6, 12) m. To enter its endpoints correctly, to compute its length, and to verify that the model matches the sketch, you need coordinate geometry.
+
+### C. The Intuition
 
 Coordinate geometry assigns numbers (coordinates) to points so we can do geometry algebraically. Every joint in a structural model has $(x, y, z)$ coordinates; every member length, angle, and grid intersection comes from coordinate calculations.
 
-### C. The Physics Behind It
 
 ETABS stores every joint's location as $(x, y, z)$. Member lengths come from the 3D distance formula. Forces and displacements at each joint are vectors in this coordinate system.
 
-### D. The Math
+
+**Formulas and Derivations**
+
 
 **Distance between two points** in 2D:
 $$d = \sqrt{(x_2 - x_1)^2 + (y_2 - y_1)^2}$$
@@ -778,7 +905,9 @@ Length: $\sqrt{64 + 36} = \sqrt{100} = 10$ m
 Midpoint: $(4, 3)$
 Slope: $6/8 = 0.75$ → angle = $\tan^{-1}(0.75) = 36.87°$
 
-### E. Structural Engineering Application
+
+**Full Worked Examples**
+
 
 **Problem.** A column grid: gridline 1 at $x = 0$, gridline 2 at $x = 6$, gridline 3 at $x = 12$. Y-axis: gridline A at $y = 0$, B at $y = 5$, C at $y = 10$. Story 2 is at $z = 4$. Find the coordinates of joint at intersection of grid 2-B-Story2.
 
@@ -788,7 +917,9 @@ Length of a beam between joints (2-B-2) and (3-B-2): $\sqrt{(12-6)^2 + 0 + 0} = 
 
 Length of a brace from (1-A-1) at $(0, 0, 0)$ to (2-A-2) at $(6, 0, 4)$: $\sqrt{36 + 16} = \sqrt{52} = 7.21$ m.
 
-### F. ETABS Connection
+
+**ETABS Connection**
+
 
 In ETABS:
 - **Edit > Grid Data** sets up the coordinate system
@@ -803,13 +934,29 @@ In ETABS:
 > 4. Click the column → **Display Frame Properties** — read length = 4 m
 > 5. **Edit > Interactive Database Editing > Joints** — verify joint coordinates
 
-### G. Common Mistakes
+### D. Failure Case
+
+A column grid has Bay A-B = 6 m E-W and Bay 1-2 = 4 m N-S. A diagonal brace runs from A1 to B2. An engineer computes its length as $6 + 4 = 10\ \mathrm{m}$ (adding the two bay dimensions). The actual length is $\sqrt{6^2 + 4^2} = \sqrt{52} = 7.21\ \mathrm{m}$. The brace's weight, period contribution, and connection design are all off.
 
 1. **Wrong axis convention.** ETABS uses Z = vertical (up). Some textbooks use Y = vertical. Stay with one.
 2. **Negative coordinates.** Common when origin is at a corner — keep signs straight.
-3. **Forgetting Z when computing 3D distances.** A "vertical" member appears as $\Delta x = \Delta y = 0$, $\Delta z =$ length.
+3. **Forgetting Z when computing 3D distances.** A "vertical" member has $\Delta x = \Delta y = 0$, $\Delta z =$ length.
 
-### H. Chapter Practice Task — Member Length and Direction
+### E. The Rule
+
+Location in space is described by three coordinates $(x, y, z)$. Any calculation about distance, angle, or midpoint can be performed algebraically from these coordinates. In ETABS, every joint has coordinates; every member length and orientation derives from those coordinates.
+
+### F. The Formal Shorthand
+
+$$\text{Distance: } d = \sqrt{(\Delta x)^2 + (\Delta y)^2 + (\Delta z)^2}$$
+$$\text{Midpoint: } M = \left(\frac{x_1+x_2}{2},\ \frac{y_1+y_2}{2},\ \frac{z_1+z_2}{2}\right)$$
+$$\text{Slope: } m = \frac{\Delta y}{\Delta x} \quad \text{Angle from horizontal: } \theta = \arctan\left(\frac{\Delta z}{\sqrt{\Delta x^2+\Delta y^2}}\right)$$
+
+### G. Full Worked Example
+
+See the diagonal brace and coordinate calculations embedded in the Intuition section above.
+
+### H. Practice Task — Member Length and Direction
 
 > **Scenario:** A diagonal brace runs from joint A at $(2, 1, 0)$ to joint B at $(7, 4, 4)$ m. Find length and angle from horizontal.
 >
@@ -822,7 +969,7 @@ In ETABS:
 >
 > **ETABS:** Place joints at exact coordinates, draw brace, confirm length.
 
-### I. Chapter Summary Table
+### I. What You Now Know
 
 | Concept | Formula | Engineering Use | ETABS Location |
 |---------|---------|----------------|----------------|

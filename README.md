@@ -77,7 +77,7 @@ To enable it:
 | `bundle.ps1` | Legacy build script for single-file HTML artifacts |
 | `bundle-offline.ps1` | Inlines the React offline build into one HTML file |
 | `00-Front-Matter.md` | Title, preface, how to use this book |
-| `00b-Part0-Arithmetic.md` | Chapters A1–A8 — Arithmetic Foundations |
+| `00b-Part0-Arithmetic.md` | Chapters A1–A7 — Engineering Number Sense |
 | `01-Part1-Algebra.md` | Chapters 1–9 — Algebra |
 | `02-Part2-Statics-Physics.md` | Chapters 10–17 — Statics and Physics |
 | `03-Part3-Geometry-Trig.md` | Chapters 18–25 — Geometry and Trigonometry |

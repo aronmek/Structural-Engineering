@@ -4,7 +4,7 @@ import { appTargets, openChapter } from './appTargets';
 for (const target of appTargets) {
   test.describe(`${target.name} app`, () => {
     test('worked examples render math instead of raw dollar-delimited TeX', async ({ page }) => {
-      await openChapter(page, target, /Chapter A3.*Multiplication and Division/);
+      await openChapter(page, target, /Chapter A2.*Multiplication/);
 
       const body = page.locator('.markdown-body');
       await expect(body.locator('.katex').first()).toBeVisible();
@@ -30,13 +30,13 @@ for (const target of appTargets) {
     });
 
     test('why explanations appear beside the rules they deepen', async ({ page }) => {
-      await openChapter(page, target, /Chapter A3.*Multiplication and Division/);
+      await openChapter(page, target, /Chapter A2.*Multiplication/);
 
       await expect(page.getByText('Why a negative times a negative becomes positive')).toBeVisible();
 
       const whyPanelIsBetweenWorkedExamplesAndEngineeringUse = await page.evaluate(() => {
-        const workedExamples = [...document.querySelectorAll('h3')].find(heading => heading.textContent?.includes('C. The Math'));
-        const engineeringUse = [...document.querySelectorAll('h3')].find(heading => heading.textContent?.includes('D. Later Engineering Use'));
+        const workedExamples = [...document.querySelectorAll('h3')].find(heading => heading.textContent?.includes('F. The Formal Shorthand'));
+        const engineeringUse = [...document.querySelectorAll('h3')].find(heading => heading.textContent?.includes('G. Full Worked Example'));
         const signWhy = [...document.querySelectorAll('summary')].find(summary => summary.textContent?.includes('Why a negative times a negative becomes positive'));
         if (!workedExamples || !engineeringUse || !signWhy) return false;
         return Boolean(workedExamples.compareDocumentPosition(signWhy) & Node.DOCUMENT_POSITION_FOLLOWING)
@@ -47,7 +47,7 @@ for (const target of appTargets) {
     });
 
     test('fraction rules include collapsed visual why explanations', async ({ page }) => {
-      await openChapter(page, target, /Chapter A4.*Fractions/);
+      await openChapter(page, target, /Chapter A2.*Fractions/);
 
       const multiplyingFractions = page.locator('details').filter({ hasText: 'Why multiplying fractions can make a smaller number' });
       await expect(multiplyingFractions).toBeVisible();
@@ -68,18 +68,19 @@ for (const target of appTargets) {
       await expect(tooltip).toBeVisible();
       await expect(tooltip).toContainText('Stress');
       await expect(tooltip).toContainText('force intensity');
+      await expect(tooltip).toContainText('First introduced in Chapter 16');
     });
 
     test('chapter exams render, accept answers, and grade', async ({ page }) => {
-      await openChapter(page, target, /Chapter A1.*Numbers and the Number Line/);
+      await openChapter(page, target, /Chapter A1.*Direction, Balance/);
 
       const exam = page.getByRole('region', { name: 'Chapter exam' });
       await expect(exam.getByRole('heading', { name: 'Chapter Exam' })).toBeVisible();
       await expect(exam.getByRole('tab', { name: /Set A/ })).toBeVisible();
 
-      await exam.getByLabel('-7').check();
-      await exam.getByLabel('Question 2 numeric answer').fill('9');
-      await exam.getByLabel('A decrease of 12 mm').check();
+      await exam.getByLabel('-10 kN').check();
+      await exam.getByLabel('Question 2 numeric answer').fill('0');
+      await exam.getByLabel('There is 1 kN net downward force').check();
       await exam.getByRole('button', { name: 'Submit Answers' }).click();
 
       await expect(exam.getByText('Score: 3 / 3 (100%)')).toBeVisible();

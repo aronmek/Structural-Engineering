@@ -21,29 +21,30 @@ You do not need to have studied algebra. You do not need to know any physics. Yo
 - Be able to perform every common hand calculation a structural engineer uses daily
 - Be able to model a multi-story building in ETABS 22, run analysis, and interpret the results
 
-The book is organized so each part builds directly on the previous one. Do not skip ahead — every chapter introduces vocabulary and ideas the next one assumes you already know.
+The book is organized around understanding, not around a traditional math checklist. When several skills share one underlying idea, they are taught together at the first real engineering task that needs them. Once that idea is understood, later chapters use it instead of re-explaining it.
 
-This book follows one strict rule: **a term is not considered explained until the book has defined it, shown why it matters, and worked through at least one example using it.** A word-bank entry is useful, but it is not enough by itself. Until a concept has been explained this way, it may appear only as a clearly labeled preview.
+This book follows one strict rule: **a term is not considered explained until the book has defined it, shown why it matters, and worked through at least one real example using it.** A vocabulary entry is useful, but it is not enough by itself.
 
-When a later engineering idea is mentioned early, read it as a signpost, not as something you must already understand. For example, Part 0 may say that fractions will later appear in beam formulas, but it will not require you to solve beam formulas before beams have been explained.
+When a later engineering idea appears early, it is either being taught because it naturally belongs there, or it is clearly labeled as a preview. For example, signed numbers and vertical force balance belong together, because both are the same idea: size plus direction.
 
 ---
 
-## How Every Chapter Is Organized
+## How Learning Sections Are Organized
 
-Every chapter — without exception — contains the following nine sections in this order:
+Each major section is built around an engineering achievement. The order may change when the logic of the idea requires it, but the section should usually contain these pieces:
 
-| Section | Purpose |
-|---------|---------|
-| **A — Word Bank** | Every new term, with phonetic pronunciation and a 12-year-old-friendly definition |
-| **B — Concept Introduction** | Plain English explanation with a real-world analogy |
-| **C — The Physics Behind It** | The physical meaning before any formula is shown (when applicable) |
-| **D — The Math** | The formula, every symbol explained, fully worked numerical example |
-| **E — Structural Engineering Application** | A real engineering problem using only concepts already explained; any future idea is labeled as preview |
-| **F — ETABS Connection** | Exact menu paths and an immediate hands-on Mini-Task in ETABS 22, only after the needed physical idea has been taught |
-| **G — Common Mistakes** | The 2–4 most frequent beginner errors and how to avoid them |
-| **H — Chapter Practice Task** | A complete structural problem with full worked solution and ETABS verification |
-| **I — Chapter Summary Table** | Concept • Formula • Engineering Use • ETABS Location |
+| Piece | Purpose |
+|-------|---------|
+| **Achievement** | The structural task the reader can solve after learning this concept |
+| **Situation** | A real problem that creates the need for the idea before the rule is named |
+| **Intuition** | Plain-language reasoning using as little concentration as possible |
+| **Failure case** | What goes wrong when the rule is ignored or memorized incorrectly |
+| **Rule** | The shortest accurate statement of the rule, after the reason is clear |
+| **Formal shorthand** | Symbols and formulas introduced as shorthand for the idea already understood |
+| **Worked example** | The promised engineering achievement solved with real units |
+| **Practice and summary** | A short check that reinforces the idea without reteaching it |
+
+Tooltips remain part of the reading system. When a symbol appears later, its tooltip gives a quick reminder of the example where it was first introduced.
 
 ---
 
@@ -67,12 +68,13 @@ The book keeps track of what has actually been explained:
 
 | Stage | Concepts the reader can use confidently | Concepts that are only previews until later |
 |-------|-----------------------------------------|--------------------------------------------|
-| Part 0 | Numbers, signs, arithmetic, fractions, decimals, percentages, powers, roots, order of operations, estimation | Force, stress, moment, beam, support, ETABS design output |
-| Part 1 | Variables, expressions, equations, rearranging, units, systems, quadratics, inequalities, functions | Physical equilibrium, bending moment, deflection, stiffness |
-| Part 2 | Forces, loads, equilibrium, moments, supports, internal forces, stress and strain | Advanced section properties, 3D vectors, matrix analysis |
-| Part 3 | Area, perimeter, centroid, moment of inertia, vectors, trigonometry, coordinates | Precalculus behavior and software matrix solving |
-| Part 4 | Polynomials, proportionality, exponentials, logarithms, matrices, limits | Full ETABS workflow details |
-| Part 5 | ETABS modeling, loading, analysis, result interpretation, and design workflow | Project-specific code requirements beyond this introductory guide |
+| Unit 1 (Ch1–4) | Signed quantities, direction, balance, fractions, percentages, powers, roots, PEMDAS, units, estimation | Full support-reaction solving, stress, moment, ETABS output |
+| Unit 2 (Ch5–8) | Forces, load types, tributary areas, FBDs, equilibrium (2D) | Support types, internal forces, section design |
+| Unit 3 (Ch9–12) | Reactions, moments, SFD/BMD, D/C ratio | Section properties, material behavior, ETABS workflow |
+| Unit 4 (Ch13–17) | Areas, perimeters, centroid, MoI, bending/axial stress, Hooke's law, deflection | 3D geometry, matrix stiffness, software modeling |
+| Unit 5 (Ch18–21) | Trig resolution, Pythagorean resultants, non-right triangles, coordinate geometry, 3D cross products | Advanced math functions, ETABS analysis |
+| Unit 6 (Ch22–27) | Polynomial BMDs, proportional scaling, exponentials, logarithms, matrices, convergence | Full ETABS workflow details |
+| Unit 7 (Ch28–37) | ETABS setup, materials, sections, model building, loads, analysis, results, design, troubleshooting | Project-specific code requirements beyond this guide |
 
 ---
 
@@ -114,65 +116,65 @@ The book keeps track of what has actually been explained:
 
 <div style="page-break-after: always;"></div>
 
-## Table of Parts
+## Table of Contents
 
-### PART 1 — ALGEBRA FOR STRUCTURAL ENGINEERS
+### UNIT 1 — ENGINEERING NUMBER SENSE (Ch1–4)
 
-1. Variables and Expressions
-2. Linear Equations (One Variable)
-3. Rearranging Formulas
-4. Units and Dimensional Analysis
-5. Systems of Equations
-6. Quadratic Equations
-7. Inequalities
-8. Exponents and Powers
-9. Introduction to Functions
+1. Direction, Sign, and Balance — Reading Forces as Signed Quantities
+2. Scaling, Fractions, and Percentages — Working with Load Ratios
+3. Powers, Roots, and Order of Operations — PEMDAS in Structural Formulas
+4. Units and Estimation — Checking Every Answer Before You Trust It
 
-### PART 2 — STATICS AND PHYSICS FOR STRUCTURAL ENGINEERS
+### UNIT 2 — FORCES AND HOW THEY TRAVEL (Ch5–8)
 
-10. What Is a Force?
-11. Equilibrium and the Sum of Forces
-12. Moments (Rotational Forces)
-13. Types of Loads in Structural Engineering
-14. Support Conditions
-15. Internal Forces — Axial, Shear, and Bending Moment
-16. Stress and Strain
-17. Bending Stress in Beams
+5. What Forces Act on a Building — Load Types and Their Sources
+6. Tributary Areas and Load Accumulation — How Loads Reach Each Member
+7. Free Body Diagrams — Isolating the Problem
+8. Equilibrium — The Condition Every Structure Must Satisfy
 
-### PART 3 — GEOMETRY AND TRIGONOMETRY FOR STRUCTURAL ENGINEERS
+### UNIT 3 — REACTIONS, MOMENTS, AND INTERNAL FORCES (Ch9–12)
 
-18. Areas and Perimeters
-19. Centroids
-20. Moment of Inertia (Second Moment of Area)
-21. Vectors
-22. Right Triangle Trigonometry
-23. The Pythagorean Theorem
-24. Trigonometry for Non-Right Triangles
-25. Coordinate Geometry
+9. Support Conditions and Finding Reactions
+10. Moments — Rotational Balance
+11. Shear Force and Bending Moment — Internal Forces Along a Beam
+12. Demand vs. Capacity — The Engineer's Decision Rule
 
-### PART 4 — PRECALCULUS FOR STRUCTURAL ENGINEERS
+### UNIT 4 — CROSS-SECTION SHAPE AND MATERIAL BEHAVIOR (Ch13–17)
 
-26. Polynomials and the Bending Moment Equation
-27. Rational Functions and Proportionality
-28. Exponential Functions
-29. Logarithms
-30. Matrices (Basic)
-31. Introduction to Vectors in 3D
-32. Sequences and Series
-33. Limits — Conceptual Introduction
+13. Areas and Perimeters — What You Need Before Anything Else
+14. Centroids — Finding the Balance Point of a Shape
+15. Moment of Inertia and Bending Stress — Why Deeper Sections Are Stronger
+16. Stress, Strain, and Material Stiffness — How Materials Respond to Load
+17. Deflection — How Much Will It Bend?
 
-### PART 5 — ETABS PRACTICAL GUIDE (ETABS Version 22)
+### UNIT 5 — GEOMETRY, ANGLES, AND 3D SPACE (Ch18–21)
 
-34. ETABS Interface and Setup
-35. Defining Materials
-36. Defining Section Properties
-37. Building the Structural Model
-38. Applying Loads
-39. Running the Analysis
-40. Reading and Interpreting Results
-41. Design in ETABS
-42. Complete Worked Example — 5-Story Reinforced Concrete Building
-43. Common ETABS Mistakes and How to Fix Them
+18. Resolving Diagonal Forces — Trigonometry and Pythagorean Components
+19. Truss Geometry — Non-Right Triangles (Sine and Cosine Rules)
+20. Coordinate Geometry — Locating Every Joint in 3D Space
+21. 3D Moments — Cross Products and Local Axes
+
+### UNIT 6 — TIME, CYCLES, CONVERGENCE, AND THE MATRIX METHOD (Ch22–27)
+
+22. Polynomials and the Bending Moment Equation
+23. Proportionality — How Span Controls Deflection
+24. Exponential Functions — Time-Dependent Structural Behavior
+25. Logarithms — Reading S-N Curves and Response Spectra
+26. Matrices — Why ETABS Can Solve Indeterminate Structures
+27. Sequences, Series, and Limits — Cumulative Loads and FEM Convergence
+
+### UNIT 7 — ETABS WORKFLOW (Ch28–37)
+
+28. Interface and Setup — Grid, Stories, Units, and Design Codes
+29. Defining Materials — Concrete, Rebar, Steel Properties
+30. Defining Section Properties — Beams, Columns, Slabs, Walls
+31. Building the Structural Model — Elements, Connectivity, Restraints
+32. Applying Loads — Patterns, Cases, and Combinations
+33. Running the Analysis — Static, Modal, and Verification
+34. Reading and Interpreting Results — Forces, Drifts, Equilibrium
+35. Design in ETABS — D/C Ratios and Resolving Failures
+36. Complete Worked Example — 5-Story RC Building End-to-End
+37. Common ETABS Mistakes and How to Fix Them
 
 ---
 

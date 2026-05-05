@@ -140,7 +140,7 @@ export function App() {
     cancelMathTooltipHide();
     const rect = anchor.getBoundingClientRect();
     const width = 320;
-    const height = Math.min(260, 88 * entries.length + 24);
+    const height = Math.min(340, 122 * entries.length + 24);
     let left = rect.left;
     let top = rect.bottom + 8;
     if (left + width > window.innerWidth - 12) left = window.innerWidth - width - 12;
@@ -280,6 +280,7 @@ export function App() {
               <small>{entry.pronounce}</small>
               <strong>{entry.name}</strong>
               <p>{entry.desc}</p>
+              <p className="math-tooltip-reminder">{entry.firstUse}</p>
             </div>
           ))}
         </div>

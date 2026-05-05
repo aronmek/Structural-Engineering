@@ -1,68 +1,39 @@
-/* Part 0 — Arithmetic Foundations (Chapters A1–A8)
+/* Part 0 — Engineering Number Sense (Chapters A1–A7)
    3 sets × 3 questions per chapter = 9 questions per chapter.
 */
 
-E('chapter-a1-numbers-and-the-number-line', 'Chapter A1 — Numbers and the Number Line', 'Part 0', [
-  { id: 'A', title: 'Set A — Basics', questions: [
-    { q: 'Which of the following is smaller?', o: ['-2', '-7', '0', '+1'], a: 1,
-      e: 'On the number line, more negative is further left, hence smaller. -7 < -2 < 0 < 1.' },
-    { q: 'What is |−9|?', n: 9, t: 0,
-      e: 'Absolute value = distance from 0, always non-negative. |−9| = 9.' },
-    { q: 'A measurement change reported as −12 mm means:', o: [
-        'Smaller magnitude than +12 mm', 'A decrease of 12 mm', 'A measurement error', 'Always compression'], a: 1,
-      e: 'The sign gives direction of change; the magnitude is 12 mm.' },
+E('chapter-a1-direction-balance-and-signed-numbers', 'Chapter A1 — Direction, Balance, and Signed Numbers', 'Part 0', [
+  { id: 'A', title: 'Set A — Signed force balance', questions: [
+    { q: 'If up is positive, a 10 kN downward point load is written as:', o: ['+10 kN', '-10 kN', '0 kN', '10 kN upward'], a: 1,
+      e: 'The sign records direction. Down is opposite the chosen positive direction, so the load is -10 kN.' },
+    { q: 'Support forces +6 kN and +4 kN act with a downward load -10 kN. What is the signed sum?', n: 0, t: 0,
+      e: '+6 + 4 - 10 = 0 kN, so the vertical forces balance.' },
+    { q: 'If total support is +9 kN and the load is -10 kN, the signed sum means:', o: [
+        'There is 1 kN net upward force', 'There is 1 kN net downward force', 'The beam is balanced', 'The force magnitude disappeared'], a: 1,
+      e: '+9 - 10 = -1 kN. The negative sign says the leftover force is downward.' },
   ]},
-  { id: 'B', title: 'Set B — Mixed', questions: [
-    { q: 'Order from smallest to largest: −3.5, 0.5, −7, 2', o: [
-        '−7, −3.5, 0.5, 2', '0.5, 2, −3.5, −7', '−3.5, −7, 0.5, 2', '2, 0.5, −3.5, −7'], a: 0,
-      e: 'Smallest is most negative.' },
-    { q: 'Which set does √2 belong to?', o: [
-        'Integer', 'Rational', 'Irrational', 'Natural'], a: 2,
-      e: '√2 cannot be written as a fraction of two integers, so it is irrational.' },
-    { q: 'Compute |0|', n: 0, t: 0,
-      e: 'Distance from 0 to 0 is 0.' },
+  { id: 'B', title: 'Set B — Magnitude and direction', questions: [
+    { q: 'What is |-18 kN|?', n: 18, t: 0,
+      e: 'Absolute value removes direction and keeps size. The magnitude is 18 kN.' },
+    { q: 'Which statement is balanced?', o: [
+        '+5 - 7 = -2 kN', '+8 - 8 = 0 kN', '+12 + 3 = 15 kN', '-4 - 4 = -8 kN'], a: 1,
+      e: 'A signed vertical sum of zero means nothing is left over.' },
+    { q: 'Why is 10 + 6 + 4 not enough to check a beam with one downward 10 kN load and two upward supports?', o: [
+        'It uses too many numbers', 'It loses the up/down directions', 'It should use meters', 'It proves the beam is balanced'], a: 1,
+      e: 'Magnitude-only addition counts size but cannot show whether opposite directions cancel.' },
   ]},
-  { id: 'C', title: 'Set C — Engineering', questions: [
-    { q: 'A floor elevation change of +20 mm typically means:', o: [
-        'Moved upward', 'Moved downward', 'No movement', 'Area increased'], a: 0,
-      e: 'Positive and negative signs track direction once a convention is chosen.' },
-    { q: 'A coordinate z = −3 m on a building model means:', o: [
-        '3 m above ground', '3 m below ground (basement)', 'Distance from origin only', 'An error'], a: 1,
-      e: 'Negative z indicates a position below the reference (ground level).' },
-    { q: 'If an allowed level change is |change| ≤ 20 mm, which change FAILS?', o: [
-        '15 mm', '−18 mm', '−22 mm', '+20 mm'], a: 2,
-      e: '|−22| = 22 > 20, so it exceeds the limit.' },
+  { id: 'C', title: 'Set C — Engineering checks', questions: [
+    { q: 'A beam has supports +7 kN and +5 kN with a load -12 kN. Signed sum = ?', n: 0, t: 0,
+      e: '+7 + 5 - 12 = 0 kN, so it balances.' },
+    { q: 'A beam has supports +6 kN and +5 kN with a load -12 kN. Signed sum = ?', n: -1, t: 0,
+      e: '+6 + 5 - 12 = -1 kN, leaving 1 kN downward.' },
+    { q: 'A support reaction shown as +14 kN means:', o: [
+        '14 kN downward', '14 kN upward using the chosen convention', 'No force', '14 kN of bending moment'], a: 1,
+      e: 'The positive sign points in the chosen positive direction, which this chapter takes as upward.' },
   ]},
 ]);
 
-E('chapter-a2-addition-and-subtraction', 'Chapter A2 — Addition and Subtraction', 'Part 0', [
-  { id: 'A', title: 'Set A — Sign rules', questions: [
-    { q: '−4 + (−7) = ?', n: -11, t: 0,
-      e: 'Same sign: add magnitudes (4+7=11) and keep sign (negative).' },
-    { q: '−9 + 4 = ?', n: -5, t: 0,
-      e: 'Different signs: subtract magnitudes (9−4=5) and keep sign of larger (−).' },
-    { q: '7 − (−3) = ?', n: 10, t: 0,
-      e: 'Subtracting a negative is adding the positive: 7 + 3 = 10.' },
-  ]},
-  { id: 'B', title: 'Set B — Multi-term', questions: [
-    { q: '5 − 3 + 8 − 2 = ?', n: 8, t: 0,
-      e: 'Work left to right: 5−3=2, +8=10, −2=8.' },
-    { q: '12.4 − 5.07 + 0.6 = ?', n: 7.93, t: 0.01,
-      e: 'Align decimal points carefully: 12.40 − 5.07 = 7.33, +0.60 = 7.93.' },
-    { q: 'Which equals −10 − (−4)?', o: ['−14', '−6', '+6', '+14'], a: 1,
-      e: '−10 + 4 = −6.' },
-  ]},
-  { id: 'C', title: 'Set C — Engineering arithmetic', questions: [
-    { q: 'Signed level changes (mm): +25, −40, +20, −8. Sum = ?', n: -3, t: 0,
-      e: '25 − 40 + 20 − 8 = −3 mm.' },
-    { q: 'A bay length is changed by −60 mm, then +25 mm. Net change = ?', n: -35, t: 0,
-      e: '−60 + 25 = −35 mm.' },
-    { q: 'Floor area demands per zone: 120, 80, 60, 40, 20 m². Total = ?', n: 320, t: 0,
-      e: 'Add the areas: 320 m².' },
-  ]},
-]);
-
-E('chapter-a3-multiplication-and-division', 'Chapter A3 — Multiplication and Division', 'Part 0', [
+E('chapter-a2-multiplication-and-division', 'Chapter A2 — Multiplication and Division', 'Part 0', [
   { id: 'A', title: 'Set A — Sign rules', questions: [
     { q: '(−6)(7) = ?', n: -42, t: 0,
       e: 'Different signs → negative.' },
@@ -90,7 +61,7 @@ E('chapter-a3-multiplication-and-division', 'Chapter A3 — Multiplication and D
   ]},
 ]);
 
-E('chapter-a4-fractions', 'Chapter A4 — Fractions', 'Part 0', [
+E('chapter-a3-fractions', 'Chapter A3 — Fractions', 'Part 0', [
   { id: 'A', title: 'Set A — Operations', questions: [
     { q: '2/5 + 1/4 (as decimal) = ?', n: 0.65, t: 0.01,
       e: 'LCD 20: 8/20 + 5/20 = 13/20 = 0.65.' },
@@ -117,7 +88,7 @@ E('chapter-a4-fractions', 'Chapter A4 — Fractions', 'Part 0', [
   ]},
 ]);
 
-E('chapter-a5-decimals-and-percentages', 'Chapter A5 — Decimals and Percentages', 'Part 0', [
+E('chapter-a4-decimals-and-percentages', 'Chapter A4 — Decimals and Percentages', 'Part 0', [
   { id: 'A', title: 'Set A — Conversions', questions: [
     { q: 'Convert 0.075 to a percentage. Answer in % (no symbol).', n: 7.5, t: 0,
       e: 'Multiply by 100: 0.075 × 100 = 7.5%.' },
@@ -144,7 +115,7 @@ E('chapter-a5-decimals-and-percentages', 'Chapter A5 — Decimals and Percentage
   ]},
 ]);
 
-E('chapter-a6-powers-roots-and-scientific-notation', 'Chapter A6 — Powers, Roots, and Scientific Notation', 'Part 0', [
+E('chapter-a5-powers-roots-and-scientific-notation', 'Chapter A5 — Powers, Roots, and Scientific Notation', 'Part 0', [
   { id: 'A', title: 'Set A — Powers & roots', questions: [
     { q: '5³ = ?', n: 125, t: 0, e: '5×5×5 = 125.' },
     { q: 'Compute √144.', n: 12, t: 0, e: '12² = 144.' },
@@ -168,7 +139,7 @@ E('chapter-a6-powers-roots-and-scientific-notation', 'Chapter A6 — Powers, Roo
   ]},
 ]);
 
-E('chapter-a7-order-of-operations-pemdas', 'Chapter A7 — Order of Operations (PEMDAS)', 'Part 0', [
+E('chapter-a6-order-of-operations-pemdas', 'Chapter A6 — Order of Operations (PEMDAS)', 'Part 0', [
   { id: 'A', title: 'Set A — Basics', questions: [
     { q: '2 + 3 × 4 = ?', n: 14, t: 0,
       e: 'Multiply first: 3×4=12, then 2+12=14.' },
@@ -196,7 +167,7 @@ E('chapter-a7-order-of-operations-pemdas', 'Chapter A7 — Order of Operations (
   ]},
 ]);
 
-E('chapter-a8-estimation-rounding-and-significant-figures', 'Chapter A8 — Estimation, Rounding, and Significant Figures', 'Part 0', [
+E('chapter-a7-estimation-rounding-and-significant-figures', 'Chapter A7 — Estimation, Rounding, and Significant Figures', 'Part 0', [
   { id: 'A', title: 'Set A — Rounding', questions: [
     { q: 'Round 7.4836 to 2 decimal places.', n: 7.48, t: 0.001,
       e: 'Look at 3rd dp (3): round down.' },

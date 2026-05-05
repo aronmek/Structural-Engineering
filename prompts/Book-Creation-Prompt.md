@@ -16,8 +16,9 @@ Someone who knows basic arithmetic (addition, subtraction, multiplication, divis
 
 ## Book Structure
 
-Organize into 5 Parts:
+Organize into 6 Parts:
 
+- **PART 0** — ENGINEERING NUMBER SENSE
 - **PART 1** — ALGEBRA FOR STRUCTURAL ENGINEERS
 - **PART 2** — STATICS AND PHYSICS FOR STRUCTURAL ENGINEERS
 - **PART 3** — GEOMETRY AND TRIGONOMETRY FOR STRUCTURAL ENGINEERS
@@ -33,144 +34,59 @@ Organize into 5 Parts:
 - Track what the reader has already had defined, explained, and practiced. A term is not considered explained merely because it appeared in a word bank or sentence.
 - Do not use a concept inside a worked example until it has been explained with physical meaning and at least one worked example.
 - If an early chapter needs to mention a later idea, label it as a preview and do not require the reader to calculate with it yet.
-- Arithmetic and algebra chapters should use measurement, layout, cost, area, volume, and simple capacity examples before statics concepts are taught.
-- Do not use forces, reactions, stress, bending moment, shear, deflection, moment of inertia, demand/capacity shorthand, or ETABS design output as required knowledge before their teaching chapters.
+- Teach an idea at its natural home, even if that combines skills from different traditional subjects. Signed numbers and vertical force balance belong together because both mean size plus direction.
+- Once a concept has been taught through a real example, do not re-explain it later. Later chapters may give a one-sentence reminder and then use it.
+- Keep the reader engaged by opening each section with a practical structural achievement the new concept unlocks.
 
-For every topic, include ALL of the following sections IN ORDER:
-
----
-
-### SECTION A — WORD BANK
-
-At the very beginning of every chapter, list every new noun, math term, physics term, or technical name introduced in that chapter.
-
-For each word provide:
-
-1. **The word** in bold
-2. **How to pronounce it** — written out phonetically in plain English syllables (no IPA symbols). Examples:
-   - *Coefficient* → "co-ih-FISH-ent"
-   - *Pythagorean* → "pih-THAG-oh-REE-an"
-   - *Equilibrium* → "ee-kwih-LIB-ree-um"
-   - *Shear* → "SHEER" (rhymes with "hear")
-   - *Sigma* → "SIG-mah"
-   - *Moment* → "MOH-ment"
-3. **A one-sentence plain English definition** — as if explaining to a 12-year-old
-4. **Where it appears** — which formula or context uses this word
-
-Format every Word Bank as a table:
-
-| Word | Pronunciation | Plain English Meaning | Used In |
-|------|---------------|----------------------|---------|
-| Coefficient | "co-ih-FISH-ent" | A number that multiplies a variable | 3x + 5 — the 3 is the coefficient |
-| ... | ... | ... | ... |
+For every topic, use this learning pattern. Do not force a vocabulary-first chapter shape when it makes the logic harder to follow:
 
 ---
 
-### SECTION B — CONCEPT INTRODUCTION
+### LEARNING SECTION PATTERN
 
-- Plain English explanation, no jargon
-- One real-world analogy a non-engineer would relate to
-- If the concept comes from physics, explain the physics first before introducing the math
+1. **Achievement** — one sentence naming the structural task the reader can now solve.
+2. **Situation** — a real structural scenario that creates the need for the idea before naming the rule.
+3. **Intuition** — plain-language reasoning using physical or spatial logic.
+4. **Failure case** — show what goes wrong when the idea is ignored.
+5. **Rule** — state the rule in one plain sentence after the reason is clear.
+6. **Formal shorthand** — introduce symbols and formulas as shorthand for the idea already understood.
+7. **Worked example** — solve the achievement problem completely with real units.
+8. **Practice and summary** — reinforce the idea without reteaching it.
 
----
+Vocabulary, pronunciation, ETABS notes, and summary tables are still useful, but they should appear where they help the learning flow. Do not front-load a long word bank before the reader has a reason to care about the words.
 
-### SECTION C — THE PHYSICS BEHIND IT
-
-Include this section whenever the chapter involves force, weight, pressure, motion, equilibrium, or material behavior.
-
-- Explain what is physically happening in the real world before writing any formula
-- Cover statics specifically wherever it applies:
-  - **What is statics?** The study of objects that are NOT moving — where all forces balance out perfectly. Structural engineering is almost entirely statics: buildings do not move, so every force must be balanced by an equal and opposite force.
-  - **Newton's First Law** — An object at rest stays at rest when forces are balanced. This is the foundation of every structural calculation.
-  - **Newton's Third Law** — Every force has an equal and opposite reaction. When a beam pushes down on a column, the column pushes back up with the same force.
-  - **Equilibrium** — The condition where all forces AND all moments (rotational forces) sum to zero. Written as: ΣF = 0 and ΣM = 0
-  - **Free Body Diagram (FBD)** — A sketch that shows one object in isolation with all forces drawn as arrows. Every structural calculation starts here.
-  - Show a fully worked statics example when relevant (e.g., finding support reactions for a simply supported beam)
-- State all units: Newtons [N], kilonewtons [kN], kilopascals [kPa], megapascals [MPa]
-- Relate all physics back to what a structural engineer does on a daily basis
+Every symbol tooltip should include a quick reminder of the first example where that symbol was introduced.
 
 ---
 
-### SECTION D — THE MATH
+## PART 0 — ENGINEERING NUMBER SENSE
 
-- State the formula or rule clearly in symbolic form first
-- Break down every symbol: name, pronunciation, meaning, and engineering unit
-- Work through a pure math example step by step — every operation on its own line
-- Never skip steps. Never say "simplifying we get." Write out every intermediate line explicitly.
+This part should not be a pure arithmetic checklist. Each number idea appears at the first engineering task that needs it.
 
----
+### Chapter A1: Direction, Balance, and Signed Numbers
+- Achievement: check whether upward support forces balance downward loads.
+- Combine signed numbers, number line direction, absolute value, addition/subtraction of signed quantities, and the first simple vertical force balance.
+- Introduce $P$ and $\Sigma F_y = 0$ as shorthand for the beam balance example.
 
-### SECTION E — STRUCTURAL ENGINEERING APPLICATION
+### Chapter A2: Multiplication and Division
+- Achievement: move between repeated equal bays, line load totals, and equal splits.
+- Teach equal groups, rates, "per," multiplication, and division as one idea.
 
-- Show exactly where this math appears in a real structural engineering problem
-- Use a real scenario: beam, column, slab, truss, connection, or footing
-- Solve completely with real numbers — show every step and every unit
-- Explain what the final answer MEANS physically (e.g., "This means the beam deflects 12 mm at mid-span — less than the code limit of L/300 = 20 mm, so it passes.")
-- Include a simple ASCII-art diagram of the problem setup wherever possible
+### Chapter A3: Fractions
+- Achievement: locate half-span, third points, and tributary portions of members.
+- Teach fraction operations through pieces of real lengths and load shares.
 
----
+### Chapter A4: Decimals and Percentages
+- Achievement: apply percentage changes, load factors, and decimal unit values without guessing decimal movement.
 
-### SECTION F — ETABS CONNECTION
+### Chapter A5: Powers, Roots, and Scientific Notation
+- Achievement: read squared/cubed units and compact engineering quantities.
 
-This section appears in EVERY chapter throughout the entire book, not only in Part 5.
+### Chapter A6: Order of Operations
+- Achievement: evaluate multi-step engineering formulas in the intended grouping.
 
-- Name the specific ETABS 22 menu, dialog, or output display that corresponds to this concept
-- Explain what the input field is mathematically asking for
-- Describe what the ETABS output looks like and how to read it
-- If ETABS automates this calculation, explain WHAT it calculates and WHERE the result appears
-- Always give the exact menu path, e.g.: Define > Section Properties > Frame Sections > Add New Property
-
-End every ETABS Connection with an **ETABS Mini-Task**:
-
-> **Try it in ETABS 22:**
-> 1. Open ETABS 22
-> 2. Go to [exact menu path]
-> 3. Enter the value you just calculated: [value with units]
-> 4. Click [button name]
-> 5. You should see [describe what appears on screen]
-> 6. This result represents [connect back to the math or physics just learned]
-
----
-
-### SECTION G — COMMON MISTAKES
-
-List 2–4 typical mistakes beginners make on this specific topic:
-- Describe the mistake clearly
-- Show what goes wrong numerically
-- Show the correct approach step by step
-
----
-
-### SECTION H — CHAPTER PRACTICE TASK
-
-At the end of every chapter, provide ONE complete practical structural engineering task requiring the reader to apply everything from that chapter.
-
-Format:
-
-> **Chapter Practice Task — [Descriptive Title]**
->
-> **Scenario:** [Realistic structural engineering situation with context]
->
-> **Given information:** [All known values listed with units]
->
-> **Your tasks:**
-> 1. [Calculation step using this chapter's math]
-> 2. [Application to the structural scenario]
-> 3. [ETABS step: enter this into ETABS and verify the result]
->
-> **Full worked solution:** [Every arithmetic step shown — nothing skipped]
->
-> **ETABS Verification:** [Exact step-by-step instructions to replicate and verify this in ETABS 22, with menu paths]
-
----
-
-### SECTION I — CHAPTER SUMMARY TABLE
-
-Close every chapter with a summary table:
-
-| Concept | Formula | Engineering Use | ETABS Location |
-|---------|---------|----------------|----------------|
-| ... | ... | ... | ... |
+### Chapter A7: Estimation, Rounding, and Significant Figures
+- Achievement: sanity-check structural answers and report precision honestly.
 
 ---
 

@@ -1,42 +1,67 @@
-# PART 2 — STATICS AND PHYSICS FOR STRUCTURAL ENGINEERS
+﻿# PART 2 — STATICS AND PHYSICS FOR STRUCTURAL ENGINEERS
 
-> Welcome to Part 2. You now know enough algebra to read and rearrange formulas, solve simple systems, and use units correctly. We will now use those tools to describe the physical world: how forces act on structures, how supports react, and how loads travel through a building. Every chapter from here onward describes something you can picture in real life.
+> Welcome to Part 2. You already used the core statics idea once in Chapter A1: upward and downward forces can be treated as signed quantities, and a still beam has a signed sum of zero. This part now gives that idea its full engineering vocabulary: forces, supports, moments, loads, stress, and load paths.
 
 <div style="page-break-after: always;"></div>
 
-## Chapter 10 — What Is a Force?
+## Chapter 10 — Forces, Loads, and the Free Body Diagram
 
-### A. Word Bank
+### A. Achievement
 
-| Word | Pronunciation | Plain English Meaning | Used In |
-|------|---------------|----------------------|---------|
-| **Force** | "FORS" | A push or a pull | $F = 10\ \mathrm{kN}$ |
-| **Magnitude** | "MAG-nih-tood" | The size of a force, ignoring direction | "10 kN" alone |
-| **Direction** | "dih-REK-shun" | Which way the force acts | "Downward" |
-| **Line of action** | — | The infinite straight line along which the force acts | Used to find moment arm |
-| **Newton** | "NOO-ton" | The SI unit of force | $1\ \mathrm{N} = 1\ \mathrm{kg \cdot m/s^2}$ |
-| **kilonewton** | "KIL-oh-NOO-ton" | 1000 Newtons | Standard structural force unit |
-| **Gravity** | "GRAV-ih-tee" | The pull of the Earth on every mass | $g = 9.81\ \mathrm{m/s^2}$ |
-| **Weight** | "WAYT" | The force of gravity on a mass | $W = mg$ |
-| **Mass** | "MASS" | How much matter an object contains | Measured in kg |
-| **Point load** | — | A force concentrated at one location | A column on a beam |
-| **Distributed load** | — | A force spread over a length or area | Slab self-weight |
-| **Support force** | — | A force supplied by something holding an object | Table pushing up on book |
-| **Free Body Diagram (FBD)** | — | A drawing of an object showing every force on it | Every problem starts here |
+After this section you can draw a complete Free Body Diagram for a floor beam — identifying every load type, converting area loads to line loads, computing the total downward force, and labeling support reaction placeholders.
 
-### B. Concept Introduction
+### B. The Situation
 
-A force is a push or a pull. That's it. But to fully describe a force you need three things:
+A 6 m floor beam in an office building supports a concrete slab above it. Before you can check whether the beam is strong enough, you need to know exactly what is pushing down on it and how much. Several things are acting: the slab's own weight, floor finishes, partitions, and live load from people. They have different units (kPa, kN/m³, kN/m) and spread over area or length differently.
+
+The first step is always the same: draw the object in isolation with every force shown as an arrow. That drawing is the Free Body Diagram (FBD). Without it, you will miss loads, confuse directions, and make errors before any math begins.
+
+### C. The Intuition
+
+A force is a push or a pull. To fully describe it you need three things: how big (magnitude), which way (direction), and where it acts (point of application). Change any one of those three and you have a physically different force — even with the same number.
+
+Forces from gravity always point downward. Their size comes from mass ($m$) and Earth's pull ($g = 9.81\ \mathrm{m/s^2}$): $W = mg$. This converts a code value in kg/m² to a design force in kPa.
+
+### D. Failure Case
+
+A designer skips the FBD and goes directly to a formula. The beam carries slab self-weight ($5\ \mathrm{kPa}$) and live load ($3\ \mathrm{kPa}$) over a tributary width of $3\ \mathrm{m}$. The designer adds $5 + 3 = 8$ and calls it the line load: $8\ \mathrm{kN/m}$.
+
+Actual line load: $8\ \mathrm{kPa} \times 3\ \mathrm{m} = 24\ \mathrm{kN/m}$ — three times larger. The FBD would have made the multiplication by tributary width visible and required.
+
+### E. The Rule
+
+Draw the FBD first. Label every load with magnitude and direction. Convert area loads to line loads by multiplying by tributary width. Mark support forces as upward arrows with unknown values — those are solved by equilibrium in Chapter 11.
+
+### F. The Formal Shorthand
+
+$$W = m \cdot g \qquad w\ [\mathrm{kN/m}] = q\ [\mathrm{kPa}] \times b_{\mathrm{trib}}\ [\mathrm{m}]$$
+
+**Force types:**
+
+| Type | Symbol | Units | Source |
+|------|--------|-------|--------|
+| Point load | $P$ | kN | Column or concentrated force |
+| Line load | $w$ | kN/m | Area load × tributary width |
+| Area load | $q$ | kPa | Floor live load, slab self-weight |
+| Self-weight | $w_{sw}$ | kN/m | Member's own weight per length |
+
+**Load classification:** Dead load (DL) = permanent; Live load (LL) = variable; Wind/Seismic = lateral, code-specified. Design combines them with factors: $1.2\,\mathrm{DL} + 1.6\,\mathrm{LL}$ is the most common gravity combination.
+
+**Load path:** loads travel from where applied down to foundations: slab → beams → columns → foundations → soil.
+
+Now we give the push or pull its engineering name: **force**.
+
+To fully describe a force you need three things:
 
 1. **How big** is it? (magnitude)
 2. **Which way** does it point? (direction)
 3. **Where** is it applied? (point of application)
 
-A 10 kN force pushing down on the roof is completely different from a 10 kN force pulling sideways on a wall. Same magnitude — different physical effect.
+A 10 kN force pushing down on the roof is completely different from a 10 kN force pulling sideways on a wall. Same magnitude — different physical effect. The signed-number idea from Chapter A1 handles one straight line of direction; this chapter adds the rest of the description: where the force acts and what type of load it is.
 
 > **Real-world analogy:** Pushing a shopping cart. The force you apply has size (how hard), direction (forward, sideways), and a point (the handle). Push the cart on its corner and it spins; push at the handle and it rolls — same magnitude, different effect, all because of point and direction.
 
-### C. The Physics Behind It
+
 
 **Mass vs. weight.** Mass is the amount of stuff in an object — it doesn't change whether you're on Earth or the Moon. Weight is the force of gravity pulling on that mass. Earth's gravity is $g = 9.81\ \mathrm{m/s^2}$.
 
@@ -69,9 +94,11 @@ Point load (P):              Distributed load (w):
 
 **The Free Body Diagram (FBD).** This is the single most important drawing tool in statics. You isolate one body and draw every force acting *on* it as an arrow. At this stage, focus on applied forces and support forces. The formal support-reaction vocabulary is introduced in Chapter 11 and support types are introduced in Chapter 14.
 
-### D. The Math
 
-Every force is a **vector**: it has both magnitude and direction. We will study vectors in detail in Chapter 21. For now, treat a force as an arrow with:
+**Formulas and Derivations**
+
+
+Every force is a **vector**: it has both magnitude and direction. You already used the one-line version of this in Chapter A1 when up was positive and down was negative. We will study full two-dimensional vectors in Chapter 21. For now, treat a force as an arrow with:
 
 - a number (the magnitude, in kN)
 - an arrowhead pointing in the direction
@@ -84,7 +111,9 @@ To draw an FBD:
 3. Draw any obvious support force arrows, such as a table pushing upward
 4. Label every known arrow with its magnitude
 
-### E. Structural Engineering Application
+
+**Full Worked Examples**
+
 
 **Problem.** A 5 m member has:
 - A uniform downward load from self-weight: $w_{sw} = 5\ \mathrm{kN/m}$
@@ -108,9 +137,11 @@ Total distributed force: $w \times L = 15 \times 5 = 75\ \mathrm{kN}$
 Plus point load: $30\ \mathrm{kN}$
 Total downward: $105\ \mathrm{kN}$
 
-The upward support forces needed to hold this member are explained in Chapter 11. For now, the force skill is identifying and summing the downward loads.
+The formal support reactions needed to hold this member are explained in Chapter 11. For now, the force skill is identifying the loads, giving each one the correct type and unit, and summing the downward load that must later be balanced.
 
-### F. ETABS Connection
+
+**ETABS Connection**
+
 
 Forces are entered in ETABS through several menus, each matching a physical type:
 
@@ -131,13 +162,13 @@ Forces are entered in ETABS through several menus, each matching a physical type
 > 6. **Assign > Frame Loads > Point** — apply $P = 30\ \mathrm{kN}$ at mid-span in LL
 > 7. Do not solve it yet; this task is only about entering the forces in the correct directions
 
-### G. Common Mistakes
+### G. Full Worked Example
 
 1. **Confusing kg and kN.** Self-weight code values often appear as "kg/m²" — multiply by 9.81 and divide by 1000 to get kPa.
 2. **Mixing the object and the forces.** The FBD should make force arrows easy to see; support details come later.
 3. **Missing self-weight.** The structure weighs something even before any external load — always include it.
 
-### H. Chapter Practice Task — Floor Beam Load FBD
+### H. Practice Task — Floor Beam Load FBD
 
 > **Scenario:** A 6 m long floor beam supports:
 > - A 200 mm thick concrete slab tributary 2.5 m wide
@@ -168,7 +199,7 @@ Forces are entered in ETABS through several menus, each matching a physical type
 >
 > Chapter 11 explains how upward support forces balance this downward total.
 
-### I. Chapter Summary Table
+### I. What You Now Know
 
 | Concept | Formula | Engineering Use | ETABS Location |
 |---------|---------|----------------|----------------|
@@ -180,29 +211,23 @@ Forces are entered in ETABS through several menus, each matching a physical type
 
 <div style="page-break-after: always;"></div>
 
-## Chapter 11 — Equilibrium and the Sum of Forces
+## Chapter 11 — Equilibrium: Balancing Forces
 
-### A. Word Bank
+### A. Achievement
 
-| Word | Pronunciation | Plain English Meaning | Used In |
-|------|---------------|----------------------|---------|
-| **Equilibrium** | "ee-kwih-LIB-ree-um" | Perfect balance — nothing moves | $\Sigma F = 0$ |
-| **Static** | "STAT-ik" | Not moving | Statics = study of non-moving structures |
-| **Sum** | "SUM" | Total of all values added together | $\Sigma F$ |
-| **Sigma** | "SIG-mah" | Greek letter $\Sigma$ meaning "sum of" | $\Sigma F_y$ |
-| **Resultant** | "rih-ZUL-tant" | The single net force when many forces combine | When forces don't balance |
-| **Net force** | "NET FORS" | Sum of all forces (= resultant) | If 0, equilibrium |
-| **Reaction** | "ree-AK-shun" | The force a support pushes back with | $R_A$, $R_B$ |
-| **Newton's First Law** | — | Object at rest stays at rest if forces balance | The basis of statics |
-| **Newton's Third Law** | — | Every force has equal & opposite reaction | Why supports push back |
+After this section you can verify that a given set of support reactions correctly balances all applied loads on a beam, and compute unknown reactions for symmetric loading using $\Sigma F_y = 0$.
 
-### B. Concept Introduction
+### B. The Situation
+
+A beam carries loads but stays still. Something must be pushing back. That push-back comes from the supports — and it must be exactly the right magnitude and direction, or the beam moves, tilts, or falls. The question is: how much does each support push back?
+
+### C. The Intuition
 
 A building doesn't move. That simple fact is the entire foundation of structural engineering. If a building is not moving, every force pushing on it must be exactly balanced by an equal force pushing back. This perfect balance is called **static equilibrium**.
 
 > **Real-world analogy:** A book sitting on a table. Gravity pulls down on the book. The table pushes up with exactly the same force. Net force = zero, so the book doesn't accelerate. That is equilibrium.
 
-### C. The Physics Behind It
+
 
 **Newton's First Law:** An object at rest remains at rest unless an unbalanced force acts on it.
 
@@ -220,7 +245,9 @@ When a beam rests on a column, the beam pushes the column down. The column pushe
 - Up is positive for vertical forces
 - Right is positive for horizontal forces
 
-### D. The Math
+
+**Formulas and Derivations**
+
 
 The force equilibrium equations:
 
@@ -243,7 +270,9 @@ F2 <────[ BOX ]────> F1 = 50 N
 $\Sigma F_x = 0$: $F_1 - F_2 = 0$ → $F_2 = 50\ \mathrm{N}$
 $\Sigma F_y = 0$: $N - W = 0$ → $N = 200\ \mathrm{N}$
 
-### E. Structural Engineering Application
+
+**Full Worked Examples**
+
 
 **Problem.** A beam carries a point load $P = 60\ \mathrm{kN}$ at mid-span and is supported symmetrically at both ends. Find $R_A$ and $R_B$ using force balance and symmetry.
 
@@ -269,7 +298,9 @@ $R_A = R_B = 60/2 = 30\ \mathrm{kN}$.
 
 Non-symmetric beams require moment equilibrium, which is taught in Chapter 12.
 
-### F. ETABS Connection
+
+**ETABS Connection**
+
 
 ETABS solves force balance and rotational balance at every joint of every model. In this chapter, use ETABS reactions only to verify vertical force balance.
 
@@ -281,13 +312,29 @@ ETABS solves force balance and rotational balance at every joint of every model.
 > 5. Sum vertical reactions: $30 + 30 = 60\ \mathrm{kN}$ = applied load → vertical equilibrium ✓
 > 6. Moment checks come in Chapter 12
 
-### G. Common Mistakes
+### D. Failure Case
+
+A 6 m beam carries $P = 60\ \mathrm{kN}$ at $x = 2\ \mathrm{m}$ from the left end. An engineer applies force balance: $R_A + R_B = 60\ \mathrm{kN}$. Then, guessing by feel, assigns $R_A = 40\ \mathrm{kN}$ and $R_B = 20\ \mathrm{kN}$. The beam doesn't care about feel — only the actual lever-arm distances matter. The unique correct answer ($R_A = 50\ \mathrm{kN}$, $R_B = 10\ \mathrm{kN}$) requires moment equilibrium from Chapter 12. Force balance alone gives one equation for two unknowns; it is insufficient for any non-trivially symmetric beam.
 
 1. **Wrong sign convention.** Mixing up up/down. Pick once and stay consistent.
 2. **Forgetting horizontal equilibrium.** With horizontal loads (wind), you must also satisfy $\Sigma F_x = 0$.
 3. **Trying to solve non-symmetric supports with force balance alone.** You need Chapter 12's moment equilibrium for that.
 
-### H. Chapter Practice Task — Symmetric Beam Force Balance
+### E. The Rule
+
+An object in static equilibrium has all forces summing to zero in every direction. Vertical force balance alone uniquely solves only when symmetry collapses two unknowns into one. Most real beams need a second equation: moment equilibrium.
+
+### F. The Formal Shorthand
+
+$$\Sigma F_x = 0 \qquad \Sigma F_y = 0$$
+
+For a symmetric beam with total load $W$: $R_A = R_B = W/2$. For any other case, pair this with $\Sigma M = 0$ from Chapter 12.
+
+### G. Full Worked Example
+
+See the worked examples embedded in the Intuition section above (box on frictionless surface; symmetric beam with mid-span load).
+
+### H. Practice Task — Symmetric Beam Force Balance
 
 > **Scenario:** A symmetric beam carries a centered point load $P = 40\ \mathrm{kN}$ and a uniform load $w = 6\ \mathrm{kN/m}$ over $L = 10\ \mathrm{m}$.
 >
@@ -304,7 +351,7 @@ ETABS solves force balance and rotational balance at every joint of every model.
 >
 > **Symmetry:** $R_A = R_B = 50\ \mathrm{kN}$
 
-### I. Chapter Summary Table
+### I. What You Now Know
 
 | Concept | Formula | Engineering Use | ETABS Location |
 |---------|---------|----------------|----------------|
@@ -315,28 +362,23 @@ ETABS solves force balance and rotational balance at every joint of every model.
 
 <div style="page-break-after: always;"></div>
 
-## Chapter 12 — Moments (Rotational Forces)
+## Chapter 12 — Moments: Rotational Balance
 
-### A. Word Bank
+### A. Achievement
 
-| Word | Pronunciation | Plain English Meaning | Used In |
-|------|---------------|----------------------|---------|
-| **Moment** | "MOH-ment" | A force that causes rotation | $M = F \times d$ |
-| **Torque** | "TORK" | Same idea, used in mechanics | $\tau$ |
-| **Lever arm** | "LEH-ver ARM" | The perpendicular distance from force to pivot | $d$ |
-| **Pivot** | "PIH-vot" | The point about which rotation tends to happen | A support |
-| **Clockwise** | "KLOK-wize" | Rotating in the direction clock hands move | CW, often negative |
-| **Counterclockwise** | "KOWN-ter-KLOK-wize" | Opposite of clockwise | CCW, often positive |
-| **Couple** | "KUP-ul" | Two equal opposite parallel forces — a pure moment | Wrench-like effect |
-| **Bending moment** | "BEND-ing MOH-ment" | Internal moment causing a beam to curve | $M(x)$ on a beam |
+After this section you can find both support reactions for a simply-supported beam with a point load at any position — not just at mid-span — by applying rotational balance ($\Sigma M = 0$) in addition to vertical force balance.
 
-### B. Concept Introduction
+### B. The Situation
+
+Vertical force balance alone ($R_A + R_B = P$) has infinitely many solutions when the load is not at the center. To pin down the unique answer, you need a second independent condition: the beam must also not rotate. That rotational condition is the moment equation.
+
+### C. The Intuition
 
 A moment is a force that tends to cause rotation. The further the force is from the pivot, the greater its rotational effect.
 
 > **Real-world analogy:** Opening a heavy door. Push near the hinge — it barely moves. Push far from the hinge — it swings open easily. Same force, different distance from pivot, totally different rotational effect. That is moment.
 
-### C. The Physics Behind It
+
 
 A door handle is placed far from the hinge for a reason: greater distance means greater moment per unit force. A wrench works the same way. So does a seesaw. So does a beam under load — the load creates moments around the supports.
 
@@ -357,7 +399,9 @@ Clockwise (negative) moment   Counterclockwise (positive) moment
 M = -F·d                      M = +F·d
 ```
 
-### D. The Math
+
+**Formulas and Derivations**
+
 
 For a single force $F$ acting at perpendicular distance $d$ from a pivot:
 
@@ -383,7 +427,9 @@ $\Sigma M_A = -50 + 60 = +10\ \mathrm{N \cdot m}$ (net CCW)
 
 For equilibrium, $\Sigma M_A$ must equal zero — a third force or moment is needed.
 
-### E. Structural Engineering Application
+
+**Full Worked Examples**
+
 
 **Problem.** A cantilever beam of length $L = 4\ \mathrm{m}$ is fixed at A. A point load $P = 25\ \mathrm{kN}$ acts downward at the free end. Find the moment reaction at A.
 
@@ -407,7 +453,9 @@ $M_A = +100\ \mathrm{kN \cdot m}$
 
 This is the **fixed-end moment**, and it must be transferred into the column or wall the cantilever is attached to.
 
-### F. ETABS Connection
+
+**ETABS Connection**
+
 
 ETABS computes moments at every section of every member. The bending moment diagram (BMD) is the visualization. Each value on the BMD is the result of $M = F \times d$ summed over every load on the relevant side of the section.
 
@@ -419,13 +467,29 @@ ETABS computes moments at every section of every member. The bending moment diag
 > 5. At the fixed support, look at the **M3 reaction** — it should be $\approx 100\ \mathrm{kN \cdot m}$ (sign depends on ETABS convention)
 > 6. **Display > Show Frame Forces > Moment 3-3** — the BMD goes linearly from 0 at free end to $\pm 100\ \mathrm{kN \cdot m}$ at the support
 
-### G. Common Mistakes
+### D. Failure Case
+
+A UDL $w = 10\ \mathrm{kN/m}$ over $L = 6\ \mathrm{m}$ has resultant $W = 60\ \mathrm{kN}$. An engineer takes moments about the left support using the full span as the lever arm: $M = 60 \times 6 = 360\ \mathrm{kN \cdot m}$. The correct value is $M = 60 \times 3 = 180\ \mathrm{kN \cdot m}$ — because the resultant acts at the centroid ($L/2 = 3\ \mathrm{m}$), not at the right end. Using the end-to-end distance doubled the computed moment.
 
 1. **Using diagonal distance instead of perpendicular.** The lever arm is always the perpendicular distance from the line of action to the pivot.
 2. **Sign confusion.** State your convention explicitly at problem start.
 3. **Forgetting that distributed load creates moment too.** A UDL $w$ over length $L$ acts at its centroid (mid-length) with total force $w \cdot L$.
 
-### H. Chapter Practice Task — Eccentric Column Load
+### E. The Rule
+
+The moment of a force about a point is $M = F \times d$ where $d$ is the perpendicular distance. For distributed loads, replace the load with its resultant acting at its centroid. State the sign convention once at the start and never change it mid-problem.
+
+### F. The Formal Shorthand
+
+$$M = F \cdot d \qquad \Sigma M_A = 0 \quad \Rightarrow \quad R_B = \frac{\sum(P_i \cdot a_i)}{L}$$
+
+For a point load $P$ at distance $a$ from $A$: $R_B = Pa/L$, $R_A = P(L-a)/L$. For a UDL $w$ over the full span: $R_B = wL/2$.
+
+### G. Full Worked Example
+
+See the worked examples embedded in the Intuition section above (cantilever fixed-end moment; eccentric column load).
+
+### H. Practice Task — Eccentric Column Load
 
 > **Scenario:** A vertical column carries an axial load $P = 200\ \mathrm{kN}$, but the load is offset by $e = 50\ \mathrm{mm}$ from the column's center (eccentric loading). Find the bending moment $M$ this eccentricity creates at the base.
 >
@@ -446,7 +510,7 @@ ETABS computes moments at every section of every member. The bending moment diag
 > 2. Apply the load via a small rigid extension that places the force 50 mm to one side of the centroid (or apply a moment $M = 10\ \mathrm{kN \cdot m}$ + axial $P = 200\ \mathrm{kN}$ directly at the top)
 > 3. Run analysis; **Display > Show Frame Forces > Moment 3-3** — confirm $M_{\text{base}} = 10\ \mathrm{kN \cdot m}$
 
-### I. Chapter Summary Table
+### I. What You Now Know
 
 | Concept | Formula | Engineering Use | ETABS Location |
 |---------|---------|----------------|----------------|
@@ -457,22 +521,17 @@ ETABS computes moments at every section of every member. The bending moment diag
 
 <div style="page-break-after: always;"></div>
 
-## Chapter 13 — Types of Loads in Structural Engineering
+## Chapter 13 — Load Types, Tributary Areas, and Combinations
 
-### A. Word Bank
+### A. Achievement
 
-| Word | Pronunciation | Plain English Meaning | Used In |
-|------|---------------|----------------------|---------|
-| **Dead load (DL)** | — | Permanent weight | Structure, finishes, walls |
-| **Live load (LL)** | — | Variable weight (people, furniture) | Set by code |
-| **Wind load (WL)** | — | Pressure from wind | Lateral (sideways) on building |
-| **Seismic load (EQ)** | "SICE-mik" | Inertial force from earthquake | Lateral (sideways) on building |
-| **Superimposed dead load (SDL)** | "soo-per-im-POZED" | Dead load added on top of structure | Floor finish, partitions |
-| **Tributary area** | "TRIB-yoo-teh-ree" | Area of floor whose load goes to one member | Used to convert area load to line load |
-| **Load path** | — | Route loads take from where applied to ground | Slab→beam→column→foundation |
-| **Load combination** | — | Code-required factored sum of multiple loads | $1.2DL + 1.6LL$ |
+After this section you can compute the factored design line load on an interior floor beam — combining slab self-weight, finishes, and live load with the correct tributary width and load combination factors.
 
-### B. Concept Introduction
+### B. The Situation
+
+A beam does not know how the code categorizes its load. It only responds to force. But the engineer must categorize loads to apply the right safety factors, to know which loads act simultaneously, and to apply code-specified values for live load. A beam that passes gravity checks might still fail if the wind load combination governs.
+
+### C. The Intuition
 
 Buildings carry many different kinds of loads. The structural engineer's first job is to identify, quantify, and apply each one — and then check the structure against all relevant **combinations** of these loads.
 
@@ -482,7 +541,7 @@ Buildings carry many different kinds of loads. The structural engineer's first j
 > - **Wind load** = wind pushing the shelf sideways
 > - **Seismic load** = the shelf shaking during an earthquake
 
-### C. The Physics Behind It
+
 
 **Dead load (DL)** is the permanent weight of the structure plus anything fixed to it: slabs, beams, columns, walls, ceilings, finishes, mechanical equipment.
 
@@ -541,7 +600,9 @@ Buildings carry many different kinds of loads. The structural engineer's first j
 If the slab carries $q\ [\mathrm{kPa}]$ and the beam's tributary width is $b_{trib}\ [\mathrm{m}]$:
 $$w_{beam} = q \cdot b_{trib} \quad [\mathrm{kN/m}]$$
 
-### D. The Math
+
+**Formulas and Derivations**
+
 
 **Converting area load to line load:**
 $$w\ [\mathrm{kN/m}] = q\ [\mathrm{kPa}] \times b_{trib}\ [\mathrm{m}]$$
@@ -558,7 +619,9 @@ $$w\ [\mathrm{kN/m}] = q\ [\mathrm{kPa}] \times b_{trib}\ [\mathrm{m}]$$
 
 The factors (1.2, 1.6, 0.9, etc.) are **load factors** — they account for uncertainty in each load's magnitude.
 
-### E. Structural Engineering Application
+
+**Full Worked Examples**
+
 
 **Problem.** A 5×5 m office floor bay has slab thickness 200 mm, finishes 1.5 kPa, partitions 1.0 kPa, live load 3.0 kPa. The interior beam at mid-bay has a tributary width of 2.5 m. Find the factored line load on the beam.
 
@@ -579,7 +642,9 @@ $w_u = 1.2 \times 18.75 + 1.6 \times 7.5 = 22.5 + 12.0 = 34.5\ \mathrm{kN/m}$
 
 This is the line load to use for ultimate-strength design.
 
-### F. ETABS Connection
+
+**ETABS Connection**
+
 
 ETABS handles all four load types with separate **load patterns**:
 
@@ -600,13 +665,27 @@ Combinations are defined separately under **Define > Load Combinations**.
 > 4. Click OK
 > 5. After running analysis, **Display > Show Tables > Frame Forces** — choose this combo to see factored member forces
 
-### G. Common Mistakes
+### D. Failure Case
+
+A 5 m beam with $DL_{area} = 5\ \mathrm{kPa}$ and $LL_{area} = 3\ \mathrm{kPa}$, tributary width $b = 3\ \mathrm{m}$. An engineer applies load factors directly to area loads: $w_u = (1.2 \times 5 + 1.6 \times 3) \times 3 = 10.8 \times 3 = 32.4\ \mathrm{kN/m}$ — accidentally correct here. But for a beam with two dead load sources (slab DL = 5 kPa and a separate beam self-weight = 4 kN/m), the combined approach fails because self-weight has no tributary multiplication. Only converting each source separately, then factoring, handles mixed load types without error.
 
 1. **Forgetting partitions or finishes.** Code-mandated additions even if architectural drawings don't show them.
-2. **Wrong tributary width.** For continuous slab on multiple beams, tributary widths usually go to half the distance to the adjacent beam on each side.
-3. **Skipping load combinations.** Designing for $DL + LL$ unfactored is unsafe — code requires factored combos.
+2. **Wrong tributary width.** For continuous slab on multiple beams, tributary widths go to half the distance to the adjacent beam on each side.
+3. **Skipping load combinations.** Designing for unfactored $DL + LL$ is unsafe — code requires factored combinations.
 
-### H. Chapter Practice Task — Apartment Floor Beam
+### E. The Rule
+
+Convert each area load to a line load separately by multiplying by the beam's tributary width. Then factor using the appropriate load combination. Never apply factors to area loads and multiply by tributary width in one step when multiple load types are present.
+
+### F. The Formal Shorthand
+
+$$w\ [\mathrm{kN/m}] = q\ [\mathrm{kPa}] \times b_{\mathrm{trib}}\ [\mathrm{m}] \qquad w_u = 1.2\,w_{DL} + 1.6\,w_{LL}$$
+
+### G. Full Worked Example
+
+See the 5-bay office floor beam example embedded in the Intuition section above ($w_u = 34.5\ \mathrm{kN/m}$).
+
+### H. Practice Task — Apartment Floor Beam
 
 > **Scenario:** An apartment floor has a 180 mm slab, finishes 1.0 kPa, partitions 1.0 kPa, live load 2.0 kPa. A beam supports a tributary width of 3.5 m and spans 6 m. Find the factored line load and maximum moment.
 >
@@ -632,7 +711,7 @@ Combinations are defined separately under **Define > Load Combinations**.
 >
 > **ETABS Verification:** Build the 6 m beam, apply DL=22.75 and LL=7.0 kN/m, define combo 1.2D+1.6L, run analysis, read $M_{\max}$ should be ~173 kN·m at mid-span.
 
-### I. Chapter Summary Table
+### I. What You Now Know
 
 | Concept | Formula | Engineering Use | ETABS Location |
 |---------|---------|----------------|----------------|
@@ -644,23 +723,17 @@ Combinations are defined separately under **Define > Load Combinations**.
 
 <div style="page-break-after: always;"></div>
 
-## Chapter 14 — Support Conditions
+## Chapter 14 — Support Conditions and Reactions
 
-### A. Word Bank
+### A. Achievement
 
-| Word | Pronunciation | Plain English Meaning | Used In |
-|------|---------------|----------------------|---------|
-| **Pin support** | — | Resists translation, allows rotation | 2 reactions: H, V |
-| **Roller support** | — | Resists vertical only, allows horizontal & rotation | 1 reaction: V |
-| **Fixed support** | — | Resists everything: H, V, and moment | 3 reactions |
-| **Cantilever** | "KAN-tih-lee-ver" | Beam fixed at one end, free at the other | Diving board |
-| **Hinge** | "HINJ" | A connection that allows rotation | Like a door hinge |
-| **Restraint** | "rih-STRAYNT" | Something preventing motion | Each restraint = one reaction |
-| **Degree of freedom** | "free-dum" | A direction in which motion is possible | 6 in 3D, 3 in 2D per joint |
-| **Simply supported** | — | Pin + roller, the simplest beam | Single span |
-| **Propped cantilever** | "PROPT" | Fixed at one end + roller at the other | Hybrid |
+After this section you can identify the correct support model for a given physical connection (pin, roller, or fixed), state how many reactions it provides, and determine whether a beam is statically determinate before solving it.
 
-### B. Concept Introduction
+### B. The Situation
+
+A beam is designed for a total downward load of 60 kN. You model it as simply supported and find reactions of 30 kN each. But what if both ends are actually bolted rigidly to columns — making them fixed supports? A fixed support also resists rotation, adding moment reactions that change the internal forces entirely. Choosing the wrong support model means designing for the wrong forces.
+
+### C. The Intuition
 
 Every structure ultimately rests on something: a foundation, the ground, another structure. The way a member meets its support determines what kind of forces the support can apply back. Three idealized support types cover almost all everyday structural work.
 
@@ -669,7 +742,7 @@ Every structure ultimately rests on something: a foundation, the ground, another
 > - **Roller** = balance on a marble (can roll horizontally and rotate)
 > - **Fixed** = embed in concrete (can't move or rotate)
 
-### C. The Physics Behind It
+
 
 A support's job is to prevent motion. Each direction of motion that is prevented requires the support to apply a corresponding reaction force (or moment). Newton's Third Law: if the support stops the structure from moving down, the support pushes up.
 
@@ -695,7 +768,9 @@ A **simply supported beam** is pin + roller (3 reactions total — a determinate
 A **cantilever** is fixed + free (3 reactions — also determinate).
 A **propped cantilever** is fixed + roller (4 reactions — one degree statically indeterminate).
 
-### D. The Math
+
+**Formulas and Derivations**
+
 
 The number of equilibrium equations available in 2D is 3 ($\Sigma F_x$, $\Sigma F_y$, $\Sigma M$). If the number of unknown reactions equals 3, the structure is **statically determinate** — solvable using equilibrium alone. If reactions exceed 3, it is **indeterminate**. Indeterminate structures require deformation ideas and software methods introduced later, so this chapter only identifies them.
 
@@ -706,7 +781,9 @@ $\Sigma F_x = 0$: $H_A = 0$
 $\Sigma F_y = 0$: $V_A - 10 = 0$ → $V_A = 10\ \mathrm{kN}$ (upward)
 $\Sigma M_A = 0$: $M_A - 10 \times 5 = 0$ → $M_A = 50\ \mathrm{kN \cdot m}$ (CCW)
 
-### E. Structural Engineering Application
+
+**Full Worked Examples**
+
 
 **Problem.** A 6 m beam carries $P = 40\ \mathrm{kN}$ at $x = 4\ \mathrm{m}$ from left. Compare the support unknowns if the beam is:
 (a) simply supported (pin at left, roller at right)
@@ -718,7 +795,9 @@ Unknowns: horizontal reaction at the pin, vertical reaction at the pin, vertical
 **Case (b) — propped cantilever:**
 Unknowns: horizontal reaction, vertical reaction, and moment at the fixed end, plus vertical reaction at the roller. Four unknowns, so equilibrium alone is not enough. ETABS can solve it because it also accounts for member stiffness and deformation.
 
-### F. ETABS Connection
+
+**ETABS Connection**
+
 
 In ETABS, you set support conditions per joint by specifying which **degrees of freedom** are restrained. A joint has 6 DOFs in 3D (U1, U2, U3 for translations + R1, R2, R3 for rotations).
 
@@ -738,13 +817,33 @@ In ETABS, you set support conditions per joint by specifying which **degrees of 
 >    - For a roller (vertical only): check only U3
 > 4. Click OK; the support symbol on the joint updates accordingly
 
-### G. Common Mistakes
+### D. Failure Case
 
-1. **Confusing pin and fixed.** A pin allows rotation; a fixed support resists rotation. Visually, fixed = embedded in wall; pin = a hinge connection.
-2. **Mismodeling rollers.** A roller resists only the perpendicular direction. Modeling all column bases as rollers makes the building unstable laterally.
-3. **Over-restraining.** Adding unnecessary restraints can cause "phantom" forces. Only restrain what is physically restrained.
+An engineer models all column bases in a 5-story concrete building as pins (no moment restraint) to simplify the model. Running a lateral analysis, ETABS assigns nearly all the lateral load to the core walls — the columns contribute almost zero lateral stiffness. After construction, the building sways more than predicted under wind. The monolithic column-to-pile-cap connections are in practice fixed, providing stiffness the model ignored. The difference between pin and fixed base changes story drift by 20–40% and alters the column's bending moment entirely.
 
-### H. Chapter Practice Task — Choosing the Right Support
+1. **Confusing pin and fixed.** A pin allows rotation; a fixed support resists rotation. Fixed = embedded in concrete; pin = a hinge connection.
+2. **Mismodeling rollers.** A roller resists only the perpendicular direction. Modeling all column bases as rollers makes the building laterally unstable.
+3. **Over-restraining.** Adding unnecessary restraints introduces artificial forces. Only restrain what is physically restrained.
+
+### E. The Rule
+
+Each restrained direction of motion generates one reaction force or moment. Count the restraints to count the unknowns. If three or fewer unknowns exist in 2D, the structure is determinate; if four or more, it is indeterminate and requires software.
+
+### F. The Formal Shorthand
+
+| Support | Restraints | Reactions (2D) |
+|---------|------------|----------------|
+| Roller | 1 | V |
+| Pin | 2 | H + V |
+| Fixed | 3 | H + V + M |
+
+Determinate: total reactions = 3. Indeterminate: total reactions > 3.
+
+### G. Full Worked Example
+
+See the pin-vs-roller worked example and the cantilever example embedded in the Intuition section above.
+
+### H. Practice Task — Choosing the Right Support
 
 > **Scenario:** You are modeling the base of an interior column in a 5-story concrete building. The column is cast monolithically with a large pile cap. Should this base be modeled as fixed or pinned, and what reactions will appear?
 >
@@ -767,7 +866,7 @@ In ETABS, you set support conditions per joint by specifying which **degrees of 
 > 2. Reassign as pinned (only U1, U2, U3) — run again — moment reactions now zero, displacements at top of building higher
 > 3. The contrast demonstrates why support modeling is critical
 
-### I. Chapter Summary Table
+### I. What You Now Know
 
 | Concept | Reactions | Engineering Use | ETABS Location |
 |---------|-----------|----------------|----------------|
@@ -778,24 +877,17 @@ In ETABS, you set support conditions per joint by specifying which **degrees of 
 
 <div style="page-break-after: always;"></div>
 
-## Chapter 15 — Internal Forces: Axial, Shear, and Bending Moment
+## Chapter 15 — Internal Forces: Axial, Shear, and Bending Moment Diagrams
 
-### A. Word Bank
+### A. Achievement
 
-| Word | Pronunciation | Plain English Meaning | Used In |
-|------|---------------|----------------------|---------|
-| **Axial force** | "AK-see-ul" | Force along the length of a member | $N$ or $P$ |
-| **Tension** | "TEN-shun" | Pulling force | $+N$ |
-| **Compression** | "kom-PRESH-un" | Pushing force | $-N$ |
-| **Shear force** | "SHEER" | Sideways internal force | $V$ |
-| **Bending moment** | — | Internal moment causing curvature | $M$ |
-| **Section cut** | — | Imaginary slice through a member to expose internal forces | Method to find $V, M$ |
-| **SFD** | — | Shear Force Diagram | Plot of $V$ along member |
-| **BMD** | — | Bending Moment Diagram | Plot of $M$ along member |
-| **Sagging** | "SAG-ing" | Beam bending downward in the middle | Positive M (typical convention) |
-| **Hogging** | "HOG-ing" | Beam bending upward in the middle | Negative M (over supports) |
+After this section you can draw the shear force diagram (SFD) and bending moment diagram (BMD) for a simply-supported beam under uniform load, and read off the maximum values that govern the design.
 
-### B. Concept Introduction
+### B. The Situation
+
+The external loads and reactions on a beam are now known. But what is happening *inside* the beam? The beam must carry those forces across its length — and if the material can't handle what's inside, the beam fails. Those internal effects — axial force, shear, and bending moment — are what actually cause a beam to break, buckle, or crack.
+
+### C. The Intuition
 
 When loads act on a beam, internal forces develop inside the beam to keep it in equilibrium. These internal forces are what cause stress, strain, and ultimately failure. There are three kinds:
 
@@ -805,7 +897,7 @@ When loads act on a beam, internal forces develop inside the beam to keep it in 
 
 > **Real-world analogy:** Pinch a stick of chalk between two fingers. Pulling = tension (axial). Pressing in = compression (axial). Sliding fingers past each other = shear. Bending the chalk by twisting your wrists = moment.
 
-### C. The Physics Behind It
+
 
 Imagine a beam under load. If you cut it at any point and look at the exposed face:
 
@@ -832,7 +924,9 @@ RA            RB              RA    V↑         V↓        RB
 - $V$: positive if it tends to rotate the cut clockwise on the left segment
 - $M$: positive if it causes sagging (compression on top, tension on bottom)
 
-### D. The Math
+
+**Formulas and Derivations**
+
 
 **The section cut method:** to find $N$, $V$, $M$ at any point $x$:
 
@@ -859,7 +953,9 @@ $$V(x) = \dfrac{wL}{2} - wx \qquad M(x) = \dfrac{wL}{2}x - \dfrac{w}{2}x^2$$
 
 $V$ is linear (straight line), zero at mid-span. $M$ is quadratic (parabola), peak at mid-span.
 
-### E. Structural Engineering Application
+
+**Full Worked Examples**
+
 
 **Problem.** Draw the SFD and BMD for a simply supported beam $L = 8\ \mathrm{m}$ with $w = 12\ \mathrm{kN/m}$.
 
@@ -901,7 +997,9 @@ BMD (kN·m):
 
 The shear is linear (straight diagonal), the moment is parabolic (smooth curve).
 
-### F. ETABS Connection
+
+**ETABS Connection**
+
 
 ETABS computes $N$, $V$, and $M$ at every section of every member and plots them as colored diagrams. The bending moment diagram is the visual function $M(x)$.
 
@@ -913,13 +1011,32 @@ ETABS computes $N$, $V$, and $M$ at every section of every member and plots them
 > 5. **Display > Show Frame Forces > Axial** — for this beam, axial = 0
 > 6. Right-click the beam → "Show Member Force Diagram" to see exact values at any section
 
-### G. Common Mistakes
+### D. Failure Case
+
+A student draws the bending moment diagram for a simply-supported beam under UDL by connecting the support moments (both zero) to the mid-span value with straight diagonal lines — making a triangle. The actual BMD is a parabola. At $x = L/4$, the triangle gives $M = M_{max}/2$, but the parabola gives $M = 0.75\, M_{max}$. Designing for a triangular BMD underestimates the moment by 25% at the quarter-span points. For a beam with steel distributed along its length, this leads to insufficient bar lengths.
 
 1. **Confusing shear and bending moment diagrams.** Shear is linear under UDL; moment is parabolic.
 2. **Wrong sign convention on the cut.** Always state your convention. The trick is consistency.
-3. **Forgetting that peak moment occurs where the shear diagram crosses zero.** The calculus explanation comes later; for now, remember this as a diagram rule.
+3. **Forgetting that peak moment occurs where the shear diagram crosses zero.** Where $V = 0$, $dM/dx = 0$ — that is the maximum moment location.
 
-### H. Chapter Practice Task — Cantilever SFD and BMD
+### E. The Rule
+
+For any cross-section: internal forces are whatever is needed to keep the cut segment in equilibrium. Cut, choose the simpler side, and apply $\Sigma F = 0$ and $\Sigma M = 0$. The shear diagram and moment diagram are just plots of those values as $x$ moves along the span.
+
+### F. The Formal Shorthand
+
+| Beam / Load | $V(x)$ | $M(x)$ | Peak moment |
+|-------------|--------|---------|-------------|
+| SS + UDL $w$ | $wL/2 - wx$ | $wLx/2 - wx^2/2$ | $M_{max}=wL^2/8$ at $x=L/2$ |
+| Cantilever + UDL $w$ | $w(L-x)$ | $-w(L-x)^2/2$ | $M_{max}=wL^2/2$ at $x=0$ |
+
+Shear is linear under UDL; moment is parabolic. Shear crosses zero where moment is maximum.
+
+### G. Full Worked Example
+
+See the 8 m beam worked example (SS + UDL, SFD and BMD fully drawn) embedded in the Intuition section above.
+
+### H. Practice Task — Cantilever SFD and BMD
 
 > **Scenario:** A cantilever beam $L = 4\ \mathrm{m}$ is fixed at the left and free at the right. It carries a UDL $w = 8\ \mathrm{kN/m}$ over its entire length.
 >
@@ -958,7 +1075,7 @@ ETABS computes $N$, $V$, and $M$ at every section of every member and plots them
 > 2. **Display > Show Frame Forces > Shear 2-2** — peak at fixed end = 32 kN
 > 3. **Display > Show Frame Forces > Moment 3-3** — peak at fixed end = 64 kN·m
 
-### I. Chapter Summary Table
+### I. What You Now Know
 
 | Concept | Formula | Engineering Use | ETABS Location |
 |---------|---------|----------------|----------------|
@@ -970,29 +1087,45 @@ ETABS computes $N$, $V$, and $M$ at every section of every member and plots them
 
 <div style="page-break-after: always;"></div>
 
-## Chapter 16 — Stress and Strain
+## Chapter 16 — Stress and Strain: What's Happening Inside the Material
 
-### A. Word Bank
+### A. Achievement
 
-| Word | Pronunciation | Plain English Meaning | Used In |
-|------|---------------|----------------------|---------|
-| **Stress** | "STRESS" | Force per unit area | $\sigma$, MPa |
-| **Strain** | "STRAYN" | Fractional deformation | $\varepsilon$, dimensionless |
-| **Normal stress** | "NOR-mul" | Stress perpendicular to a surface | Tension/compression |
-| **Shear stress** | "SHEER" | Stress parallel to a surface | $\tau$ |
-| **Elastic modulus** | "ee-LAS-tik MOD-yoo-lus" | Material stiffness; stress per unit strain | $E$ |
-| **Young's modulus** | "YUNGZ" | Same as elastic modulus | $E$ |
-| **Yield stress** | "YEELD" | Stress at which material permanently deforms | $F_y$ |
-| **Hooke's Law** | "HOOK" | Stress is proportional to strain (elastic range) | $\sigma = E \varepsilon$ |
-| **Elongation** | "ee-long-GAY-shun" | Increase in length | $\Delta L$ |
+After this section you can check whether the extreme-fiber bending stress in a beam exceeds the allowable stress — given the bending moment, section depth, and moment of inertia — and apply the same stress framework to axial members (columns, tie rods).
 
-### B. Concept Introduction
+### B. The Situation
+
+You have computed $M = 96\ \mathrm{kN \cdot m}$ at mid-span of a beam. The beam is made of steel with allowable stress $f_{allow} = 165\ \mathrm{MPa}$. Is the material safe? The question is not about the force — it's about how that force is spread across the cross-section area. Force per unit area is stress, and stress is what the material actually feels. Too much stress breaks it.
+
+### C. The Intuition
 
 Stress is force concentrated. Strain is the deformation that results. Together, they describe how a material responds to load.
 
 > **Real-world analogy:** Pushing a thumbtack vs. pushing a pencil eraser into a wall with the same force. Same force — but the thumbtack's tiny area means enormous stress, easily piercing the wall. Stress is what damages a material, not raw force.
 
-### C. The Physics Behind It
+### D. Failure Case
+
+A designer checks a beam by verifying that the bending moment $M = 96\ \mathrm{kN \cdot m}$ is below the beam's listed "moment capacity" of $120\ \mathrm{kN \cdot m}$. The check passes: $96 < 120$. But the moment capacity was listed for a *different* section \u2014 one with $I = 75{,}000\ \mathrm{cm^4}$ instead of the actual $I = 45{,}000\ \mathrm{cm^4}$. The actual bending stress is $165\ \mathrm{MPa}$ — exceeding the allowable $150\ \mathrm{MPa}$. Checking $M < M_{cap}$ only works if the capacity was computed for the actual section. The stress formula makes the section dependence explicit and catches errors the moment comparison hides.
+
+### E. The Rule
+
+Stress is force divided by the area that resists it. For axial forces it is uniform; for bending it varies linearly — zero at the neutral axis, maximum at the outer fiber. Always state what stress you are computing (axial, bending, shear), which formula applies, and what the allowable stress is before substituting numbers.
+
+### F. The Formal Shorthand
+
+| Stress type | Formula | Units |
+|-------------|---------|-------|
+| Axial (uniform) | $\sigma = P/A$ | MPa = N/mm² |
+| Bending (at fiber $y$ from N.A.) | $\sigma = My/I$ | MPa |
+| Bending (extreme fiber) | $\sigma_{max} = Mc/I = M/S$ | MPa |
+| Hooke's Law | $\sigma = E\varepsilon$ | \u2014 |
+| Elongation | $\Delta L = PL/(AE)$ | mm |
+
+where $c$ = distance from neutral axis to extreme fiber, $S = I/c$ = section modulus, $I$ = moment of inertia (computed in Chapter 20).
+
+### G. Full Worked Examples
+
+**The Physics of Stress**
 
 When a force is applied to a member, two things happen simultaneously:
 1. The material develops internal **stress** (force per area resisting the applied load)
@@ -1005,31 +1138,7 @@ $$\sigma = E \cdot \varepsilon$$
 
 When $\sigma$ exceeds the **yield stress** $F_y$, the material no longer recovers — it has permanently deformed. Designs almost always keep $\sigma$ below $F_y$ (often well below, with safety factors).
 
-### D. The Math
-
-**Normal stress:**
-$$\sigma = \dfrac{P}{A} \qquad [\mathrm{N/mm^2 = MPa}]$$
-
-**Strain:**
-$$\varepsilon = \dfrac{\Delta L}{L_0} \qquad [\mathrm{dimensionless}]$$
-
-**Hooke's Law:**
-$$\sigma = E \cdot \varepsilon \qquad \mathrm{or} \qquad \varepsilon = \dfrac{\sigma}{E}$$
-
-Combining: elongation
-$$\Delta L = \dfrac{P \cdot L}{A \cdot E}$$
-
-**Typical material values:**
-
-| Material | E (MPa) | $F_y$ (MPa) | $F_u$ (MPa) |
-|----------|---------|-------------|-------------|
-| Structural steel A36 | 200,000 | 250 | 400 |
-| Structural steel S355 | 200,000 | 355 | 510 |
-| Concrete C30 | ~32,000 | n/a | $f'_c = 30$ |
-| Aluminum 6061-T6 | 70,000 | 240 | 290 |
-| Timber (softwood) | ~10,000 | varies | varies |
-
-**Worked example.** A steel rod of length $L = 2{,}000\ \mathrm{mm}$, area $A = 100\ \mathrm{mm^2}$ carries $P = 15{,}000\ \mathrm{N}$. Find the stress, strain, and elongation. ($E = 200{,}000\ \mathrm{MPa}$.)
+**Worked Example 1 — Steel Tie Rod (Axial Stress)**
 
 1. Stress: $\sigma = P/A = 15{,}000 / 100 = 150\ \mathrm{MPa}$ ✓ ($< F_y = 250$, elastic)
 2. Strain: $\varepsilon = \sigma / E = 150 / 200{,}000 = 0.00075$ (i.e., 0.075%)
@@ -1037,7 +1146,7 @@ $$\Delta L = \dfrac{P \cdot L}{A \cdot E}$$
 
 The 2-meter rod stretches 1.5 mm under load — small, elastic, fully recoverable when the load is removed.
 
-### E. Structural Engineering Application
+**Worked Example 2 — Concrete Column (Axial Shortening)**
 
 **Problem.** A short concrete column 400 × 400 mm and 3 m tall carries an axial load $P = 1{,}500\ \mathrm{kN}$. Concrete $E = 32{,}000\ \mathrm{MPa}$. Compute stress, strain, and shortening.
 
@@ -1049,7 +1158,7 @@ The 2-meter rod stretches 1.5 mm under load — small, elastic, fully recoverabl
 
 A 3 m tall concrete column shortens by less than 1 mm under 1,500 kN — explains why we don't visually notice settlement.
 
-### F. ETABS Connection
+**ETABS Connection**
 
 ETABS uses Hooke's Law internally. When you define a material (Define > Materials), the value of $E$ you enter is exactly the elastic modulus from $\sigma = E\varepsilon$. ETABS then computes elongations, deflections, and reactions based on this constant.
 
@@ -1060,13 +1169,9 @@ ETABS uses Hooke's Law internally. When you define a material (Define > Material
 > 4. **Define > Materials > Add Steel** — $F_y = 350$, $E = 200{,}000\ \mathrm{MPa}$
 > 5. Run any analysis — every displacement uses these $E$ values via Hooke's Law
 
-### G. Common Mistakes
+### H. Practice Tasks
 
-1. **Confusing $E$ for steel and concrete.** Steel ≈ 200,000 MPa; concrete ≈ 30,000 MPa. Order of magnitude difference.
-2. **Forgetting that strain is dimensionless.** It's a ratio. Don't add units.
-3. **Mixing N and kN in $\Delta L = PL/AE$.** Keep all in consistent units before substituting.
-
-### H. Chapter Practice Task — Tie Rod Elongation
+> **Tip:** The three most common unit mistakes in stress: (1) confusing $E$ for steel (200,000 MPa) and concrete (~30,000 MPa); (2) treating strain as having units (it is dimensionless); (3) mixing N and kN in $\Delta L = PL/AE$.
 
 > **Scenario:** A 3 m steel tie rod, area $A = 314\ \mathrm{mm^2}$ (20 mm diameter), carries $P = 80\ \mathrm{kN}$. Steel $E = 200{,}000\ \mathrm{MPa}$, $F_y = 350\ \mathrm{MPa}$. Find stress, strain, elongation, and check yield.
 >
@@ -1079,7 +1184,7 @@ ETABS uses Hooke's Law internally. When you define a material (Define > Material
 >
 > **ETABS Verification:** Build a vertical truss element 3 m, A = 314 mm², apply 80 kN axial. Run analysis. Read the elongation in the deformed shape — it should be ~3.8 mm.
 
-### I. Chapter Summary Table
+### I. What You Now Know
 
 | Concept | Formula | Engineering Use | ETABS Location |
 |---------|---------|----------------|----------------|
@@ -1090,27 +1195,13 @@ ETABS uses Hooke's Law internally. When you define a material (Define > Material
 
 <div style="page-break-after: always;"></div>
 
-## Chapter 17 — Bending Stress in Beams
+### J. Bending Stress: When Axial Thinking Isn’t Enough
 
-### A. Word Bank
-
-| Word | Pronunciation | Plain English Meaning | Used In |
-|------|---------------|----------------------|---------|
-| **Bending stress** | — | Stress in a beam from bending | Tension/compression from curvature |
-| **Flexural stress** | "FLEX-yoo-rul" | Same as bending stress | $\sigma_b$ |
-| **Neutral axis** | "NOO-trul" | Line through cross-section where stress = 0 | At centroid |
-| **Section modulus** | — | A section property used in the full bending-stress formula | Chapter 20/advanced design |
-| **Fiber** | "FY-ber" | A thin horizontal strip of cross-section | Outermost = max stress |
-| **Sagging** | — | Beam curving like a smile | Positive M |
-| **Hogging** | — | Beam curving like a frown | Negative M |
-
-### B. Concept Introduction
-
-When a beam bends, one face stretches (tension) and the opposite face compresses. The horizontal line through the centroid where stress is zero is called the **neutral axis**. Stress varies linearly from this line — zero at the axis, maximum at the top or bottom face.
+Axial stress assumes force is uniformly distributed across the area: $\sigma = P/A$. But when a beam bends, the stress is *not* uniform — it varies across the depth of the section.
 
 > **Real-world analogy:** Bend a thick eraser. The bottom stretches; the top compresses. The middle stays the same length — that's the neutral axis.
 
-### C. The Physics Behind It
+
 
 The full bending-stress formula uses a geometry property called **moment of inertia**. Chapter 20 teaches that property and then performs the exact calculation. This chapter focuses on the physical pattern first:
 
@@ -1136,9 +1227,7 @@ Stress varies linearly across the section:
 
 The maximum stress occurs at the top and bottom faces — that's why $c = h/2$ for a rectangle (half the depth).
 
-### D. The Math
-
-In this chapter, use proportional comparisons instead of the full formula:
+**Bending Stress Trends**
 
 | Change | Bending stress trend |
 |--------|----------------------|
@@ -1150,13 +1239,13 @@ In this chapter, use proportional comparisons instead of the full formula:
 
 Beam B has twice the moment, so it has twice the bending stress. Chapter 20 turns this proportional idea into an exact stress calculation.
 
-### E. Structural Engineering Application
+**Bending Stress vs. Section Depth**
 
 **Problem.** Two rectangular beams carry the same bending moment. Beam A is shallow. Beam B is deeper. Which one will usually have lower bending stress?
 
 Beam B. A deeper section spreads material farther from the neutral axis, which makes the beam more effective in bending. Chapter 20 gives the geometry formula that turns this idea into numbers.
 
-### F. ETABS Connection
+**ETABS: Locating Critical Bending Stress**
 
 ETABS shows bending moment diagrams before it shows design requirements. At this stage, use the moment diagram to locate where bending stress will be largest: where the bending moment is largest.
 
@@ -1165,13 +1254,7 @@ ETABS shows bending moment diagrams before it shows design requirements. At this
 > 2. Mark that location as the place bending stress will be most critical
 > 3. Continue to Chapter 20 for the exact $Mc/I$ stress calculation after $I$ is taught
 
-### G. Common Mistakes
-
-1. **Thinking bending stress is uniform.** It is zero near the neutral axis and largest at the outer fibers.
-2. **Looking only at force and ignoring moment.** Bending stress follows bending moment, not just total load.
-3. **Using the formula before the geometry is ready.** Use this chapter for the stress pattern, then Chapter 20 for the exact formula.
-
-### H. Chapter Practice Task — Locate Critical Bending Region
+**Practice Task — Locate Critical Bending Region**
 
 > **Scenario:** A beam's bending moment diagram has values: 0 kN·m at the left support, 60 kN·m at quarter-span, 95 kN·m at mid-span, 60 kN·m at three-quarter-span, and 0 kN·m at the right support.
 >
@@ -1179,13 +1262,11 @@ ETABS shows bending moment diagrams before it shows design requirements. At this
 >
 > The largest moment is 95 kN·m at mid-span, so the largest bending stress will occur at mid-span. The top and bottom fibers at that section are the critical locations.
 
-### I. Chapter Summary Table
-
-| Concept | Formula | Engineering Use | ETABS Location |
-|---------|---------|----------------|----------------|
-| Bending stress pattern | Zero at neutral axis, max at outer fibers | Beam design | Moment diagram + design output |
-| Full formula | Introduced after $I$ in Chapter 20 | Quantitative stress check | Section Properties |
-| Maximum stress location | Outer fiber, $c = h/2$ | Where to check | Top/bottom of section |
+| Concept | Formula | Engineering Use |
+|---------|---------|----------------|
+| Bending stress pattern | Zero at neutral axis, max at outer fibers | Beam design |
+| Full formula | $\sigma = Mc/I$ after $I$ in Chapter 20 | Quantitative stress check |
+| Maximum stress location | Outer fiber, $c = h/2$ | Where to check |
 
 <div style="page-break-after: always;"></div>
 

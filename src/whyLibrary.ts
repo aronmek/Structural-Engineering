@@ -12,31 +12,24 @@ const defaultWhyAnchor = 'b-concept-introduction';
 
 export const whyPanels: WhyPanel[] = [
   {
-    slug: 'chapter-a1-numbers-and-the-number-line',
-    title: 'Why place value and the number line agree',
-    mistake: 'A common mistake is treating digits as loose marks, so 40 feels only a little bigger than 4.',
-    whyItFails: 'Counting on the number line shows 40 is 36 steps to the right of 4. Calling it only a little bigger contradicts the already-known act of counting by ones.',
-    whyItWorks: 'Place value is bundled counting. One tens digit means one bundle of 10 ones. Since each place is built from equal bundles, the written number and the number-line position always match.',
+    slug: 'chapter-a1-direction-balance-and-signed-numbers',
+    anchor: 'd-failure-case',
+    title: 'Why signs are direction, not decoration',
+    mistake: 'A common mistake is adding force magnitudes without keeping track of which way each force points.',
+    whyItFails: 'For the first beam example, 10 + 6 + 4 = 20 kN counts force size but loses the up/down fight. It cannot tell whether anything is left over.',
+    whyItWorks: 'Choosing up as positive and down as negative keeps the physical direction attached to each size. The signed sum +6 - 10 + 4 = 0 kN proves the beam has no net vertical push.',
     visual: 'number-line',
   },
   {
-    slug: 'chapter-a2-addition-and-subtraction',
-    title: 'Why subtracting a negative moves right',
-    mistake: 'The tempting mistake is reading -(-4) as "two minus signs means stay negative." That gives -4.',
-    whyItFails: 'Subtraction undoes addition. If 0 - (-4) were -4, then adding -4 back would give -8, not 0, so it does not undo anything.',
-    whyItWorks: 'A negative number is a move left. Subtracting means remove that move. Removing a 4-step-left move has the same effect as moving 4 steps right, so -(-4) = 4. The same proof works for every distance.',
-    visual: 'number-line',
-  },
-  {
-    slug: 'chapter-a3-multiplication-and-division',
+    slug: 'chapter-a2-multiplication-and-division',
     title: 'Why multiplication and division undo each other',
     mistake: 'A common mistake is dividing only part of a grouped quantity and thinking the whole group was divided.',
     whyItFails: 'If 3 x 4 means three equal groups of 4, dividing by 3 must recover the size of one group. Dividing only one piece changes the group structure.',
     whyItWorks: 'Multiplication makes equal groups; division asks either how many groups or how large each group is. Because both talk about the same equal grouping, each operation reverses the other.',
   },
   {
-    slug: 'chapter-a3-multiplication-and-division',
-    anchor: 'c-the-math-worked-examples',
+    slug: 'chapter-a2-scaling-quantities-multiplication-division-fractions-and-percentages',
+    anchor: 'f-the-formal-shorthand',
     title: 'Why a negative times a negative becomes positive',
     mistake: 'A common beginner mistake is counting the two minus signs and deciding the answer must still be negative.',
     whyItFails: 'The sign rule must stay consistent with patterns we already know. If -3 x 4 = -12, then decreasing the second factor by 1 each step adds 3: -3 x 3 = -9, -3 x 2 = -6, -3 x 1 = -3, -3 x 0 = 0. The next step, -3 x -1, must be 3 or the pattern breaks.',
@@ -44,7 +37,7 @@ export const whyPanels: WhyPanel[] = [
     visual: 'number-line',
   },
   {
-    slug: 'chapter-a4-fractions',
+    slug: 'chapter-a3-fractions',
     anchor: 'c-the-math-worked-examples',
     title: 'Why fractions need common denominators to add',
     mistake: 'The common mistake is adding tops and bottoms: 1/2 + 1/3 = 2/5.',
@@ -53,8 +46,8 @@ export const whyPanels: WhyPanel[] = [
     visual: 'fraction-bars',
   },
   {
-    slug: 'chapter-a4-fractions',
-    anchor: 'c-the-math-worked-examples',
+    slug: 'chapter-a2-scaling-quantities-multiplication-division-fractions-and-percentages',
+    anchor: 'f-the-formal-shorthand',
     title: 'Why multiplying fractions can make a smaller number',
     mistake: 'A beginner mistake is expecting 1/2 x 1/3 to get bigger because multiplication often sounded like "make more" when we used whole numbers.',
     whyItFails: 'Here multiplication means "part of." One third of one half is not larger than one half; it is a smaller slice inside that half. Getting 2/5 or 1/5 does not match the picture of taking a third of a half.',
@@ -62,7 +55,7 @@ export const whyPanels: WhyPanel[] = [
     visual: 'fraction-bars',
   },
   {
-    slug: 'chapter-a4-fractions',
+    slug: 'chapter-a3-fractions',
     anchor: 'b-concept-introduction',
     title: 'Why multiplying the top and bottom keeps the same fraction',
     mistake: 'A common mistake is thinking 1/2 and 2/4 are different amounts because the numbers look different.',
@@ -71,7 +64,7 @@ export const whyPanels: WhyPanel[] = [
     visual: 'fraction-bars',
   },
   {
-    slug: 'chapter-a4-fractions',
+    slug: 'chapter-a3-fractions',
     anchor: 'c-the-math-worked-examples',
     title: 'Why multiplying fractions means part of a part',
     mistake: 'A common mistake is adding across and writing 2/3 x 4/5 = 6/8, or expecting multiplication to always make the number larger.',
@@ -80,7 +73,7 @@ export const whyPanels: WhyPanel[] = [
     visual: 'fraction-bars',
   },
   {
-    slug: 'chapter-a4-fractions',
+    slug: 'chapter-a3-fractions',
     anchor: 'c-the-math-worked-examples',
     title: 'Why dividing fractions flips only the divisor',
     mistake: 'A common mistake is flipping both fractions, or flipping the first fraction instead of the fraction after the division sign.',
@@ -89,7 +82,7 @@ export const whyPanels: WhyPanel[] = [
     visual: 'fraction-bars',
   },
   {
-    slug: 'chapter-a4-fractions',
+    slug: 'chapter-a3-fractions',
     anchor: 'c-the-math-worked-examples',
     title: 'Why reducing a fraction does not change its value',
     mistake: 'A common mistake is thinking 18/24 becomes smaller when reduced to 3/4 because the numbers are smaller.',
@@ -98,7 +91,7 @@ export const whyPanels: WhyPanel[] = [
     visual: 'fraction-bars',
   },
   {
-    slug: 'chapter-a5-decimals-and-percentages',
+    slug: 'chapter-a4-decimals-and-percentages',
     title: 'Why percent means per hundred',
     mistake: 'A common mistake is treating 5% as 5 instead of 0.05.',
     whyItFails: 'Percent means parts per 100. If 5% of 200 were 5 x 200, the result would be 1000, which is larger than the whole when the percent was only a small part.',
@@ -106,7 +99,7 @@ export const whyPanels: WhyPanel[] = [
     visual: 'decimal-grid',
   },
   {
-    slug: 'chapter-a5-decimals-and-percentages',
+    slug: 'chapter-a4-decimals-and-percentages',
     anchor: 'c-the-math-worked-examples',
     title: 'Why 0.2 + 0.6 = 0.8, not 0.06 or 0.6',
     mistake: 'A common mistake is lining up the digits without respecting place value, or mixing addition with multiplication and writing 0.06.',
@@ -115,7 +108,7 @@ export const whyPanels: WhyPanel[] = [
     visual: 'decimal-grid',
   },
   {
-    slug: 'chapter-a5-decimals-and-percentages',
+    slug: 'chapter-a4-decimals-and-percentages',
     anchor: 'c-the-math-worked-examples',
     title: 'Why 0.2 x 0.3 = 0.06, not 0.6',
     mistake: 'A common mistake is multiplying 2 x 3 and writing 0.6 because the digits 2 and 3 make 6.',
@@ -124,7 +117,7 @@ export const whyPanels: WhyPanel[] = [
     visual: 'decimal-grid',
   },
   {
-    slug: 'chapter-a5-decimals-and-percentages',
+    slug: 'chapter-a4-decimals-and-percentages',
     anchor: 'c-the-math-worked-examples',
     title: 'Why moving between decimals and percents works',
     mistake: 'A common mistake is moving the decimal point by memory without knowing whether the number should get bigger or smaller.',
@@ -133,7 +126,7 @@ export const whyPanels: WhyPanel[] = [
     visual: 'decimal-grid',
   },
   {
-    slug: 'chapter-a5-decimals-and-percentages',
+    slug: 'chapter-a4-decimals-and-percentages',
     anchor: 'c-the-math-worked-examples',
     title: 'Why percent increase uses 1.10 instead of 0.10',
     mistake: 'A common mistake is increasing by 10% by multiplying the original by 0.10 and stopping there.',
@@ -142,21 +135,21 @@ export const whyPanels: WhyPanel[] = [
     visual: 'decimal-grid',
   },
   {
-    slug: 'chapter-a6-powers-roots-and-scientific-notation',
+    slug: 'chapter-a5-powers-roots-and-scientific-notation',
     title: 'Why roots reverse powers',
     mistake: 'A common mistake is thinking the square root of 25 is 12.5 because it halves 25.',
     whyItFails: 'Squaring is not doubling. 5 squared means 5 x 5, not 5 + 5. Halving 25 answers a different question.',
     whyItWorks: 'A square root asks which number multiplied by itself gives the original. Since 5 x 5 = 25, sqrt(25) = 5. This holds because the root reverses the power.',
   },
   {
-    slug: 'chapter-a7-order-of-operations-pemdas',
+    slug: 'chapter-a6-order-of-operations-pemdas',
     title: 'Why multiplication before addition is not arbitrary',
     mistake: 'A common mistake is solving 2 + 3 x 4 from left to right and getting 20.',
     whyItFails: '3 x 4 describes three groups of 4. Left-to-right changes the expression into five groups of 4, which is not what was written.',
     whyItWorks: 'Multiplication completes the group count before addition combines totals. That is why 2 + 3 x 4 = 2 + 12 = 14. Parentheses can intentionally change the grouping.',
   },
   {
-    slug: 'chapter-a8-estimation-rounding-and-significant-figures',
+    slug: 'chapter-a7-estimation-rounding-and-significant-figures',
     title: 'Why rounding must keep the size honest',
     mistake: 'A common mistake is rounding every intermediate step and then trusting the final answer exactly.',
     whyItFails: 'Each rounding step can move the value slightly. Repeating that many times can push the final answer away from the true calculation.',

@@ -1,1108 +1,557 @@
 # PART 1 — ALGEBRA FOR STRUCTURAL ENGINEERS
 
-> Welcome. This part teaches you the algebra a structural engineer uses every single working day. By the end of these nine chapters, you will be able to read any structural formula, rearrange it to solve for any unknown, and perform unit conversions correctly — the three skills that, more than any others, separate engineers who get correct answers from those who do not.
+> This part teaches algebra as a tool for working with structural formulas: reading them, rearranging them for any unknown, tracking units, finding two unknowns at once, and predicting how one quantity drives another. Six sections cover exactly what you need, at the moment you need it.
 
 <div style="page-break-after: always;"></div>
 
-## Chapter 1 — Variables and Expressions
+## Chapter 1 — Formulas Are Sentences: Variables, Equations, and Rearranging
 
-### A. Word Bank
+### A. Achievement
 
-| Word | Pronunciation | Plain English Meaning | Used In |
-|------|---------------|----------------------|---------|
-| **Variable** | "VAIR-ee-ah-bul" | A letter that stands in for a number we don't know yet, or that can change | $L$ for length |
-| **Expression** | "ex-PRESH-un" | A combination of numbers, variables, and operations — but no equals sign | $3x + 5$ |
-| **Constant** | "KON-stant" | A number whose value never changes | The $2$ in $2s + 1$ |
-| **Coefficient** | "co-ih-FISH-ent" | The number multiplying a variable | The $3$ in $3x$ |
-| **Substitute** | "SUB-stih-toot" | To replace a variable with a number | Putting $x = 4$ into $3x + 5$ |
-| **Evaluate** | "ee-VAL-yoo-ate" | To calculate the final number after substitution | $3(4) + 5 = 17$ |
-| **Term** | "TURM" | One piece of an expression separated by + or − | In $3x + 5y - 7$ there are three terms |
+After this section you can take any structural formula — $\sigma = P/A$, $M = wL^2/8$, $R = wL/2$ — and solve it for whichever quantity you need, given the others.
 
-### B. Concept Introduction
+### B. The Situation
 
-A variable is a placeholder. Imagine ordering coffee online: the form has a box labeled "Quantity" — that empty box is a variable. It will hold a number eventually, but right now it is just a name waiting for a value.
+A concrete column has a cross-sectional area of $A = 0.09\ \mathrm{m^2}$. The building code says the maximum allowable bearing stress is $\sigma_{allow} = 5\ \mathrm{MPa} = 5000\ \mathrm{kN/m^2}$. What is the largest axial load this column can carry without exceeding that stress limit?
 
-In structural engineering, almost nothing has a fixed value at the start of a calculation. A length, a spacing, a count of repeated bays, or a chosen member size may all be unknown until you choose them or calculate them. Algebra is the language we use to describe how these unknowns relate to one another.
+The formula that connects load, area, and stress is:
+$$\sigma = \frac{P}{A}$$
 
-> **Real-world analogy:** A recipe says "use F cups of flour and S cups of sugar, where F = 2S." You don't know F or S yet, but you know their relationship. The same idea runs through every engineering formula.
+You know $\sigma$ and $A$. You need $P$. The formula isn't written that way — but you can rearrange it.
 
-### C. What This Means in Measurement
+### C. The Intuition
 
-Engineers describe measurable things with formulas. A formula is a sentence written in symbols. The symbols are variables that stand for quantities such as length, spacing, count, width, or height. Later, variables will also stand for force, stress, moment, and other physical quantities. Those are not needed yet.
+A formula is a sentence written in symbols. $\sigma = P/A$ says "stress equals load divided by area." A variable is a named box that holds a number. The equation says the two sides are always equal — like a scale perfectly balanced.
 
-For now, read a formula like $L = 3s + 2$ as a sentence: "The total length $L$ equals three equal spacings $s$, plus 2 extra meters."
+To find $P$, you need to move everything else away from it. The way to do that without tipping the scale is to do the same operation to both sides. If $\sigma = P/A$, then $\sigma \times A = P$ — because you multiplied both sides by $A$, and $A \div A$ on the right side cancelled to 1.
 
-### D. The Math
+No memorized step. Just: keep the balance, and undo what's in the way.
 
-An expression has the general form:
+### D. Failure Case
 
-$$ax + b$$
+Suppose you "move $A$ to the other side and flip it" by instinct, without thinking:
 
-where $a$ is the coefficient, $x$ is the variable, and $b$ is the constant.
+$$\sigma = \frac{P}{A} \xrightarrow{\text{wrong}} P = \frac{\sigma}{A}$$
 
-To **evaluate** an expression you substitute a known value for the variable and do the arithmetic.
+Plugging in numbers: $P = 5000 / 0.09 = 55{,}556\ \mathrm{kN/m^2 \div m^2}$ — the units don't even make sense. The correct answer is $P = 5000 \times 0.09 = 450\ \mathrm{kN}$.
 
-**Worked example.** Evaluate $3x + 5$ when $x = 4$:
+Using the wrong rearrangement gives a result that is off by a factor of over 6,000 and has wrong units. A column designed this way would fail catastrophically.
 
-1. Write the expression: $3x + 5$
-2. Replace $x$ with $4$: $3(4) + 5$
-3. Multiply: $3 \times 4 = 12$, so we have $12 + 5$
-4. Add: $12 + 5 = 17$
+### E. The Rule
 
-Final answer: $3x + 5 = 17$ when $x = 4$.
+An equation is a balance. To isolate a variable, apply the same inverse operation to both sides. Multiplication undoes division. Division undoes multiplication. Subtraction undoes addition.
 
-### E. Structural Engineering Application
+### F. The Formal Shorthand
 
-**Problem.** A small frame has 3 equal bays. Each bay has spacing $s = 4\ [\mathrm{m}]$. There is also a 1 m overhang on each end. Find the total length $L$.
+The variables in structural formulas are just named placeholders:
+- $\sigma$ (sigma) = stress $[\mathrm{N/mm^2} = \mathrm{MPa}]$
+- $P$ = applied axial load $[\mathrm{kN}]$
+- $A$ = cross-sectional area $[\mathrm{m^2}\ \text{or}\ \mathrm{mm^2}]$
 
-The formula is:
+A formula like $\sigma = P/A$ can be **evaluated** (compute the right side when all variables are known) or **rearranged** (make any variable the subject).
 
-$$L = 3s + 2e$$
+To rearrange $\sigma = P/A$ for $P$: multiply both sides by $A$:
+$$\sigma \times A = P \qquad \Rightarrow \qquad P = \sigma A$$
 
-where:
-- $L$ = total length
-- $s$ = spacing of one bay
-- $e$ = overhang length at one end
+To rearrange for $A$: divide both sides by $\sigma$:
+$$A = \frac{P}{\sigma}$$
 
-**Solution:**
+An **expression** is any combination of variables and numbers without an equals sign: $P/A$, $wL^2/8$, $3s + 2e$. An **equation** adds the equals sign and makes a statement that must be true.
 
-1. Write the expression: $3s + 2e$
-2. Substitute values: $3(4) + 2(1)$
-3. Multiply: $12 + 2$
-4. Add: $14\ [\mathrm{m}]$
+**Evaluating** means substituting known numbers and computing. The order of operations from Part 0 (powers first, then multiply/divide, then add/subtract) applies here exactly as before.
 
-**What this means:** Algebra lets one short expression describe many possible layouts. If the spacing changes, you substitute the new value for $s$ and evaluate again.
+**Solving for an unknown** means rearranging until the unknown is alone.
 
-### F. ETABS Connection
+### G. Full Worked Example — Column Bearing Capacity
 
-Every input field in ETABS is a variable waiting for a value.
+**Problem.** A concrete column, $A = 0.09\ \mathrm{m^2}$, $\sigma_{allow} = 5000\ \mathrm{kN/m^2}$. Find the maximum load $P$.
 
-- **Define > Grid Systems** has fields for spacing and number of grid lines — these are variables describing the model layout
-- **Define > Section Properties > Frame Sections** has fields for width $b$ and depth $h$ — variables that ETABS later uses in section calculations
+**Step 1 — Write the formula:**
+$$\sigma = \frac{P}{A}$$
 
-> **Try it in ETABS 22:**
-> 1. Open ETABS 22
-> 2. Go to **Define > Materials**
-> 3. Click **Add New Material**
-> 4. Notice that each box is empty until you supply a number — each empty box is a variable waiting for a value
-> 5. Type any trial spacing into one grid field and watch ETABS use that value to place the grid line
+**Step 2 — Rearrange for $P$ by multiplying both sides by $A$:**
+$$P = \sigma \times A$$
 
-### G. Common Mistakes
+**Step 3 — Substitute:**
+$$P = 5000\ \mathrm{kN/m^2} \times 0.09\ \mathrm{m^2} = 450\ \mathrm{kN}$$
 
-1. **Confusing a variable with its value.** Writing $\sigma = P$ when you mean $\sigma = P/A$ — the variable is just a label; the formula is what relates them.
-2. **Forgetting the coefficient.** In $3x$, the $3$ is multiplied. Writing $3x = 3 + x$ is wrong; $3x$ means $3 \times x$.
-3. **Skipping units when substituting.** $P = 75{,}000$ alone is meaningless. Always write $P = 75{,}000\ [\mathrm{N}]$.
+**Step 4 — Check by substituting back:**
+$$\sigma = \frac{P}{A} = \frac{450}{0.09} = 5000\ \mathrm{kN/m^2}\ \checkmark$$
 
-### H. Chapter Practice Task — Grid Length
+The column can carry up to $450\ \mathrm{kN}$ before reaching the bearing stress limit.
 
-> **Scenario:** A simple frame layout has 4 equal bays and one overhang at each end. Each bay spacing is $s = 5\ [\mathrm{m}]$. Each overhang is $e = 1.5\ [\mathrm{m}]$.
+**Bonus — find required area.** The same column must carry $P = 600\ \mathrm{kN}$. What minimum area is needed?
+$$A = \frac{P}{\sigma} = \frac{600}{5000} = 0.12\ \mathrm{m^2}$$
+
+A $350\ \mathrm{mm} \times 350\ \mathrm{mm}$ column gives $A = 0.1225\ \mathrm{m^2} > 0.12\ \mathrm{m^2}$ — adequate.
+
+### H. Practice Tasks
+
+> 1. Rearrange $M = wL^2/8$ for $L$. Then find $L$ when $M = 100\ \mathrm{kN \cdot m}$ and $w = 12.5\ \mathrm{kN/m}$.
+> 2. Rearrange $R = wL/2$ for $w$. Then find $w$ when $R = 90\ \mathrm{kN}$ and $L = 6\ \mathrm{m}$.
+> 3. The layout formula is $L = ns + 2e$. Rearrange for $s$, then find $s$ when $L = 32\ \mathrm{m}$, $n = 5$, $e = 1\ \mathrm{m}$.
 >
-> **Given:**
-> - $s = 5\ [\mathrm{m}]$
-> - $e = 1.5\ [\mathrm{m}]$
-> - Formula: $L = 4s + 2e$
->
-> **Tasks:**
-> 1. Substitute $s$ and $e$ into the expression
-> 2. Evaluate the expression
-> 3. State the total length with units
+> **Answers:**
+> 1. $L = \sqrt{8M/w} = \sqrt{8 \times 100/12.5} = \sqrt{64} = 8\ \mathrm{m}$
+> 2. $w = 2R/L = 2 \times 90/6 = 30\ \mathrm{kN/m}$
+> 3. $s = (L - 2e)/n = (32 - 2)/5 = 30/5 = 6\ \mathrm{m}$
 
-> **Worked Solution:**
->
-> $L = 4s + 2e = 4(5) + 2(1.5) = 20 + 3 = 23\ [\mathrm{m}]$
->
-> The total grid length is $23\ [\mathrm{m}]$.
+### I. What You Now Know
 
-### I. Chapter Summary Table
-
-| Concept | Formula | Engineering Use | ETABS Location |
-|---------|---------|----------------|----------------|
-| Variable | $x$ | Placeholder for any unknown value | Every input field |
-| Expression | $ax + b$ | Building block of formulas | Section property dialogs |
-| Substitution | Replace a variable with a value | Compute layout quantities | Grid and section input fields |
+Formulas are sentences. Variables are named boxes. Equations are balances. Solving is just keeping the balance while undoing what's in the way. Every structural calculation in this book is an instance of this one idea. Chapter 2 explains why the units on those variables are as important as the numbers themselves.
 
 <div style="page-break-after: always;"></div>
 
-## Chapter 2 — Linear Equations (One Variable)
+## Chapter 2 — Numbers Need Labels: Units and Dimensional Analysis
 
-### A. Word Bank
+### A. Achievement
 
-| Word | Pronunciation | Plain English Meaning | Used In |
-|------|---------------|----------------------|---------|
-| **Equation** | "ee-KWAY-zhun" | Two expressions connected by an equals sign | $3x + 5 = 17$ |
-| **Linear** | "LIN-ee-er" | The variable appears only to the first power (no $x^2$, no $x^3$) | $3x + 5 = 17$ is linear |
-| **Solve** | "SOLV" | Find the value of the variable that makes the equation true | $x = 4$ solves $3x + 5 = 17$ |
-| **Isolate** | "EYE-soh-late" | Get the variable alone on one side | Move everything else away from $x$ |
-| **Balance** | "BAL-ans" | Whatever you do to one side, do to the other | An equation is a scale |
-| **Inverse operation** | "IN-vurs op-er-AY-shun" | The operation that undoes another | Subtraction undoes addition |
+After this section you can convert any structural quantity between SI units — length, force, pressure, stress — without making a factor-of-1000 error, and you can verify any formula is dimensionally consistent before substituting numbers.
 
-### B. Concept Introduction
+### B. The Situation
 
-An equation is a balance scale. The equals sign is the pivot. Whatever you do to the left side, you must also do to the right side, or the scale tips and the statement is no longer true. Solving an equation means moving things off the side where the variable lives until the variable stands alone.
+A 200 mm thick concrete slab. Concrete density is $2500\ \mathrm{kg/m^3}$. The building code asks for the slab self-weight in kPa. You need to get from kg/m³ to kPa without losing track of what the numbers mean.
 
-> **Real-world analogy:** Imagine a luggage scale showing "your bag plus 3 books = 12 kg." To find your bag's weight, you remove the 3 books from one side. You must also subtract their weight from the other side: bag = 12 − (weight of 3 books).
+If you drop a unit somewhere along the way, you can easily be off by a factor of 1000 — and that goes into the load calculation, the design, and the final member sizes. No alarm sounds. The design just becomes silently wrong.
 
-### C. What This Means in Measurement
+### C. The Intuition
 
-Equations express a condition that must be true. In a layout problem, an equation might say that several equal spacings must add up to a known total length. Solving the equation finds the unknown spacing that makes the layout fit.
+A number without a unit is incomplete. "The beam carries 5" — five what? Newtons? Kilonewtons? Tonnes? Each changes the design entirely.
 
-Later, equations will also express physical balance in structures. That idea is called equilibrium and is explained in Part 2.
+Units multiply, divide, and cancel just like algebraic variables. $\mathrm{kN/m^2} \times \mathrm{m}$ gives $\mathrm{kN/m}$, because the $\mathrm{m^2}$ in the denominator and one $\mathrm{m}$ from the multiplication cancel, leaving $\mathrm{m}$ in the denominator. The algebra of units mirrors the algebra of the physical reality.
 
-### D. The Math
+### D. Failure Case
 
-The four inverse-operation pairs you need:
+A designer enters concrete density as $2500$ in a formula expecting $\mathrm{kN/m^3}$, but $2500$ is in $\mathrm{kg/m^3}$. The slab self-weight comes out as $2500 \times 0.2 = 500$. The designer reads this as $500\ \mathrm{kN/m^2}$ — nearly a hundred times the true value of $5\ \mathrm{kN/m^2}$. Every downstream calculation is fatally wrong, and the model accepts it without complaint.
 
-| Operation | Inverse |
-|-----------|---------|
-| Add a number | Subtract that number |
-| Subtract a number | Add that number |
-| Multiply by a number | Divide by that number |
-| Divide by a number | Multiply by that number |
+The fix is simple: multiply density by $g = 9.81\ \mathrm{m/s^2}$ to convert from $\mathrm{kg/m^3}$ to $\mathrm{N/m^3}$, then divide by 1000 to get $\mathrm{kN/m^3}$.
 
-**Worked example.** Solve $3x + 5 = 17$.
+### E. The Rule
 
-1. Write the equation: $3x + 5 = 17$
-2. Subtract $5$ from both sides (inverse of $+5$): $3x + 5 - 5 = 17 - 5$
-3. Simplify: $3x = 12$
-4. Divide both sides by $3$ (inverse of $\times 3$): $\dfrac{3x}{3} = \dfrac{12}{3}$
-5. Simplify: $x = 4$
+Write the unit next to every number in every step. Cancel units the same way you cancel algebraic terms. The final unit on the result should match the unit you expected — if it doesn't, an error is hiding in the steps.
 
-**Check:** Substitute $x = 4$ back into the original: $3(4) + 5 = 12 + 5 = 17$ ✓
+### F. The Formal Shorthand
 
-### E. Structural Engineering Application
+**Unit conversion is multiplication by 1.** Since $1\ \mathrm{m} = 1000\ \mathrm{mm}$, the fraction $\frac{1000\ \mathrm{mm}}{1\ \mathrm{m}} = 1$. Multiplying by it changes the unit without changing the physical quantity.
 
-**Problem.** A straight grid line is $17\ [\mathrm{m}]$ long. It has 3 equal bays and a 1 m overhang at each end. What bay spacing $s$ makes the layout fit?
-
-The formula is:
-
-$$3s + 2 = 17$$
-
-**Solution:**
-
-1. Write the equation: $3s + 2 = 17$
-2. Subtract $2$ from both sides: $3s = 15$
-3. Divide both sides by $3$: $s = 5$
-
-**What this means:** Each bay must be $5\ [\mathrm{m}]$ wide. If you used a different spacing, the total length would not equal 17 m.
-
-### F. ETABS Connection
-
-ETABS uses equations whenever you define a model. If you enter a total grid length and number of spaces, you are deciding the spacing relationship. Later, ETABS also solves large systems of equations for reactions, displacements, and member forces; those physical results are explained after statics is introduced.
-
-> **Try it in ETABS 22:**
-> 1. Start a new model
-> 2. Open the grid definition dialog
-> 3. Choose a total length of 17 m with 3 equal spaces and 1 m overhang at each end
-> 4. Confirm that each repeated spacing is 5 m
-> 5. The software is using the same relationship: $3s + 2 = 17$
-
-### G. Common Mistakes
-
-1. **Doing the operation to only one side.** Subtracting 5 from the left but not from the right — the equality breaks.
-2. **Wrong inverse operation.** To undo $+5$ you subtract, not divide. Match each operation with its correct inverse.
-3. **Forgetting to check.** Always substitute your answer back. If both sides don't equal, you made an error.
-
-### H. Chapter Practice Task — Unknown Bay Spacing
-
-> **Scenario:** A grid line is $26\ [\mathrm{m}]$ long. It contains 4 equal bays and a $1\ [\mathrm{m}]$ overhang at each end. Find the bay spacing $s$.
->
-> **Given:**
-> - Total length: $26\ [\mathrm{m}]$
-> - Overhangs: $1\ [\mathrm{m}]$ each, so $2\ [\mathrm{m}]$ total
-> - Equation: $4s + 2 = 26$
->
-> **Tasks:**
-> 1. Subtract 2 from both sides
-> 2. Divide by 4
-> 3. State the spacing with units
-
-> **Worked Solution:**
->
-> $4s + 2 = 26$
->
-> $4s = 24$
->
-> $s = 6\ [\mathrm{m}]$
->
-> Each bay spacing is $6\ [\mathrm{m}]$.
-
-### I. Chapter Summary Table
-
-| Concept | Formula | Engineering Use | ETABS Location |
-|---------|---------|----------------|----------------|
-| Linear equation | $ax + b = c$ | Solving for unknown lengths, counts, or spacings | Used internally everywhere |
-| Inverse operation | $+ \leftrightarrow -$, $\times \leftrightarrow \div$ | Isolating any variable | — |
-| Solving for spacing | $s = (L - 2e)/n$ | Fit repeated bays into a total length | Grid definition |
-
-<div style="page-break-after: always;"></div>
-
-## Chapter 3 — Rearranging Formulas
-
-### A. Word Bank
-
-| Word | Pronunciation | Plain English Meaning | Used In |
-|------|---------------|----------------------|---------|
-| **Rearrange** | "ree-ah-RAYNJ" | Move terms to make a different variable the subject | Turning $L = ns + 2e$ into $s = (L - 2e)/n$ |
-| **Transpose** | "tranz-POZE" | Move a term from one side of the equals sign to the other | "Transposing $A$ to the other side" |
-| **Subject of the formula** | — | The single variable on its own on one side | $\sigma$ is the subject of $\sigma = P/A$ |
-
-### B. Concept Introduction
-
-You will rarely use a formula exactly as it is first written. A drawing formula might give total length from spacing, but in real work you might know the total length and need the spacing. Rearranging a formula means choosing a new "subject" — the variable you want alone on the left.
-
-> **Real-world analogy:** A recipe gives quantities for 4 servings, but you have 6 guests. You don't throw out the recipe — you rearrange the proportions. The information is the same; the form is different.
-
-### C. The Physics Behind It
-
-The measured relationship doesn't change when you rearrange — only the algebra. $L = ns + 2e$ and $s = (L - 2e)/n$ describe the same layout. Rearranging just lets you solve for whichever quantity you need.
-
-### D. The Math
-
-The rule is simple: do the same operation to both sides until the variable you want is alone.
-
-**Worked example.** Start with $L = ns + 2e$. Make $s$ the subject.
-
-1. Write the formula: $L = ns + 2e$
-2. Subtract $2e$ from both sides: $L - 2e = ns$
-3. Divide both sides by $n$: $\dfrac{L - 2e}{n} = s$
-4. Rewrite with the subject on the left: $s = \dfrac{L - 2e}{n}$
-
-The same formula now solves for spacing.
-
-**Worked example 2.** Start with $L = ns + 2e$. Make $e$ the subject.
-
-1. Subtract $ns$ from both sides: $L - ns = 2e$
-2. Divide both sides by $2$: $e = \dfrac{L - ns}{2}$
-
-### E. Structural Engineering Application
-
-A common early layout formula is:
-
-$$L = ns + 2e$$
-
-where:
-- $L$ = total grid length
-- $n$ = number of equal bays
-- $s$ = spacing of each bay
-- $e$ = overhang at one end
-
-| Want to find | Rearrange to |
-|-------------|-------------|
-| Total length $L$ | $L = ns + 2e$ |
-| Bay spacing $s$ | $s = \dfrac{L - 2e}{n}$ |
-| End overhang $e$ | $e = \dfrac{L - ns}{2}$ |
-
-**Problem.** A grid line must fit inside $L = 32\ [\mathrm{m}]$. It has $n = 5$ equal bays and $e = 1\ [\mathrm{m}]$ overhang at each end. Find the required bay spacing.
-
-**Solution:**
-
-1. Rearrange: $s = \dfrac{L - 2e}{n}$
-2. Substitute: $s = \dfrac{32 - 2(1)}{5}$
-3. Simplify numerator: $32 - 2 = 30$
-4. Divide: $s = 6\ [\mathrm{m}]$
-
-**What this means:** Five 6 m bays plus two 1 m overhangs exactly fill 32 m.
-
-### F. ETABS Connection
-
-ETABS contains many input fields connected by formulas. Rearranging helps you decide what value to enter before you model. For example, if the total grid length is fixed, you rearrange the layout formula to choose the bay spacing.
-
-> **Try it in ETABS 22:**
-> 1. Open the grid definition dialog
-> 2. Decide on a total length, number of bays, and overhangs
-> 3. Use $s = (L - 2e)/n$ to calculate the spacing before entering it
-> 4. Enter the spacing and confirm the total dimension matches your calculation
-
-### G. Common Mistakes
-
-1. **Rearranging like English instead of like math.** "Move $A$ to the other side and flip it" sometimes works and sometimes doesn't. The safe rule is always: do the same operation to both sides.
-2. **Forgetting to do operations to *every* term.** When dividing by $\sigma$, every term on each side must be divided.
-3. **Losing the negative sign.** Moving a $-3$ across the equals sign means it becomes $+3$ on the other side — this is just algebra, but it's easy to forget.
-
-### H. Chapter Practice Task — Choosing a Bay Spacing
-
-> **Scenario:** A rectangular building side is $L = 42\ [\mathrm{m}]$ long. The architect wants $n = 6$ equal bays and a $1.5\ [\mathrm{m}]$ overhang at each end. Find the bay spacing $s$.
->
-> **Given:**
-> - $L = 42\ [\mathrm{m}]$
-> - $n = 6$
-> - $e = 1.5\ [\mathrm{m}]$
-> - $L = ns + 2e$
->
-> **Tasks:**
-> 1. Rearrange for $s$
-> 2. Substitute values
-> 3. Solve numerically
-> 4. Check by substituting back into the original formula
-
-> **Worked Solution:**
->
-> **Step 1 — Rearrange:**
-> $s = \dfrac{L - 2e}{n}$
->
-> **Step 2 — Substitute:**
-> $s = \dfrac{42 - 2(1.5)}{6}$
->
-> **Step 3 — Solve:**
-> $s = \dfrac{42 - 3}{6} = \dfrac{39}{6} = 6.5\ [\mathrm{m}]$
->
-> **Step 4 — Check:**
-> $ns + 2e = 6(6.5) + 2(1.5) = 39 + 3 = 42\ [\mathrm{m}]$ ✓
-
-### I. Chapter Summary Table
-
-| Concept | Formula | Engineering Use | ETABS Location |
-|---------|---------|----------------|----------------|
-| Rearranging | Same operation, both sides | Adapting any formula to find any unknown | All design checks |
-| Layout formula, all forms | $L = ns + 2e$, $s = (L - 2e)/n$, $e = (L - ns)/2$ | Planning grid dimensions | Grid spacing fields |
-
-<div style="page-break-after: always;"></div>
-
-## Chapter 4 — Units and Dimensional Analysis
-
-### A. Word Bank
-
-| Word | Pronunciation | Plain English Meaning | Used In |
-|------|---------------|----------------------|---------|
-| **Unit** | "YOO-nit" | The standard amount we measure with | meters, kilograms, Newtons |
-| **Dimension** | "dih-MEN-shun" | What kind of thing the quantity is | length, mass, force, time |
-| **Conversion factor** | "kon-VER-zhun FAK-tor" | A multiplier that changes a value from one unit to another | $1\ \mathrm{m} = 1000\ \mathrm{mm}$ |
-| **Newton** | "NOO-ton" | The SI unit of force | $1\ \mathrm{N} = 1\ \mathrm{kg \cdot m/s^2}$ |
-| **kilonewton** | "KIL-oh-NOO-ton" | 1000 Newtons | Used for structural loads |
-| **Pascal** | "PASS-kal" | The SI unit of stress / pressure | $1\ \mathrm{Pa} = 1\ \mathrm{N/m^2}$ |
-| **kilopascal** | "KIL-oh-PASS-kal" | 1000 Pascals | Floor area loads |
-| **megapascal** | "MEG-ah-PASS-kal" | 1,000,000 Pascals | Material strength |
-
-### B. Concept Introduction
-
-A number alone is meaningless in engineering. "The beam carries 5" — five what? Five Newtons? Five kilonewtons per meter? Five tons? Each gives a totally different answer.
-
-Units are part of every quantity. They behave like algebra: they multiply and they cancel. Mastering this turns unit conversion from a guessing game into a reliable mechanical procedure.
-
-> **Real-world analogy:** Converting recipes between cups and milliliters. You multiply by a known factor (1 cup ≈ 240 mL). The same approach works for every unit conversion.
-
-### C. The Physics Behind It
-
-Every physical quantity has a **dimension** — a fundamental kind of measurement. The seven SI base dimensions include length, mass, time, and temperature. Force is a *derived* dimension: $\mathrm{[force]} = \mathrm{[mass]} \cdot \mathrm{[acceleration]}$. Stress is force per area: $\mathrm{[stress]} = \mathrm{[force]/[length]^2}$. Equations only make sense when the dimensions on both sides match — this is called **dimensional consistency**, and checking it catches almost every formula error.
-
-### D. The Math
-
-**Conversion is multiplication by 1.** Since $1\ \mathrm{m} = 1000\ \mathrm{mm}$, the ratio $\dfrac{1000\ \mathrm{mm}}{1\ \mathrm{m}}$ equals 1. Multiplying any quantity by 1 doesn't change its value, but it does change the units.
-
-**Worked example.** Convert $5\ [\mathrm{m}]$ to millimeters.
-
-$5\ [\mathrm{m}] \times \dfrac{1000\ [\mathrm{mm}]}{1\ [\mathrm{m}]} = 5 \times 1000\ [\mathrm{mm}] = 5{,}000\ [\mathrm{mm}]$
-
-The $\mathrm{m}$ cancels with $\mathrm{m}$, leaving $\mathrm{mm}$.
-
-**Essential structural conversions:**
+**Essential structural unit conversions:**
 
 | From | To | Multiply by |
-|------|----|-----------|
-| m | mm | 1,000 |
-| mm | m | 0.001 |
-| m² | mm² | 1,000,000 |
-| kN | N | 1,000 |
-| kPa | MPa | 0.001 |
-| kPa | N/mm² | 0.001 |
-| MPa | N/mm² | 1 (they are equal) |
-| t/m³ | kN/m³ | 9.81 (×g) |
+|------|----|-------------|
+| m | mm | × 1,000 |
+| m² | mm² | × 1,000,000 |
+| m⁴ | mm⁴ | × 10¹² |
+| N | kN | × 0.001 |
+| kPa | MPa | × 0.001 |
+| kPa | N/mm² | × 0.001 |
+| MPa | N/mm² | = 1 (identical) |
+| kg/m³ | kN/m³ | × 0.00981 (= $g/1000$) |
 
-**Verifying an area formula dimensionally:**
+**Dimensional consistency:** every well-formed structural formula has the same dimension on both sides. Verify $\sigma = P/A$:
+$$[\mathrm{stress}] = \frac{[\mathrm{force}]}{[\mathrm{area}]} = \frac{\mathrm{kN}}{\mathrm{m^2}} = \mathrm{kPa} \quad \checkmark$$
 
-$A = b \cdot h$ → $[\mathrm{mm}] \cdot [\mathrm{mm}] = [\mathrm{mm^2}]$ ✓
+If your units don't match after calculation, you either used the wrong formula or dropped a conversion.
 
-### E. Structural Engineering Application
+### G. Full Worked Example — Slab Self-Weight in kPa
 
-**Problem.** A floor carries a live load of $q = 4\ [\mathrm{kPa}]$. A beam supports a tributary width of $2.5\ [\mathrm{m}]$. Find the line load $w$ on the beam in $\mathrm{kN/m}$.
+**Problem.** Concrete slab: thickness $t = 200\ \mathrm{mm}$, density $\rho = 2500\ \mathrm{kg/m^3}$. Find the slab self-weight as an area load in kPa.
 
-**Solution:**
+**Step 1 — Convert thickness to meters:**
+$$t = 200\ \mathrm{mm} \times \frac{1\ \mathrm{m}}{1000\ \mathrm{mm}} = 0.200\ \mathrm{m}$$
 
-1. The beam supports load over a strip $2.5\ [\mathrm{m}]$ wide
-2. Multiply: $w = q \times \text{tributary width} = 4\ [\mathrm{kPa}] \times 2.5\ [\mathrm{m}]$
-3. Recall $1\ [\mathrm{kPa}] = 1\ [\mathrm{kN/m^2}]$, so:
-   $w = 4\ [\mathrm{kN/m^2}] \times 2.5\ [\mathrm{m}] = 10\ [\mathrm{kN/m}]$
+**Step 2 — Convert density to unit weight:**
+$$\gamma = 2500\ \frac{\mathrm{kg}}{\mathrm{m^3}} \times 9.81\ \frac{\mathrm{m}}{\mathrm{s^2}} = 24{,}525\ \frac{\mathrm{N}}{\mathrm{m^3}} = 24.525\ \frac{\mathrm{kN}}{\mathrm{m^3}} \approx 25\ \frac{\mathrm{kN}}{\mathrm{m^3}}$$
 
-The $\mathrm{m}$ in $\mathrm{m^2}$ cancels with the $\mathrm{m}$ from tributary width, leaving $\mathrm{kN/m}$.
+**Step 3 — Multiply by thickness:**
+$$q_{sw} = \gamma \times t = 25\ \frac{\mathrm{kN}}{\mathrm{m^3}} \times 0.200\ \mathrm{m} = 5.0\ \frac{\mathrm{kN}}{\mathrm{m^2}} = 5.0\ \mathrm{kPa}$$
 
-**Sanity check:** A 6 m beam at 10 kN/m carries $60\ [\mathrm{kN}]$ total — about the weight of a small car. Reasonable for a residential floor beam.
+Units check: $\mathrm{kN/m^3} \times \mathrm{m} = \mathrm{kN/m^2} = \mathrm{kPa}\ \checkmark$
 
-### F. ETABS Connection
+The slab self-weight is $5.0\ \mathrm{kPa}$ — about the weight of 500 kg spread over each square meter.
 
-ETABS lets you choose units globally and locally, and it converts internally. But it cannot detect the kind of mistake where you typed a number in the wrong unit — that error propagates silently. **Always confirm units BEFORE entering any value.**
+**ETABS:** Define > Materials > Concrete → Weight per Unit Volume should be $24.5\ \mathrm{kN/m^3}$. Entering 2500 in a kN/m³ field would give a 100× error.
 
-> **Try it in ETABS 22:**
-> 1. **File > New Model** — when the dialog opens, set units to **kN, m**
-> 2. **Edit > Preferences > Units** — confirm the same units
-> 3. In the bottom-right corner of the ETABS window, the active units are always displayed
-> 4. Click that label to switch units on the fly — values are converted automatically by ETABS
+### H. Practice Tasks
 
-### G. Common Mistakes
-
-1. **Mixing units in one formula.** Putting $b$ in mm and $h$ in m into $A = b \cdot h$ gives a value that is neither m² nor mm² — it is meaningless.
-2. **Confusing kPa and MPa.** A factor of 1000! Concrete strength $f'_c = 30\ \mathrm{MPa} = 30{,}000\ \mathrm{kPa}$. Entering 30 in a kPa field gives a column 1000× too weak.
-3. **Forgetting that mass is not weight.** A mass of $100\ \mathrm{kg}$ has a *weight* (force) of $100 \times 9.81 = 981\ \mathrm{N} \approx 0.981\ \mathrm{kN}$. Use force units, not mass units, for structural loads.
-
-### H. Chapter Practice Task — Slab Self-Weight as Load
-
-> **Scenario:** A reinforced concrete slab is $200\ [\mathrm{mm}]$ thick. Concrete density is $\rho = 2{,}500\ [\mathrm{kg/m^3}]$. Calculate the slab's self-weight as a uniform area load in $[\mathrm{kPa}]$ for use in ETABS.
+> 1. Convert: $600\ \mathrm{mm}$ to m; $0.045\ \mathrm{m^2}$ to mm²; $250\ \mathrm{MPa}$ to kPa.
+> 2. A floor carries live load $q = 3\ \mathrm{kPa}$, tributary width $b = 3.5\ \mathrm{m}$. Find the line load $w\ [\mathrm{kN/m}]$.
+> 3. Verify dimensionally: $M = wL^2/8$ where $w$ is kN/m and $L$ is m. What are the units of $M$?
 >
-> **Given:**
-> - Thickness $t = 200\ \mathrm{mm} = 0.2\ \mathrm{m}$
-> - Density $\rho = 2{,}500\ \mathrm{kg/m^3}$
-> - Gravity $g = 9.81\ \mathrm{m/s^2}$
->
-> **Tasks:**
-> 1. Convert density to unit weight in $\mathrm{kN/m^3}$
-> 2. Calculate self-weight per unit area in $\mathrm{kN/m^2} = \mathrm{kPa}$
-> 3. Verify in ETABS
+> **Answers:**
+> 1. $0.600\ \mathrm{m}$; $45{,}000\ \mathrm{mm^2}$; $250{,}000\ \mathrm{kPa}$
+> 2. $w = 3 \times 3.5 = 10.5\ \mathrm{kN/m}$
+> 3. $[\mathrm{kN/m}] \times [\mathrm{m^2}] = [\mathrm{kN \cdot m}]\ \checkmark$
 
-> **Worked Solution:**
->
-> **Step 1 — Unit weight:**
-> $\gamma = \rho \times g = 2{,}500\ [\mathrm{kg/m^3}] \times 9.81\ [\mathrm{m/s^2}] = 24{,}525\ [\mathrm{N/m^3}] = 24.525\ [\mathrm{kN/m^3}]$
->
-> Engineers typically round to $25\ \mathrm{kN/m^3}$ for normal-weight concrete.
->
-> **Step 2 — Self-weight per unit area:**
-> $q_{\text{sw}} = \gamma \times t = 25\ [\mathrm{kN/m^3}] \times 0.2\ [\mathrm{m}] = 5.0\ [\mathrm{kN/m^2}] = 5.0\ [\mathrm{kPa}]$
->
-> Units check: $[\mathrm{kN/m^3}] \times [\mathrm{m}] = [\mathrm{kN/m^2}] = [\mathrm{kPa}]$ ✓
->
-> **Step 3 — ETABS Connection:**
-> 1. **Define > Materials > Concrete** — confirm Weight per Unit Volume = $24.5\ \mathrm{kN/m^3}$ (or $25$)
-> 2. **Define > Section Properties > Slab Sections** — create a 200 mm thick slab
-> 3. **Define > Load Patterns** — DL with Self Weight Multiplier = 1.0
-> 4. Draw a $5\ \mathrm{m} \times 5\ \mathrm{m}$ slab, run analysis
-> 5. Later, after reactions are explained, you can use ETABS tables to confirm the total self-weight. For now, the important unit result is $5\ \mathrm{kPa} \times 25\ \mathrm{m^2} = 125\ \mathrm{kN}$.
+### I. What You Now Know
 
-### I. Chapter Summary Table
-
-| Concept | Formula | Engineering Use | ETABS Location |
-|---------|---------|----------------|----------------|
-| Length conversion | $\mathrm{m} \to \mathrm{mm}$ via ×1000 | Section dimensions | Edit > Preferences > Units |
-| Force conversion | $\mathrm{kN} \to \mathrm{N}$ via ×1000 | Later load calculations | All load dialogs |
-| Pressure unit | $1\ \mathrm{kPa} = 1\ \mathrm{kN/m^2}$ | Area load units later | Area Load dialog |
-| Weight from mass | $W = m \cdot g$ | Self-weight | Material weight per unit volume |
-| Slab self-weight | $q = \gamma \cdot t$ | Dead load on floors | Self Weight Multiplier in load pattern |
+Units are part of every number. They cancel like algebra. A dimension mismatch flags a formula error or a missing conversion every time. Chapter 3 applies this to finding two unknowns at once — a skill that unlocks full beam reaction calculations.
 
 <div style="page-break-after: always;"></div>
 
-## Chapter 5 — Systems of Equations
+## Chapter 3 — Two Unknowns, Two Conditions: Systems of Equations
 
-### A. Word Bank
+### A. Achievement
 
-| Word | Pronunciation | Plain English Meaning | Used In |
-|------|---------------|----------------------|---------|
-| **System** | "SIS-tem" | A set of equations sharing the same variables | Two unknown dimensions |
-| **Simultaneous** | "sy-mul-TAY-nee-us" | Holding true at the same time | Both equations satisfied together |
-| **Substitution** | "sub-stih-TOO-shun" | Solve one for a variable, plug into the other | First method shown below |
-| **Elimination** | "ee-lim-ih-NAY-shun" | Add or subtract equations to remove a variable | Second method shown below |
-| **Pair of equations** | — | Two equations used together | Total length and total cost |
+After this section you can find both support reactions for a simply-supported beam carrying a point load at any position along the span.
 
-### B. Concept Introduction
+### B. The Situation
 
-When two unknowns appear, one equation isn't enough — the equation has many possible solutions. You need a second equation that also relates the same unknowns. A pair of such equations forms a **system**, and "solving the system" means finding the single pair of values that satisfies both equations at once.
+A beam is $6\ \mathrm{m}$ long, supported at its left end (A) and right end (B). A single point load $P = 60\ \mathrm{kN}$ sits $2\ \mathrm{m}$ from A.
 
-> **Real-world analogy:** Two friends together weigh 150 kg, and their difference is 20 kg. One equation alone (sum = 150) admits infinitely many possibilities. Both equations together pin down a unique answer.
+```
+                  P = 60 kN
+                      ↓
+        A ────────────┬──────────────── B
+        |<── 2 m ────>|<──── 4 m ──────>|
+        ↑                               ↑
+       R_A                             R_B
+```
 
-### C. What This Means in Measurement
+Two supports, two unknown upward forces $R_A$ and $R_B$. Vertical balance alone says $R_A + R_B = 60\ \mathrm{kN}$ — but that's one equation with two unknowns. Infinitely many pairs satisfy it: $(30,30)$, $(10,50)$, $(0,60)$, etc. You can't pick one without a second condition.
 
-A single equation may not give enough information. If two unknown dimensions appear, you need two separate facts about them.
+### C. The Intuition
 
-Example: suppose a rectangular opening has width $w$ and height $h$.
-- Fact 1: width plus height equals 7 m, so $w + h = 7$.
-- Fact 2: width is 1 m more than height, so $w - h = 1$.
+The second condition is that the beam doesn't rotate. If all forces balanced vertically but the beam tried to spin, it would still collapse. "No rotation" gives you a second independent equation.
 
-Together, those two facts are enough to find both dimensions. Later, Part 2 will use systems of equations for forces and supports, after those physical ideas have been explained.
+Imagine the beam as a seesaw. Pushing down $2\ \mathrm{m}$ from the left end is different from pushing down at the center — the left support carries more when the load is closer to it. That physical intuition is exactly what the "no rotation" equation captures.
 
-### D. The Math
+### D. Failure Case
 
-**Method 1 — Substitution.** Solve one equation for one variable, then plug that expression into the other.
+Using only $R_A + R_B = 60$ gives:
 
-**Method 2 — Elimination.** Multiply equations by constants so that adding or subtracting eliminates one variable.
+- If $R_A = 30$, $R_B = 30$ — maybe, but only if the load is at mid-span.
+- If the load is $2\ \mathrm{m}$ from A, the actual split is $R_A = 40\ \mathrm{kN}$, $R_B = 20\ \mathrm{kN}$.
 
-**Worked example (substitution).** Solve:
-$$x + y = 10 \qquad x - y = 4$$
+Assuming equal split when the load is off-center overestimates $R_B$ by $50\%$ and underestimates $R_A$ by $25\%$. The reaction that's underestimated controls the worst-case support design — so you'd design the left support too small.
 
-1. From the first: $x = 10 - y$
-2. Substitute into the second: $(10 - y) - y = 4$
-3. Simplify: $10 - 2y = 4$
-4. Subtract 10: $-2y = -6$
-5. Divide: $y = 3$
-6. Back-substitute: $x = 10 - 3 = 7$
+### E. The Rule
 
-Solution: $x = 7$, $y = 3$.
+Two unknowns require two independent equations. Each equation must describe a different physical condition (vertical balance and rotational balance are independent). Solve the pair by substitution or elimination.
 
-**Worked example (elimination).** Same system:
-$$x + y = 10$$
-$$x - y = 4$$
+### F. The Formal Shorthand
 
-1. Add the two equations term-by-term: $(x + y) + (x - y) = 10 + 4$
-2. The $y$ cancels: $2x = 14$
-3. Divide: $x = 7$
-4. Substitute back: $7 + y = 10$ → $y = 3$
+**Equation 1 — vertical force balance** (from Section A1: signed sum of forces = 0):
+$$\Sigma F_y = 0: \quad R_A + R_B - P = 0 \quad \Rightarrow \quad R_A + R_B = P$$
 
-### E. Structural Engineering Application
+**Equation 2 — moment balance** (introduced properly in Part 2, Ch 12; used here as a tool):
 
-**Problem.** A rectangular equipment opening must have width $w$ and height $h$. The width plus height must be $7\ [\mathrm{m}]$. The width must be $1\ [\mathrm{m}]$ more than the height. Find $w$ and $h$.
+Taking moments about point A, with clockwise positive:
+$$\Sigma M_A = 0: \quad P \cdot a - R_B \cdot L = 0$$
 
-Write the two equations:
+where $a$ is the distance of the load from A and $L$ is the span. Solving:
+$$R_B = \frac{P \cdot a}{L} \qquad R_A = P - R_B$$
 
-$$w + h = 7$$
-$$w - h = 1$$
+You now have a formula that gives both reactions from geometry alone.
 
-**Solution by elimination:**
+**General solution method** when the equations aren't this clean: substitution or elimination, as shown in the worked example.
 
-1. Add the equations: $(w + h) + (w - h) = 7 + 1$
-2. The $h$ terms cancel: $2w = 8$
-3. Divide by 2: $w = 4\ [\mathrm{m}]$
-4. Substitute into $w + h = 7$: $4 + h = 7$, so $h = 3\ [\mathrm{m}]$
+### G. Full Worked Example — Beam Support Reactions
 
-**Check:** $w - h = 4 - 3 = 1$ ✓
+**Problem.** Span $L = 6\ \mathrm{m}$, load $P = 60\ \mathrm{kN}$ at $a = 2\ \mathrm{m}$ from A. Find $R_A$ and $R_B$.
 
-**What this means:** Two independent facts let you determine two unknown dimensions.
+**Equation 1:**
+$$R_A + R_B = 60 \quad (1)$$
 
-### F. ETABS Connection
+**Equation 2 — moment about A:**
+$$60 \times 2 = R_B \times 6 \quad (2)$$
+$$120 = 6R_B$$
+$$R_B = 20\ \mathrm{kN}$$
 
-ETABS eventually solves massive systems of simultaneous equations. At this point, you do not need the physical meaning of those equations yet. The algebra idea is enough: many unknowns require enough independent equations to determine them.
+**Back-substitute into (1):**
+$$R_A = 60 - 20 = 40\ \mathrm{kN}$$
 
-> **Try it in ETABS 22:**
-> 1. In any dialog with several related inputs, notice that changing one value may require another value to adjust
-> 2. Treat those relationships as equations
-> 3. Later, after forces and supports are explained, you will use ETABS results to verify structural systems of equations
+**Check — moment about B (independent verification):**
+$$R_A \times 6 = P \times (6 - 2) = 60 \times 4 = 240\ \mathrm{kN \cdot m}$$
+$$R_A = 240/6 = 40\ \mathrm{kN}\ \checkmark$$
 
-### G. Common Mistakes
+The left support carries $40\ \mathrm{kN}$ (closer to the load) and the right support carries $20\ \mathrm{kN}$.
 
-1. **Using two equations that say the same thing.** $x + y = 10$ and $2x + 2y = 20$ are not independent; the second is just twice the first.
-2. **Substituting into the wrong place.** After solving one variable, plug it into an original equation to avoid carrying an earlier mistake.
-3. **Dropping a negative sign during elimination.** Write each line clearly before adding or subtracting equations.
+**Physical check:** The load is at $1/3$ of the span from A. The right support is $2/3$ of the span from the load, so it carries $2/3 \times 60 = 40\ \mathrm{kN}$... wait — the support closer to the load carries more. $R_A = 40$ is $2/3$ of 60, which is the fraction $b/L$ where $b = L - a = 4\ \mathrm{m}$ (distance to right support). ✓
 
-### H. Chapter Practice Task — Two Unknown Dimensions
+### H. Practice Tasks
 
-> **Scenario:** A rectangular panel has width $w$ and height $h$. The width plus height is $9\ [\mathrm{m}]$. The width is $3\ [\mathrm{m}]$ more than the height. Find $w$ and $h$.
+> 1. Span $L = 8\ \mathrm{m}$, load $P = 48\ \mathrm{kN}$ at $a = 3\ \mathrm{m}$ from A. Find $R_A$ and $R_B$.
+> 2. Same beam, but two loads: $P_1 = 30\ \mathrm{kN}$ at $a_1 = 2\ \mathrm{m}$ and $P_2 = 20\ \mathrm{kN}$ at $a_2 = 6\ \mathrm{m}$. Find reactions.
 >
-> **Tasks:**
-> 1. Write the two equations
-> 2. Solve by elimination
-> 3. Check both equations
+> **Answers:**
+> 1. $R_B = 48 \times 3/8 = 18\ \mathrm{kN}$; $R_A = 48 - 18 = 30\ \mathrm{kN}$
+> 2. $R_B = (30 \times 2 + 20 \times 6)/8 = (60 + 120)/8 = 22.5\ \mathrm{kN}$; $R_A = 50 - 22.5 = 27.5\ \mathrm{kN}$
 
-> **Worked Solution:**
->
-> **Step 1 — Equations:**
-> $w + h = 9$
-> $w - h = 3$
->
-> **Step 2 — Add equations:**
-> $(w + h) + (w - h) = 9 + 3$
-> $2w = 12$
-> $w = 6\ [\mathrm{m}]$
->
-> **Step 3 — Back-substitute:**
-> $6 + h = 9$ → $h = 3\ [\mathrm{m}]$
->
-> **Check:**
-> $w + h = 6 + 3 = 9$ ✓
-> $w - h = 6 - 3 = 3$ ✓
+### I. What You Now Know
 
-### I. Chapter Summary Table
-
-| Concept | Formula | Engineering Use | ETABS Location |
-|---------|---------|----------------|----------------|
-| Substitution method | Solve, plug in | Two-unknown problems | — |
-| Elimination method | Add/subtract equations | Two-unknown problems | — |
-| Independent equations | Need one independent equation per unknown | Layout and later structural problems | Solver setup |
+Two unknowns need two independent physical conditions. For a beam, those are vertical balance and rotational balance. This pattern — one equation per independent condition — is how ETABS solves structures with thousands of unknowns. Chapter 4 shows what happens when the unknown appears squared rather than to the first power.
 
 <div style="page-break-after: always;"></div>
 
-## Chapter 6 — Quadratic Equations
+## Chapter 4 — When Span Is Squared: Quadratic Equations
 
-### A. Word Bank
+### A. Achievement
 
-| Word | Pronunciation | Plain English Meaning | Used In |
-|------|---------------|----------------------|---------|
-| **Quadratic** | "kwod-RAT-ik" | An equation with $x^2$ as the highest power | $ax^2 + bx + c = 0$ |
-| **Parabola** | "pah-RAB-oh-lah" | The U-shaped graph of a quadratic | Camber or arch shape |
-| **Discriminant** | "dis-KRIM-ih-nant" | The $b^2 - 4ac$ piece — tells how many solutions exist | Inside the square root |
-| **Roots** | "ROOTS" | The values of $x$ that make the equation equal zero | Where the parabola crosses zero |
-| **Vertex** | "VER-teks" | The high or low point of the parabola | Highest point of an arch |
-| **Camber** | "KAM-ber" | A small upward curve built into a member | Parabolic shape |
+After this section you can find the maximum allowable span for a beam given its moment capacity and the applied load, by solving the moment formula for the span.
 
-### B. Concept Introduction
+### B. The Situation
 
-A quadratic equation has $x^2$ in it. Its graph is a parabola — a smooth curve shaped like a U (or upside-down U). Quadratics are useful whenever a quantity rises and then falls in a smooth, symmetric way.
+A steel beam has moment capacity $M_{allow} = 120\ \mathrm{kN \cdot m}$ and must carry a uniform load $w = 15\ \mathrm{kN/m}$. What is the longest span $L$ this beam can have without exceeding its capacity?
 
-> **Real-world analogy:** The path of a thrown ball is a parabola. A gently curved arch or cambered member can also be described with a parabola. Beam moment diagrams also use parabolas later, after bending has been explained.
+From Part 0, the midspan moment formula is $M = wL^2/8$. Set $M = M_{allow}$ and solve for $L$:
 
-### C. What This Means in Geometry
+$$\frac{wL^2}{8} = 120 \quad \Rightarrow \quad L^2 = \frac{8 \times 120}{15} = 64 \quad \Rightarrow \quad L = \sqrt{64} = 8\ \mathrm{m}$$
 
-Imagine a shallow arch that starts at ground level, rises to a highest point, then returns to ground level. If the shape is symmetric and smooth, a quadratic can describe its height.
+That worked without a formal "quadratic" technique because there was no $L$ term — only $L^2$. But when a problem also involves a constant offset (for example, a point load in addition to the distributed load), the equation becomes $aL^2 + bL + c = 0$, and a different method is needed.
 
-One simple example is:
+### C. The Intuition
 
-$$y = 6x - x^2$$
+A quadratic is an equation where the unknown is squared. Its graph is a parabola — a smooth curve that rises, reaches a peak, and falls. Two solutions typically exist: the curve crosses any horizontal value at two points. For a beam span, one solution is physically meaningful (positive) and the other may be negative (discard it).
 
-where $x$ is the horizontal position in meters and $y$ is the height in meters. The $-x^2$ term makes the curve turn back downward.
+The key insight: squaring "amplifies" the variable. Doubling $L$ does not double $M$ — it quadruples $M$ (because $2L$ squared is $4L^2$). So the relationship between span and moment is not proportional; it's curved. That's exactly when quadratic methods apply.
 
-### D. The Math
+### D. Failure Case
 
-The general form: $ax^2 + bx + c = 0$.
+Treating $wL^2/8 = M$ as linear and solving $L = 8M/w$:
 
-**Three ways to solve:**
+$$L = \frac{8 \times 120}{15} = 64\ \mathrm{m} \quad \text{✗}$$
 
-**1. Factoring** (when easy). Find $(px + q)(rx + s) = 0$, then either factor equals zero gives a root.
+That's 64 meters, not 8 meters — off by a factor of 8. The error is ignoring the $L^2$: the linear treatment assumes $L$ appears to the first power, but the formula has $L^2$. Taking the square root of $64$ gives the correct $L = 8\ \mathrm{m}$.
 
-**2. Completing the square** (rarely used in practice).
+### E. The Rule
 
-**3. The quadratic formula** (always works):
+When the unknown appears squared, take the square root (if only $L^2$ appears, no $L$ term). When both $L$ and $L^2$ appear, rearrange to $aL^2 + bL + c = 0$ and use the quadratic formula.
 
-$$x = \dfrac{-b \pm \sqrt{b^2 - 4ac}}{2a}$$
+### F. The Formal Shorthand
 
-The $\pm$ gives two roots. The piece under the square root, $b^2 - 4ac$, is the discriminant:
-- If $> 0$: two real roots
-- If $= 0$: one repeated root
-- If $< 0$: no real roots
+Standard form: $aL^2 + bL + c = 0$.
 
-**Worked example.** Solve $x^2 - 5x + 6 = 0$ by factoring.
+**The quadratic formula** (always works):
+$$L = \frac{-b \pm \sqrt{b^2 - 4ac}}{2a}$$
 
-1. Find two numbers that multiply to $+6$ and add to $-5$: those are $-2$ and $-3$
-2. Factor: $(x - 2)(x - 3) = 0$
-3. Either factor equals zero: $x - 2 = 0$ → $x = 2$, or $x - 3 = 0$ → $x = 3$
+The $\pm$ gives two roots. Discard any that are negative or physically impossible. The expression under the square root ($b^2 - 4ac$) is called the discriminant; if it is negative, there are no real solutions — meaning no span satisfies the conditions.
 
-Roots: $x = 2$ and $x = 3$.
+For the common structural case $aL^2 = c$ (no $L$ term): $L = \sqrt{c/a}$.
 
-**Worked example with the formula.** Solve $2x^2 + 3x - 5 = 0$.
+### G. Full Worked Example — Maximum Span Under Combined Loading
 
-1. Identify $a = 2$, $b = 3$, $c = -5$
-2. Discriminant: $b^2 - 4ac = 9 - 4(2)(-5) = 9 + 40 = 49$
-3. $\sqrt{49} = 7$
-4. $x = \dfrac{-3 \pm 7}{2 \times 2} = \dfrac{-3 \pm 7}{4}$
-5. $x_1 = \dfrac{-3 + 7}{4} = \dfrac{4}{4} = 1$
-6. $x_2 = \dfrac{-3 - 7}{4} = \dfrac{-10}{4} = -2.5$
+**Problem.** A beam carries uniform dead load $w_D = 10\ \mathrm{kN/m}$ and a point load $P = 20\ \mathrm{kN}$ at mid-span. The moment capacity is $M_{allow} = 125\ \mathrm{kN \cdot m}$. What is the maximum span $L$?
 
-Roots: $x = 1$ and $x = -2.5$.
+The maximum moment from both loads at mid-span:
+$$M = \frac{w_D L^2}{8} + \frac{PL}{4}$$
 
-### E. Structural Engineering Application
+Set $M = M_{allow} = 125$:
+$$\frac{10 L^2}{8} + \frac{20 L}{4} = 125$$
+$$1.25 L^2 + 5L = 125$$
+$$1.25 L^2 + 5L - 125 = 0$$
 
-**Problem — find where a parabolic arch reaches a height.** An arch profile is described by:
+Multiply through by 0.8 to clear the decimal: $L^2 + 4L - 100 = 0$.
 
-$$y = 6x - x^2$$
+Quadratic formula with $a = 1$, $b = 4$, $c = -100$:
+$$L = \frac{-4 \pm \sqrt{16 + 400}}{2} = \frac{-4 \pm \sqrt{416}}{2} = \frac{-4 \pm 20.4}{2}$$
 
-where $x$ is position from the left end in meters and $y$ is height in meters. Where is the arch $8\ [\mathrm{m}]$ high?
+Positive root: $L = \frac{-4 + 20.4}{2} = \frac{16.4}{2} = 8.2\ \mathrm{m}$
 
-Set $y = 8$:
-$6x - x^2 = 8$ → $x^2 - 6x + 8 = 0$
+Negative root: $L = \frac{-4 - 20.4}{2} = -12.2\ \mathrm{m}$ — physically impossible, discard.
 
-Factor:
-$(x - 2)(x - 4) = 0$
+**Check:** $M = 1.25 \times 8.2^2 + 5 \times 8.2 = 1.25 \times 67.24 + 41 = 84.05 + 41 = 125.05 \approx 125\ \mathrm{kN \cdot m}\ \checkmark$
 
-So:
-$x = 2\ [\mathrm{m}]$ or $x = 4\ [\mathrm{m}]$
+The maximum span is $8.2\ \mathrm{m}$.
 
-**What this means:** The arch reaches 8 m high twice — once while rising and once while falling.
+### H. Practice Tasks
 
-### F. ETABS Connection
-
-Later, ETABS will draw result diagrams that can be linear, parabolic, or more complex. For now, the useful idea is visual recognition: a quadratic creates a smooth parabola, not a straight line.
-
-> **Try it in ETABS 22:**
-> 1. Sketch the curve $y = 6x - x^2$ for $x = 0$ through $6$
-> 2. Notice that the curve starts at 0, rises, then returns to 0
-> 3. Later, when ETABS shows a curved result diagram, you will already recognize the basic parabolic shape
-
-### G. Common Mistakes
-
-1. **Sign error in the formula.** The minus sign on the discriminant is part of $-4ac$, not $-(4ac)$ — but with $c$ already negative, double negatives cause sign mistakes.
-2. **Stopping at one root.** Quadratics usually have two solutions. Both may be physically meaningful (or one may be discarded as outside the beam).
-3. **Confusing $x^2$ with $2x$.** $x^2 = x \cdot x$, not $x + x$. The whole structure of the problem changes.
-
-### H. Chapter Practice Task — Where Does an Arch Reach a Height?
-
-> **Scenario:** A parabolic arch profile is $y = 8x - x^2$. Find where the arch is $12\ [\mathrm{m}]$ high.
+> 1. Beam with only uniform load $w = 18\ \mathrm{kN/m}$, capacity $M_{allow} = 144\ \mathrm{kN \cdot m}$. Find maximum span.
+> 2. Solve: $2L^2 - 3L - 20 = 0$ using the quadratic formula.
 >
-> **Tasks:**
-> 1. Set $y = 12$
-> 2. Rearrange to standard quadratic form
-> 3. Solve for the two $x$ values
-> 4. Explain why there are two positions
+> **Answers:**
+> 1. $L^2 = 8 \times 144/18 = 64$; $L = 8\ \mathrm{m}$
+> 2. $L = \frac{3 \pm \sqrt{9 + 160}}{4} = \frac{3 \pm 13}{4}$; $L = 4$ or $L = -2.5$ (discard negative)
 
-> **Worked Solution:**
->
-> **Step 1 — Set height equal to 12:**
-> $8x - x^2 = 12$
->
-> **Step 2 — Rearrange:**
-> $x^2 - 8x + 12 = 0$
->
-> **Step 3 — Factor:**
-> $(x - 2)(x - 6) = 0$
-> $x = 2\ [\mathrm{m}]$ or $x = 6\ [\mathrm{m}]$
->
-> **Step 4 — Meaning:**
-> The arch reaches 12 m high on the way up at 2 m and on the way down at 6 m.
+### I. What You Now Know
 
-### I. Chapter Summary Table
-
-| Concept | Formula | Engineering Use | ETABS Location |
-|---------|---------|----------------|----------------|
-| Quadratic formula | $x = \dfrac{-b \pm \sqrt{b^2 - 4ac}}{2a}$ | Find roots of any quadratic | Internal solver math |
-| Parabolic profile | $y = ax^2 + bx + c$ | Arch/camber geometry | Visual check |
-| Two roots | Two places where the curve crosses a chosen height | Layout interpretation | — |
+When a variable is squared, the relationship between input and output is not proportional — it curves. Recognizing whether a structural equation is linear or quadratic determines which solving method to use. Chapter 5 shows how these solved values feed into a comparison: did we pass the design requirement?
 
 <div style="page-break-after: always;"></div>
 
-## Chapter 7 — Inequalities
+## Chapter 5 — Checking a Design: Inequalities and Demand/Capacity Ratios
 
-### A. Word Bank
+### A. Achievement
 
-| Word | Pronunciation | Plain English Meaning | Used In |
-|------|---------------|----------------------|---------|
-| **Inequality** | "in-ee-KWOL-ih-tee" | A statement that two quantities are NOT equal — one is bigger | $8 \le 10$ |
-| **Demand** | "dee-MAND" | What is being asked of an item | Required amount |
-| **Capacity** | "kah-PASS-ih-tee" | What an item can provide or hold | Allowable amount |
-| **Demand-capacity ratio** | — | Demand ÷ capacity; must be ≤ 1.0 | Basic capacity check |
-| **Limit state** | "LIM-it stayt" | A boundary that must not be crossed | Demand must stay below capacity |
-| **Compliance** | "kom-PLY-ans" | Meeting code requirements | What design checks ensure |
+After this section you can check a beam against three separate design limits — moment, shear, and deflection — report a demand/capacity ratio for each, and identify which limit governs.
 
-### B. Concept Introduction
+### B. The Situation
 
-Almost every structural check ends in an inequality, not an equation. We do not want the required amount to equal or exceed the available capacity; we want the required amount to be less than or equal to the capacity. Equality means the item is exactly at its limit.
+Every structural check ends with a comparison, not an equation. You don't want the beam to reach its limit — you want it to stay safely below. The engineering question is: "Is the demand less than the capacity?"
 
-> **Real-world analogy:** A bridge sign reads "Maximum vehicle weight: 10 tonnes." The bridge weight capacity is 10 t. Your truck weighs 8 t. The inequality $8 \le 10$ tells you it is safe to cross.
+The beam from Chapter 4: $L = 8\ \mathrm{m}$, $w = 15\ \mathrm{kN/m}$. Moment demand $M_d = 120\ \mathrm{kN \cdot m}$ (exactly at the capacity). Shear demand $V_d = wL/2 = 15 \times 8/2 = 60\ \mathrm{kN}$. The beam has shear capacity $V_c = 75\ \mathrm{kN}$. Deflection limit is $L/360 = 8000/360 = 22.2\ \mathrm{mm}$; the actual deflection is $\delta = 5wL^4/(384EI) = 18\ \mathrm{mm}$.
 
-### C. The Physics Behind It
+Which of these three checks governs — i.e., which is closest to failure?
 
-The physical details of structural limits are taught later. The inequality idea is already useful now: every check compares **demand** to **capacity**.
+### C. The Intuition
 
-$$\text{Demand} \le \text{Capacity}$$
+"Governing" means the closest to the edge. If your car can go 120 km/h but the road limit is 100 km/h, the governing constraint is the speed limit, not the car's capability. The ratio is 80/100 = 80% of the limit. If your car can barely do 105 km/h, the ratio is 95% of the limit — now the car governs.
 
-If the demand is smaller, the check passes. If the demand is larger, the check fails.
+In structural design, you compute each check as a ratio: demand/capacity. Every check must be ≤ 1.0. The highest ratio is the most critical — it governs the design. If you want more efficiency, make that one better first.
 
-### D. The Math
+### D. Failure Case
+
+A designer checks only the moment (the most obvious check) and declares the beam adequate. Shear and deflection are skipped. On a short, deep beam or one carrying a moving load, shear often governs. Skipping it causes the beam to fail in shear even though the moment check passed.
+
+Every design has multiple independent checks. Passing one does not imply passing the others.
+
+### E. The Rule
+
+Write each design requirement as an inequality: demand ≤ capacity. Express each as a ratio: demand/capacity ≤ 1.0. The highest ratio governs the design.
+
+### F. The Formal Shorthand
+
+$$\text{D/C ratio} = \frac{\text{demand}}{\text{capacity}} \leq 1.0 \quad \text{(pass)}$$
 
 Inequality symbols:
 
 | Symbol | Meaning |
 |--------|---------|
 | $<$ | strictly less than |
-| $\le$ | less than or equal to |
+| $\leq$ | less than or equal to |
 | $>$ | strictly greater than |
-| $\ge$ | greater than or equal to |
+| $\geq$ | greater than or equal to |
 
-**Solving inequalities** uses the same rules as equations, with one critical difference: **multiplying or dividing both sides by a negative number flips the inequality direction.**
+When solving an inequality for an unknown, apply the same rules as equations, with one exception: **multiplying or dividing both sides by a negative number flips the direction.**
 
-**Worked example.** Solve $3x + 5 \le 17$.
+Example: $-2x \leq 8 \;\Rightarrow\; x \geq -4$ (direction flipped because we divided by $-2$).
 
-1. Subtract 5: $3x \le 12$
-2. Divide by 3 (positive — direction stays): $x \le 4$
+This flip has a physical explanation: if multiplying a force by $-1$ means reversing its direction (from Part 0, A1), then comparing reversed quantities reverses the ordering.
 
-Solution: any $x$ less than or equal to 4 works.
+### G. Full Worked Example — Three-Check Design Verification
 
-**Worked example with sign flip.** Solve $-2x + 3 < 11$.
+**Beam data:** $L = 8\ \mathrm{m}$, $w = 15\ \mathrm{kN/m}$, $E = 200\ \mathrm{GPa}$, $I = 65 \times 10^6\ \mathrm{mm^4}$.
 
-1. Subtract 3: $-2x < 8$
-2. Divide by $-2$ (negative — flip): $x > -4$
+**Capacities:** $M_c = 120\ \mathrm{kN \cdot m}$, $V_c = 75\ \mathrm{kN}$, $\delta_{allow} = L/360 = 22.2\ \mathrm{mm}$.
 
-### E. Structural Engineering Application
+**Check 1 — Moment:**
+$$M_d = \frac{wL^2}{8} = \frac{15 \times 64}{8} = 120\ \mathrm{kN \cdot m}$$
+$$\text{Ratio} = \frac{120}{120} = 1.00 \quad \text{(just at limit)}$$
 
-**The universal design check:**
+**Check 2 — Shear:**
+$$V_d = \frac{wL}{2} = \frac{15 \times 8}{2} = 60\ \mathrm{kN}$$
+$$\text{Ratio} = \frac{60}{75} = 0.80\ \checkmark$$
 
-$$\text{Ratio} = \dfrac{\text{Demand}}{\text{Capacity}} \le 1.0$$
+**Check 3 — Deflection** (formula from Part 4):
+$$\delta_d = \frac{5wL^4}{384EI} = \frac{5 \times 15 \times (8000)^4}{384 \times 200{,}000 \times 65 \times 10^6}$$
 
-For any basic capacity check:
-- Demand = required amount
-- Capacity = allowable amount
-- Check: demand $\le$ capacity
-- Ratio = demand / capacity $\le 1.0$
+Numerator: $5 \times 15 \times 4.096 \times 10^{15} = 3.072 \times 10^{17}$
 
-**Problem.** A temporary platform is allowed to carry $10$ storage units. The planned storage is $8$ units. Check the platform using an inequality and demand/capacity ratio.
+Denominator: $384 \times 200{,}000 \times 65 \times 10^6 = 4.992 \times 10^{15}$
 
-**Solution:**
+$$\delta_d = \frac{3.072 \times 10^{17}}{4.992 \times 10^{15}} \approx 61.5\ \mathrm{mm}$$
 
-1. Demand: $8$ units
-2. Capacity: $10$ units
-3. Ratio: $8 / 10 = 0.80$
-4. Check: $0.80 \le 1.0$ ✓
+Wait — that exceeds the limit. Let's recalculate: this confirms that at $L = 8\ \mathrm{m}$, a more stocky section would be needed. With the given $I$, the deflection ratio is $61.5/22.2 = 2.77$ — the beam fails deflection badly.
 
-The platform passes with 20% capacity remaining.
+**Summary of governing check:**
 
-**What if the planned storage is 12 units instead?**
-1. Ratio = $12/10 = 1.20$
-2. $1.20 > 1.0$ ✗ — the check fails.
+| Check | Demand | Capacity | D/C Ratio | Pass? |
+|-------|--------|----------|-----------|-------|
+| Moment | 120 kN·m | 120 kN·m | 1.00 | ✓ (limit) |
+| Shear | 60 kN | 75 kN | 0.80 | ✓ |
+| Deflection | 61.5 mm | 22.2 mm | 2.77 | ✗ |
 
-### F. ETABS Connection
+**Governing check: deflection** with ratio 2.77. The section must be stiffened (larger $I$) or the span shortened. Moment and shear alone would have passed — this is exactly the failure mode that skipping deflection check would miss.
 
-Later, ETABS design output will display demand/capacity ratios for designed members. The color coding goes from green (low ratio) to red (over 1.0). For now, the important idea is the inequality: ratio $\le 1.0$ passes.
+### H. Practice Tasks
 
-> **Try it in ETABS 22:**
-> 1. After running analysis and design, go to **Design > Steel Frame Design > Display Design Info > P-M Ratio**
-> 2. Every member shows a colored stripe and a number — the demand/capacity ratio
-> 3. Click any member; a popup details the demand $M$, $P$, $V$, and capacity values
-> 4. Members with ratio > 1.0 are flagged red — they fail the inequality
-
-### G. Common Mistakes
-
-1. **Forgetting to flip when multiplying by negative.** $-2x \le 8$ becomes $x \ge -4$, not $x \le -4$.
-2. **Reading a ratio as a raw percentage.** A ratio of 0.85 means 85% utilized, leaving 15% reserve. A ratio of 1.05 is 5% over the limit.
-3. **Checking only one limit.** A real design may have several separate limits. Each one needs its own inequality.
-
-### H. Chapter Practice Task — Multiple Capacity Checks
-
-> **Scenario:** A temporary work zone has three limits: storage limit = 110 units, access limit = 100 units, and movement limit = 20 mm. The planned demands are storage = 90 units, access = 70 units, and movement = 18 mm. Check all three and find the governing demand/capacity ratio.
+> 1. Beam: $M_d = 95\ \mathrm{kN \cdot m}$, $V_d = 45\ \mathrm{kN}$. Capacities: $M_c = 110\ \mathrm{kN \cdot m}$, $V_c = 50\ \mathrm{kN}$. Compute ratios. Which governs?
+> 2. Solve the inequality: $3x - 9 \geq 0$. What is the minimum value of $x$?
 >
-> **Tasks:**
-> 1. Compute the demand/capacity ratio for storage, access, and movement
-> 2. Check each against 1.0
-> 3. Identify the governing (highest) ratio
+> **Answers:**
+> 1. Moment ratio = $95/110 = 0.864$; Shear ratio = $45/50 = 0.900$; shear governs.
+> 2. $3x \geq 9$; $x \geq 3$. Minimum $x = 3$.
 
-> **Worked Solution:**
->
-> **Ratio for storage:** $90 / 110 = 0.818$
-> **Ratio for access:** $70 / 100 = 0.700$
-> **Ratio for movement:** $18 / 20 = 0.900$
->
-> All three < 1.0 → beam passes.
->
-> Governing limit state: **movement** with ratio = 0.900 — closest to failure.
+### I. What You Now Know
 
-### I. Chapter Summary Table
-
-| Concept | Formula | Engineering Use | ETABS Location |
-|---------|---------|----------------|----------------|
-| Demand/capacity ratio | Demand / Capacity ≤ 1.0 | Universal design check | Design output later |
-| Basic check | Demand $\le$ capacity | All design checks | Design output later |
-| Governing ratio | Largest demand/capacity ratio | Closest check to the limit | Design summary later |
-| Inequality direction flip | When ×/÷ by negative | Ensures correct logic | — |
+Every structural design is a series of inequalities: one per independent failure mode. The highest ratio governs. ETABS design output is literally a table of these ratios, color-coded by how close each member is to its limit. Chapter 6 shows how one quantity driving another — functions and power relationships — lets you predict those ratios without recalculating from scratch.
 
 <div style="page-break-after: always;"></div>
 
-## Chapter 8 — Exponents and Powers
+## Chapter 6 — How One Quantity Drives Another: Functions and Power Relationships
 
-### A. Word Bank
+### A. Achievement
 
-| Word | Pronunciation | Plain English Meaning | Used In |
-|------|---------------|----------------------|---------|
-| **Exponent** | "EX-poh-nent" | The small number showing how many times to multiply | The 3 in $h^3$ |
-| **Power** | "POW-er" | The whole expression (base raised to exponent) | $h^3$ is "h to the third power" |
-| **Base** | "BASE" | The number being raised | The $h$ in $h^3$ |
-| **Squared** | "SKWAIRD" | Raised to the second power | $b^2$ = "b squared" |
-| **Cubed** | "KYOOBD" | Raised to the third power | $h^3$ = "h cubed" |
-| **Square root** | "SKWAIR ROOT" | The number that, squared, gives the original | $\sqrt{25} = 5$ |
-| **Volume** | "VOL-yoom" | Space inside a 3D object | $V = bhl$ |
+After this section you can predict how beam deflection, moment, and member forces change when span, load, or section size changes — without recalculating — by understanding the power relationship in the governing formula.
 
-### B. Concept Introduction
+### B. The Situation
 
-An exponent is a shortcut for repeated multiplication. $h^3$ means $h \times h \times h$. Squares appear in area. Cubes appear in volume. Later, exponents will also explain why some structural properties change very quickly when a dimension changes.
+The deflection formula is:
+$$\delta = \frac{5wL^4}{384EI}$$
 
-> **Real-world analogy:** A square that is twice as wide and twice as tall has four times the area. A cube that is twice as wide, twice as tall, and twice as deep has eight times the volume.
+You've designed a beam for a $6\ \mathrm{m}$ span. The architect now wants to extend it to $9\ \mathrm{m}$ — a 50% increase. By how much does deflection increase? Does it go up by 50% too?
 
-### C. The Physics Behind It
+If you said 50%, the beam would be designed too slender. The actual answer is: deflection increases by a factor of $(9/6)^4 = (1.5)^4 = 5.06$ — over five times. A 50% longer span creates five times the deflection. That is why longer spans need disproportionately deeper or stiffer beams.
 
-Area and volume show why exponents matter physically. If you double the side length of a square, its area does not double; it becomes four times as large. If you double the side length of a cube, its volume becomes eight times as large.
+### C. The Intuition
 
-Later, Chapter 20 explains a structural property called moment of inertia. It also uses powers, but it is not needed for this chapter.
+A function is a rule that turns one input into one output. In $\delta = \frac{5wL^4}{384EI}$, $L$ is the input that matters most: the formula is a machine that takes $L$ and produces $\delta$.
 
-### D. The Math
+When $L$ appears raised to a power, the output changes by that power of the ratio. Doubling $L$ (ratio = 2) multiplies $\delta$ by $2^4 = 16$. Tripling $L$ (ratio = 3) multiplies $\delta$ by $3^4 = 81$. The exponent 4 means deflection is extremely sensitive to span — far more sensitive than to load (which appears to the first power) or section depth (which appears to the third power in $I$).
 
-**Rules of exponents** (all assume same base):
+This is the physical reason why tall, slender buildings are deflection-governed rather than stress-governed, and why adding span is much more expensive than adding load.
 
-| Rule | Example |
-|------|---------|
-| $a^m \cdot a^n = a^{m+n}$ | $x^2 \cdot x^3 = x^5$ |
-| $\dfrac{a^m}{a^n} = a^{m-n}$ | $x^5 / x^2 = x^3$ |
-| $(a^m)^n = a^{mn}$ | $(x^2)^3 = x^6$ |
-| $a^0 = 1$ (any nonzero $a$) | $5^0 = 1$ |
-| $a^{-n} = \dfrac{1}{a^n}$ | $x^{-2} = 1/x^2$ |
-| $a^{1/n} = \sqrt[n]{a}$ | $x^{1/2} = \sqrt{x}$ |
+### D. Failure Case
 
-**Worked example.** Evaluate $h^3$ when $h = 400\ [\mathrm{mm}]$:
-$h^3 = 400 \times 400 \times 400 = 160{,}000 \times 400 = 64{,}000{,}000\ [\mathrm{mm^3}]$
+A designer checks a 6 m beam and finds deflection = 8 mm, well within the 16.7 mm limit. The span is extended to 8 m. The designer assumes deflection scales proportionally: $8 \times (8/6) = 10.7\ \mathrm{mm}$ — still under the limit. Beam is approved.
 
-**Worked example.** Evaluate $\sqrt{125{,}000}$:
-$\sqrt{125{,}000} = \sqrt{25 \times 5{,}000} = 5 \times \sqrt{5{,}000} \approx 5 \times 70.71 = 353.55$
+Actual deflection: $8 \times (8/6)^4 = 8 \times 3.16 = 25.3\ \mathrm{mm}$ — 52% over the limit.
 
-### E. Structural Engineering Application
+The proportional-scaling assumption is only valid when the variable appears to the first power. Whenever an exponent is present, scale by the exponent.
 
-The volume of a rectangular block is:
-$$V = bhl$$
+### E. The Rule
 
-**Problem.** Calculate the volume for two blocks: (a) $b = 2, h = 2, l = 2$, (b) $b = 4, h = 4, l = 4$.
+When a formula has the form $y = k \cdot x^n$ (one variable raised to a power, with everything else constant), changing $x$ by a factor $r$ changes $y$ by a factor of $r^n$. This is a power function.
 
-**Solution (a):**
-$V = 2 \times 2 \times 2 = 2^3 = 8\ [\mathrm{m^3}]$
+### F. The Formal Shorthand
 
-**Solution (b):**
-$V = 4 \times 4 \times 4 = 4^3 = 64\ [\mathrm{m^3}]$
+A function $f(x)$ is a rule that takes input $x$ and produces output $f(x)$. Notation: $\delta(L)$ means deflection as a function of span.
 
-**Ratio:** $64 / 8 = 8.0$
+**Power function:** $y = kx^n$, where $k$ is everything held constant.
 
-Doubling each side length multiplied the volume by **exactly 8**. This is the cube law in action.
+**Scaling rule:** if $x$ changes by factor $r$, $y$ changes by factor $r^n$:
+$$\frac{y_{\text{new}}}{y_{\text{old}}} = \left(\frac{x_{\text{new}}}{x_{\text{old}}}\right)^n = r^n$$
 
-### F. ETABS Connection
+**Algebraic exponent rules** (for manipulating power functions):
+$$a^m \cdot a^n = a^{m+n} \qquad (a^m)^n = a^{mn} \qquad a^{-n} = \frac{1}{a^n} \qquad a^{1/n} = \sqrt[n]{a}$$
 
-ETABS contains many quantities that use powers. Some are simple geometry, such as areas and volumes. Later, section properties will also use powers. Knowing exponent rules helps you predict whether changing a dimension has a small effect or a large one.
+These rules let you simplify formulas before substituting numbers, which reduces arithmetic errors.
 
-> **Try it in ETABS 22:**
-> 1. Compute $2^2$, $2^3$, and $2^4$
-> 2. Notice that each extra exponent multiplies by another 2
-> 3. Later, when ETABS reports section properties, look for units like mm², mm³, and mm⁴; the exponent tells you the kind of quantity
+**Function notation in engineering:** $M(L)$, $V(x)$, $\delta(L)$ — the variable in parentheses is the one being varied. Everything else is treated as a constant for that analysis.
 
-### G. Common Mistakes
+### G. Full Worked Example — Effect of Span on Deflection
 
-1. **$h^3 \neq 3h$.** Cubing means multiplying three times, not multiplying by three.
-2. **Adding exponents when bases differ.** $x^2 \cdot y^3 \neq xy^5$. The rule only applies to the same base.
-3. **Forgetting exponent units.** If length is in meters, area is in $\mathrm{m^2}$ and volume is in $\mathrm{m^3}$.
+**Problem.** A beam has $\delta = 8\ \mathrm{mm}$ at $L = 6\ \mathrm{m}$ with fixed $w$, $E$, $I$. Find deflection at $L = 7.5\ \mathrm{m}$ and $L = 9\ \mathrm{m}$.
 
-### H. Chapter Practice Task — Comparing Two Block Sizes
+The deflection formula: $\delta = \frac{5w}{384EI} \cdot L^4$. With $w$, $E$, $I$ fixed, $\delta \propto L^4$.
 
-> **Scenario:** Compare two square plan areas:
-> - Square X: side $s = 3\ \mathrm{m}$
-> - Square Y: side $s = 6\ \mathrm{m}$
+**At $L = 7.5\ \mathrm{m}$** (ratio $r = 7.5/6 = 1.25$):
+$$\delta_{\text{new}} = 8 \times (1.25)^4 = 8 \times 2.441 = 19.5\ \mathrm{mm}$$
+
+**At $L = 9\ \mathrm{m}$** (ratio $r = 9/6 = 1.5$):
+$$\delta_{\text{new}} = 8 \times (1.5)^4 = 8 \times 5.063 = 40.5\ \mathrm{mm}$$
+
+**Versus moment at $L = 9\ \mathrm{m}$** (moment $\propto L^2$, ratio same 1.5):
+$$M_{\text{new}} = M_{\text{old}} \times (1.5)^2 = M_{\text{old}} \times 2.25$$
+
+Moment only went up by 2.25×; deflection went up by 5.06×. Extending the span hits deflection far harder than moment.
+
+**Implication:** to accommodate the 9 m span without changing beam depth, $I$ must increase by the same factor of 5.06 to keep deflection constant. That means roughly doubling the section depth (since $I \propto d^3$ for a rectangle, and $2^3 = 8 > 5$).
+
+### H. Practice Tasks
+
+> 1. Beam moment $M = wL^2/8$. If $w$ doubles but $L$ stays, by what factor does $M$ change? If $L$ doubles but $w$ stays?
+> 2. Deflection at $L = 5\ \mathrm{m}$ is $4\ \mathrm{mm}$. Find deflection at $L = 8\ \mathrm{m}$ using scaling.
 >
-> **Tasks:**
-> 1. Calculate area $A = s^2$ for each
-> 2. Find the ratio
-> 3. Explain why doubling the side length does not merely double the area
+> **Answers:**
+> 1. $w$ doubles: $M$ doubles (exponent 1 on $w$). $L$ doubles: $M \times 4$ (exponent 2 on $L$).
+> 2. $r = 8/5 = 1.6$; $\delta = 4 \times (1.6)^4 = 4 \times 6.554 = 26.2\ \mathrm{mm}$
 
-> **Worked Solution:**
->
-> **Square X:**
-> $A_X = 3^2 = 9\ \mathrm{m^2}$
->
-> **Square Y:**
-> $A_Y = 6^2 = 36\ \mathrm{m^2}$
->
-> **Ratio:** $A_Y/A_X = 36/9 = 4$
->
-> Square Y has **4 times** the area because both side directions doubled: $2 \times 2 = 4$.
+### I. What You Now Know
 
-### I. Chapter Summary Table
-
-| Concept | Formula | Engineering Use | ETABS Location |
-|---------|---------|----------------|----------------|
-| Square | $s^2$ | Area scaling | Plan and section geometry |
-| Cube | $s^3$ | Volume scaling | Material quantity estimates |
-| Square root | $\sqrt{x}$ | Solve for unknown side | Manual sizing calculations |
+A function describes how one quantity drives another. When a formula has a power, the output is more sensitive to the input than a proportional relationship suggests — sometimes dramatically so. This insight lets you make quick engineering judgments about whether changing a dimension will help a little or a lot. Part 2 now applies all these algebraic tools to the actual physics of forces, loads, and structural equilibrium.
 
 <div style="page-break-after: always;"></div>
 
-## Chapter 9 — Introduction to Functions
+> **End of Part 1.** You can now read any structural formula, solve for any variable, track units, find two unknowns at once, and understand how output scales with input. Part 2 uses these tools on the physics: forces, moments, loads, supports, and internal forces.
 
-### A. Word Bank
 
-| Word | Pronunciation | Plain English Meaning | Used In |
-|------|---------------|----------------------|---------|
-| **Function** | "FUNK-shun" | A rule that turns each input into one output | $C(L)$ — cost as a function of length |
-| **Input** | "IN-put" | The value you put in | $x$ — distance along the beam |
-| **Output** | "OWT-put" | The value the function gives back | Cost, area, or total length |
-| **Domain** | "doh-MAYN" | The set of allowed inputs | $0 \le x \le L$ for a beam |
-| **Range** | "RAYNJ" | The set of possible outputs | $0 \le M \le M_{\max}$ |
-| **Independent variable** | — | The input you control | Position $x$ |
-| **Dependent variable** | — | The output that depends on the input | Cost $C$ |
-
-### B. Concept Introduction
-
-A function is a rule that takes one number in and gives one number out — every time the same way. Think of it as a vending machine: input a button code, output a specific snack. Every input has exactly one corresponding output.
-
-In structural work, many quantities depend on other quantities. Total cost depends on length. Total grid length depends on spacing. Area depends on side length. A function is how we write that dependable relationship.
-
-Later, structural result diagrams will also be functions. Those diagrams are easier to understand after force, support, and bending have been explained.
-
-> **Real-world analogy:** A function is a recipe: you put in ingredients (input), follow a procedure (the rule), get out a dish (output). The same ingredients always give the same dish.
-
-### C. What This Means in Measurement
-
-Measurement relationships are functions because the same input gives the same output. If a material costs $120$ dollars per meter plus a fixed delivery fee of $500$, then a 10 m order always has the same cost.
-
-That relationship can be written:
-
-$$C(L) = 120L + 500$$
-
-where $L$ is length and $C(L)$ is the cost for that length.
-
-### D. The Math
-
-Function notation: $f(x)$ — read as "f of x."
-
-This is **not** $f$ times $x$. It is the value of the function $f$ when the input is $x$.
-
-**Worked example.** If $f(x) = 2x + 3$:
-- $f(0) = 2(0) + 3 = 3$
-- $f(5) = 2(5) + 3 = 13$
-- $f(-2) = 2(-2) + 3 = -1$
-
-**Different inputs may give the same output:** the function $f(x) = x^2$ gives $f(2) = 4$ and $f(-2) = 4$. That's allowed.
-
-**The same input always gives the same output:** that's the rule.
-
-### E. Structural Engineering Application
-
-Material order cost can be written as a function:
-
-$$C(L) = 120L + 500$$
-
-This is a function. Input $L$ (length in meters); output $C$ (cost).
-
-**Problem.** Compute $C$ for $L = 0$, $5$, $10$, and $20$.
-
-| $L$ [m] | $C(L) = 120L + 500$ |
-|---------|----------------------|
-| 0 | $500$ |
-| 5 | $120(5) + 500 = 1{,}100$ |
-| 10 | $120(10) + 500 = 1{,}700$ |
-| 20 | $120(20) + 500 = 2{,}900$ |
-
-**Domain:** $L \ge 0$ because negative length is not physically meaningful.
-**Range:** $C \ge 500$ because the fixed delivery fee applies even when the variable length is zero.
-
-### F. ETABS Connection
-
-Many ETABS tables and diagrams are functions: one input location gives one output value. The physical diagrams are explained later. For now, the key idea is that a software table often pairs an input with a computed output.
-
-> **Try it in ETABS 22:**
-> 1. Make a small table with input length $L = 0, 5, 10, 20$
-> 2. Compute output cost using $C(L) = 120L + 500$
-> 3. Notice that every input has exactly one output
-> 4. Later, ETABS result tables will use the same input-output pattern
-
-### G. Common Mistakes
-
-1. **Reading $f(x)$ as multiplication.** It is function notation, not "$f$ times $x$."
-2. **Plotting input on the wrong axis.** By convention, input is horizontal ($x$-axis), output vertical ($y$-axis).
-3. **Confusing the function rule with a single value.** $f(x) = 2x + 3$ is the rule; $f(5) = 13$ is one specific output.
-
-### H. Chapter Practice Task — Tabulating a Cost Function
-
-> **Scenario:** A material order has cost $C(L) = 85L + 250$, where $L$ is length in meters.
->
-> **Tasks:**
-> 1. Evaluate $C(L)$ at $L = 0, 4, 8, 12$
-> 2. Identify the input and output
-> 3. State the domain for a real material order
-
-> **Worked Solution:**
->
-> $C(0) = 85(0) + 250 = 250$
->
-> $C(4) = 85(4) + 250 = 590$
->
-> $C(8) = 85(8) + 250 = 930$
->
-> $C(12) = 85(12) + 250 = 1{,}270$
->
-> Input: length $L$. Output: cost $C$. For a real order, the domain is $L \ge 0$.
-
-### I. Chapter Summary Table
-
-| Concept | Notation | Engineering Use | ETABS Location |
-|---------|----------|----------------|----------------|
-| Function | $f(x)$ | Rule turning input to output | Every diagram |
-| Cost as a function | $C(L)$ | Quantity estimating | Tables and reports |
-| Layout as a function | $L(s)$ | Grid planning | Grid definition |
-| Domain | $0 \le x \le L$ | Where the function is defined | Length of the member |
-
-<div style="page-break-after: always;"></div>
-
-> **End of Part 1.** You now know algebra well enough to write, rearrange, and solve every formula a structural engineer uses on a daily basis. In Part 2 we step into the physical world: forces, equilibrium, supports, and bending. Every formula from here forward will be a partner of a real physical phenomenon you can picture.
-
-<div style="page-break-after: always;"></div>
