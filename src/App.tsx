@@ -348,20 +348,40 @@ export function App() {
           role="tooltip"
           style={{ left: mathTooltip.left, top: mathTooltip.top }}
         >
-          {mathTooltip.entries.map(entry => (
-            <div className="math-tooltip-entry" key={entry.name}>
-              <span
-                className="math-tooltip-symbol"
-                dangerouslySetInnerHTML={{
-                  __html: katex.renderToString(entry.symbolLatex, { throwOnError: false, displayMode: false }),
-                }}
-              />
-              <small>{entry.pronounce}</small>
-              <strong>{entry.name}</strong>
-              <p>{entry.desc}</p>
-              <p className="math-tooltip-reminder">{entry.firstUse}</p>
-            </div>
-          ))}
+          {mathTooltip.entries.map(entry => {
+            const targetChapter = chapters.find(c => c.slug === entry.slug);
+            return (
+              <div className="math-tooltip-entry" key={entry.name}>
+                <div className="math-tooltip-header">
+                  <span
+                    className="math-tooltip-symbol"
+                    dangerouslySetInnerHTML={{
+                      __html: katex.renderToString(entry.symbolLatex, { throwOnError: false, displayMode: false }),
+                    }}
+                  />
+                  <div className="math-tooltip-title">
+                    <strong className="math-tooltip-name">{entry.name}</strong>
+                    <span className="math-tooltip-pronounce">/{entry.pronounce}/</span>
+                  </div>
+                </div>
+                <p className="math-tooltip-desc">{entry.desc}</p>
+                <div className="math-tooltip-ref">
+                  <p className="math-tooltip-reminder">{entry.firstUse}</p>
+                  {targetChapter && (
+                    <button
+                      className="math-tooltip-link"
+                      onClick={() => {
+                        setCurrent(targetChapter);
+                        closeMathTooltip();
+                      }}
+                    >
+                      → {targetChapter.title}
+                    </button>
+                  )}
+                </div>
+              </div>
+            );
+          })}
         </div>
       )}
     </div>

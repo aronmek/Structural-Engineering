@@ -108,6 +108,54 @@ for (const target of appTargets) {
       await expect(tooltip).toContainText('Stress');
     });
 
+    test('tooltip shows name, pronunciation, description, and chapter link', async ({ page }) => {
+      await openChapter(page, target, /Chapter 16.*Stress and Strain/);
+
+      const stressFormula = page.locator('.markdown-body p .katex[data-tooltip-name="Stress"]').first();
+      await expect(stressFormula).toBeVisible();
+      await stressFormula.hover();
+
+      const tooltip = page.getByRole('tooltip');
+      await expect(tooltip).toBeVisible();
+
+      // Scope to the first entry — it is always the primary match for the hovered symbol
+      const firstEntry = tooltip.locator('.math-tooltip-entry').first();
+
+      // Name
+      await expect(firstEntry.locator('.math-tooltip-name')).toContainText('Stress');
+      // Pronunciation
+      await expect(firstEntry.locator('.math-tooltip-pronounce')).toContainText('sigma');
+      // Description
+      await expect(firstEntry.locator('.math-tooltip-desc')).toContainText('force intensity');
+      // Chapter link — reference to where the concept was first taught
+      await expect(firstEntry.locator('.math-tooltip-link')).toBeVisible();
+      await expect(firstEntry.locator('.math-tooltip-link')).toContainText('Stress and Strain');
+    });
+
+    test('tooltip chapter link navigates to the source chapter', async ({ page }) => {
+      // Chapter 25 uses Δσ in the S-N fatigue formula — σ is first taught in Ch16,
+      // so the tooltip link should navigate back to Chapter 16.
+      await openChapter(page, target, /Chapter 25.*Logarithms/);
+
+      const sigmaFormula = page.locator('.markdown-body p .katex[data-tooltip-name="Stress"]').first();
+      await expect(sigmaFormula).toBeVisible();
+      await sigmaFormula.hover();
+
+      const tooltip = page.getByRole('tooltip');
+      await expect(tooltip).toBeVisible();
+
+      // First entry is σ (Stress) — it matches before Σ and Δ in sorted key order
+      const stressEntry = tooltip.locator('.math-tooltip-entry').first();
+      const chapterLink = stressEntry.locator('.math-tooltip-link');
+      await expect(chapterLink).toContainText('Stress and Strain');
+
+      await chapterLink.click();
+
+      // Tooltip closes and the app navigates to Chapter 16
+      await expect(tooltip).not.toBeVisible();
+      await expect(page.locator('.markdown-body h2').first()).toContainText('Chapter 16');
+    });
+
     test('chapter exams render, accept answers, and grade', async ({ page }) => {
       await openChapter(page, target, /Chapter 1.*Direction/);
 
