@@ -4,6 +4,20 @@ These rules apply whenever Copilot creates or edits **educational content**: tec
 
 ---
 
+## The Starter Assumption
+
+**Assume the reader knows only basic arithmetic.** Not algebra, not symbol-reading, not vocabulary. This is not a hedge — it is a deliberate teaching stance. Any reader who already knows more will skip ahead; any reader who knows less will be lost without it.
+
+Consequences:
+- When a new symbol appears, it must be named and explained *that moment* — not deferred to a glossary or a later chapter
+- When a formula first appears, every component must be broken down before the formula is used as a calculation tool
+- When an unfamiliar word appears, define it in the same sentence
+- Never write "as shown above" or "recall that" for anything that has only been mentioned, not taught
+
+When a reader meets an expression they cannot yet parse, the right response is not to simplify the expression — it is to walk beside them through it: *"You haven't seen this symbol before. Here is what it means in plain terms. Here is where it comes from. Now look at the expression again."*
+
+---
+
 ## The Core Commitment
 
 A concept is not considered taught until the reader has:
@@ -14,6 +28,22 @@ A concept is not considered taught until the reader has:
 4. **Applied** it to a concrete worked example with real inputs
 
 A definition in a table is not teaching. A formula without context is not teaching. Teaching is the journey from *"I don't know why I need this"* to *"I can use this confidently."*
+
+---
+
+## The First-Contact Protocol
+
+Every time a formula or expression appears **for the first time**, apply this sequence inside section **C (Intuition)** before any numbers are substituted:
+
+1. **Name the whole** — one plain-English sentence saying what the expression *accomplishes*. Write this before explaining any symbol. Example: *"This formula gives the maximum sag at the centre of a loaded beam."*
+
+2. **Acknowledge the gap honestly** — list what the reader has not yet been taught that appears in this expression. Name it and say where it will be taught. Example: *"The symbol* $E$ *is the material's stiffness — you haven't seen it yet. Chapter 16 teaches it fully. For now, look it up in the materials table."* Do not pretend the reader already knows the symbol, and do not skip over unknown pieces.
+
+3. **Break down each piece** — work through the expression component by component, in the order they appear. For each piece: plain-language meaning, unit, and a typical structural value to make it concrete. Do not use technical definitions at this stage.
+
+4. **Rebuild the whole** — once every piece has been named, re-read the complete expression as a sentence. The reader should now hear it as meaning, not as notation.
+
+This protocol is **separate from section G** (Worked Example), which is where actual numbers are substituted and calculated. Section C names and explains; section G calculates.
 
 ---
 
@@ -61,6 +91,7 @@ Every major teaching section must contain these parts, **in order**:
 3. **Failure before success.** Show the cost of ignorance before the benefit of understanding.
 4. **Prerequisites travel with the problem.** A tool is introduced in the chapter where it is first genuinely needed — not in a separate "prerequisites" section ahead of time.
 5. **Concepts group by engineering task, not by academic subject.** If two ideas — one geometric, one algebraic — are both needed to solve the same structural problem, they belong in the same chapter.
+6. **Understanding over memorisation.** Never give a formula as a fact to be remembered. The derivation, or at minimum the intuition behind it, must accompany the formula. A reader who understands *why* a formula works can reconstruct it from first principles — a reader who only memorised it is lost the moment they forget.
 
 ---
 

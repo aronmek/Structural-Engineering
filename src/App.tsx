@@ -1,12 +1,12 @@
 import { useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
 import { marked } from 'marked';
 import katex from 'katex';
-import renderMathInElement from 'katex/contrib/auto-render';
 import { Menu, Moon, Printer, Search, Sun } from 'lucide-react';
 import { bookFiles, buildChapterIndex, slugify, stripMarkdown, type Chapter } from './content';
 import { ChapterExam } from './ChapterExam';
 import { GeometryVisuals } from './GeometryVisuals';
 import { findMathEntries, type MathGlossaryEntry } from './mathGlossary';
+import { applyTextGlossary } from './textGlossary';
 import { WhyPanels } from './WhyPanels';
 import { ShabbosOverlay, useShabbosMode } from './ShabbosOverlay';
 
@@ -54,23 +54,21 @@ type MathTooltipState = {
   top: number;
 };
 
-function escapeHtml(value: string) {
-  return value
-    .replace(/&/g, '&amp;')
-    .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;');
-}
-
 function renderMarkdown(markdown: string) {
   const mathSpans: string[] = [];
   const protectedMarkdown = markdown.replace(/\$\$[\s\S]+?\$\$|\$(?:\\.|[^$\n])+?\$/g, match => {
+    const isDisplay = match.startsWith('$$');
+    const inner = isDisplay ? match.slice(2, -2).trim() : match.slice(1, -1);
+    const rendered = katex.renderToString(inner, { throwOnError: false, displayMode: isDisplay });
     const token = `@@MATH${mathSpans.length}@@`;
-    mathSpans.push(match);
+    mathSpans.push(rendered);
     return token;
   });
   let html = marked.parse(protectedMarkdown) as string;
-  mathSpans.forEach((math, index) => {
-    html = html.replace(`@@MATH${index}@@`, escapeHtml(math));
+  // Apply text glossary BEFORE restoring KaTeX (math is still safe @@MATH_N@@ tokens).
+  html = applyTextGlossary(html);
+  mathSpans.forEach((rendered, index) => {
+    html = html.replace(`@@MATH${index}@@`, rendered);
   });
   return html;
 }
@@ -162,14 +160,7 @@ export function App() {
     if (!content) return;
     const controller = new AbortController();
 
-    renderMathInElement(content, {
-      delimiters: [
-        { left: '$$', right: '$$', display: true },
-        { left: '$', right: '$', display: false },
-      ],
-      throwOnError: false,
-    });
-
+    // Mark elements with data attributes for CSS and test selectors.
     for (const element of content.querySelectorAll<HTMLElement>('.katex')) {
       const latex = element.querySelector('annotation[encoding="application/x-tex"]')?.textContent?.trim() || '';
       const entries = findMathEntries(latex, current.slug, chapters);
@@ -177,17 +168,47 @@ export function App() {
       element.dataset.mathTooltip = 'true';
       element.dataset.tooltipName = entries[0].name;
       element.tabIndex = 0;
-      element.addEventListener('mouseenter', () => {
-        if (tooltipCooldownRef.current) return;
-        showMathTooltip(entries, element);
-      }, { signal: controller.signal });
-      element.addEventListener('mouseleave', scheduleMathTooltipHide, { signal: controller.signal });
-      element.addEventListener('focus', () => {
-        if (tooltipCooldownRef.current) return;
-        showMathTooltip(entries, element);
-      }, { signal: controller.signal });
-      element.addEventListener('blur', scheduleMathTooltipHide, { signal: controller.signal });
     }
+
+    // Delegated listeners on the stable container — survive any DOM re-creation
+    // inside dangerouslySetInnerHTML sections without needing the effect to re-run.
+    // Uses plain '.katex' (no attribute filter) so it works even when React
+    // recreates the inner DOM and clears data attributes set by a previous run.
+    function latexEntriesAt(el: Element | null) {
+      const katexEl = el?.closest<HTMLElement>('.katex') ?? null;
+      if (!katexEl) return null;
+      const latex = katexEl.querySelector('annotation[encoding="application/x-tex"]')?.textContent?.trim() ?? '';
+      const entries = findMathEntries(latex, current.slug, chapters);
+      if (!entries.length) return null;
+      return { katexEl, entries };
+    }
+
+    content.addEventListener('mouseover', (e) => {
+      const me = e as MouseEvent;
+      const hit = latexEntriesAt(me.target as Element);
+      if (!hit?.entries.length) return;
+      if (hit.katexEl.contains(me.relatedTarget as Node)) return;
+      if (tooltipCooldownRef.current) return;
+      showMathTooltip(hit.entries, hit.katexEl);
+    }, { signal: controller.signal });
+
+    content.addEventListener('mouseout', (e) => {
+      const me = e as MouseEvent;
+      const hit = latexEntriesAt(me.target as Element);
+      if (!hit) return;
+      if (hit.katexEl.contains(me.relatedTarget as Node)) return;
+      scheduleMathTooltipHide();
+    }, { signal: controller.signal });
+
+    content.addEventListener('focusin', (e) => {
+      const hit = latexEntriesAt(e.target as Element);
+      if (!hit?.entries.length || tooltipCooldownRef.current) return;
+      showMathTooltip(hit.entries, hit.katexEl);
+    }, { signal: controller.signal });
+
+    content.addEventListener('focusout', (e) => {
+      if (latexEntriesAt(e.target as Element)) scheduleMathTooltipHide();
+    }, { signal: controller.signal });
 
     mainRef.current?.scrollTo({ top: 0, left: 0 });
     setMathTooltip(null);
@@ -197,6 +218,21 @@ export function App() {
       setMathTooltip(null);
     };
   }, [chapters, current.slug, sections]);
+
+  // Re-apply tooltip marker attributes after every render so that CSS cursor styling
+  // and data-attribute selectors survive re-renders that recreate inner DOM nodes.
+  useEffect(() => {
+    const content = contentRef.current;
+    if (!content) return;
+    for (const element of content.querySelectorAll<HTMLElement>('.katex')) {
+      const latex = element.querySelector('annotation[encoding="application/x-tex"]')?.textContent?.trim() ?? '';
+      const entries = findMathEntries(latex, current.slug, chapters);
+      if (!entries.length) continue;
+      element.dataset.mathTooltip = 'true';
+      element.dataset.tooltipName = entries[0].name;
+      element.tabIndex = 0;
+    }
+  });
 
   // Close tooltip on Escape or outside click
   useEffect(() => {

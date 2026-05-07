@@ -97,7 +97,7 @@ button, input { font: inherit; }
   top: 0;
   z-index: 20;
 }
-.crumbs { flex: 1; min-width: 120px; color: var(--muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.crumbs { flex: 1; min-width: 0; color: var(--muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .icon-button {
   display: inline-grid;
   place-items: center;
@@ -139,6 +139,8 @@ button, input { font: inherit; }
   border-radius: 8px;
   padding: 32px;
   line-height: 1.68;
+  overflow-wrap: break-word;
+  word-break: break-word;
 }
 .markdown-body h1, .markdown-body h2, .markdown-body h3 { line-height: 1.25; }
 .markdown-body h1 { font-size: 30px; border-bottom: 2px solid var(--border); padding-bottom: 8px; }
@@ -154,6 +156,17 @@ button, input { font: inherit; }
 .markdown-body blockquote { margin: 1rem 0; border-left: 4px solid var(--accent); background: var(--accent-soft); padding: 10px 16px; border-radius: 0 7px 7px 0; }
 .markdown-body img, .markdown-body svg { max-width: 100%; }
 .markdown-body .katex[data-math-tooltip='true'] { display: inline-block; cursor: help; border-bottom: 1px dotted currentColor; }
+/* Cross-reference abbr (existing [→ ChN] pattern) and auto text-glossary abbr */
+.markdown-body abbr[title] {
+  text-decoration: underline dotted var(--muted);
+  text-decoration-thickness: 1px;
+  cursor: help;
+  font-style: normal;
+}
+/* Text-glossary abbr: accent colour to distinguish from cross-refs */
+.markdown-body abbr[data-term] {
+  text-decoration-color: var(--accent);
+}
 
 .math-tooltip {
   position: fixed;
@@ -394,12 +407,24 @@ button, input { font: inherit; }
   .topbar { gap: 8px; }
   .search-box input { width: 130px; }
   .main { padding: 18px 12px 60px; }
-  .markdown-body { padding: 20px; }
+  .markdown-body { padding: 18px 14px; }
+  /* Tables: scroll only when content truly cannot wrap */
+  .markdown-body table { display: block; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+  /* Display math: allow horizontal scroll within the formula container only */
+  .markdown-body .katex-display { overflow-x: auto; overflow-y: hidden; padding-bottom: 4px; }
   .why-grid { grid-template-columns: 1fr; }
   .exam-head { align-items: flex-start; flex-direction: column; }
   .exam-sets { grid-template-columns: 1fr; }
   .shabbos-card { grid-template-columns: 1fr; }
   .shabbos-copy { padding: 28px 24px; }
+}
+
+@media (max-width: 480px) {
+  .topbar { gap: 6px; padding: 0 10px; }
+  /* Hide breadcrumb text on very small screens to keep icons accessible */
+  .crumbs { display: none; }
+  .search-box input { width: 90px; }
+  .markdown-body { padding: 14px 10px; }
 }
 
 @media print {

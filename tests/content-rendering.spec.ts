@@ -4,7 +4,7 @@ import { appTargets, openChapter } from './appTargets';
 for (const target of appTargets) {
   test.describe(`${target.name} app`, () => {
     test('worked examples render math instead of raw dollar-delimited TeX', async ({ page }) => {
-      await openChapter(page, target, /Chapter A2.*Multiplication/);
+      await openChapter(page, target, /Chapter 2.*Scaling/);
 
       const body = page.locator('.markdown-body');
       await expect(body.locator('.katex').first()).toBeVisible();
@@ -16,7 +16,7 @@ for (const target of appTargets) {
     });
 
     test('math remains rendered after the page settles', async ({ page }) => {
-      await openChapter(page, target, /Chapter 20.*Moment of Inertia/);
+      await openChapter(page, target, /Chapter 15.*Moment of Inertia/);
 
       const body = page.locator('.markdown-body');
       await expect(body.locator('.katex').first()).toBeVisible();
@@ -30,7 +30,7 @@ for (const target of appTargets) {
     });
 
     test('why explanations appear beside the rules they deepen', async ({ page }) => {
-      await openChapter(page, target, /Chapter A2.*Multiplication/);
+      await openChapter(page, target, /Chapter 2.*Scaling/);
 
       await expect(page.getByText('Why a negative times a negative becomes positive')).toBeVisible();
 
@@ -47,7 +47,7 @@ for (const target of appTargets) {
     });
 
     test('fraction rules include collapsed visual why explanations', async ({ page }) => {
-      await openChapter(page, target, /Chapter A2.*Fractions/);
+      await openChapter(page, target, /Chapter 2.*Scaling/);
 
       const multiplyingFractions = page.locator('details').filter({ hasText: 'Why multiplying fractions can make a smaller number' });
       await expect(multiplyingFractions).toBeVisible();
@@ -58,7 +58,7 @@ for (const target of appTargets) {
     });
 
     test('hovering rendered math shows a glossary tooltip', async ({ page }) => {
-      await openChapter(page, target, /Chapter 18.*Areas and Perimeters/);
+      await openChapter(page, target, /Chapter 16.*Stress and Strain/);
 
       const stressFormula = page.locator('.markdown-body p .katex[data-tooltip-name="Stress"]').first();
       await expect(stressFormula).toBeVisible();
@@ -71,8 +71,45 @@ for (const target of appTargets) {
       await expect(tooltip).toContainText('First introduced in Chapter 16');
     });
 
+    test('math stays rendered after a re-render triggered by theme toggle', async ({ page }) => {
+      await openChapter(page, target, /Chapter 2.*Scaling/);
+
+      const body = page.locator('.markdown-body');
+      await expect(body.locator('.katex').first()).toBeVisible();
+
+      // Theme toggle triggers an App state change → re-render, exactly the class of
+      // re-render (shabbos API response, etc.) that previously caused math to revert.
+      await page.getByLabel('Toggle theme').click();
+      await page.getByLabel('Toggle theme').click();
+
+      await expect(body.locator('.katex').first()).toBeVisible();
+      const visibleText = await body.innerText();
+      expect(visibleText).not.toContain('$');
+      expect(visibleText).not.toContain('\\times');
+      expect(visibleText).not.toContain('\\dfrac');
+    });
+
+    test('math tooltip survives a React re-render', async ({ page }) => {
+      await openChapter(page, target, /Chapter 16.*Stress and Strain/);
+
+      // Trigger re-renders with the same chapter/sections (same pattern as the
+      // shabbos API callback that originally caused per-element listeners to be lost).
+      await page.getByLabel('Toggle theme').click();
+      await page.getByLabel('Toggle theme').click();
+
+      // Wait for React effects to re-apply data attributes after the re-render,
+      // then hover and verify the tooltip appears.
+      const stressFormula = page.locator('.markdown-body p .katex[data-tooltip-name="Stress"]').first();
+      await expect(stressFormula).toBeVisible();
+
+      await stressFormula.hover();
+      const tooltip = page.getByRole('tooltip');
+      await expect(tooltip).toBeVisible();
+      await expect(tooltip).toContainText('Stress');
+    });
+
     test('chapter exams render, accept answers, and grade', async ({ page }) => {
-      await openChapter(page, target, /Chapter A1.*Direction, Balance/);
+      await openChapter(page, target, /Chapter 1.*Direction/);
 
       const exam = page.getByRole('region', { name: 'Chapter exam' });
       await expect(exam.getByRole('heading', { name: 'Chapter Exam' })).toBeVisible();

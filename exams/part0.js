@@ -1,4 +1,4 @@
-/* Part 0 — Engineering Number Sense (Chapters A1–A7)
+﻿/* Part 0 — Engineering Number Sense (Chapters A1–A4)
    3 sets × 3 questions per chapter = 9 questions per chapter.
 */
 
@@ -33,166 +33,89 @@ E('chapter-a1-direction-balance-and-signed-numbers', 'Chapter A1 — Direction, 
   ]},
 ]);
 
-E('chapter-a2-multiplication-and-division', 'Chapter A2 — Multiplication and Division', 'Part 0', [
-  { id: 'A', title: 'Set A — Sign rules', questions: [
-    { q: '(−6)(7) = ?', n: -42, t: 0,
-      e: 'Different signs → negative.' },
-    { q: '(−4)(−9) = ?', n: 36, t: 0,
-      e: 'Same signs → positive.' },
-    { q: '−48 ÷ −6 = ?', n: 8, t: 0,
-      e: 'Same signs → positive.' },
+E('chapter-a2-scaling-quantities-multiplication-division-fractions-and-percentages', 'Chapter A2 — Scaling Quantities: Multiplication, Division, Fractions, and Percentages', 'Part 0', [
+  { id: 'A', title: 'Set A — Per means multiply', questions: [
+    { q: 'Floor area load is 3.5 kPa and beam tributary width is 4 m. Line load = ? kN/m', n: 14, t: 0,
+      e: '3.5 kN/m2 x 4 m = 14 kN/m. "Per square meter" means multiply by the area dimension.' },
+    { q: 'A load of 60 kN is distributed over 20 m2. Area load = ? kPa', n: 3, t: 0,
+      e: '60 / 20 = 3 kPa. Division reverses multiplication to find the rate.' },
+    { q: 'Line load 25 kN/m along a beam 8 m long. Total load = ? kN', n: 200, t: 0,
+      e: '25 kN/m x 8 m = 200 kN. Rate x length = total.' },
   ]},
-  { id: 'B', title: 'Set B — Division and zero', questions: [
-    { q: '84 ÷ 7 = ?', n: 12, t: 0,
-      e: 'Division asks how many groups of 7 fit in 84. Since 7×12 = 84, the answer is 12.' },
-    { q: '0 ÷ 5 = ?', n: 0, t: 0,
-      e: 'Zero split into five equal groups still gives 0 in each group.' },
-    { q: 'Which expression is undefined?', o: ['0/5', '5/0', '0/0', 'Both b and c'], a: 3,
-      e: 'Division by zero is undefined; 0/0 is also undefined (indeterminate).' },
+  { id: 'B', title: 'Set B — Fractions and percentages', questions: [
+    { q: '3/8 + 1/4 (give as decimal)', n: 0.625, t: 0.001,
+      e: 'Common denominator 8: 3/8 + 2/8 = 5/8 = 0.625.' },
+    { q: '5/6 / (10/3) (give as decimal)', n: 0.25, t: 0.001,
+      e: '5/6 x 3/10 = 15/60 = 1/4 = 0.25.' },
+    { q: 'Live load of 3.5 kPa with a 20% code reduction. Reduced live load = ? kPa', n: 2.8, t: 0.01,
+      e: '3.5 x (1 - 0.20) = 3.5 x 0.80 = 2.8 kPa.' },
   ]},
-  { id: 'C', title: 'Set C — Engineering arithmetic', questions: [
-    { q: 'A rectangular pad is 4 m by 6 m. Area = ?', n: 24, t: 0,
-      e: 'Area = length × width = 4 × 6.' },
-    { q: 'A line load value is 4 units/m over 6 m. Total units = ?', n: 24, t: 0,
-      e: 'Total = rate × length = 4 × 6.' },
-    { q: 'If a quantity doubles and all else stays the same, the product:', o: [
-        'Halves', 'Stays same', 'Doubles', 'Quadruples'], a: 2,
-      e: 'Multiplication by 2 doubles the product.' },
-  ]},
-]);
-
-E('chapter-a3-fractions', 'Chapter A3 — Fractions', 'Part 0', [
-  { id: 'A', title: 'Set A — Operations', questions: [
-    { q: '2/5 + 1/4 (as decimal) = ?', n: 0.65, t: 0.01,
-      e: 'LCD 20: 8/20 + 5/20 = 13/20 = 0.65.' },
-    { q: '3/4 − 1/6 = ? (decimal)', n: 0.5833, t: 0.01,
-      e: 'LCD 12: 9/12 − 2/12 = 7/12 ≈ 0.583.' },
-    { q: '(2/3) × (9/8) = ? (decimal)', n: 0.75, t: 0.01,
-      e: '18/24 = 3/4 = 0.75.' },
-  ]},
-  { id: 'B', title: 'Set B — Division & reducing', questions: [
-    { q: '(5/6) ÷ (10/3) = ? (decimal)', n: 0.25, t: 0.01,
-      e: '5/6 × 3/10 = 15/60 = 1/4 = 0.25.' },
-    { q: 'Reduce 18/24 to lowest terms (decimal):', n: 0.75, t: 0.01,
-      e: 'Divide both by 6: 3/4 = 0.75.' },
-    { q: '2 1/3 as an improper fraction equals (decimal):', n: 2.333, t: 0.01,
-      e: '(2·3+1)/3 = 7/3 ≈ 2.333.' },
-  ]},
-  { id: 'C', title: 'Set C — Engineering', questions: [
-    { q: 'A layout has 8 equal spaces over 24 m. Each space = ?', n: 3, t: 0,
-      e: '24 / 8 = 3 m.' },
-    { q: 'One third of a 9 m height is:', n: 3, t: 0,
-      e: '9 × 1/3 = 3 m.' },
-    { q: 'A 12 m member is split into thirds. One third = ?', n: 4, t: 0,
-      e: '12 / 3 = 4 m.' },
+  { id: 'C', title: 'Set C — Engineering load calculation', questions: [
+    { q: '(-4)(-6) = ?', n: 24, t: 0,
+      e: 'Same signs = positive. Flipping direction twice returns to the original direction (from A1).' },
+    { q: 'DL = 4.5 kPa, LL = 2.5 kPa, tributary width = 3.5 m. Line load = ? kN/m', n: 24.5, t: 0.1,
+      e: '(4.5 + 2.5) x 3.5 = 7.0 x 3.5 = 24.5 kN/m.' },
+    { q: 'A load factor of 140% applied to 30 kN/m gives a factored load of ? kN/m', n: 42, t: 0,
+      e: '140% = 1.40 as decimal. 30 x 1.40 = 42 kN/m.' },
   ]},
 ]);
 
-E('chapter-a4-decimals-and-percentages', 'Chapter A4 — Decimals and Percentages', 'Part 0', [
-  { id: 'A', title: 'Set A — Conversions', questions: [
-    { q: 'Convert 0.075 to a percentage. Answer in % (no symbol).', n: 7.5, t: 0,
-      e: 'Multiply by 100: 0.075 × 100 = 7.5%.' },
-    { q: 'Convert 7% to decimal.', n: 0.07, t: 0,
-      e: 'Divide by 100: 7/100 = 0.07.' },
-    { q: '12% of 250 = ?', n: 30, t: 0,
-      e: '0.12 × 250 = 30.' },
+E('chapter-a3-powers-roots-and-reading-a-formula-correctly', 'Chapter A3 — Powers, Roots, and Reading a Formula Correctly', 'Part 0', [
+  { id: 'A', title: 'Set A — Evaluating M = wL2/8', questions: [
+    { q: 'Compute M = wL2/8 for w = 12 kN/m, L = 6 m. M = ? kN m', n: 54, t: 0.1,
+      e: 'L2 = 36. 12 x 36 = 432. 432 / 8 = 54 kN m. NOT (12 x 6)2 / 8 = 648.' },
+    { q: 'In M = wL2/8, which operation comes first?', o: [
+        'Multiply w x L', 'Square L (compute L2)', 'Divide by 8', 'Add w + L'], a: 1,
+      e: 'PEMDAS: exponents come before multiplication. Square L first, then multiply by w, then divide by 8.' },
+    { q: 'Compute M = wL2/8 for w = 15 kN/m, L = 6 m. M = ? kN m', n: 67.5, t: 0.1,
+      e: 'L2 = 36. 15 x 36 = 540. 540 / 8 = 67.5 kN m.' },
   ]},
-  { id: 'B', title: 'Set B — Increase / decrease', questions: [
-    { q: 'Increase 80 by 15%. Result = ?', n: 92, t: 0,
-      e: '80 × 1.15 = 92.' },
-    { q: 'Decrease 200 by 20%. Result = ?', n: 160, t: 0,
-      e: '200 × 0.80 = 160.' },
-    { q: 'Apply 20% off, then 10% off, to $100. Final = ?', n: 72, t: 0.01,
-      e: '100 × 0.80 × 0.90 = 72 (NOT $70).' },
+  { id: 'B', title: 'Set B — PEMDAS and power rules', questions: [
+    { q: '2 + 3 x 4 = ?', n: 14, t: 0,
+      e: 'Multiplication before addition: 3 x 4 = 12 first. Then 2 + 12 = 14.' },
+    { q: 'x5 times x3 = x to the power n. n = ?', n: 8, t: 0,
+      e: 'Multiply same-base powers by adding exponents: 5 + 3 = 8.' },
+    { q: '(-3)2 = ?', n: 9, t: 0,
+      e: 'Parentheses first: the base is -3. (-3) x (-3) = +9.' },
   ]},
-  { id: 'C', title: 'Set C — Engineering', questions: [
-    { q: 'Live load reduction of 15% on LL = 200 kN gives reduced LL = ?', n: 170, t: 0,
-      e: '200 × 0.85 = 170 kN.' },
-    { q: 'Load combo 1.2D + 1.6L means dead load is multiplied by:', o: ['0.12', '0.20', '1.2', '12'], a: 2,
-      e: 'Decimal form is multiplier; 1.2 = 120%.' },
-    { q: 'A reinforcement ratio of 0.5% as a decimal is:', n: 0.005, t: 0,
-      e: '0.5 ÷ 100 = 0.005.' },
-  ]},
-]);
-
-E('chapter-a5-powers-roots-and-scientific-notation', 'Chapter A5 — Powers, Roots, and Scientific Notation', 'Part 0', [
-  { id: 'A', title: 'Set A — Powers & roots', questions: [
-    { q: '5³ = ?', n: 125, t: 0, e: '5×5×5 = 125.' },
-    { q: 'Compute √144.', n: 12, t: 0, e: '12² = 144.' },
-    { q: '(−2)⁴ = ?', n: 16, t: 0, e: 'Even exponent → positive: 2⁴ = 16.' },
-  ]},
-  { id: 'B', title: 'Set B — Power rules', questions: [
-    { q: 'Simplify x⁵ · x³ (give exponent only).', n: 8, t: 0,
-      e: 'Add exponents: 5+3 = 8 → x⁸.' },
-    { q: 'Simplify (y²)⁴ (give exponent only).', n: 8, t: 0,
-      e: 'Multiply exponents: 2×4 = 8 → y⁸.' },
-    { q: 'z⁷ / z⁴ = z^? Give exponent only.', n: 3, t: 0,
-      e: 'Subtract exponents: 7−4 = 3.' },
-  ]},
-  { id: 'C', title: 'Set C — Scientific notation & engineering', questions: [
-    { q: '4,500,000 in scientific notation is 4.5 × 10ⁿ. n = ?', n: 6, t: 0,
-      e: 'Move decimal 6 places left.' },
-    { q: 'Compute I = b·h³/12 for b = 0.3 m, h = 0.6 m. I (m⁴) = ?', n: 0.0054, t: 0.0001,
-      e: '0.3 × 0.216 / 12 = 0.0054 m⁴.' },
-    { q: 'Steel modulus is E = 200 GPa. As Pa, E = 2 × 10ⁿ Pa. n = ?', n: 11, t: 0,
-      e: '200×10⁹ = 2×10¹¹ Pa.' },
+  { id: 'C', title: 'Set C — Scientific notation and applications', questions: [
+    { q: 'Steel elastic modulus E = 200 GPa = 2 x 10 to the power n Pa. n = ?', n: 11, t: 0,
+      e: '200 x 10^9 = 2 x 10^11 Pa.' },
+    { q: 'Square column 350 mm x 350 mm. Cross-sectional area = ? mm2', n: 122500, t: 0,
+      e: '350 x 350 = 122,500 mm2.' },
+    { q: 'The value -32 (without parentheses) equals:', o: ['+9', '-9', '6', '-6'], a: 1,
+      e: 'Without parentheses, the exponent applies to 3 only: -(3 squared) = -9. Compare: (-3)2 = +9.' },
   ]},
 ]);
 
-E('chapter-a6-order-of-operations-pemdas', 'Chapter A6 — Order of Operations (PEMDAS)', 'Part 0', [
-  { id: 'A', title: 'Set A — Basics', questions: [
-    { q: '2 + 3 × 4 = ?', n: 14, t: 0,
-      e: 'Multiply first: 3×4=12, then 2+12=14.' },
-    { q: '(2 + 3) × 4 = ?', n: 20, t: 0,
-      e: 'Parentheses first.' },
-    { q: '3² + 4 × 5 = ?', n: 29, t: 0,
-      e: 'Exponent first (9), then multiply (20), then add: 29.' },
-  ]},
-  { id: 'B', title: 'Set B — Mixed', questions: [
-    { q: '(12 − 4·2) / 2 = ?', n: 2, t: 0,
-      e: 'Top: 12 − 8 = 4. 4/2 = 2.' },
-    { q: '10 − 6 ÷ 2 + 4 = ?', n: 11, t: 0,
-      e: 'Divide first: 6/2=3. Then left to right: 10−3+4 = 11.' },
-    { q: 'Which value is correct for −3²?', o: ['−9', '+9', '6', '−6'], a: 0,
-      e: 'Without parentheses, exponent before negation: −(3²) = −9.' },
-  ]},
-  { id: 'C', title: 'Set C — Engineering formulas', questions: [
-    { q: 'Compute aL²/8 for a = 5, L = 6. Result = ?', n: 22.5, t: 0.1,
-      e: '5 × 36 / 8 = 180/8 = 22.5.' },
-    { q: 'Compute ab³/(3cd) as a generic formula with a = 10, b = 2, c = 200, d = 0.0001. Result = ?', n: 1333.33, t: 0.5,
-      e: 'This is formula-substitution practice: 10·8 / (3·200·0.0001) = 80/0.06 ≈ 1333.33.' },
-    { q: 'In a software formula, a*L^2/8 may be ambiguous. The safest equivalent is:', o: [
-        'a*L^2/8', '(a*L^2)/8', 'a*L*L/8', 'Both b and c'], a: 3,
-      e: 'Both explicit-parenthesis and explicit-multiplication forms eliminate ambiguity.' },
-  ]},
-]);
-
-E('chapter-a7-estimation-rounding-and-significant-figures', 'Chapter A7 — Estimation, Rounding, and Significant Figures', 'Part 0', [
-  { id: 'A', title: 'Set A — Rounding', questions: [
-    { q: 'Round 7.4836 to 2 decimal places.', n: 7.48, t: 0.001,
-      e: 'Look at 3rd dp (3): round down.' },
+E('chapter-a4-estimation-how-to-know-whether-an-answer-makes-sense', 'Chapter A4 — Estimation: How to Know Whether an Answer Makes Sense', 'Part 0', [
+  { id: 'A', title: 'Set A — Rounding and significant figures', questions: [
     { q: 'Round 7.4836 to 3 significant figures.', n: 7.48, t: 0.001,
-      e: '4th sig fig is 3 → round down to 7.48.' },
+      e: 'The 4th sig fig is 3 (less than 5): round down. Answer: 7.48.' },
     { q: 'How many significant figures does 0.00420 have?', n: 3, t: 0,
-      e: 'Leading zeros do not count; trailing zero after decimal does. 4, 2, 0 = 3 sig figs.' },
+      e: 'Leading zeros do not count; trailing zero after decimal does. The sig figs are 4, 2, 0 = 3.' },
+    { q: 'A result from inputs accurate to 2 sig figs should be reported to:', o: [
+        '6 decimal places', '4 significant figures', '2 significant figures', '1 decimal place'], a: 2,
+      e: 'Report as many sig figs as the least precise input, which is 2 here.' },
   ]},
-  { id: 'B', title: 'Set B — Sig figs in arithmetic', questions: [
-    { q: '3.21 × 4.5: how many sig figs should the answer keep?', n: 2, t: 0,
-      e: 'Limited by 4.5 (2 sf).' },
-    { q: 'Estimate wL²/8 with w ≈ 6 kN/m, L ≈ 5 m (1 sig fig).', n: 19, t: 1,
-      e: '6 × 25 / 8 = 18.75 ≈ 19 kN·m.' },
-    { q: 'ETABS reports 482.317 kN; hand estimate was 480 kN. Best to report:', o: [
-        '482.317 kN', '482 kN', '480.000 kN', '500 kN'], a: 1,
-      e: '3 sf is sensible engineering precision; the inputs do not justify 6 sf.' },
+  { id: 'B', title: 'Set B — Order-of-magnitude estimation', questions: [
+    { q: 'Estimate total dead load: 3 stories, 15 m x 12 m floor, 5 kPa per floor. Total = ? kN', n: 2700, t: 100,
+      e: '5 x (15 x 12) x 3 = 5 x 180 x 3 = 2700 kN.' },
+    { q: 'ETABS reports 4,850 kN. Your hand estimate is 4,900 kN. Difference about 1%. Action:', o: [
+        'Reject the ETABS result', 'Accept - these agree within engineering tolerance', 'Re-run with finer mesh', 'Halve the load'], a: 1,
+      e: '1% difference is within normal tolerance. Accept and proceed.' },
+    { q: 'ETABS reports 48,500 kN but your hand estimate gives 4,850 kN. This suggests:', o: [
+        'Acceptable variance', 'A factor-of-10 input or unit error in the model', 'Software rounding', 'Normal scatter'], a: 1,
+      e: 'A factor of 10 discrepancy always indicates an error - misplaced decimal, wrong unit, or double-counted load.' },
   ]},
-  { id: 'C', title: 'Set C — Sanity-check', questions: [
-    { q: 'Hand estimate of total dead load on a 5-story 360 m² floor at 6 kPa:', n: 10800, t: 200,
-      e: '6 × 360 × 5 = 10,800 kN.' },
-    { q: 'ETABS reports 11,200 kN; the hand estimate gives 10,800 kN. Discrepancy ≈ 4%. Action:', o: [
-        'Reject ETABS output', 'Accept and report', 'Re-do model', 'Halve the load'], a: 1,
-      e: 'Within typical 5–10% tolerance for back-of-envelope; accept.' },
-    { q: 'When intermediate calculations are rounded too early, final answers are typically:', o: [
-        'More accurate', 'Cumulatively biased / less accurate', 'Faster to compute, no harm', 'Closer to ETABS'], a: 1,
-      e: 'Round at the end; keep extra digits in intermediate steps.' },
+  { id: 'C', title: 'Set C — Sanity-checking results', questions: [
+    { q: 'Compute M = wL2/8 for w = 22 kN/m, L = 8 m. M = ? kN m', n: 176, t: 1,
+      e: '8 squared = 64. 22 x 64 = 1408. 1408 / 8 = 176 kN m.' },
+    { q: 'A designer reports stress = 124.6748 MPa from inputs accurate to 3 sig figs. Best reporting:', o: [
+        '124.6748 MPa', '124.7 MPa', '125 MPa', '130 MPa'], a: 2,
+      e: '3 sig figs gives 125 MPa. The inputs do not justify 7-digit precision.' },
+    { q: 'Rounding intermediate calculation steps repeatedly and trusting the final result exactly:', o: [
+        'Improves accuracy by eliminating noise', 'Accumulates small errors and reduces accuracy', 'Has no effect', 'Is required by codes'], a: 1,
+      e: 'Round at the end. Keep extra digits in intermediate steps to avoid cumulative bias.' },
   ]},
 ]);
